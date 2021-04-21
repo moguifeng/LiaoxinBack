@@ -14,6 +14,7 @@
     <Optimize>false</Optimize>
     <NoWarn>1701;1702;1591</NoWarn>
     <OutputPath>bin\Debug\netcoreapp2.2\</OutputPath>
+    <DocumentationFile>bin\Debug\netcoreapp2.2\AllLottery.xml</DocumentationFile>
     <!--<DocumentationFile>bin\Debug\netcoreapp2.2\AllLottery.xml</DocumentationFile>-->
   </PropertyGroup>
 

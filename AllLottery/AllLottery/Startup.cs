@@ -142,16 +142,18 @@ namespace AllLottery
                  c =>
                  {
                      c.SwaggerDoc("v1", new OpenApiInfo { Title = "LiaoXin api", Version = "v1", TermsOfService = null, });
-                     c.AddSecurityDefinition("Cookies", new OpenApiSecurityScheme
+                     c.AddSecurityDefinition("token", new OpenApiSecurityScheme
                      {
-                         Name = "Token",
+                         Name = "token",
                          In = ParameterLocation.Header,
                          Type = SecuritySchemeType.ApiKey,
 
                          Description = "Token Authentication"
 
                      });
-
+                    // c.SchemaGeneratorOptions.SchemaIdSelector = type => type.FullName;
+                     c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                        {{new OpenApiSecurityScheme {Reference = new OpenApiReference {Type = ReferenceType.SecurityScheme, Id = "token"}}, new string[] { }}});
                      var basePath = Path.GetDirectoryName(typeof(Program).Assembly.Location);//获取应用程序所在目录
                      var xmlPath = Path.Combine(basePath, "AllLottery.xml");
                      c.IncludeXmlComments(xmlPath);
