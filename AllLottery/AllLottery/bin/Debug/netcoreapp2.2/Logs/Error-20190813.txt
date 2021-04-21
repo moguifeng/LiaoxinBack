@@ -1,0 +1,129 @@
+2019-08-13 09:14:51.190 +08:00 [ERR] 初始化失败
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while updating the entries. See the inner exception for details. ---> MySql.Data.MySqlClient.MySqlException ---> MySql.Data.MySqlClient.MySqlException
+   at MySqlConnector.Core.ResultSet.ReadResultSetHeaderAsync(IOBehavior ioBehavior) in C:\projects\mysqlconnector\src\MySqlConnector\Core\ResultSet.cs:line 42
+   --- End of inner exception stack trace ---
+   at MySql.Data.MySqlClient.MySqlDataReader.ActivateResultSet(ResultSet resultSet) in C:\projects\mysqlconnector\src\MySqlConnector\MySql.Data.MySqlClient\MySqlDataReader.cs:line 80
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(IOBehavior ioBehavior, CancellationToken cancellationToken) in C:\projects\mysqlconnector\src\MySqlConnector\MySql.Data.MySqlClient\MySqlDataReader.cs:line 59
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResult() in C:\projects\mysqlconnector\src\MySqlConnector\MySql.Data.MySqlClient\MySqlDataReader.cs:line 26
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.Consume(RelationalDataReader reader)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.Consume(RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(DbContext _, ValueTuple`2 parameters)
+   at Pomelo.EntityFrameworkCore.MySql.Storage.Internal.MySqlExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChanges(IReadOnlyList`1 entries)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IReadOnlyList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges()
+   at AllLottery.Model.Configuration.AddConfig() in C:\myFile\project\AllLottery\AllLottery\AllLottery.Model\Configuration.cs:line 85
+   at AllLottery.Model.Configuration.Seed(LotteryContext context) in C:\myFile\project\AllLottery\AllLottery\AllLottery.Model\Configuration.cs:line 31
+   at Zzb.Mvc.Init.ZzbInitEf[T](IWebHost host, Action`1 init) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\Init.cs:line 74
+2019-08-13 09:24:43.671 +08:00 [ERR] 彩种[雅福三分彩]没查到数据，不计算开奖时间
+2019-08-13 09:26:20.220 +08:00 [ERR] 彩种[雅福时时彩]没查到数据，不计算开奖时间
+2019-08-13 09:26:29.648 +08:00 [ERR] 彩种[雅福六合彩]没查到数据，不计算开奖时间
+2019-08-13 10:39:53.737 +08:00 [ERR] 请求【/api/Home/GetRowsData】，耗时【16.0131942】秒。登陆用户是[1]
+2019-08-13 10:43:31.694 +08:00 [ERR] 请求【/api/Home/GetTableInfomation】，耗时【13.5034013】秒。登陆用户是[1]
+2019-08-13 10:43:31.842 +08:00 [ERR] 请求【/api/Home/GetMenu】，耗时【13.9098317】秒。登陆用户是[1]
+2019-08-13 10:43:43.706 +08:00 [ERR] 请求【/api/Home/GetRowsData】，耗时【11.7339178】秒。登陆用户是[1]
+2019-08-13 10:44:01.812 +08:00 [ERR] 请求【/api/Home/GetRowsData】，耗时【13.1535899】秒。登陆用户是[1]
+2019-08-13 10:45:03.149 +08:00 [ERR] 请求【/api/Home/GetRowsData】，耗时【51.7084356】秒。登陆用户是[1]
+2019-08-13 10:58:26.907 +08:00 [ERR] 请求【/api/Lottery/GetLotteryNewDatas】，耗时【7.6407163】秒。登陆用户是[1]
+2019-08-13 10:58:28.457 +08:00 [ERR] 请求【/api/Home/GetRowsData】，耗时【25.2899639】秒。登陆用户是[1]
+2019-08-13 11:06:49.299 +08:00 [ERR] 请求【/api/Home/GetRowsData】，耗时【5.1198433】秒。登陆用户是[1]
+2019-08-13 11:07:08.242 +08:00 [ERR] 请求【/api/Home/GetRowsData】，耗时【12.8565018】秒。登陆用户是[1]
+2019-08-13 11:08:55.181 +08:00 [ERR] 请求【/api/Home/GetRowsData】，耗时【19.4968629】秒。登陆用户是[1]
+2019-08-13 18:16:48.187 +08:00 [ERR] 执行Row按钮失败
+System.ArgumentNullException: Value cannot be null.
+Parameter name: source
+   at System.Linq.Enumerable.TryGetFirst[TSource](IEnumerable`1 source, Func`2 predicate, Boolean& found)
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Zzb.BaseData.TableInfomation.HandleNavAction(String navId, String buttonId, Dictionary`2 data) in C:\myFile\project\AllLottery\AllLottery\Zzb\BaseData\TableInfomation.cs:line 218
+   at Zzb.Mvc.ZzbHomeController.<>c__DisplayClass21_0.<HandleRowAction>b__0() in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\ZzbHomeController.cs:line 213
+   at Zzb.Mvc.BaseApiController.Json(Func`1 action, String error) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseApiController.cs:line 36
+2019-08-13 18:17:00.175 +08:00 [ERR] 执行Row按钮失败
+System.ArgumentNullException: Value cannot be null.
+Parameter name: source
+   at System.Linq.Enumerable.TryGetFirst[TSource](IEnumerable`1 source, Func`2 predicate, Boolean& found)
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Zzb.BaseData.TableInfomation.HandleNavAction(String navId, String buttonId, Dictionary`2 data) in C:\myFile\project\AllLottery\AllLottery\Zzb\BaseData\TableInfomation.cs:line 218
+   at Zzb.Mvc.ZzbHomeController.<>c__DisplayClass21_0.<HandleRowAction>b__0() in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\ZzbHomeController.cs:line 213
+   at Zzb.Mvc.BaseApiController.Json(Func`1 action, String error) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseApiController.cs:line 36
+2019-08-13 18:17:05.036 +08:00 [ERR] 执行Row按钮失败
+System.ArgumentNullException: Value cannot be null.
+Parameter name: source
+   at System.Linq.Enumerable.TryGetFirst[TSource](IEnumerable`1 source, Func`2 predicate, Boolean& found)
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Zzb.BaseData.TableInfomation.HandleNavAction(String navId, String buttonId, Dictionary`2 data) in C:\myFile\project\AllLottery\AllLottery\Zzb\BaseData\TableInfomation.cs:line 218
+   at Zzb.Mvc.ZzbHomeController.<>c__DisplayClass21_0.<HandleRowAction>b__0() in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\ZzbHomeController.cs:line 213
+   at Zzb.Mvc.BaseApiController.Json(Func`1 action, String error) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseApiController.cs:line 36
+2019-08-13 18:17:12.493 +08:00 [ERR] 执行Row按钮失败
+System.ArgumentNullException: Value cannot be null.
+Parameter name: source
+   at System.Linq.Enumerable.TryGetFirst[TSource](IEnumerable`1 source, Func`2 predicate, Boolean& found)
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Zzb.BaseData.TableInfomation.HandleNavAction(String navId, String buttonId, Dictionary`2 data) in C:\myFile\project\AllLottery\AllLottery\Zzb\BaseData\TableInfomation.cs:line 218
+   at Zzb.Mvc.ZzbHomeController.<>c__DisplayClass21_0.<HandleRowAction>b__0() in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\ZzbHomeController.cs:line 213
+   at Zzb.Mvc.BaseApiController.Json(Func`1 action, String error) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseApiController.cs:line 36
+2019-08-13 18:18:02.579 +08:00 [ERR] 执行Row按钮失败
+System.ArgumentNullException: Value cannot be null.
+Parameter name: source
+   at System.Linq.Enumerable.TryGetFirst[TSource](IEnumerable`1 source, Func`2 predicate, Boolean& found)
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Zzb.BaseData.TableInfomation.HandleNavAction(String navId, String buttonId, Dictionary`2 data) in C:\myFile\project\AllLottery\AllLottery\Zzb\BaseData\TableInfomation.cs:line 218
+   at Zzb.Mvc.ZzbHomeController.<>c__DisplayClass21_0.<HandleRowAction>b__0() in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\ZzbHomeController.cs:line 213
+   at Zzb.Mvc.BaseApiController.Json(Func`1 action, String error) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseApiController.cs:line 36
+2019-08-13 18:19:07.510 +08:00 [ERR] 执行Row按钮失败
+System.ArgumentNullException: Value cannot be null.
+Parameter name: source
+   at System.Linq.Enumerable.TryGetFirst[TSource](IEnumerable`1 source, Func`2 predicate, Boolean& found)
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Zzb.BaseData.TableInfomation.HandleNavAction(String navId, String buttonId, Dictionary`2 data) in C:\myFile\project\AllLottery\AllLottery\Zzb\BaseData\TableInfomation.cs:line 218
+   at Zzb.Mvc.ZzbHomeController.<>c__DisplayClass21_0.<HandleRowAction>b__0() in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\ZzbHomeController.cs:line 213
+   at Zzb.Mvc.BaseApiController.Json(Func`1 action, String error) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseApiController.cs:line 36
+2019-08-13 18:21:05.968 +08:00 [ERR] 执行Row按钮失败
+System.ArgumentNullException: Value cannot be null.
+Parameter name: source
+   at System.Linq.Enumerable.TryGetFirst[TSource](IEnumerable`1 source, Func`2 predicate, Boolean& found)
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Zzb.BaseData.TableInfomation.HandleNavAction(String navId, String buttonId, Dictionary`2 data) in C:\myFile\project\AllLottery\AllLottery\Zzb\BaseData\TableInfomation.cs:line 218
+   at Zzb.Mvc.ZzbHomeController.<>c__DisplayClass21_0.<HandleRowAction>b__0() in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\ZzbHomeController.cs:line 213
+   at Zzb.Mvc.BaseApiController.Json(Func`1 action, String error) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseApiController.cs:line 36
+2019-08-13 18:21:22.969 +08:00 [ERR] 执行Row按钮失败
+System.ArgumentNullException: Value cannot be null.
+Parameter name: source
+   at System.Linq.Enumerable.TryGetFirst[TSource](IEnumerable`1 source, Func`2 predicate, Boolean& found)
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Zzb.BaseData.TableInfomation.HandleNavAction(String navId, String buttonId, Dictionary`2 data) in C:\myFile\project\AllLottery\AllLottery\Zzb\BaseData\TableInfomation.cs:line 218
+   at Zzb.Mvc.ZzbHomeController.<>c__DisplayClass21_0.<HandleRowAction>b__0() in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\ZzbHomeController.cs:line 213
+   at Zzb.Mvc.BaseApiController.Json(Func`1 action, String error) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseApiController.cs:line 36
+2019-08-13 18:21:33.443 +08:00 [ERR] 执行Row按钮失败
+System.ArgumentNullException: Value cannot be null.
+Parameter name: source
+   at System.Linq.Enumerable.TryGetFirst[TSource](IEnumerable`1 source, Func`2 predicate, Boolean& found)
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Zzb.BaseData.TableInfomation.HandleNavAction(String navId, String buttonId, Dictionary`2 data) in C:\myFile\project\AllLottery\AllLottery\Zzb\BaseData\TableInfomation.cs:line 218
+   at Zzb.Mvc.ZzbHomeController.<>c__DisplayClass21_0.<HandleRowAction>b__0() in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\ZzbHomeController.cs:line 213
+   at Zzb.Mvc.BaseApiController.Json(Func`1 action, String error) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseApiController.cs:line 36
+2019-08-13 18:21:51.295 +08:00 [ERR] 执行Row按钮失败
+System.ArgumentNullException: Value cannot be null.
+Parameter name: source
+   at System.Linq.Enumerable.TryGetFirst[TSource](IEnumerable`1 source, Func`2 predicate, Boolean& found)
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Zzb.BaseData.TableInfomation.HandleNavAction(String navId, String buttonId, Dictionary`2 data) in C:\myFile\project\AllLottery\AllLottery\Zzb\BaseData\TableInfomation.cs:line 218
+   at Zzb.Mvc.ZzbHomeController.<>c__DisplayClass21_0.<HandleRowAction>b__0() in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\ZzbHomeController.cs:line 213
+   at Zzb.Mvc.BaseApiController.Json(Func`1 action, String error) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseApiController.cs:line 36
+2019-08-13 18:27:55.999 +08:00 [ERR] 请求【/api/Home/HandleRowAction】，耗时【42.0316642】秒。登陆用户是[1]
+2019-08-13 18:28:36.459 +08:00 [ERR] 请求【/api/Home/HandleRowAction】，耗时【72.5254675】秒。登陆用户是[1]
+2019-08-13 18:29:24.865 +08:00 [ERR] 请求【/api/Home/HandleRowAction】，耗时【23.303538】秒。登陆用户是[1]
+2019-08-13 18:42:50.908 +08:00 [ERR] 请求【/api/Home/HandleRowAction】，耗时【27.5038659】秒。登陆用户是[1]
+2019-08-13 19:45:02.584 +08:00 [ERR] 请求【/api/Home/HandleRowAction】，耗时【169.8342772】秒。登陆用户是[1]
+2019-08-13 19:46:12.696 +08:00 [ERR] 请求【/api/Home/HandleRowAction】，耗时【152.852542】秒。登陆用户是[1]
+2019-08-13 19:46:40.205 +08:00 [ERR] 请求【/api/Home/GetRowsData】，耗时【81.8104021】秒。登陆用户是[1]
+2019-08-13 19:50:01.186 +08:00 [ERR] 请求【/api/Home/GetRowsData】，耗时【5.4269914】秒。登陆用户是[1]
+2019-08-13 19:51:09.688 +08:00 [ERR] 请求【/api/Home/HandleRowAction】，耗时【32.9663551】秒。登陆用户是[1]
+2019-08-13 19:53:32.031 +08:00 [ERR] 请求【/api/Home/HandleRowAction】，耗时【17.3144503】秒。登陆用户是[1]
+2019-08-13 20:00:54.450 +08:00 [ERR] 请求【/api/Lottery/GetLotteryNewDatas】，耗时【7.4898602】秒。登陆用户是[1]
+2019-08-13 20:00:59.717 +08:00 [ERR] 请求【/api/Home/HandleRowAction】，耗时【23.8890779】秒。登陆用户是[1]
+2019-08-13 22:04:01.721 +08:00 [ERR] 请求【/api/Home/HandleRowAction】，耗时【23.2322893】秒。登陆用户是[1]

@@ -1,0 +1,150 @@
+2019-08-14 19:56:46.649 +08:00 [ERR] 获取表格数据失败
+System.NotSupportedException: Could not parse expression '__realData_0.Select(c => c.Number).ToList()': This overload of the method 'System.Linq.Enumerable.ToList' is currently not supported.
+   at Remotion.Linq.Parsing.Structure.MethodCallExpressionParser.GetNodeType(MethodCallExpression expressionToParse)
+   at Remotion.Linq.Parsing.Structure.MethodCallExpressionParser.Parse(String associatedIdentifier, IExpressionNode source, IEnumerable`1 arguments, MethodCallExpression expressionToParse)
+   at Remotion.Linq.Parsing.Structure.ExpressionTreeParser.ParseMethodCallExpression(MethodCallExpression methodCallExpression, String associatedIdentifier)
+   at Remotion.Linq.Parsing.Structure.ExpressionTreeParser.ParseNode(Expression expression, String associatedIdentifier)
+   at Remotion.Linq.Parsing.Structure.ExpressionTreeParser.ParseMethodCallExpression(MethodCallExpression methodCallExpression, String associatedIdentifier)
+   at Remotion.Linq.Parsing.Structure.ExpressionTreeParser.ParseTree(Expression expressionTree)
+   at Remotion.Linq.Parsing.Structure.QueryParser.GetParsedQuery(Expression expressionTreeRoot)
+   at Remotion.Linq.Parsing.ExpressionVisitors.SubQueryFindingExpressionVisitor.Visit(Expression expression)
+   at System.Linq.Expressions.ExpressionVisitor.VisitLambda[T](Expression`1 node)
+   at System.Linq.Expressions.Expression`1.Accept(ExpressionVisitor visitor)
+   at System.Linq.Expressions.ExpressionVisitor.Visit(Expression node)
+   at Remotion.Linq.Parsing.ExpressionVisitors.SubQueryFindingExpressionVisitor.Visit(Expression expression)
+   at Remotion.Linq.Parsing.ExpressionVisitors.SubQueryFindingExpressionVisitor.Process(Expression expressionTree, INodeTypeProvider nodeTypeProvider)
+   at Remotion.Linq.Parsing.Structure.MethodCallExpressionParser.ProcessArgumentExpression(Expression argumentExpression)
+   at System.Linq.Enumerable.SelectListPartitionIterator`2.ToArray()
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at Remotion.Linq.Parsing.Structure.MethodCallExpressionParser.Parse(String associatedIdentifier, IExpressionNode source, IEnumerable`1 arguments, MethodCallExpression expressionToParse)
+   at Remotion.Linq.Parsing.Structure.ExpressionTreeParser.ParseMethodCallExpression(MethodCallExpression methodCallExpression, String associatedIdentifier)
+   at Remotion.Linq.Parsing.Structure.ExpressionTreeParser.ParseNode(Expression expression, String associatedIdentifier)
+   at Remotion.Linq.Parsing.Structure.ExpressionTreeParser.ParseMethodCallExpression(MethodCallExpression methodCallExpression, String associatedIdentifier)
+   at Remotion.Linq.Parsing.Structure.ExpressionTreeParser.ParseTree(Expression expressionTree)
+   at Remotion.Linq.Parsing.Structure.QueryParser.GetParsedQuery(Expression expressionTreeRoot)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryModelGenerator.ParseQuery(Expression query)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.CompileQueryCore[TResult](Expression query, IQueryModelGenerator queryModelGenerator, IDatabase database, IDiagnosticsLogger`1 logger, Type contextType)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass13_0`1.<Execute>b__0()
+   at Microsoft.EntityFrameworkCore.Query.Internal.CompiledQueryCache.GetOrAddQueryCore[TFunc](Object cacheKey, Func`1 compiler)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.Execute[TResult](Expression query)
+   at System.Linq.Queryable.Count[TSource](IQueryable`1 source)
+   at AllLottery.BaseDataModel.BetManger.ChasingViewModel.Color(List`1 ds, String str, String refClass) in C:\myFile\project\AllLottery\AllLottery\AllLottery.BaseDataModel\BetManger\ChasingViewModel.cs:line 208
+   at AllLottery.BaseDataModel.BetManger.ChasingViewModel.<DoGetNavDatas>b__78_4(ChasingOrder k, ChasingViewModel t) in C:\myFile\project\AllLottery\AllLottery\AllLottery.BaseDataModel\BetManger\ChasingViewModel.cs:line 111
+   at Zzb.BaseData.Model.BaseNav.CreateEfDatas[T,TF](IQueryable`1 queryable, Action`2 eachChange, Func`3[] pf) in C:\myFile\project\AllLottery\AllLottery\Zzb\BaseData\Model\BaseNav.cs:line 95
+   at AllLottery.BaseDataModel.BetManger.ChasingViewModel.DoGetNavDatas() in C:\myFile\project\AllLottery\AllLottery\AllLottery.BaseDataModel\BetManger\ChasingViewModel.cs:line 107
+   at Zzb.BaseData.Model.BaseNav.GetNavDatas(Int32 limit, Int32 offset, Dictionary`2 query, Int32& total) in C:\myFile\project\AllLottery\AllLottery\Zzb\BaseData\Model\BaseNav.cs:line 54
+   at Zzb.BaseData.NavRow.GetRowsData(String navId, Int32 limit, Int32 offset, Dictionary`2 query) in C:\myFile\project\AllLottery\AllLottery\Zzb\BaseData\NavRow.cs:line 38
+   at Zzb.Mvc.ZzbHomeController.<>c__DisplayClass17_0.<GetRowsData>b__0() in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\ZzbHomeController.cs:line 155
+   at Zzb.Mvc.BaseApiController.Json(Func`1 action, String error) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseApiController.cs:line 36
+2019-08-14 19:56:58.969 +08:00 [ERR] 获取表格数据失败
+System.NotSupportedException: Could not parse expression '__realData_0.Select(c => c.Number).ToList()': This overload of the method 'System.Linq.Enumerable.ToList' is currently not supported.
+   at Remotion.Linq.Parsing.Structure.MethodCallExpressionParser.GetNodeType(MethodCallExpression expressionToParse)
+   at Remotion.Linq.Parsing.Structure.MethodCallExpressionParser.Parse(String associatedIdentifier, IExpressionNode source, IEnumerable`1 arguments, MethodCallExpression expressionToParse)
+   at Remotion.Linq.Parsing.Structure.ExpressionTreeParser.ParseMethodCallExpression(MethodCallExpression methodCallExpression, String associatedIdentifier)
+   at Remotion.Linq.Parsing.Structure.ExpressionTreeParser.ParseNode(Expression expression, String associatedIdentifier)
+   at Remotion.Linq.Parsing.Structure.ExpressionTreeParser.ParseMethodCallExpression(MethodCallExpression methodCallExpression, String associatedIdentifier)
+   at Remotion.Linq.Parsing.Structure.ExpressionTreeParser.ParseTree(Expression expressionTree)
+   at Remotion.Linq.Parsing.Structure.QueryParser.GetParsedQuery(Expression expressionTreeRoot)
+   at Remotion.Linq.Parsing.ExpressionVisitors.SubQueryFindingExpressionVisitor.Visit(Expression expression)
+   at System.Linq.Expressions.ExpressionVisitor.VisitLambda[T](Expression`1 node)
+   at System.Linq.Expressions.Expression`1.Accept(ExpressionVisitor visitor)
+   at System.Linq.Expressions.ExpressionVisitor.Visit(Expression node)
+   at Remotion.Linq.Parsing.ExpressionVisitors.SubQueryFindingExpressionVisitor.Visit(Expression expression)
+   at Remotion.Linq.Parsing.ExpressionVisitors.SubQueryFindingExpressionVisitor.Process(Expression expressionTree, INodeTypeProvider nodeTypeProvider)
+   at Remotion.Linq.Parsing.Structure.MethodCallExpressionParser.ProcessArgumentExpression(Expression argumentExpression)
+   at System.Linq.Enumerable.SelectListPartitionIterator`2.ToArray()
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at Remotion.Linq.Parsing.Structure.MethodCallExpressionParser.Parse(String associatedIdentifier, IExpressionNode source, IEnumerable`1 arguments, MethodCallExpression expressionToParse)
+   at Remotion.Linq.Parsing.Structure.ExpressionTreeParser.ParseMethodCallExpression(MethodCallExpression methodCallExpression, String associatedIdentifier)
+   at Remotion.Linq.Parsing.Structure.ExpressionTreeParser.ParseNode(Expression expression, String associatedIdentifier)
+   at Remotion.Linq.Parsing.Structure.ExpressionTreeParser.ParseMethodCallExpression(MethodCallExpression methodCallExpression, String associatedIdentifier)
+   at Remotion.Linq.Parsing.Structure.ExpressionTreeParser.ParseTree(Expression expressionTree)
+   at Remotion.Linq.Parsing.Structure.QueryParser.GetParsedQuery(Expression expressionTreeRoot)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryModelGenerator.ParseQuery(Expression query)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.CompileQueryCore[TResult](Expression query, IQueryModelGenerator queryModelGenerator, IDatabase database, IDiagnosticsLogger`1 logger, Type contextType)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass13_0`1.<Execute>b__0()
+   at Microsoft.EntityFrameworkCore.Query.Internal.CompiledQueryCache.GetOrAddQueryCore[TFunc](Object cacheKey, Func`1 compiler)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.Execute[TResult](Expression query)
+   at System.Linq.Queryable.Count[TSource](IQueryable`1 source)
+   at AllLottery.BaseDataModel.BetManger.ChasingViewModel.Color(List`1 ds, String str, String refClass) in C:\myFile\project\AllLottery\AllLottery\AllLottery.BaseDataModel\BetManger\ChasingViewModel.cs:line 208
+   at AllLottery.BaseDataModel.BetManger.ChasingViewModel.<DoGetNavDatas>b__78_4(ChasingOrder k, ChasingViewModel t) in C:\myFile\project\AllLottery\AllLottery\AllLottery.BaseDataModel\BetManger\ChasingViewModel.cs:line 111
+   at Zzb.BaseData.Model.BaseNav.CreateEfDatas[T,TF](IQueryable`1 queryable, Action`2 eachChange, Func`3[] pf) in C:\myFile\project\AllLottery\AllLottery\Zzb\BaseData\Model\BaseNav.cs:line 95
+   at AllLottery.BaseDataModel.BetManger.ChasingViewModel.DoGetNavDatas() in C:\myFile\project\AllLottery\AllLottery\AllLottery.BaseDataModel\BetManger\ChasingViewModel.cs:line 107
+   at Zzb.BaseData.Model.BaseNav.GetNavDatas(Int32 limit, Int32 offset, Dictionary`2 query, Int32& total) in C:\myFile\project\AllLottery\AllLottery\Zzb\BaseData\Model\BaseNav.cs:line 54
+   at Zzb.BaseData.NavRow.GetRowsData(String navId, Int32 limit, Int32 offset, Dictionary`2 query) in C:\myFile\project\AllLottery\AllLottery\Zzb\BaseData\NavRow.cs:line 38
+   at Zzb.Mvc.ZzbHomeController.<>c__DisplayClass17_0.<GetRowsData>b__0() in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\ZzbHomeController.cs:line 155
+   at Zzb.Mvc.BaseApiController.Json(Func`1 action, String error) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseApiController.cs:line 36
+2019-08-14 19:58:50.553 +08:00 [ERR] 获取表格数据失败
+System.NotSupportedException: Could not parse expression '__realData_0.Select(c => c.Number).ToList()': This overload of the method 'System.Linq.Enumerable.ToList' is currently not supported.
+   at Remotion.Linq.Parsing.Structure.MethodCallExpressionParser.GetNodeType(MethodCallExpression expressionToParse)
+   at Remotion.Linq.Parsing.Structure.MethodCallExpressionParser.Parse(String associatedIdentifier, IExpressionNode source, IEnumerable`1 arguments, MethodCallExpression expressionToParse)
+   at Remotion.Linq.Parsing.Structure.ExpressionTreeParser.ParseMethodCallExpression(MethodCallExpression methodCallExpression, String associatedIdentifier)
+   at Remotion.Linq.Parsing.Structure.ExpressionTreeParser.ParseNode(Expression expression, String associatedIdentifier)
+   at Remotion.Linq.Parsing.Structure.ExpressionTreeParser.ParseMethodCallExpression(MethodCallExpression methodCallExpression, String associatedIdentifier)
+   at Remotion.Linq.Parsing.Structure.ExpressionTreeParser.ParseTree(Expression expressionTree)
+   at Remotion.Linq.Parsing.Structure.QueryParser.GetParsedQuery(Expression expressionTreeRoot)
+   at Remotion.Linq.Parsing.ExpressionVisitors.SubQueryFindingExpressionVisitor.Visit(Expression expression)
+   at System.Linq.Expressions.ExpressionVisitor.VisitLambda[T](Expression`1 node)
+   at System.Linq.Expressions.Expression`1.Accept(ExpressionVisitor visitor)
+   at System.Linq.Expressions.ExpressionVisitor.Visit(Expression node)
+   at Remotion.Linq.Parsing.ExpressionVisitors.SubQueryFindingExpressionVisitor.Visit(Expression expression)
+   at Remotion.Linq.Parsing.ExpressionVisitors.SubQueryFindingExpressionVisitor.Process(Expression expressionTree, INodeTypeProvider nodeTypeProvider)
+   at Remotion.Linq.Parsing.Structure.MethodCallExpressionParser.ProcessArgumentExpression(Expression argumentExpression)
+   at System.Linq.Enumerable.SelectListPartitionIterator`2.ToArray()
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at Remotion.Linq.Parsing.Structure.MethodCallExpressionParser.Parse(String associatedIdentifier, IExpressionNode source, IEnumerable`1 arguments, MethodCallExpression expressionToParse)
+   at Remotion.Linq.Parsing.Structure.ExpressionTreeParser.ParseMethodCallExpression(MethodCallExpression methodCallExpression, String associatedIdentifier)
+   at Remotion.Linq.Parsing.Structure.ExpressionTreeParser.ParseNode(Expression expression, String associatedIdentifier)
+   at Remotion.Linq.Parsing.Structure.ExpressionTreeParser.ParseMethodCallExpression(MethodCallExpression methodCallExpression, String associatedIdentifier)
+   at Remotion.Linq.Parsing.Structure.ExpressionTreeParser.ParseTree(Expression expressionTree)
+   at Remotion.Linq.Parsing.Structure.QueryParser.GetParsedQuery(Expression expressionTreeRoot)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryModelGenerator.ParseQuery(Expression query)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.CompileQueryCore[TResult](Expression query, IQueryModelGenerator queryModelGenerator, IDatabase database, IDiagnosticsLogger`1 logger, Type contextType)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass13_0`1.<Execute>b__0()
+   at Microsoft.EntityFrameworkCore.Query.Internal.CompiledQueryCache.GetOrAddQueryCore[TFunc](Object cacheKey, Func`1 compiler)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.Execute[TResult](Expression query)
+   at System.Linq.Queryable.Count[TSource](IQueryable`1 source)
+   at AllLottery.BaseDataModel.BetManger.ChasingViewModel.Color(List`1 ds, String str, String refClass) in C:\myFile\project\AllLottery\AllLottery\AllLottery.BaseDataModel\BetManger\ChasingViewModel.cs:line 208
+   at AllLottery.BaseDataModel.BetManger.ChasingViewModel.<DoGetNavDatas>b__78_4(ChasingOrder k, ChasingViewModel t) in C:\myFile\project\AllLottery\AllLottery\AllLottery.BaseDataModel\BetManger\ChasingViewModel.cs:line 111
+   at Zzb.BaseData.Model.BaseNav.CreateEfDatas[T,TF](IQueryable`1 queryable, Action`2 eachChange, Func`3[] pf) in C:\myFile\project\AllLottery\AllLottery\Zzb\BaseData\Model\BaseNav.cs:line 95
+   at AllLottery.BaseDataModel.BetManger.ChasingViewModel.DoGetNavDatas() in C:\myFile\project\AllLottery\AllLottery\AllLottery.BaseDataModel\BetManger\ChasingViewModel.cs:line 107
+   at Zzb.BaseData.Model.BaseNav.GetNavDatas(Int32 limit, Int32 offset, Dictionary`2 query, Int32& total) in C:\myFile\project\AllLottery\AllLottery\Zzb\BaseData\Model\BaseNav.cs:line 54
+   at Zzb.BaseData.NavRow.GetRowsData(String navId, Int32 limit, Int32 offset, Dictionary`2 query) in C:\myFile\project\AllLottery\AllLottery\Zzb\BaseData\NavRow.cs:line 38
+   at Zzb.Mvc.ZzbHomeController.<>c__DisplayClass17_0.<GetRowsData>b__0() in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\ZzbHomeController.cs:line 155
+   at Zzb.Mvc.BaseApiController.Json(Func`1 action, String error) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseApiController.cs:line 36
+2019-08-14 19:58:50.630 +08:00 [ERR] 请求【/api/Home/GetRowsData】，耗时【43.3714666】秒。登陆用户是[1]
+2019-08-14 20:01:37.264 +08:00 [ERR] 获取表格数据失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at AllLottery.Business.Cathectic.BaseCathectic.SplitByDatas(String datas) in C:\myFile\project\AllLottery\AllLottery\AllLottery.Business\Cathectic\BaseCathectic.cs:line 312
+   at AllLottery.Business.Cathectic.BaseCathectic.CheckAllNumber(String datas) in C:\myFile\project\AllLottery\AllLottery\AllLottery.Business\Cathectic\BaseCathectic.cs:line 294
+   at AllLottery.Business.Cathectic.PkShi.CathecticGuessChampion.Valid(String datas) in C:\myFile\project\AllLottery\AllLottery\AllLottery.Business\Cathectic\PkShi\CathecticGuessChampion.cs:line 10
+   at AllLottery.Business.Cathectic.BaseCathectic.IsWin(String datas, Int32[] openDatas) in C:\myFile\project\AllLottery\AllLottery\AllLottery.Business\Cathectic\BaseCathectic.cs:line 115
+   at AllLottery.BaseDataModel.BetManger.ChasingViewModel.<>c__DisplayClass85_1.<Color>b__3(LotteryData d) in C:\myFile\project\AllLottery\AllLottery\AllLottery.BaseDataModel\BetManger\ChasingViewModel.cs:line 213
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at AllLottery.BaseDataModel.BetManger.ChasingViewModel.Color(List`1 ds, String str, String refClass) in C:\myFile\project\AllLottery\AllLottery\AllLottery.BaseDataModel\BetManger\ChasingViewModel.cs:line 211
+   at AllLottery.BaseDataModel.BetManger.ChasingViewModel.<DoGetNavDatas>b__78_4(ChasingOrder k, ChasingViewModel t) in C:\myFile\project\AllLottery\AllLottery\AllLottery.BaseDataModel\BetManger\ChasingViewModel.cs:line 111
+   at Zzb.BaseData.Model.BaseNav.CreateEfDatas[T,TF](IQueryable`1 queryable, Action`2 eachChange, Func`3[] pf) in C:\myFile\project\AllLottery\AllLottery\Zzb\BaseData\Model\BaseNav.cs:line 95
+   at AllLottery.BaseDataModel.BetManger.ChasingViewModel.DoGetNavDatas() in C:\myFile\project\AllLottery\AllLottery\AllLottery.BaseDataModel\BetManger\ChasingViewModel.cs:line 107
+   at Zzb.BaseData.Model.BaseNav.GetNavDatas(Int32 limit, Int32 offset, Dictionary`2 query, Int32& total) in C:\myFile\project\AllLottery\AllLottery\Zzb\BaseData\Model\BaseNav.cs:line 54
+   at Zzb.BaseData.NavRow.GetRowsData(String navId, Int32 limit, Int32 offset, Dictionary`2 query) in C:\myFile\project\AllLottery\AllLottery\Zzb\BaseData\NavRow.cs:line 38
+   at Zzb.Mvc.ZzbHomeController.<>c__DisplayClass17_0.<GetRowsData>b__0() in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\ZzbHomeController.cs:line 155
+   at Zzb.Mvc.BaseApiController.Json(Func`1 action, String error) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseApiController.cs:line 36
+2019-08-14 20:01:37.342 +08:00 [ERR] 请求【/api/Home/GetRowsData】，耗时【12.1600522】秒。登陆用户是[1]
+2019-08-14 20:02:14.689 +08:00 [ERR] 获取表格数据失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at AllLottery.Business.Cathectic.BaseCathectic.SplitByDatas(String datas) in C:\myFile\project\AllLottery\AllLottery\AllLottery.Business\Cathectic\BaseCathectic.cs:line 312
+   at AllLottery.Business.Cathectic.BaseCathectic.CheckAllNumber(String datas) in C:\myFile\project\AllLottery\AllLottery\AllLottery.Business\Cathectic\BaseCathectic.cs:line 294
+   at AllLottery.Business.Cathectic.PkShi.CathecticGuessChampion.Valid(String datas) in C:\myFile\project\AllLottery\AllLottery\AllLottery.Business\Cathectic\PkShi\CathecticGuessChampion.cs:line 10
+   at AllLottery.Business.Cathectic.BaseCathectic.IsWin(String datas, Int32[] openDatas) in C:\myFile\project\AllLottery\AllLottery\AllLottery.Business\Cathectic\BaseCathectic.cs:line 115
+   at AllLottery.BaseDataModel.BetManger.ChasingViewModel.<>c__DisplayClass85_1.<Color>b__3(LotteryData d) in C:\myFile\project\AllLottery\AllLottery\AllLottery.BaseDataModel\BetManger\ChasingViewModel.cs:line 213
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at AllLottery.BaseDataModel.BetManger.ChasingViewModel.Color(List`1 ds, String str, String refClass) in C:\myFile\project\AllLottery\AllLottery\AllLottery.BaseDataModel\BetManger\ChasingViewModel.cs:line 211
+   at AllLottery.BaseDataModel.BetManger.ChasingViewModel.<DoGetNavDatas>b__78_4(ChasingOrder k, ChasingViewModel t) in C:\myFile\project\AllLottery\AllLottery\AllLottery.BaseDataModel\BetManger\ChasingViewModel.cs:line 111
+   at Zzb.BaseData.Model.BaseNav.CreateEfDatas[T,TF](IQueryable`1 queryable, Action`2 eachChange, Func`3[] pf) in C:\myFile\project\AllLottery\AllLottery\Zzb\BaseData\Model\BaseNav.cs:line 95
+   at AllLottery.BaseDataModel.BetManger.ChasingViewModel.DoGetNavDatas() in C:\myFile\project\AllLottery\AllLottery\AllLottery.BaseDataModel\BetManger\ChasingViewModel.cs:line 107
+   at Zzb.BaseData.Model.BaseNav.GetNavDatas(Int32 limit, Int32 offset, Dictionary`2 query, Int32& total) in C:\myFile\project\AllLottery\AllLottery\Zzb\BaseData\Model\BaseNav.cs:line 54
+   at Zzb.BaseData.NavRow.GetRowsData(String navId, Int32 limit, Int32 offset, Dictionary`2 query) in C:\myFile\project\AllLottery\AllLottery\Zzb\BaseData\NavRow.cs:line 38
+   at Zzb.Mvc.ZzbHomeController.<>c__DisplayClass17_0.<GetRowsData>b__0() in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\ZzbHomeController.cs:line 155
+   at Zzb.Mvc.BaseApiController.Json(Func`1 action, String error) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseApiController.cs:line 36
+2019-08-14 20:02:14.694 +08:00 [ERR] 请求【/api/Home/GetRowsData】，耗时【31.6077169】秒。登陆用户是[1]
+2019-08-14 20:10:33.720 +08:00 [ERR] 请求【/api/Home/GetRowsData】，耗时【63.3892515】秒。登陆用户是[1]

@@ -1,0 +1,55 @@
+2019-08-13 10:39:56.491 +08:00 [WRN] 请求【/api/Home/GetRowsData】，耗时【2.7326808】秒。登陆用户是[1]
+2019-08-13 10:58:28.487 +08:00 [WRN] 请求【/api/Lottery/GetLotteryNewDatas】，耗时【3.2462593】秒。登陆用户是[1]
+2019-08-13 10:58:28.489 +08:00 [WRN] 请求【/api/Lottery/GetLotteryNewDatas】，耗时【3.9196092】秒。登陆用户是[1]
+2019-08-13 11:07:08.261 +08:00 [WRN] 请求【/api/Lottery/GetLotteryNewDatas】，耗时【3.1657603】秒。登陆用户是[1]
+2019-08-13 11:07:08.263 +08:00 [WRN] 请求【/api/Lottery/GetLotteryNewDatas】，耗时【2.554312】秒。登陆用户是[1]
+2019-08-13 11:07:16.559 +08:00 [WRN] 请求【/api/Home/GetTableInfomation】，耗时【2.0112463】秒。登陆用户是[1]
+2019-08-13 11:07:16.762 +08:00 [WRN] 请求【/api/Home/GetMenu】，耗时【2.536802】秒。登陆用户是[1]
+2019-08-13 11:07:20.808 +08:00 [WRN] 请求【/api/Home/GetRowsData】，耗时【3.9404935】秒。登陆用户是[1]
+2019-08-13 11:11:37.668 +08:00 [WRN] Socket连接失败
+System.Net.WebSockets.WebSocketException (0x80004005): The remote party closed the WebSocket connection without completing the close handshake. ---> System.Net.WebSockets.WebSocketException (0x80004005): The remote party closed the WebSocket connection without completing the close handshake.
+   at System.Net.WebSockets.ManagedWebSocket.ThrowIfEOFUnexpected(Boolean throwOnPrematureClosure)
+   at System.Net.WebSockets.ManagedWebSocket.EnsureBufferContainsAsync(Int32 minimumRequiredBytes, CancellationToken cancellationToken, Boolean throwOnPrematureClosure)
+   at System.Net.WebSockets.ManagedWebSocket.ReceiveAsyncPrivate[TWebSocketReceiveResultGetter,TWebSocketReceiveResult](Memory`1 payloadBuffer, CancellationToken cancellationToken, TWebSocketReceiveResultGetter resultGetter)
+   at System.Net.WebSockets.ManagedWebSocket.ReceiveAsyncPrivate[TWebSocketReceiveResultGetter,TWebSocketReceiveResult](Memory`1 payloadBuffer, CancellationToken cancellationToken, TWebSocketReceiveResultGetter resultGetter)
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 159
+2019-08-13 16:20:26.318 +08:00 [WRN] Socket连接失败
+System.Net.WebSockets.WebSocketException (0x80004005): The remote party closed the WebSocket connection without completing the close handshake. ---> System.Net.WebSockets.WebSocketException (0x80004005): The remote party closed the WebSocket connection without completing the close handshake.
+   at System.Net.WebSockets.ManagedWebSocket.ThrowIfEOFUnexpected(Boolean throwOnPrematureClosure)
+   at System.Net.WebSockets.ManagedWebSocket.EnsureBufferContainsAsync(Int32 minimumRequiredBytes, CancellationToken cancellationToken, Boolean throwOnPrematureClosure)
+   at System.Net.WebSockets.ManagedWebSocket.ReceiveAsyncPrivate[TWebSocketReceiveResultGetter,TWebSocketReceiveResult](Memory`1 payloadBuffer, CancellationToken cancellationToken, TWebSocketReceiveResultGetter resultGetter)
+   at System.Net.WebSockets.ManagedWebSocket.ReceiveAsyncPrivate[TWebSocketReceiveResultGetter,TWebSocketReceiveResult](Memory`1 payloadBuffer, CancellationToken cancellationToken, TWebSocketReceiveResultGetter resultGetter)
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 159
+2019-08-13 16:25:21.023 +08:00 [WRN] Socket连接失败
+System.Net.WebSockets.WebSocketException (0x80004005): The remote party closed the WebSocket connection without completing the close handshake. ---> Microsoft.AspNetCore.Connections.ConnectionResetException: The client has disconnected ---> System.Runtime.InteropServices.COMException: 企图在不存在的网络连接上进行操作。 (Exception from HRESULT: 0x800704CD)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Server.IIS.Core.IO.AsyncIOOperation.GetResult(Int16 token)
+   at Microsoft.AspNetCore.Server.IIS.Core.IISHttpContext.ReadBody()
+   at System.IO.Pipelines.PipeCompletion.ThrowLatchedException()
+   at System.IO.Pipelines.Pipe.GetReadResult(ReadResult& result)
+   at System.IO.Pipelines.Pipe.GetReadAsyncResult()
+   at System.IO.Pipelines.Pipe.DefaultPipeReader.GetResult(Int16 token)
+   at Microsoft.AspNetCore.Server.IIS.Core.IISHttpContext.ReadAsync(Memory`1 memory, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.IIS.Core.HttpRequestStream.ReadAsyncInternal(Memory`1 buffer, CancellationToken cancellationToken)
+   at System.Net.WebSockets.ManagedWebSocket.EnsureBufferContainsAsync(Int32 minimumRequiredBytes, CancellationToken cancellationToken, Boolean throwOnPrematureClosure)
+   at System.Net.WebSockets.ManagedWebSocket.ReceiveAsyncPrivate[TWebSocketReceiveResultGetter,TWebSocketReceiveResult](Memory`1 payloadBuffer, CancellationToken cancellationToken, TWebSocketReceiveResultGetter resultGetter)
+   at System.Net.WebSockets.ManagedWebSocket.ReceiveAsyncPrivate[TWebSocketReceiveResultGetter,TWebSocketReceiveResult](Memory`1 payloadBuffer, CancellationToken cancellationToken, TWebSocketReceiveResultGetter resultGetter)
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 159
+2019-08-13 18:16:30.399 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 124
+2019-08-13 18:16:35.698 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 124
+2019-08-13 18:16:40.759 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 124
+2019-08-13 18:27:20.195 +08:00 [WRN] 请求【/api/Home/GetMessages】，耗时【3.2548889】秒。登陆用户是[1]
+2019-08-13 18:28:39.276 +08:00 [WRN] 请求【/api/Home/HandleRowAction】，耗时【2.3196846】秒。登陆用户是[1]
+2019-08-13 19:50:09.613 +08:00 [WRN] 请求【/api/Home/HandleRowAction】，耗时【3.2998912】秒。登陆用户是[1]
+2019-08-13 20:00:57.047 +08:00 [WRN] 请求【/api/Lottery/GetLotteryNewDatas】，耗时【4.9904293】秒。登陆用户是[1]
+2019-08-13 20:18:42.526 +08:00 [WRN] 请求【/api/Home/HandleRowAction】，耗时【2.0245992】秒。登陆用户是[1]
+2019-08-13 20:18:55.660 +08:00 [WRN] 请求【/api/Home/HandleRowAction】，耗时【3.1745522】秒。登陆用户是[1]
+2019-08-13 21:59:16.595 +08:00 [WRN] 请求【/api/Lottery/GetLotteryNewDatas】，耗时【2.134357】秒。登陆用户是[1]
+2019-08-13 22:03:30.403 +08:00 [WRN] 请求【/api/Home/HandleRowAction】，耗时【3.2948745】秒。登陆用户是[1]
+2019-08-13 22:04:19.722 +08:00 [WRN] 请求【/api/Lottery/GetLotteryNewDatas】，耗时【3.1730248】秒。登陆用户是[1]

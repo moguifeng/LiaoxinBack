@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AllLottery.Model\AllLottery.Model.csproj" />
+    <ProjectReference Include="..\AllLottery.ViewModel\AllLottery.ViewModel.csproj" />
+  </ItemGroup>
+
+</Project>

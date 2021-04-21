@@ -1,0 +1,13 @@
+2019-08-14 20:04:08.482 +08:00 [INF] 获取表格数据失败
+Zzb.ZzbException: 算法[CathecticGuessChampion]出错，参数校验失败，参数datas：[0594366]
+   at AllLottery.Business.Cathectic.BaseCathectic.IsWin(String datas, Int32[] openDatas) in C:\myFile\project\AllLottery\AllLottery\AllLottery.Business\Cathectic\BaseCathectic.cs:line 146
+   at AllLottery.BaseDataModel.BetManger.ChasingViewModel.<>c__DisplayClass85_1.<Color>b__3(LotteryData d) in C:\myFile\project\AllLottery\AllLottery\AllLottery.BaseDataModel\BetManger\ChasingViewModel.cs:line 213
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at AllLottery.BaseDataModel.BetManger.ChasingViewModel.Color(List`1 ds, String str, String refClass) in C:\myFile\project\AllLottery\AllLottery\AllLottery.BaseDataModel\BetManger\ChasingViewModel.cs:line 211
+   at AllLottery.BaseDataModel.BetManger.ChasingViewModel.<DoGetNavDatas>b__78_4(ChasingOrder k, ChasingViewModel t) in C:\myFile\project\AllLottery\AllLottery\AllLottery.BaseDataModel\BetManger\ChasingViewModel.cs:line 111
+   at Zzb.BaseData.Model.BaseNav.CreateEfDatas[T,TF](IQueryable`1 queryable, Action`2 eachChange, Func`3[] pf) in C:\myFile\project\AllLottery\AllLottery\Zzb\BaseData\Model\BaseNav.cs:line 95
+   at AllLottery.BaseDataModel.BetManger.ChasingViewModel.DoGetNavDatas() in C:\myFile\project\AllLottery\AllLottery\AllLottery.BaseDataModel\BetManger\ChasingViewModel.cs:line 107
+   at Zzb.BaseData.Model.BaseNav.GetNavDatas(Int32 limit, Int32 offset, Dictionary`2 query, Int32& total) in C:\myFile\project\AllLottery\AllLottery\Zzb\BaseData\Model\BaseNav.cs:line 54
+   at Zzb.BaseData.NavRow.GetRowsData(String navId, Int32 limit, Int32 offset, Dictionary`2 query) in C:\myFile\project\AllLottery\AllLottery\Zzb\BaseData\NavRow.cs:line 38
+   at Zzb.Mvc.ZzbHomeController.<>c__DisplayClass17_0.<GetRowsData>b__0() in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\ZzbHomeController.cs:line 155
+   at Zzb.Mvc.BaseApiController.Json(Func`1 action, String error) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseApiController.cs:line 36

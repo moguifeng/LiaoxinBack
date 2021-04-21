@@ -1,0 +1,588 @@
+2019-08-14 20:38:23.614 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:38:28.770 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:38:33.800 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:38:38.834 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:38:43.871 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:38:48.911 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:38:53.942 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:38:58.988 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:39:04.032 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:39:09.070 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:39:14.128 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:39:19.180 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:39:24.214 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:39:29.245 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:39:34.278 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:39:39.324 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:39:44.355 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:39:49.390 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:39:54.449 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:39:59.484 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:40:04.524 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:40:09.555 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:40:14.585 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:40:19.615 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:40:24.649 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:40:29.693 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:40:34.741 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:40:39.776 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:40:44.826 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:40:49.869 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:40:54.921 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:40:59.965 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:41:04.997 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:41:10.029 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:41:15.066 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:41:20.108 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:41:25.148 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:41:30.186 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:41:35.228 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:41:40.275 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:41:45.318 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:41:50.351 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:41:55.386 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:42:00.426 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:42:05.476 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:42:10.516 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:42:15.565 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:42:20.597 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:42:25.631 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:42:30.671 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:42:35.700 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:42:40.745 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:42:45.773 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:42:50.820 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:42:55.850 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:43:00.879 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:43:05.922 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:43:10.952 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:43:16.020 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:43:21.077 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:43:26.117 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:43:31.158 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:43:36.195 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:43:41.236 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:43:46.269 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:43:51.307 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:43:56.350 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:44:01.401 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:44:06.438 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:44:11.476 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:44:16.512 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:44:21.557 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:44:26.594 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:44:31.631 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:44:36.663 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:44:41.694 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:44:46.727 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:44:51.768 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:44:56.810 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:45:01.843 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:45:06.909 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:45:11.940 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:45:16.975 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:45:22.006 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:45:27.053 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:45:32.094 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:45:37.129 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:45:42.167 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:45:47.220 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:45:52.256 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:49:12.047 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:49:17.175 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:49:22.217 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:49:27.269 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:49:32.317 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:49:37.363 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:49:42.397 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:49:47.434 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:49:52.472 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:49:57.526 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:50:02.562 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:50:07.603 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:50:12.645 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:50:17.679 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:50:22.718 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:50:27.773 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:50:32.817 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:50:37.853 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:50:42.887 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:50:47.928 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:50:52.985 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:50:58.031 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:51:03.064 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:51:08.100 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:51:13.145 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:51:18.184 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:51:23.242 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:51:28.529 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:51:33.569 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:51:38.612 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:51:43.648 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:51:48.694 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:51:53.737 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:51:58.772 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:52:03.805 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:52:08.836 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:52:13.867 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:52:18.903 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:52:23.943 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:52:29.001 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:52:34.033 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:52:39.079 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:52:44.109 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:52:49.140 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:52:54.172 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:52:59.207 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:53:04.243 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:53:09.275 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:53:14.309 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:53:19.342 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:53:24.376 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:53:29.411 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:53:34.446 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:53:39.485 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:53:44.520 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:53:49.556 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:53:54.600 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:53:59.640 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:54:04.673 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:54:09.718 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:54:14.766 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:54:19.803 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:54:24.846 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:54:29.890 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:56:31.865 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:56:37.001 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:56:42.044 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:56:47.086 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:56:52.124 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:56:57.162 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:57:02.198 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:57:07.228 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:57:12.265 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:57:17.310 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:57:22.531 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:57:28.521 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:57:34.527 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:57:40.523 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:57:46.537 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:57:52.523 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:57:58.528 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:58:04.542 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:58:33.615 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:58:39.534 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:58:45.531 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:58:51.547 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:58:57.534 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:59:03.532 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:59:09.547 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:59:15.528 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:59:21.530 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:59:27.533 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:59:33.547 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:59:39.528 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:59:45.528 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:59:51.529 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 20:59:57.530 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 21:00:02.606 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 21:00:07.655 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 21:00:12.701 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 21:00:17.756 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 21:00:22.796 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 21:00:27.834 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 21:00:32.873 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 21:00:37.927 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120
+2019-08-14 21:00:42.959 +08:00 [WRN] Socket连接失败
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Zzb.Mvc.BaseSocketMiddleware.Invoke(HttpContext context) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseSocketMiddleware.cs:line 120

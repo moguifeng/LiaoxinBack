@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AllLottery.Business\AllLottery.Business.csproj" />
+    <ProjectReference Include="..\AllLottery.Model\AllLottery.Model.csproj" />
+    <ProjectReference Include="..\Zzb\Zzb.csproj" />
+  </ItemGroup>
+
+</Project>

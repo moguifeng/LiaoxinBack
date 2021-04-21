@@ -1,0 +1,12 @@
+2019-08-13 09:24:43.671 +08:00 [INF] 获取彩种失败
+Zzb.ZzbException: 无可用数据
+   at AllLottery.Controllers.LotteryController.<>c__DisplayClass21_0.<GetLotteryDetail>b__0() in C:\myFile\project\AllLottery\AllLottery\AllLottery\Controllers\LotteryController.cs:line 120
+   at Zzb.Mvc.BaseApiController.Json(Func`1 action, String error) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseApiController.cs:line 36
+2019-08-13 09:26:20.221 +08:00 [INF] 获取彩种失败
+Zzb.ZzbException: 无可用数据
+   at AllLottery.Controllers.LotteryController.<>c__DisplayClass21_0.<GetLotteryDetail>b__0() in C:\myFile\project\AllLottery\AllLottery\AllLottery\Controllers\LotteryController.cs:line 120
+   at Zzb.Mvc.BaseApiController.Json(Func`1 action, String error) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseApiController.cs:line 36
+2019-08-13 09:26:29.648 +08:00 [INF] 获取彩种失败
+Zzb.ZzbException: 无可用数据
+   at AllLottery.Controllers.LotteryController.<>c__DisplayClass21_0.<GetLotteryDetail>b__0() in C:\myFile\project\AllLottery\AllLottery\AllLottery\Controllers\LotteryController.cs:line 120
+   at Zzb.Mvc.BaseApiController.Json(Func`1 action, String error) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseApiController.cs:line 36
