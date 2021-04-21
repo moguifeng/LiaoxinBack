@@ -131,7 +131,6 @@ F:\liaoxin\LiaoxinBack\AllLottery\AllLottery.Test\bin\Debug\netcoreapp2.2\Micros
 F:\liaoxin\LiaoxinBack\AllLottery\AllLottery.Test\bin\Debug\netcoreapp2.2\Microsoft.AspNetCore.Authentication.Cookies.xml
 F:\liaoxin\LiaoxinBack\AllLottery\AllLottery.Test\bin\Debug\netcoreapp2.2\Microsoft.AspNetCore.Mvc.Abstractions.xml
 F:\liaoxin\LiaoxinBack\AllLottery\AllLottery.Test\bin\Debug\netcoreapp2.2\Microsoft.AspNetCore.Authorization.xml
-F:\liaoxin\LiaoxinBack\AllLottery\AllLottery.Test\obj\Debug\netcoreapp2.2\AllLottery.Test.csprojAssemblyReference.cache
 F:\liaoxin\LiaoxinBack\AllLottery\AllLottery.Test\obj\Debug\netcoreapp2.2\AllLottery.Test.AssemblyInfoInputs.cache
 F:\liaoxin\LiaoxinBack\AllLottery\AllLottery.Test\obj\Debug\netcoreapp2.2\AllLottery.Test.AssemblyInfo.cs
 F:\liaoxin\LiaoxinBack\AllLottery\AllLottery.Test\obj\Debug\netcoreapp2.2\AllLottery.Test.csproj.CoreCompileInputs.cache

@@ -59,7 +59,6 @@ C:\liaoxin\AllLottery\Zzb\obj\Debug\netcoreapp2.2\Zzb.csproj.CopyComplete
 C:\liaoxin\AllLottery\Zzb\obj\Debug\netcoreapp2.2\Zzb.dll
 C:\liaoxin\AllLottery\Zzb\obj\Debug\netcoreapp2.2\Zzb.pdb
 C:\liaoxin\AllLottery\Zzb\obj\Debug\netcoreapp2.2\Zzb.csprojAssemblyReference.cache
-F:\liaoxin\LiaoxinBack\AllLottery\Zzb\obj\Debug\netcoreapp2.2\Zzb.csprojAssemblyReference.cache
 F:\liaoxin\LiaoxinBack\AllLottery\Zzb\obj\Debug\netcoreapp2.2\Zzb.AssemblyInfoInputs.cache
 F:\liaoxin\LiaoxinBack\AllLottery\Zzb\obj\Debug\netcoreapp2.2\Zzb.AssemblyInfo.cs
 F:\liaoxin\LiaoxinBack\AllLottery\Zzb\obj\Debug\netcoreapp2.2\Zzb.csproj.CoreCompileInputs.cache
