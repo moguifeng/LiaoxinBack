@@ -1,5 +1,0 @@
-2019-08-22 20:31:02.502 +08:00 [INF] 登陆失败
-Zzb.ZzbException: 验证码错误
-   at AllLottery.Business.PlayerService.Login(String name, String password, String code, Boolean isApp) in C:\myFile\project\AllLottery\AllLottery\AllLottery.Business\PlayerService.cs:line 32
-   at AllLottery.Controllers.PlayerController.<>c__DisplayClass8_0.<Login>b__0() in C:\myFile\project\AllLottery\AllLottery\AllLottery\Controllers\PlayerController.cs:line 33
-   at Zzb.Mvc.BaseApiController.Json(Func`1 action, String error) in C:\myFile\project\AllLottery\AllLottery\Zzb\Mvc\BaseApiController.cs:line 36
