@@ -23,8 +23,7 @@ namespace Zzb.Token
         protected override Task<AuthenticateResult> HandleAuthenticateAsync()
         {
             if (UserContext.Current.IsAuthenticated)
-            {
-                // 一定要指定authenticationType，否则isAuthenticated始终为false
+            {                
                 var identity = new ClaimsIdentity(TokenDefaults.AuthenticationScheme);
                 identity.AddClaim(new Claim(ClaimTypes.Sid, UserContext.Current.Id.ToString()));
                 identity.AddClaim(new Claim(ClaimTypes.Name, UserContext.Current.Name));
@@ -38,24 +37,12 @@ namespace Zzb.Token
 
         protected override async Task HandleChallengeAsync(AuthenticationProperties properties)
         {
-            //if (Request.IsAjaxRequest())
-            //{
+           
             await Task.Run(() =>
             {
                 Response.StatusCode = 401;
             });
             
-         //   Response.ContentType = "application/json";
-         //   await Response.WriteAsync(JsonConvert.SerializeObject(new { Success = false, Msg = "Not Authenticated", ErrCode = "401" }));
-            //}
-            //else
-            //{
-            //    var redirectUri = properties.RedirectUri;
-            //    if (string.IsNullOrEmpty(redirectUri))
-            //        redirectUri = OriginalPathBase + Request.Path + Request.QueryString;
-            //    var loginUri = Options.LoginPath + QueryString.Create(Options.ReturnUrlParameter, redirectUri);
-            //    Response.Redirect(BuildRedirectUri(loginUri));
-            //}
         }
     }
 }

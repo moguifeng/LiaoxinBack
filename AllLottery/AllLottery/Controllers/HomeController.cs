@@ -125,6 +125,7 @@ namespace AllLottery.Controllers
         }
 
      
+        [NonAction]
         public override List<RouterMenuModel> CreateMenu()
         {
             return new List<RouterMenuModel>()
