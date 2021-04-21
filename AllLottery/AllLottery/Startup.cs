@@ -158,12 +158,7 @@ namespace AllLottery
                      var xmlPath = Path.Combine(basePath, "AllLottery.xml");
                      c.IncludeXmlComments(xmlPath);
 
-                     //c.SchemaGeneratorOptions.SchemaIdSelector = type => type.FullName;
-                     //c.AddSecurityRequirement(new OpenApiSecurityRequirement
-                     //    {{new OpenApiSecurityScheme {Reference = new OpenApiReference {Type = ReferenceType.SecurityScheme, Id = "token"}}, new string[] { }}});
-                     //var filePath = Path.Combine(AppContext.BaseDirectory, "LiaoXin.xml");
-                     //if (File.Exists(filePath))
-                     //    c.IncludeXmlComments(filePath);
+          
                  });
             services.AddMvc(o => { o.Filters.Add<LogFilter>(); }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
