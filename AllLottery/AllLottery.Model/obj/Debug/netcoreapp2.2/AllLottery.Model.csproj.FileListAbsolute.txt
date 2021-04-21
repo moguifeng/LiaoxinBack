@@ -77,3 +77,4 @@ F:\liaoxin\LiaoxinBack\AllLottery\AllLottery.Model\obj\Debug\netcoreapp2.2\AllLo
 F:\liaoxin\LiaoxinBack\AllLottery\AllLottery.Model\obj\Debug\netcoreapp2.2\AllLottery.Model.csproj.CopyComplete
 F:\liaoxin\LiaoxinBack\AllLottery\AllLottery.Model\obj\Debug\netcoreapp2.2\AllLottery.Model.dll
 F:\liaoxin\LiaoxinBack\AllLottery\AllLottery.Model\obj\Debug\netcoreapp2.2\AllLottery.Model.pdb
+F:\liaoxin\LiaoxinBack\AllLottery\AllLottery.Model\obj\Debug\netcoreapp2.2\AllLottery.Model.csprojAssemblyReference.cache

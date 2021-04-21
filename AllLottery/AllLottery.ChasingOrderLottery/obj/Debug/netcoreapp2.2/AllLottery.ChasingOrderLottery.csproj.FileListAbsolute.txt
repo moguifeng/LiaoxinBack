@@ -126,3 +126,4 @@ F:\liaoxin\LiaoxinBack\AllLottery\AllLottery.ChasingOrderLottery\obj\Debug\netco
 F:\liaoxin\LiaoxinBack\AllLottery\AllLottery.ChasingOrderLottery\obj\Debug\netcoreapp2.2\AllLottery.ChasingOrderLottery.dll
 F:\liaoxin\LiaoxinBack\AllLottery\AllLottery.ChasingOrderLottery\obj\Debug\netcoreapp2.2\AllLottery.ChasingOrderLottery.pdb
 F:\liaoxin\LiaoxinBack\AllLottery\AllLottery.ChasingOrderLottery\obj\Debug\netcoreapp2.2\AllLottery.ChasingOrderLottery.genruntimeconfig.cache
+F:\liaoxin\LiaoxinBack\AllLottery\AllLottery.ChasingOrderLottery\obj\Debug\netcoreapp2.2\AllLottery.ChasingOrderLottery.csprojAssemblyReference.cache

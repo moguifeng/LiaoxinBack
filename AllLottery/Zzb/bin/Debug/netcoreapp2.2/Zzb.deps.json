@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.2",
-    "signature": "ab1963e6a1726b017c8d95ccd358c03ea8f5195c"
+    "signature": ""
   },
   "compilationOptions": {},
   "targets": {
@@ -21,12 +21,9 @@
           "System.Text.Encoding.CodePages": "4.5.1",
           "Tuhu.Extensions.Configuration.ValueBinder.Json": "1.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "2.2.0.0",
-          "Microsoft.AspNetCore.Authentication.JwtBearer": "2.2.0.0",
           "Microsoft.AspNetCore.Authorization": "2.2.0.0",
           "Microsoft.AspNetCore.Mvc.Abstractions": "2.2.0.0",
-          "Microsoft.AspNetCore.Mvc.Core": "2.2.0.0",
-          "Microsoft.IdentityModel.Tokens": "5.3.0.0",
-          "System.IdentityModel.Tokens.Jwt": "5.3.0.0"
+          "Microsoft.AspNetCore.Mvc.Core": "2.2.0.0"
         },
         "runtime": {
           "Zzb.dll": {}
@@ -833,16 +830,6 @@
           "System.Runtime.Extensions": "4.3.0",
           "System.Threading": "4.3.0",
           "runtime.native.System": "4.3.0"
-        },
-        "runtimeTargets": {
-          "runtime/unix/lib/_._": {
-            "rid": "unix",
-            "assetType": "runtime"
-          },
-          "runtime/win/lib/_._": {
-            "rid": "win",
-            "assetType": "runtime"
-          }
         }
       },
       "System.Drawing.Common/4.5.1": {
@@ -903,16 +890,6 @@
           "System.Runtime": "4.3.0",
           "System.Runtime.Extensions": "4.3.0",
           "System.Runtime.InteropServices": "4.3.0"
-        },
-        "runtimeTargets": {
-          "runtime/unix/lib/_._": {
-            "rid": "unix",
-            "assetType": "runtime"
-          },
-          "runtime/win/lib/_._": {
-            "rid": "win",
-            "assetType": "runtime"
-          }
         }
       },
       "System.Interactive.Async/3.2.0": {
@@ -1120,14 +1097,7 @@
           }
         }
       },
-      "System.Security.Cryptography.Cng/4.5.0": {
-        "runtimeTargets": {
-          "runtime/win/lib/_._": {
-            "rid": "win",
-            "assetType": "runtime"
-          }
-        }
-      },
+      "System.Security.Cryptography.Cng/4.5.0": {},
       "System.Security.Cryptography.Pkcs/4.5.0": {
         "dependencies": {
           "System.Security.Cryptography.Cng": "4.5.0"
@@ -1355,14 +1325,6 @@
           }
         }
       },
-      "Microsoft.AspNetCore.Authentication.JwtBearer/2.2.0.0": {
-        "runtime": {
-          "Microsoft.AspNetCore.Authentication.JwtBearer.dll": {
-            "assemblyVersion": "2.2.0.0",
-            "fileVersion": "2.2.0.18316"
-          }
-        }
-      },
       "Microsoft.AspNetCore.Authorization/2.2.0.0": {
         "runtime": {
           "Microsoft.AspNetCore.Authorization.dll": {
@@ -1384,22 +1346,6 @@
           "Microsoft.AspNetCore.Mvc.Core.dll": {
             "assemblyVersion": "2.2.0.0",
             "fileVersion": "2.2.0.0"
-          }
-        }
-      },
-      "Microsoft.IdentityModel.Tokens/5.3.0.0": {
-        "runtime": {
-          "Microsoft.IdentityModel.Tokens.dll": {
-            "assemblyVersion": "5.3.0.0",
-            "fileVersion": "5.3.0.51005"
-          }
-        }
-      },
-      "System.IdentityModel.Tokens.Jwt/5.3.0.0": {
-        "runtime": {
-          "System.IdentityModel.Tokens.Jwt.dll": {
-            "assemblyVersion": "5.3.0.0",
-            "fileVersion": "5.3.0.51005"
           }
         }
       }
@@ -2256,11 +2202,6 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Microsoft.AspNetCore.Authentication.JwtBearer/2.2.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
     "Microsoft.AspNetCore.Authorization/2.2.0.0": {
       "type": "reference",
       "serviceable": false,
@@ -2272,16 +2213,6 @@
       "sha512": ""
     },
     "Microsoft.AspNetCore.Mvc.Core/2.2.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Microsoft.IdentityModel.Tokens/5.3.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "System.IdentityModel.Tokens.Jwt/5.3.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

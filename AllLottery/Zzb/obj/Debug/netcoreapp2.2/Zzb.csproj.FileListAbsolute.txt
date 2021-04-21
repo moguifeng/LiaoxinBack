@@ -65,3 +65,15 @@ F:\liaoxin\LiaoxinBack\AllLottery\Zzb\obj\Debug\netcoreapp2.2\Zzb.AssemblyInfo.c
 F:\liaoxin\LiaoxinBack\AllLottery\Zzb\obj\Debug\netcoreapp2.2\Zzb.csproj.CoreCompileInputs.cache
 F:\liaoxin\LiaoxinBack\AllLottery\Zzb\obj\Debug\netcoreapp2.2\Zzb.dll
 F:\liaoxin\LiaoxinBack\AllLottery\Zzb\obj\Debug\netcoreapp2.2\Zzb.pdb
+F:\liaoxin\LiaoxinBack\AllLottery\Zzb\bin\Debug\netcoreapp2.2\Zzb.deps.json
+F:\liaoxin\LiaoxinBack\AllLottery\Zzb\bin\Debug\netcoreapp2.2\Zzb.dll
+F:\liaoxin\LiaoxinBack\AllLottery\Zzb\bin\Debug\netcoreapp2.2\Zzb.pdb
+F:\liaoxin\LiaoxinBack\AllLottery\Zzb\bin\Debug\netcoreapp2.2\Microsoft.AspNetCore.Authentication.Cookies.dll
+F:\liaoxin\LiaoxinBack\AllLottery\Zzb\bin\Debug\netcoreapp2.2\Microsoft.AspNetCore.Authorization.dll
+F:\liaoxin\LiaoxinBack\AllLottery\Zzb\bin\Debug\netcoreapp2.2\Microsoft.AspNetCore.Mvc.Abstractions.dll
+F:\liaoxin\LiaoxinBack\AllLottery\Zzb\bin\Debug\netcoreapp2.2\Microsoft.AspNetCore.Mvc.Core.dll
+F:\liaoxin\LiaoxinBack\AllLottery\Zzb\bin\Debug\netcoreapp2.2\Microsoft.AspNetCore.Authentication.Cookies.xml
+F:\liaoxin\LiaoxinBack\AllLottery\Zzb\bin\Debug\netcoreapp2.2\Microsoft.AspNetCore.Authorization.xml
+F:\liaoxin\LiaoxinBack\AllLottery\Zzb\bin\Debug\netcoreapp2.2\Microsoft.AspNetCore.Mvc.Abstractions.xml
+F:\liaoxin\LiaoxinBack\AllLottery\Zzb\bin\Debug\netcoreapp2.2\Microsoft.AspNetCore.Mvc.Core.xml
+F:\liaoxin\LiaoxinBack\AllLottery\Zzb\obj\Debug\netcoreapp2.2\Zzb.csproj.CopyComplete
