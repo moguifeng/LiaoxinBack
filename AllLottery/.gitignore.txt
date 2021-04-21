@@ -1,0 +1,2 @@
+/AllLottery/bin/
+/AllLottery/obj/
