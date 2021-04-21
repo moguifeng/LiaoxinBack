@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.2",
-    "signature": "ab1963e6a1726b017c8d95ccd358c03ea8f5195c"
+    "signature": ""
   },
   "compilationOptions": {},
   "targets": {
@@ -819,16 +819,6 @@
           "System.Runtime.Extensions": "4.3.0",
           "System.Threading": "4.3.0",
           "runtime.native.System": "4.3.0"
-        },
-        "runtimeTargets": {
-          "runtime/unix/lib/_._": {
-            "rid": "unix",
-            "assetType": "runtime"
-          },
-          "runtime/win/lib/_._": {
-            "rid": "win",
-            "assetType": "runtime"
-          }
         }
       },
       "System.Drawing.Common/4.5.1": {
@@ -889,16 +879,6 @@
           "System.Runtime": "4.3.0",
           "System.Runtime.Extensions": "4.3.0",
           "System.Runtime.InteropServices": "4.3.0"
-        },
-        "runtimeTargets": {
-          "runtime/unix/lib/_._": {
-            "rid": "unix",
-            "assetType": "runtime"
-          },
-          "runtime/win/lib/_._": {
-            "rid": "win",
-            "assetType": "runtime"
-          }
         }
       },
       "System.Interactive.Async/3.2.0": {
@@ -1106,14 +1086,7 @@
           }
         }
       },
-      "System.Security.Cryptography.Cng/4.5.0": {
-        "runtimeTargets": {
-          "runtime/win/lib/_._": {
-            "rid": "win",
-            "assetType": "runtime"
-          }
-        }
-      },
+      "System.Security.Cryptography.Cng/4.5.0": {},
       "System.Security.Cryptography.Pkcs/4.5.0": {
         "dependencies": {
           "System.Security.Cryptography.Cng": "4.5.0"
@@ -1373,10 +1346,7 @@
           "StackExchange.Redis": "2.2.4",
           "System.Drawing.Common": "4.5.1",
           "System.Text.Encoding.CodePages": "4.5.1",
-          "Tuhu.Extensions.Configuration.ValueBinder.Json": "1.0.0",
-          "Microsoft.AspNetCore.Mvc.Core": "2.2.0.0",
-          "Microsoft.AspNetCore.Mvc.Abstractions": "2.2.0.0",
-          "Microsoft.AspNetCore.Authorization": "2.2.0.0"
+          "Tuhu.Extensions.Configuration.ValueBinder.Json": "1.0.0"
         },
         "runtime": {
           "Zzb.dll": {}
@@ -1390,7 +1360,7 @@
           }
         }
       },
-      "Microsoft.AspNetCore.Mvc.Core.Reference/2.2.0.0": {
+      "Microsoft.AspNetCore.Mvc.Core/2.2.0.0": {
         "runtime": {
           "Microsoft.AspNetCore.Mvc.Core.dll": {
             "assemblyVersion": "2.2.0.0",
@@ -1398,7 +1368,7 @@
           }
         }
       },
-      "Microsoft.AspNetCore.Mvc.Abstractions.Reference/2.2.0.0": {
+      "Microsoft.AspNetCore.Mvc.Abstractions/2.2.0.0": {
         "runtime": {
           "Microsoft.AspNetCore.Mvc.Abstractions.dll": {
             "assemblyVersion": "2.2.0.0",
@@ -1406,7 +1376,7 @@
           }
         }
       },
-      "Microsoft.AspNetCore.Authorization.Reference/2.2.0.0": {
+      "Microsoft.AspNetCore.Authorization/2.2.0.0": {
         "runtime": {
           "Microsoft.AspNetCore.Authorization.dll": {
             "assemblyVersion": "2.2.0.0",
@@ -2287,17 +2257,17 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Microsoft.AspNetCore.Mvc.Core.Reference/2.2.0.0": {
+    "Microsoft.AspNetCore.Mvc.Core/2.2.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
     },
-    "Microsoft.AspNetCore.Mvc.Abstractions.Reference/2.2.0.0": {
+    "Microsoft.AspNetCore.Mvc.Abstractions/2.2.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
     },
-    "Microsoft.AspNetCore.Authorization.Reference/2.2.0.0": {
+    "Microsoft.AspNetCore.Authorization/2.2.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

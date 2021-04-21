@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\liaoxin\\AllLottery\\AllLottery.Model\\AllLottery.Model.csproj": {}
+    "F:\\liaoxin\\LiaoxinBack\\AllLottery\\AllLottery.Model\\AllLottery.Model.csproj": {}
   },
   "projects": {
-    "C:\\liaoxin\\AllLottery\\AllLottery.Model\\AllLottery.Model.csproj": {
+    "F:\\liaoxin\\LiaoxinBack\\AllLottery\\AllLottery.Model\\AllLottery.Model.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\liaoxin\\AllLottery\\AllLottery.Model\\AllLottery.Model.csproj",
+        "projectUniqueName": "F:\\liaoxin\\LiaoxinBack\\AllLottery\\AllLottery.Model\\AllLottery.Model.csproj",
         "projectName": "AllLottery.Model",
-        "projectPath": "C:\\liaoxin\\AllLottery\\AllLottery.Model\\AllLottery.Model.csproj",
-        "packagesPath": "C:\\Users\\33179\\.nuget\\packages\\",
-        "outputPath": "C:\\liaoxin\\AllLottery\\AllLottery.Model\\obj\\",
+        "projectPath": "F:\\liaoxin\\LiaoxinBack\\AllLottery\\AllLottery.Model\\AllLottery.Model.csproj",
+        "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
+        "outputPath": "F:\\liaoxin\\LiaoxinBack\\AllLottery\\AllLottery.Model\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\33179\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -25,13 +25,15 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "http://192.168.1.138:82/nuget/": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp2.2": {
+            "targetAlias": "netcoreapp2.2",
             "projectReferences": {
-              "C:\\liaoxin\\AllLottery\\Zzb\\Zzb.csproj": {
-                "projectPath": "C:\\liaoxin\\AllLottery\\Zzb\\Zzb.csproj"
+              "F:\\liaoxin\\LiaoxinBack\\AllLottery\\Zzb\\Zzb.csproj": {
+                "projectPath": "F:\\liaoxin\\LiaoxinBack\\AllLottery\\Zzb\\Zzb.csproj"
               }
             }
           }
@@ -44,6 +46,7 @@
       },
       "frameworks": {
         "netcoreapp2.2": {
+          "targetAlias": "netcoreapp2.2",
           "dependencies": {
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
@@ -61,27 +64,33 @@
             }
           },
           "imports": [
-            "net461"
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
           ],
           "assetTargetFallback": true,
-          "warn": true
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\liaoxin\\AllLottery\\Zzb\\Zzb.csproj": {
+    "F:\\liaoxin\\LiaoxinBack\\AllLottery\\Zzb\\Zzb.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\liaoxin\\AllLottery\\Zzb\\Zzb.csproj",
+        "projectUniqueName": "F:\\liaoxin\\LiaoxinBack\\AllLottery\\Zzb\\Zzb.csproj",
         "projectName": "Zzb",
-        "projectPath": "C:\\liaoxin\\AllLottery\\Zzb\\Zzb.csproj",
-        "packagesPath": "C:\\Users\\33179\\.nuget\\packages\\",
-        "outputPath": "C:\\liaoxin\\AllLottery\\Zzb\\obj\\",
+        "projectPath": "F:\\liaoxin\\LiaoxinBack\\AllLottery\\Zzb\\Zzb.csproj",
+        "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
+        "outputPath": "F:\\liaoxin\\LiaoxinBack\\AllLottery\\Zzb\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\33179\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -89,10 +98,12 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "http://192.168.1.138:82/nuget/": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp2.2": {
+            "targetAlias": "netcoreapp2.2",
             "projectReferences": {}
           }
         },
@@ -104,6 +115,7 @@
       },
       "frameworks": {
         "netcoreapp2.2": {
+          "targetAlias": "netcoreapp2.2",
           "dependencies": {
             "Autofac": {
               "target": "Package",
@@ -161,10 +173,16 @@
             }
           },
           "imports": [
-            "net461"
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
           ],
           "assetTargetFallback": true,
-          "warn": true
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }
