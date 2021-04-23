@@ -5,6 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20210423093250_CreateCilent.cs" />
+    <Compile Remove="Migrations\20210423093250_CreateCilent.Designer.cs" />
+    <Compile Remove="Migrations\20210423093428_CreateClientAgain.cs" />
+    <Compile Remove="Migrations\20210423093428_CreateClientAgain.Designer.cs" />
+    <Compile Remove="Migrations\20210423094747_CreateClientAgain.cs" />
+    <Compile Remove="Migrations\20210423094747_CreateClientAgain.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.0">
       <PrivateAssets>all</PrivateAssets>

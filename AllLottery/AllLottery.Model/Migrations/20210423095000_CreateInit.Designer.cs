@@ -9,15 +9,51 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AllLottery.Model.Migrations
 {
     [DbContext(typeof(LotteryContext))]
-    [Migration("20190409135814_Create1")]
-    partial class Create1
+    [Migration("20210423095000_CreateInit")]
+    partial class CreateInit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.0-rtm-35687")
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            modelBuilder.Entity("AllLottery.Model.ActivityAnnouncement", b =>
+                {
+                    b.Property<int>("ActivityAnnouncementId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AffixId");
+
+                    b.Property<DateTime>("BeginTime");
+
+                    b.Property<string>("Content");
+
+                    b.Property<DateTime>("CreateTime");
+
+                    b.Property<DateTime>("EndTime");
+
+                    b.Property<bool>("IsEnable");
+
+                    b.Property<int>("SortIndex");
+
+                    b.Property<string>("Title");
+
+                    b.Property<DateTime>("UpdateTime");
+
+                    b.HasKey("ActivityAnnouncementId");
+
+                    b.HasIndex("AffixId");
+
+                    b.HasIndex("CreateTime");
+
+                    b.HasIndex("IsEnable");
+
+                    b.HasIndex("UpdateTime");
+
+                    b.ToTable("ActivityAnnouncements");
+                });
 
             modelBuilder.Entity("AllLottery.Model.Announcement", b =>
                 {
@@ -157,6 +193,186 @@ namespace AllLottery.Model.Migrations
                     b.HasIndex("UpdateTime");
 
                     b.ToTable("BetModes");
+                });
+
+            modelBuilder.Entity("AllLottery.Model.ChasingOrder", b =>
+                {
+                    b.Property<int>("ChasingOrderId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("BetModeId");
+
+                    b.Property<string>("BetNo");
+
+                    b.Property<DateTime>("CreateTime");
+
+                    b.Property<bool>("IsEnable");
+
+                    b.Property<bool>("IsWinStop");
+
+                    b.Property<int>("LotteryPlayDetailId");
+
+                    b.Property<string>("Order")
+                        .HasMaxLength(100);
+
+                    b.Property<int>("PlayerId");
+
+                    b.Property<int>("Status");
+
+                    b.Property<DateTime>("UpdateTime");
+
+                    b.Property<DateTime?>("Version")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.HasKey("ChasingOrderId");
+
+                    b.HasIndex("BetModeId");
+
+                    b.HasIndex("CreateTime");
+
+                    b.HasIndex("IsEnable");
+
+                    b.HasIndex("LotteryPlayDetailId");
+
+                    b.HasIndex("Order");
+
+                    b.HasIndex("PlayerId");
+
+                    b.HasIndex("UpdateTime");
+
+                    b.ToTable("ChasingOrders");
+                });
+
+            modelBuilder.Entity("AllLottery.Model.ChasingOrderDetail", b =>
+                {
+                    b.Property<int>("ChasingOrderDetailId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("BetId");
+
+                    b.Property<decimal>("BetMoney")
+                        .HasColumnType("decimal(18, 6)");
+
+                    b.Property<int>("ChasingOrderId");
+
+                    b.Property<DateTime>("CreateTime");
+
+                    b.Property<int>("Index");
+
+                    b.Property<bool>("IsEnable");
+
+                    b.Property<string>("Number");
+
+                    b.Property<int>("Times");
+
+                    b.Property<DateTime>("UpdateTime");
+
+                    b.Property<DateTime?>("Version")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.HasKey("ChasingOrderDetailId");
+
+                    b.HasIndex("BetId");
+
+                    b.HasIndex("ChasingOrderId");
+
+                    b.HasIndex("CreateTime");
+
+                    b.HasIndex("IsEnable");
+
+                    b.HasIndex("UpdateTime");
+
+                    b.ToTable("ChasingOrderDetails");
+                });
+
+            modelBuilder.Entity("AllLottery.Model.Client", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("AddMeNeedChecked");
+
+                    b.Property<string>("CharacterSignature");
+
+                    b.Property<int>("City");
+
+                    b.Property<decimal>("Coin")
+                        .HasColumnType("decimal(18, 6)");
+
+                    b.Property<string>("CoinPassword");
+
+                    b.Property<int>("Country");
+
+                    b.Property<string>("Cover");
+
+                    b.Property<DateTime>("CreateTime");
+
+                    b.Property<int>("CurrentDeviceId");
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("HuanXinId");
+
+                    b.Property<bool>("IsEnable");
+
+                    b.Property<string>("LiaoxinNumber")
+                        .HasMaxLength(20);
+
+                    b.Property<string>("NickName")
+                        .HasMaxLength(20);
+
+                    b.Property<string>("Password");
+
+                    b.Property<string>("Phone");
+
+                    b.Property<int>("Province");
+
+                    b.Property<int>("ShowFriendCircle");
+
+                    b.Property<bool>("UpadteMind");
+
+                    b.Property<DateTime>("UpdateTime");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreateTime");
+
+                    b.HasIndex("IsEnable");
+
+                    b.HasIndex("LiaoxinNumber")
+                        .IsUnique();
+
+                    b.HasIndex("UpdateTime");
+
+                    b.ToTable("Clients");
+                });
+
+            modelBuilder.Entity("AllLottery.Model.ClientBlack", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreateTime");
+
+                    b.Property<int>("FromClientId");
+
+                    b.Property<bool>("IsEnable");
+
+                    b.Property<int>("ToClientId");
+
+                    b.Property<DateTime>("UpdateTime");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreateTime");
+
+                    b.HasIndex("IsEnable");
+
+                    b.HasIndex("UpdateTime");
+
+                    b.ToTable("ClientBlacks");
                 });
 
             modelBuilder.Entity("AllLottery.Model.CoinLog", b =>
@@ -419,6 +635,8 @@ namespace AllLottery.Model.Migrations
 
                     b.Property<int>("Rule");
 
+                    b.Property<string>("TestRow");
+
                     b.Property<DateTime>("UpdateTime");
 
                     b.HasKey("GiftEventId");
@@ -439,14 +657,12 @@ namespace AllLottery.Model.Migrations
 
                     b.Property<DateTime>("CreateTime");
 
-                    b.Property<int>("GiftEventId");
-
                     b.Property<decimal>("GiftMoney")
                         .HasColumnType("decimal(18, 6)");
 
                     b.Property<bool>("IsEnable");
 
-                    b.Property<int>("RechargeId");
+                    b.Property<int>("PlayerId");
 
                     b.Property<DateTime>("UpdateTime");
 
@@ -454,11 +670,9 @@ namespace AllLottery.Model.Migrations
 
                     b.HasIndex("CreateTime");
 
-                    b.HasIndex("GiftEventId");
-
                     b.HasIndex("IsEnable");
 
-                    b.HasIndex("RechargeId");
+                    b.HasIndex("PlayerId");
 
                     b.HasIndex("UpdateTime");
 
@@ -513,6 +727,10 @@ namespace AllLottery.Model.Migrations
 
                     b.Property<DateTime>("UpdateTime");
 
+                    b.Property<DateTime?>("Version")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
                     b.HasKey("LotteryDataId");
 
                     b.HasIndex("CreateTime");
@@ -523,11 +741,12 @@ namespace AllLottery.Model.Migrations
 
                     b.HasIndex("LotteryDataId");
 
-                    b.HasIndex("LotteryTypeId");
-
                     b.HasIndex("Time");
 
                     b.HasIndex("UpdateTime");
+
+                    b.HasIndex("LotteryTypeId", "Number")
+                        .IsUnique();
 
                     b.ToTable("LotteryDatas");
                 });
@@ -576,6 +795,11 @@ namespace AllLottery.Model.Migrations
                     b.Property<bool>("IsEnable");
 
                     b.Property<int>("LotteryPlayTypeId");
+
+                    b.Property<int?>("MaxBetCount");
+
+                    b.Property<decimal>("MaxBetMoney")
+                        .HasColumnType("decimal(18, 6)");
 
                     b.Property<decimal>("MaxOdds")
                         .HasColumnType("decimal(18, 6)");
@@ -639,6 +863,9 @@ namespace AllLottery.Model.Migrations
                     b.Property<int>("LotteryTypeId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<decimal>("BetMoney")
+                        .HasColumnType("decimal(18, 6)");
+
                     b.Property<int>("CalType");
 
                     b.Property<DateTime>("CreateTime");
@@ -661,6 +888,8 @@ namespace AllLottery.Model.Migrations
 
                     b.Property<int>("NumberLength");
 
+                    b.Property<DateTime>("ReportDate");
+
                     b.Property<TimeSpan>("RiskTime");
 
                     b.Property<int>("SortIndex");
@@ -668,6 +897,16 @@ namespace AllLottery.Model.Migrations
                     b.Property<string>("SpiderName");
 
                     b.Property<DateTime>("UpdateTime");
+
+                    b.Property<DateTime?>("Version")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<decimal>("WinMoney")
+                        .HasColumnType("decimal(18, 6)");
+
+                    b.Property<decimal>("WinRate")
+                        .HasColumnType("decimal(18, 6)");
 
                     b.HasKey("LotteryTypeId");
 
@@ -680,6 +919,8 @@ namespace AllLottery.Model.Migrations
                     b.HasIndex("LotteryClassifyId");
 
                     b.HasIndex("LotteryTypeId");
+
+                    b.HasIndex("ReportDate");
 
                     b.HasIndex("UpdateTime");
 
@@ -789,6 +1030,102 @@ namespace AllLottery.Model.Migrations
                     b.ToTable("Messages");
                 });
 
+            modelBuilder.Entity("AllLottery.Model.NotReportPlayer", b =>
+                {
+                    b.Property<int>("NotReportPlayerId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreateTime");
+
+                    b.Property<bool>("IsEnable");
+
+                    b.Property<int>("PlayerId");
+
+                    b.Property<DateTime>("UpdateTime");
+
+                    b.HasKey("NotReportPlayerId");
+
+                    b.HasIndex("CreateTime");
+
+                    b.HasIndex("IsEnable");
+
+                    b.HasIndex("PlayerId")
+                        .IsUnique();
+
+                    b.HasIndex("UpdateTime");
+
+                    b.ToTable("NotReportPlayers");
+                });
+
+            modelBuilder.Entity("AllLottery.Model.PictureNews", b =>
+                {
+                    b.Property<int>("PictureNewsId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AffixId");
+
+                    b.Property<DateTime>("CreateTime");
+
+                    b.Property<bool>("IsEnable");
+
+                    b.Property<int>("SortIndex");
+
+                    b.Property<DateTime>("UpdateTime");
+
+                    b.Property<string>("Url");
+
+                    b.HasKey("PictureNewsId");
+
+                    b.HasIndex("AffixId");
+
+                    b.HasIndex("CreateTime");
+
+                    b.HasIndex("IsEnable");
+
+                    b.HasIndex("UpdateTime");
+
+                    b.ToTable("PictureNewses");
+                });
+
+            modelBuilder.Entity("AllLottery.Model.Platform", b =>
+                {
+                    b.Property<int>("PlatformId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AffixId");
+
+                    b.Property<DateTime>("CreateTime");
+
+                    b.Property<string>("Description");
+
+                    b.Property<bool>("IsEnable");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("SortIndex");
+
+                    b.Property<int>("Type");
+
+                    b.Property<DateTime>("UpdateTime");
+
+                    b.Property<string>("Value");
+
+                    b.HasKey("PlatformId");
+
+                    b.HasIndex("AffixId");
+
+                    b.HasIndex("CreateTime");
+
+                    b.HasIndex("IsEnable");
+
+                    b.HasIndex("UpdateTime");
+
+                    b.HasIndex("Value")
+                        .IsUnique();
+
+                    b.ToTable("Platforms");
+                });
+
             modelBuilder.Entity("AllLottery.Model.PlatformMoneyLog", b =>
                 {
                     b.Property<int>("PlatformMoneyLogId")
@@ -801,7 +1138,7 @@ namespace AllLottery.Model.Migrations
 
                     b.Property<bool>("IsEnable");
 
-                    b.Property<int>("PlatformType");
+                    b.Property<int>("PlatformId");
 
                     b.Property<int>("PlayerId");
 
@@ -812,6 +1149,8 @@ namespace AllLottery.Model.Migrations
                     b.HasIndex("CreateTime");
 
                     b.HasIndex("IsEnable");
+
+                    b.HasIndex("PlatformId");
 
                     b.HasIndex("PlayerId");
 
@@ -839,9 +1178,11 @@ namespace AllLottery.Model.Migrations
 
                     b.Property<DateTime>("CreateTime");
 
-                    b.Property<decimal?>("DailyWageRate");
+                    b.Property<decimal?>("DailyWageRate")
+                        .HasColumnType("decimal(18, 6)");
 
-                    b.Property<decimal?>("DividendRate");
+                    b.Property<decimal?>("DividendRate")
+                        .HasColumnType("decimal(18, 6)");
 
                     b.Property<decimal>("FCoin")
                         .HasColumnType("decimal(18, 6)");
@@ -878,12 +1219,18 @@ namespace AllLottery.Model.Migrations
                     b.Property<decimal>("RechargeMoney")
                         .HasColumnType("decimal(18, 6)");
 
+                    b.Property<DateTime>("ReportDate");
+
                     b.Property<string>("Title")
                         .HasMaxLength(20);
 
                     b.Property<int>("Type");
 
                     b.Property<DateTime>("UpdateTime");
+
+                    b.Property<DateTime?>("Version")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
 
                     b.Property<string>("WeChat");
 
@@ -909,6 +1256,8 @@ namespace AllLottery.Model.Migrations
                     b.HasIndex("ParentPlayerId");
 
                     b.HasIndex("Rebate");
+
+                    b.HasIndex("ReportDate");
 
                     b.HasIndex("UpdateTime");
 
@@ -946,6 +1295,9 @@ namespace AllLottery.Model.Migrations
                     b.HasIndex("SystemBankId");
 
                     b.HasIndex("UpdateTime");
+
+                    b.HasIndex("CardNumber", "PlayerId")
+                        .IsUnique();
 
                     b.ToTable("PlayerBanks");
                 });
@@ -1003,11 +1355,12 @@ namespace AllLottery.Model.Migrations
 
                     b.HasIndex("IsEnable");
 
-                    b.HasIndex("LotteryTypeId");
-
                     b.HasIndex("PlayerId");
 
                     b.HasIndex("UpdateTime");
+
+                    b.HasIndex("LotteryTypeId", "PlayerId")
+                        .IsUnique();
 
                     b.ToTable("PlayerLotteryTypes");
                 });
@@ -1200,6 +1553,34 @@ namespace AllLottery.Model.Migrations
                     b.ToTable("ReportCaches");
                 });
 
+            modelBuilder.Entity("AllLottery.Model.SoftwareExpired", b =>
+                {
+                    b.Property<int>("SoftwareExpiredId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreateTime");
+
+                    b.Property<DateTime>("Expired");
+
+                    b.Property<bool>("IsEnable");
+
+                    b.Property<int>("PlayerId");
+
+                    b.Property<DateTime>("UpdateTime");
+
+                    b.HasKey("SoftwareExpiredId");
+
+                    b.HasIndex("CreateTime");
+
+                    b.HasIndex("IsEnable");
+
+                    b.HasIndex("PlayerId");
+
+                    b.HasIndex("UpdateTime");
+
+                    b.ToTable("SoftwareExpireds");
+                });
+
             modelBuilder.Entity("AllLottery.Model.SystemBank", b =>
                 {
                     b.Property<int>("SystemBankId")
@@ -1213,6 +1594,8 @@ namespace AllLottery.Model.Migrations
 
                     b.Property<string>("Name")
                         .HasMaxLength(200);
+
+                    b.Property<int>("SortIndex");
 
                     b.Property<DateTime>("UpdateTime");
 
@@ -1259,18 +1642,6 @@ namespace AllLottery.Model.Migrations
                     b.HasIndex("UpdateTime");
 
                     b.ToTable("SystemConfigs");
-                });
-
-            modelBuilder.Entity("AllLottery.Model.Test", b =>
-                {
-                    b.Property<int>("TestId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("TestId");
-
-                    b.ToTable("Tests");
                 });
 
             modelBuilder.Entity("AllLottery.Model.UserOperateLog", b =>
@@ -1489,6 +1860,14 @@ namespace AllLottery.Model.Migrations
                     b.ToTable("UserInfoRoles");
                 });
 
+            modelBuilder.Entity("AllLottery.Model.ActivityAnnouncement", b =>
+                {
+                    b.HasOne("Zzb.EF.Affix", "Affix")
+                        .WithMany()
+                        .HasForeignKey("AffixId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("AllLottery.Model.Bet", b =>
                 {
                     b.HasOne("AllLottery.Model.BetMode", "BetMode")
@@ -1508,6 +1887,36 @@ namespace AllLottery.Model.Migrations
                     b.HasOne("AllLottery.Model.Player", "Player")
                         .WithMany()
                         .HasForeignKey("PlayerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("AllLottery.Model.ChasingOrder", b =>
+                {
+                    b.HasOne("AllLottery.Model.BetMode", "BetMode")
+                        .WithMany()
+                        .HasForeignKey("BetModeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("AllLottery.Model.LotteryPlayDetail", "LotteryPlayDetail")
+                        .WithMany()
+                        .HasForeignKey("LotteryPlayDetailId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("AllLottery.Model.Player", "Player")
+                        .WithMany()
+                        .HasForeignKey("PlayerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("AllLottery.Model.ChasingOrderDetail", b =>
+                {
+                    b.HasOne("AllLottery.Model.Bet", "Bet")
+                        .WithMany()
+                        .HasForeignKey("BetId");
+
+                    b.HasOne("AllLottery.Model.ChasingOrder", "ChasingOrder")
+                        .WithMany("ChasingOrderDetails")
+                        .HasForeignKey("ChasingOrderId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -1542,14 +1951,9 @@ namespace AllLottery.Model.Migrations
 
             modelBuilder.Entity("AllLottery.Model.GiftReceive", b =>
                 {
-                    b.HasOne("AllLottery.Model.GiftEvent", "GiftSetting")
+                    b.HasOne("AllLottery.Model.Player", "Player")
                         .WithMany()
-                        .HasForeignKey("GiftEventId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("AllLottery.Model.Recharge", "Recharge")
-                        .WithMany("GiftReceives")
-                        .HasForeignKey("RechargeId")
+                        .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -1610,8 +2014,37 @@ namespace AllLottery.Model.Migrations
                         .HasForeignKey("ScanAffixId");
                 });
 
+            modelBuilder.Entity("AllLottery.Model.NotReportPlayer", b =>
+                {
+                    b.HasOne("AllLottery.Model.Player", "Player")
+                        .WithMany()
+                        .HasForeignKey("PlayerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("AllLottery.Model.PictureNews", b =>
+                {
+                    b.HasOne("Zzb.EF.Affix", "Affix")
+                        .WithMany()
+                        .HasForeignKey("AffixId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("AllLottery.Model.Platform", b =>
+                {
+                    b.HasOne("Zzb.EF.Affix", "Affix")
+                        .WithMany()
+                        .HasForeignKey("AffixId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("AllLottery.Model.PlatformMoneyLog", b =>
                 {
+                    b.HasOne("AllLottery.Model.Platform", "Platform")
+                        .WithMany()
+                        .HasForeignKey("PlatformId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("AllLottery.Model.Player", "Player")
                         .WithMany()
                         .HasForeignKey("PlayerId")
@@ -1694,6 +2127,14 @@ namespace AllLottery.Model.Migrations
                         .WithMany()
                         .HasForeignKey("MerchantsBankId");
 
+                    b.HasOne("AllLottery.Model.Player", "Player")
+                        .WithMany()
+                        .HasForeignKey("PlayerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("AllLottery.Model.SoftwareExpired", b =>
+                {
                     b.HasOne("AllLottery.Model.Player", "Player")
                         .WithMany()
                         .HasForeignKey("PlayerId")

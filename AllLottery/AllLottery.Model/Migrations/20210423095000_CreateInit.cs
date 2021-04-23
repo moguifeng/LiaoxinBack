@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AllLottery.Model.Migrations
 {
-    public partial class Create : Migration
+    public partial class CreateInit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -59,6 +59,55 @@ namespace AllLottery.Model.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_BetModes", x => x.BetModeId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ClientBlacks",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CreateTime = table.Column<DateTime>(nullable: false),
+                    UpdateTime = table.Column<DateTime>(nullable: false),
+                    IsEnable = table.Column<bool>(nullable: false),
+                    FromClientId = table.Column<int>(nullable: false),
+                    ToClientId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ClientBlacks", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Clients",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CreateTime = table.Column<DateTime>(nullable: false),
+                    UpdateTime = table.Column<DateTime>(nullable: false),
+                    IsEnable = table.Column<bool>(nullable: false),
+                    Cover = table.Column<string>(nullable: true),
+                    HuanXinId = table.Column<string>(nullable: true),
+                    LiaoxinNumber = table.Column<string>(maxLength: 20, nullable: true),
+                    NickName = table.Column<string>(maxLength: 20, nullable: true),
+                    Password = table.Column<string>(nullable: true),
+                    CoinPassword = table.Column<string>(nullable: true),
+                    Coin = table.Column<decimal>(type: "decimal(18, 6)", nullable: false),
+                    Phone = table.Column<string>(nullable: true),
+                    CharacterSignature = table.Column<string>(nullable: true),
+                    Country = table.Column<int>(nullable: false),
+                    Province = table.Column<int>(nullable: false),
+                    City = table.Column<int>(nullable: false),
+                    CurrentDeviceId = table.Column<int>(nullable: false),
+                    Email = table.Column<string>(nullable: true),
+                    AddMeNeedChecked = table.Column<bool>(nullable: false),
+                    ShowFriendCircle = table.Column<int>(nullable: false),
+                    UpadteMind = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Clients", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -130,6 +179,7 @@ namespace AllLottery.Model.Migrations
                     ReceivingType = table.Column<int>(nullable: false),
                     Rule = table.Column<int>(nullable: false),
                     ReturnMoney = table.Column<decimal>(type: "decimal(18, 6)", nullable: false),
+                    TestRow = table.Column<string>(nullable: true),
                     ReturnRate = table.Column<decimal>(type: "decimal(18, 6)", nullable: false),
                     MinMoney = table.Column<decimal>(type: "decimal(18, 6)", nullable: false),
                     MaxMoney = table.Column<decimal>(type: "decimal(18, 6)", nullable: false)
@@ -219,15 +269,17 @@ namespace AllLottery.Model.Migrations
                     LastBetMoney = table.Column<decimal>(type: "decimal(18, 6)", nullable: false),
                     FCoin = table.Column<decimal>(type: "decimal(18, 6)", nullable: false),
                     ParentPlayerId = table.Column<int>(nullable: true),
-                    DailyWageRate = table.Column<decimal>(nullable: true),
-                    DividendRate = table.Column<decimal>(nullable: true),
+                    DailyWageRate = table.Column<decimal>(type: "decimal(18, 6)", nullable: true),
+                    DividendRate = table.Column<decimal>(type: "decimal(18, 6)", nullable: true),
                     RechargeMoney = table.Column<decimal>(type: "decimal(18, 6)", nullable: false),
                     WithdrawMoney = table.Column<decimal>(type: "decimal(18, 6)", nullable: false),
                     BetMoney = table.Column<decimal>(type: "decimal(18, 6)", nullable: false),
                     WinMoney = table.Column<decimal>(type: "decimal(18, 6)", nullable: false),
                     RebateMoney = table.Column<decimal>(type: "decimal(18, 6)", nullable: false),
                     GiftMoney = table.Column<decimal>(type: "decimal(18, 6)", nullable: false),
-                    Type = table.Column<int>(nullable: false)
+                    ReportDate = table.Column<DateTime>(nullable: false),
+                    Type = table.Column<int>(nullable: false),
+                    Version = table.Column<DateTime>(rowVersion: true, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -293,19 +345,6 @@ namespace AllLottery.Model.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tests",
-                columns: table => new
-                {
-                    TestId = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Tests", x => x.TestId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "UserInfos",
                 columns: table => new
                 {
@@ -320,6 +359,33 @@ namespace AllLottery.Model.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserInfos", x => x.UserInfoId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ActivityAnnouncements",
+                columns: table => new
+                {
+                    ActivityAnnouncementId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CreateTime = table.Column<DateTime>(nullable: false),
+                    UpdateTime = table.Column<DateTime>(nullable: false),
+                    IsEnable = table.Column<bool>(nullable: false),
+                    Title = table.Column<string>(nullable: true),
+                    BeginTime = table.Column<DateTime>(nullable: false),
+                    EndTime = table.Column<DateTime>(nullable: false),
+                    Content = table.Column<string>(nullable: true),
+                    AffixId = table.Column<int>(nullable: false),
+                    SortIndex = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ActivityAnnouncements", x => x.ActivityAnnouncementId);
+                    table.ForeignKey(
+                        name: "FK_ActivityAnnouncements_Affixs_AffixId",
+                        column: x => x.AffixId,
+                        principalTable: "Affixs",
+                        principalColumn: "AffixId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -366,6 +432,57 @@ namespace AllLottery.Model.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PictureNewses",
+                columns: table => new
+                {
+                    PictureNewsId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CreateTime = table.Column<DateTime>(nullable: false),
+                    UpdateTime = table.Column<DateTime>(nullable: false),
+                    IsEnable = table.Column<bool>(nullable: false),
+                    AffixId = table.Column<int>(nullable: false),
+                    Url = table.Column<string>(nullable: true),
+                    SortIndex = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PictureNewses", x => x.PictureNewsId);
+                    table.ForeignKey(
+                        name: "FK_PictureNewses_Affixs_AffixId",
+                        column: x => x.AffixId,
+                        principalTable: "Affixs",
+                        principalColumn: "AffixId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Platforms",
+                columns: table => new
+                {
+                    PlatformId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CreateTime = table.Column<DateTime>(nullable: false),
+                    UpdateTime = table.Column<DateTime>(nullable: false),
+                    IsEnable = table.Column<bool>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    Value = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Type = table.Column<int>(nullable: false),
+                    SortIndex = table.Column<int>(nullable: false),
+                    AffixId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Platforms", x => x.PlatformId);
+                    table.ForeignKey(
+                        name: "FK_Platforms_Affixs_AffixId",
+                        column: x => x.AffixId,
+                        principalTable: "Affixs",
+                        principalColumn: "AffixId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SystemBanks",
                 columns: table => new
                 {
@@ -375,6 +492,7 @@ namespace AllLottery.Model.Migrations
                     UpdateTime = table.Column<DateTime>(nullable: false),
                     IsEnable = table.Column<bool>(nullable: false),
                     Name = table.Column<string>(maxLength: 200, nullable: true),
+                    SortIndex = table.Column<int>(nullable: false),
                     AffixId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -408,7 +526,12 @@ namespace AllLottery.Model.Migrations
                     DateFormat = table.Column<string>(nullable: true),
                     IsHot = table.Column<bool>(nullable: false),
                     CalType = table.Column<int>(nullable: false),
-                    IconId = table.Column<int>(nullable: false)
+                    IconId = table.Column<int>(nullable: false),
+                    BetMoney = table.Column<decimal>(type: "decimal(18, 6)", nullable: false),
+                    WinMoney = table.Column<decimal>(type: "decimal(18, 6)", nullable: false),
+                    ReportDate = table.Column<DateTime>(nullable: false),
+                    WinRate = table.Column<decimal>(type: "decimal(18, 6)", nullable: false),
+                    Version = table.Column<DateTime>(rowVersion: true, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -519,6 +642,51 @@ namespace AllLottery.Model.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "GiftReceives",
+                columns: table => new
+                {
+                    GiftReceiveId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CreateTime = table.Column<DateTime>(nullable: false),
+                    UpdateTime = table.Column<DateTime>(nullable: false),
+                    IsEnable = table.Column<bool>(nullable: false),
+                    PlayerId = table.Column<int>(nullable: false),
+                    GiftMoney = table.Column<decimal>(type: "decimal(18, 6)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GiftReceives", x => x.GiftReceiveId);
+                    table.ForeignKey(
+                        name: "FK_GiftReceives_Players_PlayerId",
+                        column: x => x.PlayerId,
+                        principalTable: "Players",
+                        principalColumn: "PlayerId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "NotReportPlayers",
+                columns: table => new
+                {
+                    NotReportPlayerId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CreateTime = table.Column<DateTime>(nullable: false),
+                    UpdateTime = table.Column<DateTime>(nullable: false),
+                    IsEnable = table.Column<bool>(nullable: false),
+                    PlayerId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_NotReportPlayers", x => x.NotReportPlayerId);
+                    table.ForeignKey(
+                        name: "FK_NotReportPlayers_Players_PlayerId",
+                        column: x => x.PlayerId,
+                        principalTable: "Players",
+                        principalColumn: "PlayerId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PlayerLoginLogs",
                 columns: table => new
                 {
@@ -587,6 +755,29 @@ namespace AllLottery.Model.Migrations
                     table.PrimaryKey("PK_ProxyRegisters", x => x.ProxyRegisterId);
                     table.ForeignKey(
                         name: "FK_ProxyRegisters_Players_PlayerId",
+                        column: x => x.PlayerId,
+                        principalTable: "Players",
+                        principalColumn: "PlayerId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SoftwareExpireds",
+                columns: table => new
+                {
+                    SoftwareExpiredId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CreateTime = table.Column<DateTime>(nullable: false),
+                    UpdateTime = table.Column<DateTime>(nullable: false),
+                    IsEnable = table.Column<bool>(nullable: false),
+                    PlayerId = table.Column<int>(nullable: false),
+                    Expired = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SoftwareExpireds", x => x.SoftwareExpiredId);
+                    table.ForeignKey(
+                        name: "FK_SoftwareExpireds_Players_PlayerId",
                         column: x => x.PlayerId,
                         principalTable: "Players",
                         principalColumn: "PlayerId",
@@ -723,6 +914,36 @@ namespace AllLottery.Model.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PlatformMoneyLogs",
+                columns: table => new
+                {
+                    PlatformMoneyLogId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CreateTime = table.Column<DateTime>(nullable: false),
+                    UpdateTime = table.Column<DateTime>(nullable: false),
+                    IsEnable = table.Column<bool>(nullable: false),
+                    PlayerId = table.Column<int>(nullable: false),
+                    PlatformId = table.Column<int>(nullable: false),
+                    FlowMoney = table.Column<decimal>(type: "decimal(18, 6)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PlatformMoneyLogs", x => x.PlatformMoneyLogId);
+                    table.ForeignKey(
+                        name: "FK_PlatformMoneyLogs_Platforms_PlatformId",
+                        column: x => x.PlatformId,
+                        principalTable: "Platforms",
+                        principalColumn: "PlatformId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PlatformMoneyLogs_Players_PlayerId",
+                        column: x => x.PlayerId,
+                        principalTable: "Players",
+                        principalColumn: "PlayerId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PlayerBanks",
                 columns: table => new
                 {
@@ -765,7 +986,8 @@ namespace AllLottery.Model.Migrations
                     LotteryTypeId = table.Column<int>(nullable: false),
                     Time = table.Column<DateTime>(nullable: false),
                     Number = table.Column<string>(maxLength: 200, nullable: true),
-                    Data = table.Column<string>(maxLength: 200, nullable: true)
+                    Data = table.Column<string>(maxLength: 200, nullable: true),
+                    Version = table.Column<DateTime>(rowVersion: true, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -857,36 +1079,6 @@ namespace AllLottery.Model.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "GiftReceives",
-                columns: table => new
-                {
-                    GiftReceiveId = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    CreateTime = table.Column<DateTime>(nullable: false),
-                    UpdateTime = table.Column<DateTime>(nullable: false),
-                    IsEnable = table.Column<bool>(nullable: false),
-                    GiftEventId = table.Column<int>(nullable: false),
-                    RechargeId = table.Column<int>(nullable: false),
-                    GiftMoney = table.Column<decimal>(type: "decimal(18, 6)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_GiftReceives", x => x.GiftReceiveId);
-                    table.ForeignKey(
-                        name: "FK_GiftReceives_GiftEvents_GiftEventId",
-                        column: x => x.GiftEventId,
-                        principalTable: "GiftEvents",
-                        principalColumn: "GiftEventId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_GiftReceives_Recharges_RechargeId",
-                        column: x => x.RechargeId,
-                        principalTable: "Recharges",
-                        principalColumn: "RechargeId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Withdraws",
                 columns: table => new
                 {
@@ -926,6 +1118,8 @@ namespace AllLottery.Model.Migrations
                     LotteryPlayTypeId = table.Column<int>(nullable: false),
                     SortIndex = table.Column<int>(nullable: false),
                     Description = table.Column<string>(nullable: true),
+                    MaxBetMoney = table.Column<decimal>(type: "decimal(18, 6)", nullable: false),
+                    MaxBetCount = table.Column<int>(nullable: true),
                     MaxOdds = table.Column<decimal>(type: "decimal(18, 6)", nullable: false),
                     MinOdds = table.Column<decimal>(type: "decimal(18, 6)", nullable: false),
                     ReflectClass = table.Column<string>(nullable: true)
@@ -997,6 +1191,47 @@ namespace AllLottery.Model.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ChasingOrders",
+                columns: table => new
+                {
+                    ChasingOrderId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CreateTime = table.Column<DateTime>(nullable: false),
+                    UpdateTime = table.Column<DateTime>(nullable: false),
+                    IsEnable = table.Column<bool>(nullable: false),
+                    PlayerId = table.Column<int>(nullable: false),
+                    Order = table.Column<string>(maxLength: 100, nullable: true),
+                    IsWinStop = table.Column<bool>(nullable: false),
+                    Status = table.Column<int>(nullable: false),
+                    BetModeId = table.Column<int>(nullable: false),
+                    LotteryPlayDetailId = table.Column<int>(nullable: false),
+                    BetNo = table.Column<string>(nullable: true),
+                    Version = table.Column<DateTime>(rowVersion: true, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ChasingOrders", x => x.ChasingOrderId);
+                    table.ForeignKey(
+                        name: "FK_ChasingOrders_BetModes_BetModeId",
+                        column: x => x.BetModeId,
+                        principalTable: "BetModes",
+                        principalColumn: "BetModeId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ChasingOrders_LotteryPlayDetails_LotteryPlayDetailId",
+                        column: x => x.LotteryPlayDetailId,
+                        principalTable: "LotteryPlayDetails",
+                        principalColumn: "LotteryPlayDetailId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ChasingOrders_Players_PlayerId",
+                        column: x => x.PlayerId,
+                        principalTable: "Players",
+                        principalColumn: "PlayerId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "RebateLogs",
                 columns: table => new
                 {
@@ -1026,6 +1261,60 @@ namespace AllLottery.Model.Migrations
                         principalColumn: "PlayerId",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "ChasingOrderDetails",
+                columns: table => new
+                {
+                    ChasingOrderDetailId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CreateTime = table.Column<DateTime>(nullable: false),
+                    UpdateTime = table.Column<DateTime>(nullable: false),
+                    IsEnable = table.Column<bool>(nullable: false),
+                    ChasingOrderId = table.Column<int>(nullable: false),
+                    BetId = table.Column<int>(nullable: true),
+                    Times = table.Column<int>(nullable: false),
+                    Number = table.Column<string>(nullable: true),
+                    Index = table.Column<int>(nullable: false),
+                    BetMoney = table.Column<decimal>(type: "decimal(18, 6)", nullable: false),
+                    Version = table.Column<DateTime>(rowVersion: true, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ChasingOrderDetails", x => x.ChasingOrderDetailId);
+                    table.ForeignKey(
+                        name: "FK_ChasingOrderDetails_Bets_BetId",
+                        column: x => x.BetId,
+                        principalTable: "Bets",
+                        principalColumn: "BetId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ChasingOrderDetails_ChasingOrders_ChasingOrderId",
+                        column: x => x.ChasingOrderId,
+                        principalTable: "ChasingOrders",
+                        principalColumn: "ChasingOrderId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ActivityAnnouncements_AffixId",
+                table: "ActivityAnnouncements",
+                column: "AffixId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ActivityAnnouncements_CreateTime",
+                table: "ActivityAnnouncements",
+                column: "CreateTime");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ActivityAnnouncements_IsEnable",
+                table: "ActivityAnnouncements",
+                column: "IsEnable");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ActivityAnnouncements_UpdateTime",
+                table: "ActivityAnnouncements",
+                column: "UpdateTime");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Affixs_CreateTime",
@@ -1136,6 +1425,102 @@ namespace AllLottery.Model.Migrations
                 name: "IX_Bets_WinMoney",
                 table: "Bets",
                 column: "WinMoney");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ChasingOrderDetails_BetId",
+                table: "ChasingOrderDetails",
+                column: "BetId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ChasingOrderDetails_ChasingOrderId",
+                table: "ChasingOrderDetails",
+                column: "ChasingOrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ChasingOrderDetails_CreateTime",
+                table: "ChasingOrderDetails",
+                column: "CreateTime");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ChasingOrderDetails_IsEnable",
+                table: "ChasingOrderDetails",
+                column: "IsEnable");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ChasingOrderDetails_UpdateTime",
+                table: "ChasingOrderDetails",
+                column: "UpdateTime");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ChasingOrders_BetModeId",
+                table: "ChasingOrders",
+                column: "BetModeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ChasingOrders_CreateTime",
+                table: "ChasingOrders",
+                column: "CreateTime");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ChasingOrders_IsEnable",
+                table: "ChasingOrders",
+                column: "IsEnable");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ChasingOrders_LotteryPlayDetailId",
+                table: "ChasingOrders",
+                column: "LotteryPlayDetailId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ChasingOrders_Order",
+                table: "ChasingOrders",
+                column: "Order");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ChasingOrders_PlayerId",
+                table: "ChasingOrders",
+                column: "PlayerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ChasingOrders_UpdateTime",
+                table: "ChasingOrders",
+                column: "UpdateTime");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClientBlacks_CreateTime",
+                table: "ClientBlacks",
+                column: "CreateTime");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClientBlacks_IsEnable",
+                table: "ClientBlacks",
+                column: "IsEnable");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClientBlacks_UpdateTime",
+                table: "ClientBlacks",
+                column: "UpdateTime");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Clients_CreateTime",
+                table: "Clients",
+                column: "CreateTime");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Clients_IsEnable",
+                table: "Clients",
+                column: "IsEnable");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Clients_LiaoxinNumber",
+                table: "Clients",
+                column: "LiaoxinNumber",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Clients_UpdateTime",
+                table: "Clients",
+                column: "UpdateTime");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CoinLogs_AboutId",
@@ -1289,19 +1674,14 @@ namespace AllLottery.Model.Migrations
                 column: "CreateTime");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GiftReceives_GiftEventId",
-                table: "GiftReceives",
-                column: "GiftEventId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_GiftReceives_IsEnable",
                 table: "GiftReceives",
                 column: "IsEnable");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GiftReceives_RechargeId",
+                name: "IX_GiftReceives_PlayerId",
                 table: "GiftReceives",
-                column: "RechargeId");
+                column: "PlayerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_GiftReceives_UpdateTime",
@@ -1350,11 +1730,6 @@ namespace AllLottery.Model.Migrations
                 column: "LotteryDataId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LotteryDatas_LotteryTypeId",
-                table: "LotteryDatas",
-                column: "LotteryTypeId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_LotteryDatas_Time",
                 table: "LotteryDatas",
                 column: "Time");
@@ -1363,6 +1738,12 @@ namespace AllLottery.Model.Migrations
                 name: "IX_LotteryDatas_UpdateTime",
                 table: "LotteryDatas",
                 column: "UpdateTime");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LotteryDatas_LotteryTypeId_Number",
+                table: "LotteryDatas",
+                columns: new[] { "LotteryTypeId", "Number" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_LotteryOpenTimes_CreateTime",
@@ -1450,6 +1831,11 @@ namespace AllLottery.Model.Migrations
                 column: "LotteryTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_LotteryTypes_ReportDate",
+                table: "LotteryTypes",
+                column: "ReportDate");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_LotteryTypes_UpdateTime",
                 table: "LotteryTypes",
                 column: "UpdateTime");
@@ -1505,6 +1891,27 @@ namespace AllLottery.Model.Migrations
                 column: "UpdateTime");
 
             migrationBuilder.CreateIndex(
+                name: "IX_NotReportPlayers_CreateTime",
+                table: "NotReportPlayers",
+                column: "CreateTime");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_NotReportPlayers_IsEnable",
+                table: "NotReportPlayers",
+                column: "IsEnable");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_NotReportPlayers_PlayerId",
+                table: "NotReportPlayers",
+                column: "PlayerId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_NotReportPlayers_UpdateTime",
+                table: "NotReportPlayers",
+                column: "UpdateTime");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Permissions_CreateTime",
                 table: "Permissions",
                 column: "CreateTime");
@@ -1518,6 +1925,77 @@ namespace AllLottery.Model.Migrations
                 name: "IX_Permissions_UpdateTime",
                 table: "Permissions",
                 column: "UpdateTime");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PictureNewses_AffixId",
+                table: "PictureNewses",
+                column: "AffixId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PictureNewses_CreateTime",
+                table: "PictureNewses",
+                column: "CreateTime");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PictureNewses_IsEnable",
+                table: "PictureNewses",
+                column: "IsEnable");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PictureNewses_UpdateTime",
+                table: "PictureNewses",
+                column: "UpdateTime");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PlatformMoneyLogs_CreateTime",
+                table: "PlatformMoneyLogs",
+                column: "CreateTime");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PlatformMoneyLogs_IsEnable",
+                table: "PlatformMoneyLogs",
+                column: "IsEnable");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PlatformMoneyLogs_PlatformId",
+                table: "PlatformMoneyLogs",
+                column: "PlatformId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PlatformMoneyLogs_PlayerId",
+                table: "PlatformMoneyLogs",
+                column: "PlayerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PlatformMoneyLogs_UpdateTime",
+                table: "PlatformMoneyLogs",
+                column: "UpdateTime");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Platforms_AffixId",
+                table: "Platforms",
+                column: "AffixId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Platforms_CreateTime",
+                table: "Platforms",
+                column: "CreateTime");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Platforms_IsEnable",
+                table: "Platforms",
+                column: "IsEnable");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Platforms_UpdateTime",
+                table: "Platforms",
+                column: "UpdateTime");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Platforms_Value",
+                table: "Platforms",
+                column: "Value",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_PlayerBanks_CreateTime",
@@ -1543,6 +2021,12 @@ namespace AllLottery.Model.Migrations
                 name: "IX_PlayerBanks_UpdateTime",
                 table: "PlayerBanks",
                 column: "UpdateTime");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PlayerBanks_CardNumber_PlayerId",
+                table: "PlayerBanks",
+                columns: new[] { "CardNumber", "PlayerId" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_PlayerLoginLogs_CreateTime",
@@ -1575,11 +2059,6 @@ namespace AllLottery.Model.Migrations
                 column: "IsEnable");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PlayerLotteryTypes_LotteryTypeId",
-                table: "PlayerLotteryTypes",
-                column: "LotteryTypeId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_PlayerLotteryTypes_PlayerId",
                 table: "PlayerLotteryTypes",
                 column: "PlayerId");
@@ -1588,6 +2067,12 @@ namespace AllLottery.Model.Migrations
                 name: "IX_PlayerLotteryTypes_UpdateTime",
                 table: "PlayerLotteryTypes",
                 column: "UpdateTime");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PlayerLotteryTypes_LotteryTypeId_PlayerId",
+                table: "PlayerLotteryTypes",
+                columns: new[] { "LotteryTypeId", "PlayerId" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_PlayerOperateLogs_CreateTime",
@@ -1644,6 +2129,11 @@ namespace AllLottery.Model.Migrations
                 name: "IX_Players_Rebate",
                 table: "Players",
                 column: "Rebate");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Players_ReportDate",
+                table: "Players",
+                column: "ReportDate");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Players_UpdateTime",
@@ -1784,6 +2274,26 @@ namespace AllLottery.Model.Migrations
                 column: "UpdateTime");
 
             migrationBuilder.CreateIndex(
+                name: "IX_SoftwareExpireds_CreateTime",
+                table: "SoftwareExpireds",
+                column: "CreateTime");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SoftwareExpireds_IsEnable",
+                table: "SoftwareExpireds",
+                column: "IsEnable");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SoftwareExpireds_PlayerId",
+                table: "SoftwareExpireds",
+                column: "PlayerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SoftwareExpireds_UpdateTime",
+                table: "SoftwareExpireds",
+                column: "UpdateTime");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_SystemBanks_AffixId",
                 table: "SystemBanks",
                 column: "AffixId");
@@ -1916,7 +2426,19 @@ namespace AllLottery.Model.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "ActivityAnnouncements");
+
+            migrationBuilder.DropTable(
                 name: "Announcements");
+
+            migrationBuilder.DropTable(
+                name: "ChasingOrderDetails");
+
+            migrationBuilder.DropTable(
+                name: "ClientBlacks");
+
+            migrationBuilder.DropTable(
+                name: "Clients");
 
             migrationBuilder.DropTable(
                 name: "CoinLogs");
@@ -1934,6 +2456,9 @@ namespace AllLottery.Model.Migrations
                 name: "DividendSettings");
 
             migrationBuilder.DropTable(
+                name: "GiftEvents");
+
+            migrationBuilder.DropTable(
                 name: "GiftReceives");
 
             migrationBuilder.DropTable(
@@ -1941,6 +2466,15 @@ namespace AllLottery.Model.Migrations
 
             migrationBuilder.DropTable(
                 name: "Messages");
+
+            migrationBuilder.DropTable(
+                name: "NotReportPlayers");
+
+            migrationBuilder.DropTable(
+                name: "PictureNewses");
+
+            migrationBuilder.DropTable(
+                name: "PlatformMoneyLogs");
 
             migrationBuilder.DropTable(
                 name: "PlayerLoginLogs");
@@ -1958,16 +2492,19 @@ namespace AllLottery.Model.Migrations
                 name: "RebateLogs");
 
             migrationBuilder.DropTable(
+                name: "Recharges");
+
+            migrationBuilder.DropTable(
                 name: "ReportCaches");
 
             migrationBuilder.DropTable(
                 name: "RolePermissions");
 
             migrationBuilder.DropTable(
-                name: "SystemConfigs");
+                name: "SoftwareExpireds");
 
             migrationBuilder.DropTable(
-                name: "Tests");
+                name: "SystemConfigs");
 
             migrationBuilder.DropTable(
                 name: "UserInfoPermissions");
@@ -1982,16 +2519,19 @@ namespace AllLottery.Model.Migrations
                 name: "Withdraws");
 
             migrationBuilder.DropTable(
+                name: "ChasingOrders");
+
+            migrationBuilder.DropTable(
                 name: "DividendDates");
 
             migrationBuilder.DropTable(
-                name: "GiftEvents");
-
-            migrationBuilder.DropTable(
-                name: "Recharges");
+                name: "Platforms");
 
             migrationBuilder.DropTable(
                 name: "Bets");
+
+            migrationBuilder.DropTable(
+                name: "MerchantsBanks");
 
             migrationBuilder.DropTable(
                 name: "Permissions");
@@ -2004,9 +2544,6 @@ namespace AllLottery.Model.Migrations
 
             migrationBuilder.DropTable(
                 name: "PlayerBanks");
-
-            migrationBuilder.DropTable(
-                name: "MerchantsBanks");
 
             migrationBuilder.DropTable(
                 name: "BetModes");
