@@ -16,7 +16,7 @@ namespace AllLottery.Model
             if (!context.Players.Any())
             {
                 _context = context;
-                context.Tests.Add(new Test() { Name = "TTEST" });
+          //      context.Tests.Add(new Test() { Name = "TTEST" });
 
 
                 //AddContract();

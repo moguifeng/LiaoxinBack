@@ -4,6 +4,9 @@ namespace Zzb.EF
 {
     public class BaseModel
     {
+
+
+
         [ZzbIndex]
         public DateTime CreateTime { get; set; } = DateTime.Now;
 

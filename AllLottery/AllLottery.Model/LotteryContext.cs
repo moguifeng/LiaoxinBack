@@ -19,7 +19,7 @@ namespace AllLottery.Model
             return new LotteryContext();
         }
 
-        public DbSet<Test> Tests { get; set; }
+      //  public DbSet<Test> Tests { get; set; }
 
         public DbSet<Player> Players { get; set; }
 
@@ -40,6 +40,11 @@ namespace AllLottery.Model
         public DbSet<Bet> Bets { get; set; }
 
         public DbSet<CoinLog> CoinLogs { get; set; }
+
+
+        public DbSet<Client> Clients { get; set; }
+
+        public DbSet<ClientBlack> ClientBlacks { get; set; }
 
         public DbSet<PlayerLoginLog> PlayerLoginLogs { get; set; }
 
