@@ -187,7 +187,7 @@ namespace Zzb.Mvc
             return Json(() =>
             {
                 var id = Login(model.Name, model.Password);
-                // var token =  GenerateJSONWebToken(id);
+            
                 _UserContext.SetUserContext(Guid.NewGuid(), id.ToString(), model.Name);
                 var token =    UserContext.Current.Token;
                 return ObjectResult(token);

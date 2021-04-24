@@ -2,6 +2,10 @@
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/AllLottery",
+      "sslPort": 0
+    },
     "iisExpress": {
       "applicationUrl": "http://localhost:1893",
       "sslPort": 44376
