@@ -94,7 +94,7 @@ class LoginPage extends Component {
               login.type === 'account' &&
               !submitting &&
               this.renderMessage(formatMessage({ id: 'app.login.message-invalid-credentials' }))}
-            
+
           </Tab> */}
           {/* <Tab key="mobile" tab={formatMessage({ id: 'app.login.tab-login-mobile' })}>
             {login.status === 'error' &&

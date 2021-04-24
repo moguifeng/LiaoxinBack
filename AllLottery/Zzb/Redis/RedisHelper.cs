@@ -28,7 +28,7 @@ namespace Zzb.Redis
                 DefaultDatabase = options.Db
             };
             foreach (var endpoint in options.Endpoints)
-            {
+            {   
                 configurationOptions.EndPoints.Add(endpoint);
             }
 

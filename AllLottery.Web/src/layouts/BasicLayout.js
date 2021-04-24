@@ -78,7 +78,7 @@ class BasicLayout extends React.PureComponent {
     });
     dispatch({ type: 'global/fetchNotices' });
     dispatch({ type: 'player/updatePlayerOnlineCount' });
-    this.connectSocket();
+   // this.connectSocket();
   }
 
   componentDidUpdate(preProps) {
@@ -160,39 +160,39 @@ class BasicLayout extends React.PureComponent {
     return <SettingDrawer />;
   };
 
-  connectSocket = () => {
-    const { dispatch } = this.props;
-    const socket = new WebSocket(window.socketHost);
-    socket.onopen = () => {
-      console.log('socket open!');
-    };
+  // connectSocket = () => {
+  //   const { dispatch } = this.props;
+  //   const socket = new WebSocket(window.socketHost);
+  //   socket.onopen = () => {
+  //     console.log('socket open!');
+  //   };
 
-    socket.onclose = () => {
-      console.log('socket close!');
-      setTimeout(() => {
-        this.connectSocket();
-      }, 5000);
-    };
+  //   socket.onclose = () => {
+  //     console.log('socket close!');
+  //     setTimeout(() => {
+  //       this.connectSocket();
+  //     }, 5000);
+  //   };
 
-    socket.onmessage = async e => {
-      if (e.data === '0') {
-        const data = await post('api/Home/GetCookies');
-        socket.send(data);
-      } else {
-        dispatch({ type: 'global/fetchNotices' });
-        const data = JSON.parse(e.data);
-        notification.success({ message: data.Message });
-        if (data.Type === 0) {
-          const audio = new Audio(mp3);
-          audio.play();
-        }
-        if (data.Type === 2) {
-          const audio = new Audio(longMp3);
-          audio.play();
-        }
-      }
-    };
-  };
+    // socket.onmessage = async e => {
+    //   if (e.data === '0') {
+    //     const data = await post('api/Home/GetCookies');
+    //     socket.send(data);
+    //   } else {
+    //     dispatch({ type: 'global/fetchNotices' });
+    //     const data = JSON.parse(e.data);
+    //     notification.success({ message: data.Message });
+    //     if (data.Type === 0) {
+    //       const audio = new Audio(mp3);
+    //       audio.play();
+    //     }
+    //     if (data.Type === 2) {
+    //       const audio = new Audio(longMp3);
+    //       audio.play();
+    //     }
+    //   }
+    // };
+  // };
 
   render() {
     const {

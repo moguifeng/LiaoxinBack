@@ -18,7 +18,8 @@ export default {
         name: payload.userName,
         password: payload.password,
       });
-      if (res > 0) {
+
+      if (String(res).length!==0) {
         const response = {
           currentAuthority: 'admin',
           status: 'ok',
@@ -33,6 +34,11 @@ export default {
 
           reloadAuthorized();
           const urlParams = new URL(window.location.href);
+
+          const  storage  =window.localStorage;
+          const tokenStr = "Token"
+          storage.setItem(tokenStr,res);
+
           const params = getPageQuery();
           let { redirect } = params;
 
@@ -45,13 +51,13 @@ export default {
               }
             } else {
 
-            //  window.location.href = redirect;
-              //return;
+             window.location.href = redirect;
+              return;
             }
           } else {
-          //  redirect = '/';
+           redirect = '/';
           }
-        //  window.location.href = redirect;
+          window.location.href = redirect;
         }
       }
     },

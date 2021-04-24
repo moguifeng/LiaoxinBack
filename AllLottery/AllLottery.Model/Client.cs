@@ -44,7 +44,7 @@ namespace AllLottery.Model
         public string NickName { get; set; }
 
      
-        public string Cover2 { get; set; }
+ 
 
         /// <summary>
         /// 密码

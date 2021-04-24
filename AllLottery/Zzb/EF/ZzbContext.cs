@@ -25,6 +25,7 @@ namespace Zzb.EF
         public virtual string DefaultString =>
             //"server=103.193.174.33;port=3306;database=AllLottery;user=root;password=60e7df86753874a2;TreatTinyAsBoolean=true";
             "server=8.129.61.181;port=3306;database=AllLottery;user=zzb;password=86809223;TreatTinyAsBoolean=true";
+            //"server=localhost;port=3306;database=AllLottery;user=root;password=86833695;TreatTinyAsBoolean=true";
 
         public ZzbDbContext()
         {
