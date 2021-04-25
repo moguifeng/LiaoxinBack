@@ -8,7 +8,7 @@ namespace AllLottery.ViewModel
 
         public string Name { get; set; }
 
-        public PlayerTypeEnum? Type { get; set; }
+         
 
         public PlayerSortEnum Sort { get; set; } = PlayerSortEnum.CreateTime;
 

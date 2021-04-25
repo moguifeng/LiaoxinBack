@@ -23,29 +23,31 @@ namespace AllLottery.BaseDataModel
 
         public override List<DropListModel> Source
         {
-            get
-            {
-                using (var context = LotteryContext.CreateContext())
-                {
-                    List<DropListModel> list = new List<DropListModel>();
-                    foreach (LotteryType type in context.LotteryTypes.OrderBy(t => t.SortIndex))
-                    {
-                        if (IsSystem)
-                        {
-                            if (type.CalType == LotteryCalNumberTypeEnum.Automatic)
-                            {
-                                list.Add(new DropListModel(type.LotteryTypeId.ToString(), type.Name));
-                            }
-                        }
-                        else
-                        {
-                            list.Add(new DropListModel(type.LotteryTypeId.ToString(), type.Name));
-                        }
-                    }
-                    return list;
-                }
-            }
+            get { return null; }
             set { }
+            //get
+            //{
+            //    using (var context = LotteryContext.CreateContext())
+            //    {
+            //        List<DropListModel> list = new List<DropListModel>();
+            //        foreach (LotteryType type in context.LotteryTypes.OrderBy(t => t.SortIndex))
+            //        {
+            //            if (IsSystem)
+            //            {
+            //                if (type.CalType == LotteryCalNumberTypeEnum.Automatic)
+            //                {
+            //                    list.Add(new DropListModel(type.LotteryTypeId.ToString(), type.Name));
+            //                }
+            //            }
+            //            else
+            //            {
+            //                list.Add(new DropListModel(type.LotteryTypeId.ToString(), type.Name));
+            //            }
+            //        }
+            //        return list;
+            //    }
+            //}
+            //set { }
         }
     }
 }

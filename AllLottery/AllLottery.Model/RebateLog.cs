@@ -8,10 +8,10 @@ namespace AllLottery.Model
         {
         }
 
-        public RebateLog(int playerId, int betId, decimal diffRate, decimal rebateMoney)
+        public RebateLog(int playerId, decimal diffRate, decimal rebateMoney)
         {
             PlayerId = playerId;
-            BetId = betId;
+         
             DiffRate = diffRate;
             RebateMoney = rebateMoney;
         }
@@ -23,12 +23,7 @@ namespace AllLottery.Model
 
         public virtual Player Player { get; set; }
 
-        /// <summary>
-        /// 投注记录
-        /// </summary>
-        public int BetId { get; set; }
-
-        public virtual Bet Bet { get; set; }
+ 
 
         /// <summary>
         /// 返还金额

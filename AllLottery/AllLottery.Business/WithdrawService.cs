@@ -1,8 +1,8 @@
 ﻿using AllLottery.Business.Config;
-using AllLottery.Business.Report;
 using AllLottery.IBusiness;
 using AllLottery.Model;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Zzb;
 using Zzb.Common;
@@ -47,10 +47,10 @@ namespace AllLottery.Business
                 throw new ZzbException("该用户已被删除");
             }
 
-            if (playerBank.Player.Type == PlayerTypeEnum.TestPlay)
-            {
-                throw new ZzbException("试用玩家不能提款");
-            }
+            //if (playerBank.Player.Type == PlayerTypeEnum.TestPlay)
+            //{
+            //    throw new ZzbException("试用玩家不能提款");
+            //}
 
             if (!playerBank.Player.CanWithdraw)
             {
@@ -141,7 +141,7 @@ namespace AllLottery.Business
 
         public Withdraw[] GetTeamWithdraws(int id, string name, DateTime? begin, DateTime? end, int index, int size, out int total)
         {
-            var list = BaseReport.GetTeamPlayerIdsWhitoutSelf(id);
+            var list = new List<int>();
             list.Add(id);
             var sql = from w in Context.Withdraws
                       where w.IsEnable && list.Contains(w.PlayerBank.PlayerId)

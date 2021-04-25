@@ -12,11 +12,10 @@ namespace AllLottery.Model
         {
         }
 
-        public ProxyRegister(int playerId, string number, PlayerTypeEnum type, decimal rebate, string remark)
+        public ProxyRegister(int playerId, string number,decimal rebate, string remark)
         {
             PlayerId = playerId;
-            Number = number;
-            Type = type;
+            Number = number;            
             Rebate = rebate;
             Remark = remark;
         }
@@ -39,10 +38,7 @@ namespace AllLottery.Model
         /// </summary>
         public int UseCount { get; set; } = 0;
 
-        /// <summary>
-        /// 玩家类型
-        /// </summary>
-        public PlayerTypeEnum Type { get; set; }
+ 
 
         /// <summary>
         /// 返点

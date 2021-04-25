@@ -12,8 +12,6 @@ namespace AllLottery.IBusiness
 
         Recharge[] GetRecharges(int id, int size, int index, out int total);
 
-        void ReceiveGift(Recharge recharge, LotteryContext context = null);
-
         Recharge[] GetTeamRecharges(int id, string name, DateTime? begin, DateTime? end, int size, int index,
             out int total);
 

@@ -39,8 +39,7 @@ namespace AllLottery.Model
         /// </summary>
         public int BetModeId { get; set; }
 
-        public virtual BetMode BetMode { get; set; }
-
+ 
         /// <summary>
         /// 玩法
         /// </summary>

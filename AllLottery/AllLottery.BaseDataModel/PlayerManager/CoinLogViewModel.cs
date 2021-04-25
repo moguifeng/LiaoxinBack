@@ -40,7 +40,7 @@ namespace AllLottery.BaseDataModel.PlayerManager
         protected override object[] DoGetNavDatas()
         {
             return CreateEfDatas<CoinLog, CoinLogViewModel>(from c in Context.CoinLogs
-                                                            where c.IsEnable && c.Player.Type != PlayerTypeEnum.TestPlay
+                                                            where c.IsEnable 
                                                             orderby c.CreateTime descending
                                                             select c, (k, t) =>
                 {

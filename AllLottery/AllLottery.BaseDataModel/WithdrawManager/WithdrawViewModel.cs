@@ -96,26 +96,26 @@ namespace AllLottery.BaseDataModel.WithdrawManager
 
         public ServiceResult SureWithdraw()
         {
-            var withdraw = (from w in Context.Withdraws
-                            where w.IsEnable && w.WithdrawId == WithdrawId
-                            select w).First();
-            if (withdraw.Status != WithdrawStatusEnum.Wait)
-            {
-                return new ServiceResult(ServiceResultCode.Error, "该订单已被处理");
-            }
+            return null;
+            //var withdraw = (from w in Context.Withdraws
+            //                where w.IsEnable && w.WithdrawId == WithdrawId
+            //                select w).First();
+            //if (withdraw.Status != WithdrawStatusEnum.Wait)
+            //{
+            //    return new ServiceResult(ServiceResultCode.Error, "该订单已被处理");
+            //}
 
-            withdraw.Status = WithdrawStatusEnum.Ok;
-            withdraw.UpdateTime = DateTime.Now;
+            //withdraw.Status = WithdrawStatusEnum.Ok;
+            //withdraw.UpdateTime = DateTime.Now;
 
-            withdraw.PlayerBank.Player.AddFMoney(-withdraw.Money, CoinLogTypeEnum.Withdraw, withdraw.WithdrawId, out var log, $"提现成功，订单号[{withdraw.OrderNo}]");
-            Context.CoinLogs.Add(log);
-            Context.Messages.Add(new Message(withdraw.PlayerBank.PlayerId, MessageInfoTypeEnum.Player,
-                MessageTypeEnum.Message, $"您的[{withdraw.Money}]元提现审核成功！"));
-            UserOperateLogService.Log($"确定玩家[{withdraw.PlayerBank.Player.Name}]的[{withdraw.Money}]订单，订单号为[{withdraw.OrderNo}]", Context);
-            withdraw.PlayerBank.Player.UpdateReportDate();
-            withdraw.PlayerBank.Player.WithdrawMoney += withdraw.Money;
-            Context.SaveChanges();
-            return new ServiceResult(ServiceResultCode.Success);
+            //withdraw.PlayerBank.Player.AddFMoney(-withdraw.Money, CoinLogTypeEnum.Withdraw, withdraw.WithdrawId, out var log, $"提现成功，订单号[{withdraw.OrderNo}]");
+            //Context.CoinLogs.Add(log);
+            //Context.Messages.Add(new Message(withdraw.PlayerBank.PlayerId, MessageInfoTypeEnum.Player,
+            //    MessageTypeEnum.Message, $"您的[{withdraw.Money}]元提现审核成功！"));
+            //UserOperateLogService.Log($"确定玩家[{withdraw.PlayerBank.Player.Name}]的[{withdraw.Money}]订单，订单号为[{withdraw.OrderNo}]", Context);        
+            //withdraw.PlayerBank.Player.WithdrawMoney += withdraw.Money;
+            //Context.SaveChanges();
+            //return new ServiceResult(ServiceResultCode.Success);
         }
     }
 }

@@ -50,10 +50,10 @@ namespace AllLottery.BaseDataModel.RechargeManager
                 return new ServiceResult(ServiceResultCode.Error, "该玩家充值太频繁，请稍后再试");
             }
             var recharge = Context.Recharges.Add(new Recharge(player.PlayerId, Money, Remark, RechargeStateEnum.Ok));
-            player.AddMoney(Money, CoinLogTypeEnum.Recharge, recharge.Entity.RechargeId, out var log, Remark);
-            player.UpdateReportDate();
+            //player.AddMoney(Money, CoinLogTypeEnum.Recharge, recharge.Entity.RechargeId, out var log, Remark);
+            //player.UpdateReportDate();
             player.RechargeMoney += Money;
-            Context.CoinLogs.Add(log);
+          //Context.CoinLogs.Add(log);
             UserOperateLogService.Log($"手动给[{player.Name}]充值了[{recharge.Entity.Money}]元，订单号为[{recharge.Entity.OrderNo}]", Context);
             Context.SaveChanges();
             return new ServiceResult();

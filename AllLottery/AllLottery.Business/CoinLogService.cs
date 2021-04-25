@@ -1,7 +1,8 @@
-﻿using AllLottery.Business.Report;
+﻿
 using AllLottery.IBusiness;
 using AllLottery.Model;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AllLottery.Business
@@ -32,7 +33,7 @@ namespace AllLottery.Business
 
         public CoinLog[] GetTeamCoinLogs(int playerId, int index, int size, out int total, DateTime? begin, DateTime? end, CoinLogTypeEnum[] types, string name)
         {
-            var list = BaseReport.GetTeamPlayerIdsWhitoutSelf(playerId);
+            var list = new List<int>();
             list.Add(playerId);
             var sql = from c in Context.CoinLogs where c.IsEnable && list.Contains(c.PlayerId) select c;
 

@@ -1,5 +1,4 @@
-﻿using AllLottery.Business.Cathectic;
-using AllLottery.Business.Report;
+﻿
 using AllLottery.IBusiness;
 using AllLottery.Model;
 using AllLottery.ViewModel;

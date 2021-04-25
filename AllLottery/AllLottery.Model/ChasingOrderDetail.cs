@@ -20,12 +20,7 @@ namespace AllLottery.Model
 
         public virtual ChasingOrder ChasingOrder { get; set; }
 
-        /// <summary>
-        /// 投注订单
-        /// </summary>
-        public int? BetId { get; set; }
-
-        public virtual Bet Bet { get; set; }
+ 
 
         /// <summary>
         /// 追号倍数

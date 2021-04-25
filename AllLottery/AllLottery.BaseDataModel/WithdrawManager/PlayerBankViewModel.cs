@@ -39,7 +39,7 @@ namespace AllLottery.BaseDataModel.WithdrawManager
         protected override object[] DoGetNavDatas()
         {
             return CreateEfDatas<PlayerBank, PlayerBankViewModel>(
-                from b in Context.PlayerBanks where b.IsEnable && b.Player.Type != PlayerTypeEnum.TestPlay orderby b.CreateTime descending select b,
+                from b in Context.PlayerBanks where b.IsEnable  orderby b.CreateTime descending select b,
                 (k, t) =>
                 {
                     t.PlayerName = k.Player.Name;

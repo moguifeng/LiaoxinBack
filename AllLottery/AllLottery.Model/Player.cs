@@ -169,145 +169,15 @@ namespace AllLottery.Model
         [ZzbIndex]
         public DateTime ReportDate { get; set; }
 
-        public void UpdateReportDate()
+
+        public enum PlayerTypeEnum
         {
-            if (ReportDate < DateTime.Today)
-            {
-                RechargeMoney = 0;
-                WithdrawMoney = 0;
-                BetMoney = 0;
-                WinMoney = 0;
-                RebateMoney = 0;
-                GiftMoney = 0;
-                ReportDate = DateTime.Today;
-                UpdateTime = DateTime.Now;
-            }
+            [Description("代理")]
+            Proxy = 0,
+            [Description("会员")]
+            Member = 1,
+            [Description("试玩")]
+            TestPlay = 2
         }
-
-        /// <summary>
-        /// 玩家类型
-        /// </summary>
-        public PlayerTypeEnum Type { get; set; } = PlayerTypeEnum.Member;
-
-        [Timestamp]
-        public byte[] Version { get; set; }
-
-        public void AddMoney(decimal money, CoinLogTypeEnum type, int aboutId, out CoinLog coinLog, string remark)
-        {
-            Coin += money;
-            coinLog = new CoinLog(PlayerId, money, Coin, 0, FCoin, type, aboutId, remark);
-        }
-
-        public void UpdateLastBetMoney(decimal money)
-        {
-            LastBetMoney += money;
-            if (LastBetMoney < 0)
-            {
-                LastBetMoney = 0;
-            }
-        }
-
-        /// <summary>
-        /// 计算返点
-        /// </summary>
-        /// <param name="bet"></param>
-        /// <param name="logs"></param>
-        /// <param name="rebateLogs"></param>
-        public void CalculateRebate(Bet bet, List<CoinLog> logs, List<RebateLog> rebateLogs)
-        {
-            if (ParentPlayerId == null)
-            {
-                return;
-            }
-
-            if (ParentPlayerId.Value == PlayerId)
-            {
-                return;
-            }
-
-            //比例差
-            var diff = ParentPlayer.Rebate - Rebate;
-
-            if (diff > 0)
-            {
-                //返点
-                var rebateMoney = bet.BetMoney * diff;
-
-                ParentPlayer.Coin += rebateMoney;
-
-                ParentPlayer.UpdateReportDate();
-                ParentPlayer.RebateMoney += rebateMoney;
-
-                UpdateTime = DateTime.Now;
-
-                rebateLogs.Add(new RebateLog(PlayerId, bet.BetId, diff, rebateMoney));
-
-                logs.Add(new CoinLog(ParentPlayerId.Value, rebateMoney, ParentPlayer.Coin, 0, ParentPlayer.FCoin, CoinLogTypeEnum.Rebate, bet.BetId, $"玩家[{bet.Player.Name}]的[{bet.LotteryPlayDetail.LotteryPlayType.LotteryType.Name}]的[{bet.LotteryIssuseNo}]期投注单返点"));
-
-            }
-
-            ParentPlayer.CalculateRebate(bet, logs, rebateLogs);
-        }
-
-        public void AddFMoney(decimal money, CoinLogTypeEnum type, int aboutId, out CoinLog coinLog, string remark)
-        {
-            FCoin += money;
-            coinLog = new CoinLog(PlayerId, 0, Coin, money, FCoin, type, aboutId, remark);
-        }
-
-        public void TransferPlatform(Platform platform, decimal money, out CoinLog coinLog)
-        {
-            bool isIn = money >= 0;
-            if (isIn)
-            {
-                Coin -= money;
-                FCoin += money;
-                coinLog = new CoinLog(PlayerId, -money, Coin, money, FCoin, CoinLogTypeEnum.PlatformTransfer, 0, $"申请转入[{platform.Name}]金额");
-            }
-            else
-            {
-                AddFMoney(-money, CoinLogTypeEnum.PlatformTransfer, 0, out coinLog, $"申请转出[{platform.Name}]金额");
-            }
-        }
-
-        public void TransferPlatformFail(Platform platform, decimal money, out CoinLog coinLog)
-        {
-            bool isIn = money >= 0;
-            if (isIn)
-            {
-                Coin += money;
-                FCoin -= money;
-                coinLog = new CoinLog(PlayerId, money, Coin, -money, FCoin, CoinLogTypeEnum.PlatformTransfer, 0, $"转入[{platform.Name}]金额失败，退还金额");
-            }
-            else
-            {
-                AddFMoney(money, CoinLogTypeEnum.PlatformTransfer, 0, out coinLog, $"转出[{platform.Name}]金额失败，退还金额");
-            }
-        }
-
-        public void TransferPlatformSuccess(Platform platform, decimal money, out CoinLog coinLog)
-        {
-            bool isIn = money >= 0;
-            if (isIn)
-            {
-                AddFMoney(-money, CoinLogTypeEnum.PlatformTransfer, 0, out coinLog, $"成功转入[{platform.Name}]金额");
-            }
-            else
-            {
-                Coin -= money;
-                FCoin += money;
-                coinLog = new CoinLog(PlayerId, -money, Coin, money, FCoin, CoinLogTypeEnum.PlatformTransfer, 0, $"成功转出[{platform.Name}]金额");
-            }
-        }
-    }
-
-    public enum PlayerTypeEnum
-    {
-        [Description("代理")]
-        Proxy = 0,
-        [Description("会员")]
-        Member = 1,
-        [Description("试玩")]
-        TestPlay = 2
     }
 }

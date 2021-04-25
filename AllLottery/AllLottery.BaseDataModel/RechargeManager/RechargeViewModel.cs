@@ -100,23 +100,23 @@ namespace AllLottery.BaseDataModel.RechargeManager
             }
 
             exist.State = RechargeStateEnum.Ok;
-            exist.Player.AddMoney(exist.Money, CoinLogTypeEnum.Recharge, exist.RechargeId, out var log, $"充值[{exist.Money}]成功，订单号[{exist.OrderNo}]");
-            Context.CoinLogs.Add(log);
+       //     exist.Player.AddMoney(exist.Money, CoinLogTypeEnum.Recharge, exist.RechargeId, out var log, $"充值[{exist.Money}]成功，订单号[{exist.OrderNo}]");
+          //  Context.CoinLogs.Add(log);
 
-            RechargeService.ReceiveGift(exist);
+         //   RechargeService.ReceiveGift(exist);
 
             exist.Update();
             var rate = BaseConfig.CreateInstance(SystemConfigEnum.ConsumerWithdrawRate).DecimalValue;
             if (rate > 0)
             {
                 rate = rate / 100;
-                exist.Player.UpdateLastBetMoney(exist.Money * rate);
+           //     exist.Player.UpdateLastBetMoney(exist.Money * rate);
             }
-            Context.Messages.Add(new Message(exist.PlayerId, MessageInfoTypeEnum.Player, MessageTypeEnum.Message, $"您的[{exist.Money}]元充值审核成功！") { Money = exist.Money });
+        //    Context.Messages.Add(new Message(exist.PlayerId, MessageInfoTypeEnum.Player, MessageTypeEnum.Message, $"您的[{exist.Money}]元充值审核成功！") { Money = exist.Money });
 
             UserOperateLogService.Log($"确定玩家[{exist.Player.Name}]的[{exist.Money}]充值订单,订单号为[{exist.OrderNo}]", Context);
 
-            exist.Player.UpdateReportDate();
+         //   exist.Player.UpdateReportDate();
             exist.Player.RechargeMoney += exist.Money;
 
             Context.SaveChanges();

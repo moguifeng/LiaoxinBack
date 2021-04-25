@@ -1,9 +1,10 @@
-﻿using AllLottery.Business.Report;
+﻿
 using AllLottery.Business.ThirdPay;
 using AllLottery.IBusiness;
 using AllLottery.Model;
 using AllLottery.ViewModel;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Zzb;
 
@@ -44,10 +45,10 @@ namespace AllLottery.Business
                 throw new ZzbException("不存在该用户");
             }
 
-            if (player.Type == PlayerTypeEnum.TestPlay)
-            {
-                throw new ZzbException("试用玩家不能充值");
-            }
+            //if (player.Type == PlayerTypeEnum.TestPlay)
+            //{
+            //    throw new ZzbException("试用玩家不能充值");
+            //}
 
             if (IsExistRecharges(playerId))
             {
@@ -95,7 +96,8 @@ namespace AllLottery.Business
 
         public Recharge[] GetTeamRecharges(int id, string name, DateTime? begin, DateTime? end, int size, int index, out int total)
         {
-            var list = BaseReport.GetTeamPlayerIdsWhitoutSelf(id);
+            // var list = BaseReport.GetTeamPlayerIdsWhitoutSelf(id);
+            var list = new List<int>();
             list.Add(id);
             var recharges = from r in Context.Recharges where r.IsEnable && list.Contains(r.PlayerId) select r;
             if (!string.IsNullOrEmpty(name))
@@ -115,75 +117,5 @@ namespace AllLottery.Business
             return recharges.OrderByDescending(t => t.CreateTime).Skip((index - 1) * size).Take(size).ToArray();
         }
 
-        /// <summary>
-        /// 赠送彩金活动
-        /// </summary>
-        /// <param name="recharge"></param>
-        public void ReceiveGift(Recharge recharge, LotteryContext context = null)
-        {
-            if (context == null)
-            {
-                context = Context;
-            }
-            //判断彩金
-            var settings = (from s in context.GiftEvents where s.IsEnable select s).ToList();
-            if (settings.Any())
-            {
-                foreach (GiftEvent setting in settings)
-                {
-                    if (setting.MinMoney > recharge.Money || setting.MaxMoney < recharge.Money)
-                    {
-                        continue;
-                    }
-
-                    //如果规则设定不是全部人
-                    if (setting.ReceivingType != ReceivingTypeEnum.All)
-                    {
-                        var exist = from r in context.Recharges
-                                    where r.State == RechargeStateEnum.Ok && r.IsEnable && r.PlayerId == recharge.PlayerId
-                                    select r;
-                        //新用户
-                        if (setting.ReceivingType == ReceivingTypeEnum.New)
-                        {
-                            //如果有充值，就继续
-                            if (exist.Any())
-                            {
-                                continue;
-                            }
-                        }
-                        //老用户
-                        if (setting.ReceivingType == ReceivingTypeEnum.Old)
-                        {
-                            //如果没充值，就继续
-                            if (!exist.Any())
-                            {
-                                continue;
-                            }
-                        }
-                    }
-
-                    //如果规则不是每次都送，则判断今天有没有充值
-                    if (setting.Rule != GiftRuleEnum.EveryOne)
-                    {
-                        var exist = from r in context.Recharges
-                                    where r.State == RechargeStateEnum.Ok && r.IsEnable && r.PlayerId == recharge.PlayerId &&
-                                          r.CreateTime > DateTime.Today
-                                    select r;
-                        if (exist.Any())
-                        {
-                            continue;
-                        }
-                    }
-
-                    GiftReceive receive = new GiftReceive(recharge.PlayerId, recharge.Money * setting.ReturnRate + setting.ReturnMoney);
-                    context.GiftReceives.Add(receive);
-                    var player = PlayerService.GetPlayer(recharge.PlayerId);
-                    player.AddMoney(receive.GiftMoney, CoinLogTypeEnum.GiftMoney, receive.GiftReceiveId, out var settingLog, $"充值活动赠送金额，充值订单号[{recharge.OrderNo}]");
-                    player.UpdateReportDate();
-                    player.GiftMoney += receive.GiftMoney;
-                    context.CoinLogs.Add(settingLog);
-                }
-            }
-        }
     }
 }

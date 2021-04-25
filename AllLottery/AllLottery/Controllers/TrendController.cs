@@ -1,4 +1,4 @@
-﻿using AllLottery.Business.Generate;
+﻿
 using AllLottery.IBusiness;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;

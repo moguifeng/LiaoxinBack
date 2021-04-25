@@ -29,8 +29,7 @@ namespace AllLottery.BaseDataModel.PlayerManager
         [PasswordField("资金密码", IsRequired = true)]
         public string CoidPassword { get; set; }
 
-        [DropListField("玩家类型")]
-        public PlayerTypeEnum PlayerType { get; set; }
+ 
 
         public override BaseButton[] Buttons()
         {
@@ -53,8 +52,8 @@ namespace AllLottery.BaseDataModel.PlayerManager
             }
 
             Context.Players.Add(
-                new Player(Name, SecurityHelper.Encrypt(Password), SecurityHelper.Encrypt(CoidPassword)) { Type = PlayerType });
-            UserOperateLogService.Log($"新增玩家[{Name}],玩家类型为[{PlayerType.ToDescriptionString()}]", Context);
+                new Player(Name, SecurityHelper.Encrypt(Password), SecurityHelper.Encrypt(CoidPassword))  );
+       //   UserOperateLogService.Log($"新增玩家[{Name}],玩家类型为[{PlayerType.ToDescriptionString()}]", Context);
             Context.SaveChanges();
             return new ServiceResult(ServiceResultCode.Success);
         }

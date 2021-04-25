@@ -92,15 +92,15 @@ namespace AllLottery.Business.ThirdPay
             {
                 thrid.State = RechargeStateEnum.Ok;
                 thrid.IsEnable = true;
-                thrid.Player.AddMoney(thrid.Money, CoinLogTypeEnum.Recharge, thrid.RechargeId, out var log, $"第三方充值自动到账，订单号为[{thrid.OrderNo}]");
-                Context.CoinLogs.Add(log);
+              //  thrid.Player.AddMoney(thrid.Money, CoinLogTypeEnum.Recharge, thrid.RechargeId, out var log, $"第三方充值自动到账，订单号为[{thrid.OrderNo}]");
+              //  Context.CoinLogs.Add(log);
                 //AcvitityServer.ActivityHandle(thrid);
-                RechargeService.ReceiveGift(thrid, Context);
+            //    RechargeService.ReceiveGift(thrid, Context);
                 var rate = BaseConfig.CreateInstance(SystemConfigEnum.ConsumerWithdrawRate).DecimalValue;
                 if (rate > 0)
                 {
                     rate = rate / 100;
-                    thrid.Player.UpdateLastBetMoney(thrid.Money * rate);
+                 //   thrid.Player.UpdateLastBetMoney(thrid.Money * rate);
                 }
                 Context.SaveChanges();
                 LogHelper.Debug($"自动到账成功[{thrid.RechargeId}]");

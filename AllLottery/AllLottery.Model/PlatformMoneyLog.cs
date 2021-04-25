@@ -10,10 +10,9 @@ namespace AllLottery.Model
 
         }
 
-        public PlatformMoneyLog(int playerId, int platformId, decimal flowMoney)
+        public PlatformMoneyLog(int playerId, decimal flowMoney)
         {
-            PlayerId = playerId;
-            PlatformId = platformId;
+            PlayerId = playerId;            
             FlowMoney = flowMoney;
         }
 
@@ -22,10 +21,8 @@ namespace AllLottery.Model
         public int PlayerId { get; set; }
 
         public virtual Player Player { get; set; }
-
-        public int PlatformId { get; set; }
-
-        public virtual Platform Platform { get; set; }
+ 
+        
 
         public decimal FlowMoney { get; set; }
     }
