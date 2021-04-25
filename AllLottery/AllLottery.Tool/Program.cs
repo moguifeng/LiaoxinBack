@@ -168,475 +168,475 @@ namespace AllLottery.Tool
             Console.ReadKey();
         }
 
-        public static List<LotteryPlayType> CreateSsc(bool isNotTengXun = true)
-        {
-            return new List<LotteryPlayType>()
-            {
-                new LotteryPlayType()
-                {
-                    Name = "五星",
-                    SortIndex = -2,
-                    IsEnable = isNotTengXun,
-                    LotteryPlayDetails = new List<LotteryPlayDetail>()
-                    {
-                        new LotteryPlayDetail()
-                        {
-                            Name = "五星复式",
-                            MinOdds = 90000,
-                            MaxOdds = 100000,
-                            SortIndex = 0,
-                            Description = "每位至少选择一个号码，竞猜开奖号码的全部五位，号码和位置都对应即中奖，奖金 [jj]元",
-                            ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticFiveStartDuplex"
-                        },
-                        new LotteryPlayDetail()
-                        {
-                            Name = "五星单式",
-                            MinOdds = 90000,
-                            MaxOdds = 100000,
-                            SortIndex = 1,
-                            Description = "每位至少选择一个号码，竞猜开奖号码的全部五位，号码和位置都对应即中奖，奖金 [jj]元",
-                            ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticFiveStartSingle"
-                        },
-                        new LotteryPlayDetail()
-                        {
-                            Name = "组选120",
-                            MinOdds = 750,
-                            MaxOdds = 833.333333m,
-                            SortIndex = 2,
-                            Description = "至少选择五个号码投注，竞猜开奖号码的全部五位，号码一致顺序不限即中奖，奖金 [jj]元",
-                            ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupFiveChoose120"
-                        },
-                        new LotteryPlayDetail()
-                        {
-                            Name = "组选60",
-                            MinOdds = 1500,
-                            MaxOdds = 1666.666666M,
-                            SortIndex = 3,
-                            Description = "至少选择1个二重号码和3个单号号码组成一注，竞猜开奖号码的全部五位，号码一致顺序不限即中奖，奖金 [jj]元",
-                            ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupFiveChoose60"
-                        },
-                        new LotteryPlayDetail()
-                        {
-                            Name = "组选30",
-                            MinOdds = 3000,
-                            MaxOdds = 3333.333333M,
-                            SortIndex = 4,
-                            Description = "至少选择2个二重号码和1个单号号码组成一注，竞猜开奖号码的全部五位，号码一致顺序不限即中奖，奖金 [jj]元",
-                            ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupFiveChoose30"
-                        },
-                        new LotteryPlayDetail()
-                        {
-                            Name = "组选20",
-                            MinOdds = 4500,
-                            MaxOdds = 5000,
-                            SortIndex = 5,
-                            Description = "至少选择1个三重号码和2个单号号码组成一注，竞猜开奖号码的全部五位，号码一致顺序不限即中奖，奖金 [jj]元",
-                            ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupFiveChoose20"
-                        },
-                        new LotteryPlayDetail()
-                        {
-                            Name = "组选10",
-                            MinOdds = 9000,
-                            MaxOdds = 10000,
-                            SortIndex = 6,
-                            Description = "至少选择1个三重号码和1个二重号码组成一注，竞猜开奖号码的全部五位，号码一致顺序不限即中奖，奖金 [jj]元",
-                            ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupFiveChoose10"
-                        },
-                        new LotteryPlayDetail()
-                        {
-                            Name = "组选5",
-                            MinOdds = 18000,
-                            MaxOdds = 20000,
-                            SortIndex = 7,
-                            Description = "至少选择1个四重号码和1个单号号码组成一注，竞猜开奖号码的全部五位，号码一致顺序不限即中奖，奖金 [jj]元",
-                            ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupFiveChoose5"
-                        }
-                    }
-                },
-                new LotteryPlayType()
-                {
-                    Name = "四星",
-                    SortIndex = -1,
-                    IsEnable = isNotTengXun,
-                    LotteryPlayDetails=new List<LotteryPlayDetail>()
-                    {
-                        new LotteryPlayDetail()
-                        {
-                            Name = "复式",
-                            MinOdds = 9000,
-                            MaxOdds = 10000,
-                            SortIndex = 1,
-                            Description = "每位至少选择一个号码，竞猜开奖号码的后四位，号码和位置都对应即中奖，奖金 [jj]元",
-                            ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticFourBehindDuplex"
-                        },
-                        new LotteryPlayDetail()
-                        {
-                            Name = "单式",
-                            MinOdds = 9000,
-                            MaxOdds = 10000,
-                            SortIndex = 2,
-                            Description = "每位至少选择一个号码，竞猜开奖号码的后四位，号码和位置都对应即中奖，奖金 [jj]元",
-                            ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticFourBehindSingle"
-                        },
-                        new LotteryPlayDetail()
-                        {
-                            Name = "组选24",
-                            MinOdds = 375,
-                            MaxOdds = 416.666666M,
-                            SortIndex = 3,
-                            Description = "至少选择4个号码投注，竞猜开奖号码的后4位，号码一致顺序不限即中奖，奖金 [jj]元",
-                            ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupFourChoose24"
-                        },
-                        new LotteryPlayDetail()
-                        {
-                            Name = "组选12",
-                            MinOdds = 750,
-                            MaxOdds = 833.333333M,
-                            SortIndex = 4,
-                            Description = "至少选择1个二重号码和2个单号号码，竞猜开奖号码的后四位，号码一致顺序不限即中奖，奖金 [jj]元",
-                            ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupFourChoose24"
-                        },
-                        new LotteryPlayDetail()
-                        {
-                            Name = "组选6",
-                            MinOdds = 1500,
-                            MaxOdds = 1666.666666M,
-                            SortIndex = 5,
-                            Description = "至少选择2个二重号码，竞猜开奖号码的后四位，号码一致顺序不限即中奖，奖金 [jj]元",
-                            ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupFourChoose24"
-                        },
-                        new LotteryPlayDetail()
-                        {
-                            Name = "组选4",
-                            MinOdds = 2250,
-                            MaxOdds = 2500,
-                            SortIndex = 6,
-                            Description = "至少选择1个三重号码和1个单号号码，竞猜开奖号码的后四位，号码一致顺序不限即中奖，奖金 [jj]元",
-                            ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupFourChoose4"
-                        }
-                    }
-                },
-                new LotteryPlayType()
-                {
-                    Name = "前三",
-                    SortIndex = 0,
-                    LotteryPlayDetails = new List<LotteryPlayDetail>()
-                    {
-                        new LotteryPlayDetail()
-                        {
-                            Name = "直选",
-                            MinOdds = 900,
-                            MaxOdds = 1000,
-                            SortIndex = 0,
-                            Description = "每位各选1个或多个号码，选号与奖号前三位一一对应，中奖[jj]元。",
-                            ReflectClass =
-                                "AllLottery.Business.Cathectic.ShiShiCai.CathecticThreeDuplex.CathecticThreeFrontDuplex"
-                        },
-                        new LotteryPlayDetail()
-                        {
-                            Name = "组三",
-                            MinOdds = 300,
-                            MaxOdds = 333.333333M,
-                            SortIndex = 1,
-                            Description = "组三是指开奖号码前三位任意两位号码相同，如188。至少选2个号码投注，开奖号前三位为组三号且包含在投注号码中，即中[jj]元。",
-                            ReflectClass =
-                                "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupThreeThree.CathecticGroupThreeFrontThree"
-                        },
-                        new LotteryPlayDetail()
-                        {
-                            Name = "组六",
-                            MinOdds = 150,
-                            MaxOdds = 166.666666m,
-                            SortIndex = 2,
-                            Description = "组六是指开奖号码前三位三个号码各不相同，如135。至少选3个号码投注，开奖号前三位为组六号且包含在投注号码中，即中[jj]元。",
-                            ReflectClass =
-                                "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupThreeSix.CathecticGroupThreeFrontSix"
-                        },
-                        new LotteryPlayDetail()
-                        {
-                            Name = "组选和值",
-                            MinOdds = 129,
-                            MaxOdds = 143.333333m,
-                            SortIndex = 3,
-                            Description = "所选和值与开奖号码前三位和值一致即为中奖。奖金[jj]元；组三奖金两倍；豹子奖金三倍。",
-                            ReflectClass =
-                                "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupThreeSum.CathecticGroupThreeFrontSum"
-                        },
-                        new LotteryPlayDetail()
-                        {
-                            Name = "单式上传",
-                            MinOdds = 900,
-                            MaxOdds = 1000,
-                            SortIndex = 4,
-                            ReflectClass =
-                                "AllLottery.Business.Cathectic.ShiShiCai.CathecticThreeSingle.CathecticThreeFrontSingle"
-                        }
-                    }
-                },
-                new LotteryPlayType()
-                {
-                    Name = "中三",
-                    SortIndex = 1,
-                    LotteryPlayDetails = new List<LotteryPlayDetail>()
-                    {
-                        new LotteryPlayDetail()
-                        {
-                            Name = "直选",
-                            MinOdds = 900,
-                            MaxOdds = 1000,
-                            SortIndex = 0,
-                            Description = "每位各选1个或多个号码，选号与奖号中三位一一对应，中奖[jj]元。",
-                            ReflectClass =
-                                "AllLottery.Business.Cathectic.ShiShiCai.CathecticThreeDuplex.CathecticThreeMiddleDuplex"
-                        },
-                        new LotteryPlayDetail()
-                        {
-                            Name = "组三",
-                            MinOdds = 300,
-                            MaxOdds = 333.333333M,
-                            SortIndex = 1,
-                            Description = "组三是指开奖号码中三位任意两位号码相同，如188。至少选2个号码投注，开奖号中三位为组三号且包含在投注号码中，即中[jj]元。",
-                            ReflectClass =
-                                "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupThreeThree.CathecticGroupThreeMiddleThree"
-                        },
-                        new LotteryPlayDetail()
-                        {
-                            Name = "组六",
-                            MinOdds = 150,
-                            MaxOdds = 163.5m,
-                            SortIndex = 2,
-                            Description = "组六是指开奖号码中三位三个号码各不相同，如135。至少选3个号码投注，开奖号中三位为组六号且包含在投注号码中，即中[jj]元。",
-                            ReflectClass =
-                                "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupThreeSix.CathecticGroupThreeMiddleSix"
-                        },
-                        new LotteryPlayDetail()
-                        {
-                            Name = "组选和值",
-                            MinOdds = 129,
-                            MaxOdds = 143.333333m,
-                            SortIndex = 3,
-                            Description = "所选和值与开奖号码中三位和值一致即为中奖。奖金[jj]元；组三奖金两倍；豹子奖金三倍。",
-                            ReflectClass =
-                                "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupThreeSum.CathecticGroupThreeMiddleSum"
-                        },
-                        new LotteryPlayDetail()
-                        {
-                            Name = "单式上传",
-                            MinOdds = 900,
-                            MaxOdds = 1000,
-                            SortIndex = 4,
-                            ReflectClass =
-                                "AllLottery.Business.Cathectic.ShiShiCai.CathecticThreeSingle.CathecticThreeMiddleSingle"
-                        }
-                    }
-                },
-                new LotteryPlayType()
-                {
-                    Name = "后三",
-                    SortIndex = 2,
-                    LotteryPlayDetails = new List<LotteryPlayDetail>()
-                    {
-                        new LotteryPlayDetail()
-                        {
-                            Name = "直选",
-                            MinOdds = 900,
-                            MaxOdds = 1000,
-                            SortIndex = 0,
-                            Description = "每位各选1个或多个号码，选号与奖号后三位一一对应，中奖[jj]元。",
-                            ReflectClass =
-                                "AllLottery.Business.Cathectic.ShiShiCai.CathecticThreeDuplex.CathecticThreeBehindDuplex"
-                        },
-                        new LotteryPlayDetail()
-                        {
-                            Name = "组三",
-                            MinOdds = 300,
-                            MaxOdds = 333.333333m,
-                            Description = "组三是指开奖号码后三位任意两位号码相同，如188。至少选2个号码投注，开奖号后三位为组三号且包含在投注号码中，即中[jj]元。",
-                            ReflectClass =
-                                "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupThreeThree.CathecticGroupThreeBehindThree"
-                        },
-                        new LotteryPlayDetail()
-                        {
-                            Name = "组六",
-                            MinOdds = 150,
-                            MaxOdds = 166.666666m,
-                            SortIndex = 2,
-                            Description = "组六是指开奖号码后三位三个号码各不相同，如135。至少选3个号码投注，开奖号后三位为组六号且包含在投注号码中，即中[jj]元。",
-                            ReflectClass =
-                                "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupThreeSix.CathecticGroupThreeBehindSix"
-                        },
-                        new LotteryPlayDetail()
-                        {
-                            Name = "组选和值",
-                            MinOdds = 129,
-                            MaxOdds = 143.333333m,
-                            SortIndex = 3,
-                            Description = "所选和值与开奖号码后三位和值一致即为中奖。奖金[jj]元；组三奖金两倍；豹子奖金三倍。",
-                            ReflectClass =
-                                "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupThreeSum.CathecticGroupThreeBehindSum"
-                        },
-                        new LotteryPlayDetail()
-                        {
-                            Name = "单式上传",
-                            MinOdds = 900,
-                            MaxOdds = 1000,
-                            SortIndex = 4,
-                            ReflectClass =
-                                "AllLottery.Business.Cathectic.ShiShiCai.CathecticThreeSingle.CathecticThreeBehindSingle"
-                        }
-                    }
-                },
-                new LotteryPlayType()
-                {
-                    Name = "二星",
-                    SortIndex = 3,
-                    LotteryPlayDetails = new List<LotteryPlayDetail>()
-                    {
-                        new LotteryPlayDetail()
-                        {
-                            Name = "直选",
-                            MinOdds = 90,
-                            MaxOdds = 100,
-                            SortIndex = 0,
-                            Description = "每位各选1个或多个号，所选号与开奖号后两位相同（且顺序一致），即中奖[jj]元。",
-                            ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticTwoBehindDuplex"
-                        },
-                        new LotteryPlayDetail()
-                        {
-                            Name = "组选",
-                            MinOdds = 45,
-                            MaxOdds = 50,
-                            SortIndex = 1,
-                            Description = "从0～9中选2个或多个号码，选号与奖号后二位相同（顺序不限，不含对子号），即中奖[jj]元。",
-                            ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupTwoBehindDuplex"
-                        },
-                        new LotteryPlayDetail()
-                        {
-                            Name = "组选单式",
-                            MinOdds = 45,
-                            MaxOdds = 50,
-                            SortIndex = 2,
-                            ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupTwoBehindSingle"
-                        }
-                    }
-                },
-                new LotteryPlayType()
-                {
-                    Name = "定位胆",
-                    SortIndex = 4,
-                    LotteryPlayDetails = new List<LotteryPlayDetail>()
-                    {
-                        new LotteryPlayDetail()
-                        {
-                            Name = "五星定位胆",
-                            MinOdds = 9,
-                            MaxOdds = 10,
-                            Description = "在万位、千位、百位、十位、个位任意位置上任意选择1个或1个以上号码即中奖[jj]元。",
-                            ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticFixedBileFiveStart"
-                        }
-                    }
-                },
-                new LotteryPlayType()
-                {
-                    Name = "趣味",
-                    SortIndex = 5,
-                    LotteryPlayDetails = new List<LotteryPlayDetail>()
-                    {
-                        new LotteryPlayDetail()
-                        {
-                            Name = "一帆风顺",
-                            MinOdds = 2.197748m,
-                            MaxOdds = 2.441942m,
-                            SortIndex = 0,
-                            Description = "至少出现一个号码，即中一帆风顺，中奖可得[jj]元。",
-                            ReflectClass =
-                                "AllLottery.Business.Cathectic.ShiShiCai.CathecticFunny.CathecticFunnyYFFS"
-                        },
-                        new LotteryPlayDetail()
-                        {
-                            Name = "好事成双",
-                            MinOdds = 11.048367m,
-                            MaxOdds = 12.275963m,
-                            SortIndex = 1,
-                            Description = "至少出现两个相同号码，即中好事成双，中奖可得[jj]元。",
-                            ReflectClass =
-                                "AllLottery.Business.Cathectic.ShiShiCai.CathecticFunny.CathecticFunnyHSCS"
-                        },
-                        new LotteryPlayDetail()
-                        {
-                            Name = "三星报喜",
-                            MinOdds = 105.140186m,
-                            MaxOdds = 116.822429m,
-                            SortIndex = 2,
-                            Description = "至少出现三个相同号码，即中三星报喜，中奖可得[jj]元。",
-                            ReflectClass =
-                                "AllLottery.Business.Cathectic.ShiShiCai.CathecticFunny.CathecticFunnySXBX"
-                        },
-                        new LotteryPlayDetail()
-                        {
-                            Name = "四季发财",
-                            MinOdds = 1956.521739m,
-                            MaxOdds = 2173.913043m,
-                            SortIndex = 3,
-                            Description = "至少出现四个相同号码，即中四季发财，中奖可得[jj]元。",
-                            ReflectClass =
-                                "AllLottery.Business.Cathectic.ShiShiCai.CathecticFunny.CathecticFunnySJFC"
-                        }
-                    }
-                },
-                new LotteryPlayType()
-                {
-                    Name = "龙虎",
-                    SortIndex = 6,
-                    LotteryPlayDetails = new List<LotteryPlayDetail>()
-                    {
-                        new LotteryPlayDetail()
-                        {
-                            Name = "龙",
-                            MinOdds = 2,
-                            MaxOdds = 2.222222m,
-                            SortIndex = 0,
-                            Description = "从对应两个位上选择一个形态组成一注，前者大于后者为“龙”，反之为“虎”，相等为“和”，中奖可得[jj]元。",
-                            ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticDT.CathecticDTDragon"
-                        },
-                        new LotteryPlayDetail()
-                        {
-                            Name = "虎",
-                            MinOdds = 2,
-                            MaxOdds = 2.222222m,
-                            SortIndex = 1,
-                            Description = "从对应两个位上选择一个形态组成一注，前者大于后者为“龙”，反之为“虎”，相等为“和”中奖可得[jj]元。",
-                            ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticDT.CathecticDTTiger"
-                        },
-                        new LotteryPlayDetail()
-                        {
-                            Name = "和",
-                            MinOdds = 9,
-                            MaxOdds = 10,
-                            SortIndex = 2,
-                            Description = "从对应两个位上选择一个形态组成一注，前者大于后者为“龙”，反之为“虎”，相等为“和”中奖可得[jj]元。",
-                            ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticDT.CathecticDTSum"
-                        },
-                    }
-                },
-                new LotteryPlayType()
-                {
-                    Name = "信用玩法",
-                    SortIndex = 7,
-                    LotteryPlayDetails = new List<LotteryPlayDetail>()
-                    {
-                        new LotteryPlayDetail()
-                        {
-                            Name = "整合",
-                            MinOdds = 0.00009M,
-                            MaxOdds = 0.0001M,
-                            SortIndex = 0,
-                            ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.XinYongPan.ShuangMianPan"
-                        }
-                    }
-                }
-            };
-        }
+        //public static List<LotteryPlayType> CreateSsc(bool isNotTengXun = true)
+        //{
+        //    return new List<LotteryPlayType>()
+        //    {
+        //        new LotteryPlayType()
+        //        {
+        //            Name = "五星",
+        //            SortIndex = -2,
+        //            IsEnable = isNotTengXun,
+        //            LotteryPlayDetails = new List<LotteryPlayDetail>()
+        //            {
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "五星复式",
+        //                    MinOdds = 90000,
+        //                    MaxOdds = 100000,
+        //                    SortIndex = 0,
+        //                    Description = "每位至少选择一个号码，竞猜开奖号码的全部五位，号码和位置都对应即中奖，奖金 [jj]元",
+        //                    ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticFiveStartDuplex"
+        //                },
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "五星单式",
+        //                    MinOdds = 90000,
+        //                    MaxOdds = 100000,
+        //                    SortIndex = 1,
+        //                    Description = "每位至少选择一个号码，竞猜开奖号码的全部五位，号码和位置都对应即中奖，奖金 [jj]元",
+        //                    ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticFiveStartSingle"
+        //                },
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "组选120",
+        //                    MinOdds = 750,
+        //                    MaxOdds = 833.333333m,
+        //                    SortIndex = 2,
+        //                    Description = "至少选择五个号码投注，竞猜开奖号码的全部五位，号码一致顺序不限即中奖，奖金 [jj]元",
+        //                    ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupFiveChoose120"
+        //                },
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "组选60",
+        //                    MinOdds = 1500,
+        //                    MaxOdds = 1666.666666M,
+        //                    SortIndex = 3,
+        //                    Description = "至少选择1个二重号码和3个单号号码组成一注，竞猜开奖号码的全部五位，号码一致顺序不限即中奖，奖金 [jj]元",
+        //                    ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupFiveChoose60"
+        //                },
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "组选30",
+        //                    MinOdds = 3000,
+        //                    MaxOdds = 3333.333333M,
+        //                    SortIndex = 4,
+        //                    Description = "至少选择2个二重号码和1个单号号码组成一注，竞猜开奖号码的全部五位，号码一致顺序不限即中奖，奖金 [jj]元",
+        //                    ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupFiveChoose30"
+        //                },
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "组选20",
+        //                    MinOdds = 4500,
+        //                    MaxOdds = 5000,
+        //                    SortIndex = 5,
+        //                    Description = "至少选择1个三重号码和2个单号号码组成一注，竞猜开奖号码的全部五位，号码一致顺序不限即中奖，奖金 [jj]元",
+        //                    ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupFiveChoose20"
+        //                },
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "组选10",
+        //                    MinOdds = 9000,
+        //                    MaxOdds = 10000,
+        //                    SortIndex = 6,
+        //                    Description = "至少选择1个三重号码和1个二重号码组成一注，竞猜开奖号码的全部五位，号码一致顺序不限即中奖，奖金 [jj]元",
+        //                    ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupFiveChoose10"
+        //                },
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "组选5",
+        //                    MinOdds = 18000,
+        //                    MaxOdds = 20000,
+        //                    SortIndex = 7,
+        //                    Description = "至少选择1个四重号码和1个单号号码组成一注，竞猜开奖号码的全部五位，号码一致顺序不限即中奖，奖金 [jj]元",
+        //                    ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupFiveChoose5"
+        //                }
+        //            }
+        //        },
+        //        new LotteryPlayType()
+        //        {
+        //            Name = "四星",
+        //            SortIndex = -1,
+        //            IsEnable = isNotTengXun,
+        //            LotteryPlayDetails=new List<LotteryPlayDetail>()
+        //            {
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "复式",
+        //                    MinOdds = 9000,
+        //                    MaxOdds = 10000,
+        //                    SortIndex = 1,
+        //                    Description = "每位至少选择一个号码，竞猜开奖号码的后四位，号码和位置都对应即中奖，奖金 [jj]元",
+        //                    ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticFourBehindDuplex"
+        //                },
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "单式",
+        //                    MinOdds = 9000,
+        //                    MaxOdds = 10000,
+        //                    SortIndex = 2,
+        //                    Description = "每位至少选择一个号码，竞猜开奖号码的后四位，号码和位置都对应即中奖，奖金 [jj]元",
+        //                    ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticFourBehindSingle"
+        //                },
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "组选24",
+        //                    MinOdds = 375,
+        //                    MaxOdds = 416.666666M,
+        //                    SortIndex = 3,
+        //                    Description = "至少选择4个号码投注，竞猜开奖号码的后4位，号码一致顺序不限即中奖，奖金 [jj]元",
+        //                    ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupFourChoose24"
+        //                },
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "组选12",
+        //                    MinOdds = 750,
+        //                    MaxOdds = 833.333333M,
+        //                    SortIndex = 4,
+        //                    Description = "至少选择1个二重号码和2个单号号码，竞猜开奖号码的后四位，号码一致顺序不限即中奖，奖金 [jj]元",
+        //                    ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupFourChoose24"
+        //                },
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "组选6",
+        //                    MinOdds = 1500,
+        //                    MaxOdds = 1666.666666M,
+        //                    SortIndex = 5,
+        //                    Description = "至少选择2个二重号码，竞猜开奖号码的后四位，号码一致顺序不限即中奖，奖金 [jj]元",
+        //                    ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupFourChoose24"
+        //                },
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "组选4",
+        //                    MinOdds = 2250,
+        //                    MaxOdds = 2500,
+        //                    SortIndex = 6,
+        //                    Description = "至少选择1个三重号码和1个单号号码，竞猜开奖号码的后四位，号码一致顺序不限即中奖，奖金 [jj]元",
+        //                    ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupFourChoose4"
+        //                }
+        //            }
+        //        },
+        //        new LotteryPlayType()
+        //        {
+        //            Name = "前三",
+        //            SortIndex = 0,
+        //            LotteryPlayDetails = new List<LotteryPlayDetail>()
+        //            {
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "直选",
+        //                    MinOdds = 900,
+        //                    MaxOdds = 1000,
+        //                    SortIndex = 0,
+        //                    Description = "每位各选1个或多个号码，选号与奖号前三位一一对应，中奖[jj]元。",
+        //                    ReflectClass =
+        //                        "AllLottery.Business.Cathectic.ShiShiCai.CathecticThreeDuplex.CathecticThreeFrontDuplex"
+        //                },
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "组三",
+        //                    MinOdds = 300,
+        //                    MaxOdds = 333.333333M,
+        //                    SortIndex = 1,
+        //                    Description = "组三是指开奖号码前三位任意两位号码相同，如188。至少选2个号码投注，开奖号前三位为组三号且包含在投注号码中，即中[jj]元。",
+        //                    ReflectClass =
+        //                        "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupThreeThree.CathecticGroupThreeFrontThree"
+        //                },
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "组六",
+        //                    MinOdds = 150,
+        //                    MaxOdds = 166.666666m,
+        //                    SortIndex = 2,
+        //                    Description = "组六是指开奖号码前三位三个号码各不相同，如135。至少选3个号码投注，开奖号前三位为组六号且包含在投注号码中，即中[jj]元。",
+        //                    ReflectClass =
+        //                        "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupThreeSix.CathecticGroupThreeFrontSix"
+        //                },
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "组选和值",
+        //                    MinOdds = 129,
+        //                    MaxOdds = 143.333333m,
+        //                    SortIndex = 3,
+        //                    Description = "所选和值与开奖号码前三位和值一致即为中奖。奖金[jj]元；组三奖金两倍；豹子奖金三倍。",
+        //                    ReflectClass =
+        //                        "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupThreeSum.CathecticGroupThreeFrontSum"
+        //                },
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "单式上传",
+        //                    MinOdds = 900,
+        //                    MaxOdds = 1000,
+        //                    SortIndex = 4,
+        //                    ReflectClass =
+        //                        "AllLottery.Business.Cathectic.ShiShiCai.CathecticThreeSingle.CathecticThreeFrontSingle"
+        //                }
+        //            }
+        //        },
+        //        new LotteryPlayType()
+        //        {
+        //            Name = "中三",
+        //            SortIndex = 1,
+        //            LotteryPlayDetails = new List<LotteryPlayDetail>()
+        //            {
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "直选",
+        //                    MinOdds = 900,
+        //                    MaxOdds = 1000,
+        //                    SortIndex = 0,
+        //                    Description = "每位各选1个或多个号码，选号与奖号中三位一一对应，中奖[jj]元。",
+        //                    ReflectClass =
+        //                        "AllLottery.Business.Cathectic.ShiShiCai.CathecticThreeDuplex.CathecticThreeMiddleDuplex"
+        //                },
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "组三",
+        //                    MinOdds = 300,
+        //                    MaxOdds = 333.333333M,
+        //                    SortIndex = 1,
+        //                    Description = "组三是指开奖号码中三位任意两位号码相同，如188。至少选2个号码投注，开奖号中三位为组三号且包含在投注号码中，即中[jj]元。",
+        //                    ReflectClass =
+        //                        "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupThreeThree.CathecticGroupThreeMiddleThree"
+        //                },
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "组六",
+        //                    MinOdds = 150,
+        //                    MaxOdds = 163.5m,
+        //                    SortIndex = 2,
+        //                    Description = "组六是指开奖号码中三位三个号码各不相同，如135。至少选3个号码投注，开奖号中三位为组六号且包含在投注号码中，即中[jj]元。",
+        //                    ReflectClass =
+        //                        "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupThreeSix.CathecticGroupThreeMiddleSix"
+        //                },
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "组选和值",
+        //                    MinOdds = 129,
+        //                    MaxOdds = 143.333333m,
+        //                    SortIndex = 3,
+        //                    Description = "所选和值与开奖号码中三位和值一致即为中奖。奖金[jj]元；组三奖金两倍；豹子奖金三倍。",
+        //                    ReflectClass =
+        //                        "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupThreeSum.CathecticGroupThreeMiddleSum"
+        //                },
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "单式上传",
+        //                    MinOdds = 900,
+        //                    MaxOdds = 1000,
+        //                    SortIndex = 4,
+        //                    ReflectClass =
+        //                        "AllLottery.Business.Cathectic.ShiShiCai.CathecticThreeSingle.CathecticThreeMiddleSingle"
+        //                }
+        //            }
+        //        },
+        //        new LotteryPlayType()
+        //        {
+        //            Name = "后三",
+        //            SortIndex = 2,
+        //            LotteryPlayDetails = new List<LotteryPlayDetail>()
+        //            {
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "直选",
+        //                    MinOdds = 900,
+        //                    MaxOdds = 1000,
+        //                    SortIndex = 0,
+        //                    Description = "每位各选1个或多个号码，选号与奖号后三位一一对应，中奖[jj]元。",
+        //                    ReflectClass =
+        //                        "AllLottery.Business.Cathectic.ShiShiCai.CathecticThreeDuplex.CathecticThreeBehindDuplex"
+        //                },
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "组三",
+        //                    MinOdds = 300,
+        //                    MaxOdds = 333.333333m,
+        //                    Description = "组三是指开奖号码后三位任意两位号码相同，如188。至少选2个号码投注，开奖号后三位为组三号且包含在投注号码中，即中[jj]元。",
+        //                    ReflectClass =
+        //                        "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupThreeThree.CathecticGroupThreeBehindThree"
+        //                },
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "组六",
+        //                    MinOdds = 150,
+        //                    MaxOdds = 166.666666m,
+        //                    SortIndex = 2,
+        //                    Description = "组六是指开奖号码后三位三个号码各不相同，如135。至少选3个号码投注，开奖号后三位为组六号且包含在投注号码中，即中[jj]元。",
+        //                    ReflectClass =
+        //                        "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupThreeSix.CathecticGroupThreeBehindSix"
+        //                },
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "组选和值",
+        //                    MinOdds = 129,
+        //                    MaxOdds = 143.333333m,
+        //                    SortIndex = 3,
+        //                    Description = "所选和值与开奖号码后三位和值一致即为中奖。奖金[jj]元；组三奖金两倍；豹子奖金三倍。",
+        //                    ReflectClass =
+        //                        "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupThreeSum.CathecticGroupThreeBehindSum"
+        //                },
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "单式上传",
+        //                    MinOdds = 900,
+        //                    MaxOdds = 1000,
+        //                    SortIndex = 4,
+        //                    ReflectClass =
+        //                        "AllLottery.Business.Cathectic.ShiShiCai.CathecticThreeSingle.CathecticThreeBehindSingle"
+        //                }
+        //            }
+        //        },
+        //        new LotteryPlayType()
+        //        {
+        //            Name = "二星",
+        //            SortIndex = 3,
+        //            LotteryPlayDetails = new List<LotteryPlayDetail>()
+        //            {
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "直选",
+        //                    MinOdds = 90,
+        //                    MaxOdds = 100,
+        //                    SortIndex = 0,
+        //                    Description = "每位各选1个或多个号，所选号与开奖号后两位相同（且顺序一致），即中奖[jj]元。",
+        //                    ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticTwoBehindDuplex"
+        //                },
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "组选",
+        //                    MinOdds = 45,
+        //                    MaxOdds = 50,
+        //                    SortIndex = 1,
+        //                    Description = "从0～9中选2个或多个号码，选号与奖号后二位相同（顺序不限，不含对子号），即中奖[jj]元。",
+        //                    ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupTwoBehindDuplex"
+        //                },
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "组选单式",
+        //                    MinOdds = 45,
+        //                    MaxOdds = 50,
+        //                    SortIndex = 2,
+        //                    ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticGroupTwoBehindSingle"
+        //                }
+        //            }
+        //        },
+        //        new LotteryPlayType()
+        //        {
+        //            Name = "定位胆",
+        //            SortIndex = 4,
+        //            LotteryPlayDetails = new List<LotteryPlayDetail>()
+        //            {
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "五星定位胆",
+        //                    MinOdds = 9,
+        //                    MaxOdds = 10,
+        //                    Description = "在万位、千位、百位、十位、个位任意位置上任意选择1个或1个以上号码即中奖[jj]元。",
+        //                    ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticFixedBileFiveStart"
+        //                }
+        //            }
+        //        },
+        //        new LotteryPlayType()
+        //        {
+        //            Name = "趣味",
+        //            SortIndex = 5,
+        //            LotteryPlayDetails = new List<LotteryPlayDetail>()
+        //            {
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "一帆风顺",
+        //                    MinOdds = 2.197748m,
+        //                    MaxOdds = 2.441942m,
+        //                    SortIndex = 0,
+        //                    Description = "至少出现一个号码，即中一帆风顺，中奖可得[jj]元。",
+        //                    ReflectClass =
+        //                        "AllLottery.Business.Cathectic.ShiShiCai.CathecticFunny.CathecticFunnyYFFS"
+        //                },
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "好事成双",
+        //                    MinOdds = 11.048367m,
+        //                    MaxOdds = 12.275963m,
+        //                    SortIndex = 1,
+        //                    Description = "至少出现两个相同号码，即中好事成双，中奖可得[jj]元。",
+        //                    ReflectClass =
+        //                        "AllLottery.Business.Cathectic.ShiShiCai.CathecticFunny.CathecticFunnyHSCS"
+        //                },
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "三星报喜",
+        //                    MinOdds = 105.140186m,
+        //                    MaxOdds = 116.822429m,
+        //                    SortIndex = 2,
+        //                    Description = "至少出现三个相同号码，即中三星报喜，中奖可得[jj]元。",
+        //                    ReflectClass =
+        //                        "AllLottery.Business.Cathectic.ShiShiCai.CathecticFunny.CathecticFunnySXBX"
+        //                },
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "四季发财",
+        //                    MinOdds = 1956.521739m,
+        //                    MaxOdds = 2173.913043m,
+        //                    SortIndex = 3,
+        //                    Description = "至少出现四个相同号码，即中四季发财，中奖可得[jj]元。",
+        //                    ReflectClass =
+        //                        "AllLottery.Business.Cathectic.ShiShiCai.CathecticFunny.CathecticFunnySJFC"
+        //                }
+        //            }
+        //        },
+        //        new LotteryPlayType()
+        //        {
+        //            Name = "龙虎",
+        //            SortIndex = 6,
+        //            LotteryPlayDetails = new List<LotteryPlayDetail>()
+        //            {
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "龙",
+        //                    MinOdds = 2,
+        //                    MaxOdds = 2.222222m,
+        //                    SortIndex = 0,
+        //                    Description = "从对应两个位上选择一个形态组成一注，前者大于后者为“龙”，反之为“虎”，相等为“和”，中奖可得[jj]元。",
+        //                    ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticDT.CathecticDTDragon"
+        //                },
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "虎",
+        //                    MinOdds = 2,
+        //                    MaxOdds = 2.222222m,
+        //                    SortIndex = 1,
+        //                    Description = "从对应两个位上选择一个形态组成一注，前者大于后者为“龙”，反之为“虎”，相等为“和”中奖可得[jj]元。",
+        //                    ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticDT.CathecticDTTiger"
+        //                },
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "和",
+        //                    MinOdds = 9,
+        //                    MaxOdds = 10,
+        //                    SortIndex = 2,
+        //                    Description = "从对应两个位上选择一个形态组成一注，前者大于后者为“龙”，反之为“虎”，相等为“和”中奖可得[jj]元。",
+        //                    ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.CathecticDT.CathecticDTSum"
+        //                },
+        //            }
+        //        },
+        //        new LotteryPlayType()
+        //        {
+        //            Name = "信用玩法",
+        //            SortIndex = 7,
+        //            LotteryPlayDetails = new List<LotteryPlayDetail>()
+        //            {
+        //                new LotteryPlayDetail()
+        //                {
+        //                    Name = "整合",
+        //                    MinOdds = 0.00009M,
+        //                    MaxOdds = 0.0001M,
+        //                    SortIndex = 0,
+        //                    ReflectClass = "AllLottery.Business.Cathectic.ShiShiCai.XinYongPan.ShuangMianPan"
+        //                }
+        //            }
+        //        }
+        //    };
+        //}
 
 
 
