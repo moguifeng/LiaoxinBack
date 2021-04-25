@@ -2,12 +2,12 @@
 
 namespace AllLottery.IBusiness
 {
-    public interface ILotteryService
-    {
-        LotteryType[] GetAllLotteryTypes();
+    //public interface ILotteryService
+    //{
+    //    LotteryType[] GetAllLotteryTypes();
 
-        LotteryType GetLotteryType(int id);
+    //    LotteryType GetLotteryType(int id);
 
-        LotteryData[] GetNewDatas(int id, int size);
-    }
+    //    LotteryData[] GetNewDatas(int id, int size);
+    //}
 }

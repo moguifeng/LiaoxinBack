@@ -5,22 +5,22 @@ using System.Collections.Generic;
 
 namespace AllLottery.IBusiness
 {
-    public interface IBetService
-    {
-        List<BetMode> GetBetModes();
+    //public interface IBetService
+    //{
+    //    List<BetMode> GetBetModes();
 
-        void AddBettings(AddBettingViewModel[] models, int playerId);
+    //    void AddBettings(AddBettingViewModel[] models, int playerId);
 
-        Bet[] GetBets(int playerId, int index, int size, out int total, bool? isCredit = null,
-            int? lotteryTypeId = null, List<BetStatusEnum> status = null, string order = null);
+    //    Bet[] GetBets(int playerId, int index, int size, out int total, bool? isCredit = null,
+    //        int? lotteryTypeId = null, List<BetStatusEnum> status = null, string order = null);
 
-        Bet[] GetTeamBets(int playerId, string name, DateTime? begin, DateTime? end, int index, int size,
-            out int total);
+    //    Bet[] GetTeamBets(int playerId, string name, DateTime? begin, DateTime? end, int index, int size,
+    //        out int total);
 
-        void CancleBet(int betId, int playerId);
+    //    void CancleBet(int betId, int playerId);
 
-        BetMode GetCreditBetMode();
+    //    BetMode GetCreditBetMode();
 
-        Bet GetBet(int betId, int playerId);
-    }
+    //    Bet GetBet(int betId, int playerId);
+    //}
 }
