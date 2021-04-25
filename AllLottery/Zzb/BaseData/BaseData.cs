@@ -23,15 +23,26 @@ namespace Zzb.BaseData
             {
                 return;
             }
+
+
             foreach (string name in assemblyName)
             {
+                List<BaseNav> menus = new List<BaseNav>();
                 var assembly = Assembly.Load(name);
                 foreach (Type type in assembly.GetTypes())
                 {
                     if (!type.IsAbstract && (type.IsSubclassOf(typeof(BaseNav)) || type.IsSubclassOf(typeof(BaseModal))))
                     {
-                        var navId = SecurityHelper.MD5Encrypt(type.FullName);
-                        _navs.Add(navId, new NavModel(navId, type));
+                        if (type.Assembly.CreateInstance(type.FullName) is BaseNav nav)
+                        {
+                            menus.Add(nav);
+                        }
+                        else
+                        {
+                            var navId = SecurityHelper.MD5Encrypt(type.FullName);
+                            _navs.Add(navId, new NavModel(navId, type));
+                        }
+                
                     }
 
                     //添加自定义菜单
@@ -57,6 +68,14 @@ namespace Zzb.BaseData
                             }
                         }
                     }
+                }
+                menus = menus.OrderBy(m => m.Sort).ToList();
+
+                foreach (var menu in menus)
+                {
+                    var menuType = menu.GetType();
+                    var navId = SecurityHelper.MD5Encrypt(menuType.FullName);
+                    _navs.Add(navId, new NavModel(navId, menuType));
                 }
             }
         }

@@ -27,6 +27,11 @@ namespace Zzb.BaseData.Model
         /// </summary>
         public virtual bool NavIsShow => true;
 
+
+        /// <summary>
+        /// 排序
+        /// </summary>
+        public virtual int Sort => 1;
         /// <summary>
         /// 操作列宽
         /// </summary>
