@@ -14,9 +14,9 @@ namespace AllLottery.Model
 
         public virtual Player Player { get; set; }
 
-        [ZzbIndex("WeiYi", 2, IsUnique = true)]
-        public int LotteryTypeId { get; set; }
+     //   [ZzbIndex("WeiYi", 2, IsUnique = true)]
+     //   public int LotteryTypeId { get; set; }
 
-        public virtual LotteryType LotteryType { get; set; }
+      //  public virtual LotteryType LotteryType { get; set; }
     }
 }

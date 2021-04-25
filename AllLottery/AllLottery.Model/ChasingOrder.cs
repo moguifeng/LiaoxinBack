@@ -43,9 +43,9 @@ namespace AllLottery.Model
         /// <summary>
         /// 玩法
         /// </summary>
-        public int LotteryPlayDetailId { get; set; }
+     //   public int LotteryPlayDetailId { get; set; }
 
-        public virtual LotteryPlayDetail LotteryPlayDetail { get; set; }
+   //     public virtual LotteryPlayDetail LotteryPlayDetail { get; set; }
 
         public virtual List<ChasingOrderDetail> ChasingOrderDetails { get; set; }
 
