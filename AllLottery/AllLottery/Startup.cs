@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
@@ -175,10 +174,10 @@ namespace AllLottery
 
             services.ZzbBaseDataInit("AllLottery.BaseDataModel", "AllLottery");
 
-            services.Configure<MvcOptions>(options =>
-            {
-                options.Filters.Add(new CorsAuthorizationFilterFactory("AllowAllOrigin"));
-            });
+            //services.Configure<MvcOptions>(options =>
+            //{
+            //    options.Filters.Add(new CorsAuthorizationFilterFactory("AllowAllOrigin"));
+            //});
 
             List<Type> list = new List<Type>();
             foreach (Type type in Assembly.Load("AllLottery.Business").GetTypes())
@@ -195,7 +194,7 @@ namespace AllLottery
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseCors();
+            app.UseCors("Cors");
 
 
             if (env.IsDevelopment())
