@@ -23,9 +23,9 @@ namespace AllLottery.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            MessageService.AddAllUserMessage("测试登录", MessageTypeEnum.Message);
-              int a =  UserId;
-            BaseServiceSocketMiddleware.SendAllMessage<PlayerSocketMiddleware>("Hello World!", MessageTypeEnum.Message);
+            //MessageService.AddAllUserMessage("测试登录", MessageTypeEnum.Message);
+            //  int a =  UserId;
+            //BaseServiceSocketMiddleware.SendAllMessage<PlayerSocketMiddleware>("Hello World!", MessageTypeEnum.Message);
             return new string[] { "value1", "value2" };
         }
 

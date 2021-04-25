@@ -13,6 +13,8 @@ namespace AllLottery.Tool
         {
             using (var context = LotteryContext.CreateContext())
             {
+
+                int cnt = context.Affixs.Count();
                 //foreach (Model.Player player in context.Players)
                 //{
                 //    player.UpdateReportDate();

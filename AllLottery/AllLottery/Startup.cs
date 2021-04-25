@@ -159,7 +159,11 @@ namespace AllLottery
 
           
                  });
-            services.AddMvc(o => { o.Filters.Add<LogFilter>(); }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc(o => { o.Filters.Add<LogFilter>(); }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+
+            services.AddMvc(options => { options.EnableEndpointRouting = false; });
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+
 
             services.AddSession(o =>
             {
@@ -224,10 +228,11 @@ namespace AllLottery
             app.ZzbMvcInit();
             app.ZzbBaseDataInit<LotteryContext>();
             app.UseSession();
-         //   MessageService.Start();
-           // app.UseAuthentication();
-          //  app.UseAuthorization();
+            //   MessageService.Start();
+            // app.UseAuthentication();
+            //  app.UseAuthorization();
             app.UseMvc();
+         
         }
     }
 }
