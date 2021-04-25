@@ -9,7 +9,7 @@ class TopHead extends PureComponent {
     const { player } = this.props;
     return (
       <span>
-        <a
+        {/* <a
           href="/ZzbTable/a6611074f5d2354b96279cc92aaede4f/79c3ad9d177e27d4a08dfeb1c3ad9c69"
           style={{ marginRight: 20 }}
         >
@@ -27,7 +27,7 @@ class TopHead extends PureComponent {
         >
           玩家管理
         </a>
-        <span style={{ marginRight: 10 }}>平台在线人数：{player?.onlineCount}</span>
+        <span style={{ marginRight: 10 }}>平台在线人数：{player?.onlineCount}</span> */}
       </span>
     );
   }
