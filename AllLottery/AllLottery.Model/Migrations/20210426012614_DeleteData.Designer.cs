@@ -3,14 +3,16 @@ using System;
 using AllLottery.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AllLottery.Model.Migrations
 {
     [DbContext(typeof(LotteryContext))]
-    partial class LotteryContextModelSnapshot : ModelSnapshot
+    [Migration("20210426012614_DeleteData")]
+    partial class DeleteData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
