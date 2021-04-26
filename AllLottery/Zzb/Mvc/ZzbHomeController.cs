@@ -17,6 +17,7 @@ using Zzb.BaseData.Model;
 using Zzb.Common;
 using Zzb.Context;
 using System.Text.Json;
+using Microsoft.AspNetCore.Cors;
 
 namespace Zzb.Mvc
 {
@@ -204,6 +205,7 @@ namespace Zzb.Mvc
                 "获取按钮信息失败");
         }
 
+     
         [HttpPost("HandleAction")]
         public ServiceResult HandleAction(ZzbHomeHandleViewActionViewModel model)
         {
@@ -329,10 +331,12 @@ namespace Zzb.Mvc
         public string Password { get; set; }
     }
 
-    public class ZzbHomeHandleViewActionViewModel : ZzbHomeGetViewsModalInfoViewModel
+    public class ZzbHomeHandleViewActionViewModel 
     {
         public string ButtonId { get; set; }
 
-        public new Dictionary<string, object> Data { get; set; }
+        public  Dictionary<string, object> Data { get; set; }
+
+        public string ModalId { get; set; }
     }
 }

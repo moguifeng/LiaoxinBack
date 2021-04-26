@@ -25,11 +25,10 @@
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "api/values",
-      "environmentVariables": {
-        "ASPNETCORE_URLS": "http://*:8686",
+      "environmentVariables": {      
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": ""
+      "applicationUrl": "http://localhost:22001"
     },
     "newProfile1": {
       "commandName": "Executable"
