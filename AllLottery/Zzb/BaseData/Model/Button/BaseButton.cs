@@ -21,5 +21,7 @@
         public string Type { get; set; } = "primary";
 
         public virtual string ButtonType => this.GetType().Name;
+
+        public  new string ModalId { get; set; }
     }
 }

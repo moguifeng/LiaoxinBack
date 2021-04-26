@@ -11,23 +11,23 @@ export default {
   },
 
   effects: {
-    *fetchNotices(_, { put, select }) {
-      const data = yield post('api/Home/GetMessages', queryNotices);
-      yield put({
-        type: 'saveNotices',
-        payload: data,
-      });
-      const unreadCount = yield select(
-        state => state.global.notices.filter(item => !item.read).length
-      );
-      yield put({
-        type: 'user/changeNotifyCount',
-        payload: {
-          totalCount: data.length,
-          unreadCount,
-        },
-      });
-    },
+    // *fetchNotices(_, { put, select }) {
+    //   const data = yield post('api/Home/GetMessages', queryNotices);
+    //   yield put({
+    //     type: 'saveNotices',
+    //     payload: data,
+    //   });
+    //   const unreadCount = yield select(
+    //     state => state.global.notices.filter(item => !item.read).length
+    //   );
+    //   yield put({
+    //     type: 'user/changeNotifyCount',
+    //     payload: {
+    //       totalCount: data.length,
+    //       unreadCount,
+    //     },
+    //   });
+    // },
     *getCookies(_, { put }) {
       const data = yield post('api/Home/GetCookies');
       yield put({

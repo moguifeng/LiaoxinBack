@@ -16,6 +16,7 @@ using Zzb.BaseData;
 using Zzb.BaseData.Model;
 using Zzb.Common;
 using Zzb.Context;
+using System.Text.Json;
 
 namespace Zzb.Mvc
 {
@@ -25,10 +26,10 @@ namespace Zzb.Mvc
 
         public TableInfomation TableInfomation { get; set; }
 
-      
+
         public IConfiguration Config { get; set; }
 
-      
+
         public NavTrees NavTrees { get; set; }
 
         [HttpGet("GetMenu")]
@@ -176,7 +177,8 @@ namespace Zzb.Mvc
             return Json(() =>
             {
                 var res = NavRow.GetRowsData(model.NavId, model.Size, (model.Index - 1) * model.Size, model.Query);
-                return ObjectResult(res);
+                var jsonRes = ObjectResult(res);
+                return jsonRes;
             }, "获取表格数据失败");
         }
 
@@ -187,14 +189,14 @@ namespace Zzb.Mvc
             return Json(() =>
             {
                 var id = Login(model.Name, model.Password);
-            
+
                 _UserContext.SetUserContext(Guid.NewGuid(), id.ToString(), model.Name);
-                var token =    UserContext.Current.Token;
+                var token = UserContext.Current.Token;
                 return ObjectResult(token);
             }, "登录失败");
         }
 
-  
+
         [HttpPost("GetModalInfo")]
         public ServiceResult GetModalInfo(ZzbHomeGetViewsModalInfoViewModel model)
         {
@@ -208,14 +210,35 @@ namespace Zzb.Mvc
             Dictionary<string, string> dic = new Dictionary<string, string>();
             foreach (var k in model.Data.Keys)
             {
-                if (model.Data[k] is JArray ss)
+                if (model.Data[k] != null)
                 {
-                    dic.Add(k, (from s in ss select s.ToString()).Join(","));
+                    JsonElement jsonEle = (JsonElement)model.Data[k];
+
+                    if (jsonEle.ValueKind == JsonValueKind.Array)
+                    {
+                        var list = jsonEle.EnumerateArray().ToList();
+                        var str = "";
+                        foreach (var item in list)
+                        {
+                            str += item.ToString() + ",";
+                        }
+                        if (str.Length > 0)
+                        {
+                            str = str.Substring(0, str.Length - 1);
+                        }
+
+                        dic.Add(k, str);
+                    }
+                    else
+                    {
+                        dic.Add(k, model.Data[k]?.ToString());
+                    }
                 }
                 else
                 {
                     dic.Add(k, model.Data[k]?.ToString());
                 }
+
 
             }
             return Json(

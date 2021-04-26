@@ -9,8 +9,8 @@ namespace AllLottery
     {
         public static void Main(string[] args)
         {
-            var host = CreateWebHostBuilder(args).Build();
-
+            var host = CreateWebHostBuilder(args).UseUrls("http://*:8686").Build();
+          
             host.ZzbInitEf<LotteryContext>(Configuration.Seed);
 
             host.Run();

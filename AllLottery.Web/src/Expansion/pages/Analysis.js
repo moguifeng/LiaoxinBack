@@ -27,13 +27,13 @@ class Analysis extends PureComponent {
   };
 
   componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'backReport/getPlayerReport',
-    });
-    dispatch({
-      type: 'backReport/getAllReport',
-    });
+    // const { dispatch } = this.props;
+    // dispatch({
+    //   type: 'backReport/getPlayerReport',
+    // });
+    // dispatch({
+    //   type: 'backReport/getAllReport',
+    // });
   }
 
   onRangePickerChange(_, data) {

@@ -31,15 +31,16 @@ namespace AllLottery.Controllers
         [HttpPost("GetMessages")]
         public ServiceResult GetMessages()
         {
-            return Json(() => ObjectResult(from m in MessageService.GetUserMessage(UserId, 1, 10000, out _)
-                                           select new
-                                           {
-                                               Id = m.MessageId,
-                                               Avatar = "https://gw.alipayobjects.com/zos/rmsportal/ThXAXghbEsBCCSDihZxY.png",
-                                               Title = m.Description,
-                                               Datetime = m.CreateTime.ToCommonString(),
-                                               Type = "notification"
-                                           }), "获取信息失败");
+            return null;
+            //return Json(() => ObjectResult(from m in MessageService.GetUserMessage(UserId, 1, 10000, out _)
+            //                               select new
+            //                               {
+            //                                   Id = m.MessageId,
+            //                                   Avatar = "https://gw.alipayobjects.com/zos/rmsportal/ThXAXghbEsBCCSDihZxY.png",
+            //                                   Title = m.Description,
+            //                                   Datetime = m.CreateTime.ToCommonString(),
+            //                                   Type = "notification"
+            //                               }), "获取信息失败");
         }
 
         [HttpPost("ReadMessage")]

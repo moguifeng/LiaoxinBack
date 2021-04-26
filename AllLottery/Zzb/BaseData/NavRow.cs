@@ -74,7 +74,14 @@ namespace Zzb.BaseData
                         var buttons = navOne.CreateRowButtons();
                         if (buttons != null && buttons.Length > 0)
                         {
-                            model.Rows[i].Add("Zzb_Buttons", buttons);
+                            List<Object> lis = new List<object>();
+                            foreach (var b in buttons)
+                            {
+                                BaseModal tempModal = b as BaseModal;
+                                lis.Add(new { ButtonName  = b.ButtonName, ButtonType = b.ButtonType, Icon = b.Icon,Id = b.Id,Type = b.Type,ModalId=tempModal?.ModalId });
+                            }
+                          
+                            model.Rows[i].Add("Zzb_Buttons", lis);
                         }
                     }
                     else

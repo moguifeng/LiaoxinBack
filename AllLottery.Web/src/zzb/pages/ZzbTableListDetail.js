@@ -405,6 +405,7 @@ class ZzbTableListDetail extends PureComponent {
         maskClosable: true,
       });
     }
+    console.log(button)
     if (button.buttonType === 'ModalButton') {
       this.handleModalVisible(true, button.modalId, data);
     }
