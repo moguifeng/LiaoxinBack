@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Liaoxin.Business\Liaoxin.Business.csproj" />
+    <ProjectReference Include="..\Liaoxin.Model\Liaoxin.Model.csproj" />
+    <ProjectReference Include="..\Zzb\Zzb.csproj" />
+  </ItemGroup>
+
+</Project>

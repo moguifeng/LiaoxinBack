@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Liaoxin.IBusiness\Liaoxin.IBusiness.csproj" />
+    <ProjectReference Include="..\Liaoxin.Model\Liaoxin.Model.csproj" />
+    <ProjectReference Include="..\Liaoxin.ViewModel\Liaoxin.ViewModel.csproj" />
+    <ProjectReference Include="..\Zzb\Zzb.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNetCore.Authentication.Cookies">
+      <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.aspnetcore.authentication.cookies\2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Authentication.Cookies.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
