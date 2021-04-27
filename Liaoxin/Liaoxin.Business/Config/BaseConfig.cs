@@ -64,7 +64,7 @@ namespace Liaoxin.Business.Config
 
         private string GetValue(SystemConfigEnum type)
         {
-            using (var context = LotteryContext.CreateContext())
+            using (var context = LiaoxinContext.CreateContext())
             {
                 var config = (from d in context.SystemConfigs where d.Type == type select d)
                     .FirstOrDefault();
@@ -77,7 +77,7 @@ namespace Liaoxin.Business.Config
 
         }
 
-        public void Save(string value, LotteryContext context)
+        public void Save(string value, LiaoxinContext context)
         {
             if (!CheckValue(value))
             {
@@ -104,7 +104,7 @@ namespace Liaoxin.Business.Config
                 return;
             }
 
-            using (var context = LotteryContext.CreateContext())
+            using (var context = LiaoxinContext.CreateContext())
             {
                 StringBuilder sb = new StringBuilder();
                 foreach (ConfigSaveViewModel data in datas)

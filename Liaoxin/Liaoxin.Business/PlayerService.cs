@@ -60,7 +60,7 @@ namespace Liaoxin.Business
             {
                 try
                 {
-                    using (var context = LotteryContext.CreateContext())
+                    using (var context = LiaoxinContext.CreateContext())
                     {
                         PlayerLoginLog playerLog = new PlayerLoginLog()
                         {

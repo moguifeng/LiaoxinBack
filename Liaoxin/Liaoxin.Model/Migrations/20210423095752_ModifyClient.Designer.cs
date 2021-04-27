@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Liaoxin.Model.Migrations
 {
-    [DbContext(typeof(LotteryContext))]
+    [DbContext(typeof(LiaoxinContext))]
     [Migration("20210423095752_ModifyClient")]
     partial class ModifyClient
     {

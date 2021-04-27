@@ -5,6 +5,6 @@ namespace Liaoxin.BaseDataModel
 {
     public abstract class BaseServiceNav : BaseNav
     {
-        public LotteryContext Context { get; set; }
+        public LiaoxinContext Context { get; set; }
     }
 }

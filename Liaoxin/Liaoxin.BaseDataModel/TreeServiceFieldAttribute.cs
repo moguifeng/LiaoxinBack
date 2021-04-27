@@ -5,6 +5,6 @@ namespace Liaoxin.BaseDataModel
 {
     public abstract class TreeServiceFieldAttribute : TreeFieldAttribute
     {
-        public LotteryContext Context => HttpContextAccessor.HttpContext.RequestServices.GetService(typeof(LotteryContext)) as LotteryContext;
+        public LiaoxinContext Context => HttpContextAccessor.HttpContext.RequestServices.GetService(typeof(LiaoxinContext)) as LiaoxinContext;
     }
 }

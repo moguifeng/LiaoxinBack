@@ -15,13 +15,13 @@ namespace Liaoxin.Business.ThirdPay
     {
         public IHttpContextAccessor HttpContextAccessor { get; set; }
 
-        public LotteryContext Context { get; set; }
+        public LiaoxinContext Context { get; set; }
 
         public IRechargeService RechargeService { get; set; }
 
         public static ThirdPayModel CreateThirdPayUrl(int playerId, decimal money, int bankId, string url, IHttpContextAccessor httpContextAccessor)
         {
-            using (var context = LotteryContext.CreateContext())
+            using (var context = LiaoxinContext.CreateContext())
             {
                 var bank = (from b in context.MerchantsBanks where b.MerchantsBankId == bankId select b).FirstOrDefault();
                 if (bank == null || bank.IsEnable == false)
@@ -73,7 +73,7 @@ namespace Liaoxin.Business.ThirdPay
 
         }
 
-        protected virtual Recharge AddThirdPay(string order, int playerId, decimal money, int bankId, LotteryContext context)
+        protected virtual Recharge AddThirdPay(string order, int playerId, decimal money, int bankId, LiaoxinContext context)
         {
             Recharge thirdPay = new Recharge() { PlayerId = playerId, Money = money, MerchantsBankId = bankId, State = RechargeStateEnum.Wait, IsEnable = false, OrderNo = order };
             context.Recharges.Add(thirdPay);

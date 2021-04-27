@@ -14,7 +14,7 @@ namespace Liaoxin.BaseDataModel
         {
         }
 
-        public LotteryContext Context { get; set; }
+        public LiaoxinContext Context { get; set; }
 
         public IHttpContextAccessor HttpContextAccessor { get; set; }
     }

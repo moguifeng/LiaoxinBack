@@ -15,11 +15,8 @@ namespace Liaoxin.Model
         public Client()
         {
          }
-
-        /// <summary>
-        /// 主键
-        /// </summary>
-        public int Id { get; set; }
+ 
+        public int ClientId { get; set; }
 
         /// <summary>
         /// 图片

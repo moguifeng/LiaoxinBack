@@ -15,18 +15,19 @@ namespace Liaoxin.Model
         public ClientEquipment()
         {
         }
-        
-        /// <summary>
-        /// 主键
-        /// </summary>
-        public int Id { get; set; }
+ 
+       
+        public int ClientEquipmentId { get; set; }
 
-       
+
         /// <summary>
-        /// 用户id
+        /// 客户id
         /// </summary>
-          public int ClientId { get; set; }
+        public int ClientId { get; set; }
        
+
+        public virtual Client Client { get; set; }
+
         /// <summary>
         /// 设备名称
         /// </summary>

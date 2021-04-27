@@ -20,5 +20,6 @@ namespace Zzb.EF
         {
             UpdateTime=DateTime.Now;;
         }
+
     }
 }

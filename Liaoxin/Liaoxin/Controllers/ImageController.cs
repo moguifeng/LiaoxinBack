@@ -34,7 +34,7 @@ namespace Liaoxin.Controllers
         [HttpPost("UploadImage")]
         public object UploadImage()
         {
-            using (var context = LotteryContext.CreateContext())
+            using (var context = LiaoxinContext.CreateContext())
             {
                 var file = Request.Form.Files[0];
                 Affix affix = new Affix();

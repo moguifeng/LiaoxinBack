@@ -4,6 +4,6 @@ namespace Liaoxin.IBusiness
 {
     public interface IUserOperateLogService
     {
-        void Log(string message, LotteryContext context);
+        void Log(string message, LiaoxinContext context);
     }
 }

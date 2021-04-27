@@ -92,7 +92,7 @@ namespace Liaoxin
             services.AddRedisCache(Configuration.GetSection("Redis")); 
 
 
-            services.ZzbMvcInit<LotteryContext>();
+            services.ZzbMvcInit<LiaoxinContext>();
 
             services.ZzbBaseDataInit("Liaoxin.BaseDataModel", "Liaoxin");
 
@@ -144,7 +144,7 @@ namespace Liaoxin
             app.UseHttpsRedirection();
        
             app.ZzbMvcInit();
-            app.ZzbBaseDataInit<LotteryContext>();
+            app.ZzbBaseDataInit<LiaoxinContext>();
             app.UseSession();
             //   MessageService.Start();
             // app.UseAuthentication();

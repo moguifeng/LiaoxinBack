@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Liaoxin.Model.Migrations
 {
-    [DbContext(typeof(LotteryContext))]
+    [DbContext(typeof(LiaoxinContext))]
     partial class LotteryContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

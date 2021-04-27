@@ -18,7 +18,7 @@ namespace Liaoxin.Controllers
     [Authorize]
     public class HomeController : ZzbHomeController
     {
-        public LotteryContext Context { get; set; }
+        public LiaoxinContext Context { get; set; }
 
         public IMessageService MessageService { get; set; }
 

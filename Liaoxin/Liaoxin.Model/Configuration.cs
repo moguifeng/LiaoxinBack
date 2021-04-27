@@ -9,9 +9,9 @@ namespace Liaoxin.Model
 {
     public class Configuration
     {
-        private static LotteryContext _context;
+        private static LiaoxinContext _context;
 
-        public static void Seed(LotteryContext context)
+        public static void Seed(LiaoxinContext context)
         {
             if (!context.Players.Any())
             {

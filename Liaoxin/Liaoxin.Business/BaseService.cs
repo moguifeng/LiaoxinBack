@@ -7,7 +7,7 @@ namespace Liaoxin.Business
 {
     public class BaseService
     {
-        public LotteryContext Context { get; set; }
+        public LiaoxinContext Context { get; set; }
 
         public IHttpContextAccessor HttpContextAccessor { get; set; }
 

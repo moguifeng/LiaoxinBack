@@ -3,20 +3,20 @@ using Zzb.EF;
 
 namespace Liaoxin.Model
 {
-    public class LotteryContext : ZzbDbContext
+    public class LiaoxinContext : ZzbDbContext
     {
-        protected LotteryContext()
+        protected LiaoxinContext()
         {
 
         }
 
-        public LotteryContext(DbContextOptions options) : base(options)
+        public LiaoxinContext(DbContextOptions options) : base(options)
         {
         }
 
-        public static LotteryContext CreateContext()
+        public static LiaoxinContext CreateContext()
         {
-            return new LotteryContext();
+            return new LiaoxinContext();
         }
 
       //  public DbSet<Test> Tests { get; set; }
@@ -46,7 +46,7 @@ namespace Liaoxin.Model
 
         public DbSet<Client> Clients { get; set; }
 
-        public DbSet<ClientBlack> ClientBlacks { get; set; }
+        public DbSet<ClientRelation> ClientRelations { get; set; }
 
         public DbSet<PlayerLoginLog> PlayerLoginLogs { get; set; }
 

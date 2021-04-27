@@ -5,7 +5,7 @@ namespace Liaoxin.Business
 {
     public class UserOperateLogService : BaseService, IUserOperateLogService
     {
-        public void Log(string message, LotteryContext context)
+        public void Log(string message, LiaoxinContext context)
         {
             context.UserOperateLogs.Add(new UserOperateLog(message, UserId));
         }
