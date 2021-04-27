@@ -62,9 +62,9 @@ namespace Liaoxin.Model
         public decimal Coin { get; set; }
 
         /// <summary>
-        /// 手机
+        /// 手机号码
         /// </summary>
-        public string Phone { get; set; }
+        public string Telephone { get; set; }
         
 
       
@@ -103,7 +103,7 @@ namespace Liaoxin.Model
         /// </summary>
         public string Email { get; set; }
 
-
+        
 
 
         /// <summary>
@@ -118,13 +118,67 @@ namespace Liaoxin.Model
         /// </summary>
         public ShowFriendCircleEnum ShowFriendCircle { get; set; } =  ShowFriendCircleEnum.All;
 
-
-        
         /// <summary>
         ///更新提醒
         /// </summary>
         public bool UpadteMind { get; set; }
 
+
+
+
+        #region 通用设置
+        /// <summary>
+        /// 设置->字体大小
+        /// </summary>
+        public int FontSize { get; set; }
+
+        
+        /// <summary>
+        /// 听筒模式
+        /// </summary>
+        public  bool HandFree { get; set; }
+
+
+
+        /// <summary>
+        /// 移动网络下视频自动播放
+        /// </summary>
+        public bool WifiVideoPlay { get; set; }
+
+        #endregion
+
+
+
+
+        #region  推送消息设置
+
+        /// <summary>
+        ///新消息通知
+        /// </summary>
+        public bool NewMessageNotication { get; set; }
+
+        /// <summary>
+        /// 音频通话提醒
+        /// </summary>
+        public  bool VideoMessageNotication { get; set; }
+
+        /// <summary>
+        /// 通知显示消息内容
+        /// </summary>
+        public bool ShowMessageNotication { get; set; }
+
+        /// <summary>
+        /// 打开时声音
+        /// </summary>
+       public bool AppOpenWhileSound { get; set; }
+
+        /// <summary>
+        /// 打开时震动
+        /// </summary>
+        public bool OpenWhileShake { get; set; }
+
+
+        #endregion  
 
         public enum ShowFriendCircleEnum
         {

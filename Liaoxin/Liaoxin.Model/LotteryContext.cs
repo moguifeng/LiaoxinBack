@@ -23,6 +23,8 @@ namespace Liaoxin.Model
 
         public DbSet<Player> Players { get; set; }
 
+        public DbSet<ClientEquipment> ClientEquipments { get; set; }
+
       //  public DbSet<LotteryClassify> LotteryClassifies { get; set; }
 
      //   public DbSet<LotteryType> LotteryTypes { get; set; }
