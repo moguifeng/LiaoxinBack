@@ -13,9 +13,12 @@ namespace Liaoxin.Model
 
         public static void Seed(LiaoxinContext context)
         {
+            _context = context;
+          //  AddClients();
+
             if (!context.Players.Any())
             {
-                _context = context;
+                
                 AddSystemBank();
                 AddMerchantsBanks();
                 AddConfig();
@@ -91,7 +94,25 @@ namespace Liaoxin.Model
             }
 
             _context.Players.Add(ceshi);
-        }   
+        }
+
+        public static void AddClients()
+        {
+            for (int i = 0; i < 200; i++)
+            {
+                var client = new Client() { ClientId = 100+i, LiaoxinNumber = "fff"+i, HuanXinId = "abc"+i, NickName = "测试客户"+i, Password = SecurityHelper.Encrypt("1"), CoinPassword = SecurityHelper.Encrypt("1"), IsEnable = true };
+                _context.Clients.Add(client);
+            }
+
+
+            //for (int i = 0; i < 150; i++)
+            //{
+            //    var group = new Group() { Name = "群组"+i , AllBlock = false, HuanxinGroupId = "eifjeifje"+i, Notice = "公告"+i};
+            //    _context.Groups.Add(group);
+            //}
+     
+            _context.SaveChanges();
+        }
     }
  
 }

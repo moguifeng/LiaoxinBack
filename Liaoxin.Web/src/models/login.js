@@ -19,7 +19,7 @@ export default {
         password: payload.password,
       });
 
-      if (String(res).length!==0) {
+      if (res && String(res).length !== 0) {
         const response = {
           currentAuthority: 'admin',
           status: 'ok',
@@ -30,14 +30,14 @@ export default {
           payload: response,
         });
         // Login successfully
-        if (response.status === 'ok') {
 
+        if (response.status === 'ok') {
           reloadAuthorized();
           const urlParams = new URL(window.location.href);
 
-          const  storage  =window.localStorage;
-          const tokenStr = "Token"
-          storage.setItem(tokenStr,res);
+          const storage = window.localStorage;
+          const tokenStr = 'Token';
+          storage.setItem(tokenStr, res);
 
           const params = getPageQuery();
           let { redirect } = params;
@@ -50,12 +50,11 @@ export default {
                 redirect = redirect.substr(redirect.indexOf('#') + 1);
               }
             } else {
-
-             window.location.href = redirect;
+              window.location.href = redirect;
               return;
             }
           } else {
-           redirect = '/';
+            redirect = '/';
           }
           window.location.href = redirect;
         }

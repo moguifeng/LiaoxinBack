@@ -118,7 +118,7 @@ namespace Liaoxin.Model
         /// <summary>
         ///更新提醒
         /// </summary>
-        public bool UpadteMind { get; set; }
+        public bool UpadteMind { get; set; } = false;
 
 
 
@@ -179,9 +179,13 @@ namespace Liaoxin.Model
 
         public enum ShowFriendCircleEnum
         {
+            [Description("三天")]
             ThreeDay = 0,
+            [Description("一个月")]
             OneMonth = 1,
+            [Description("半年")]
             SixMonth = 2,
+            [Description("全部")]
             All = 3,
             
         }
