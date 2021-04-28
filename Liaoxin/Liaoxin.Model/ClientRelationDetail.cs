@@ -15,8 +15,9 @@ namespace Liaoxin.Model
         public ClientRelationDetail()
         {
         }
-         
-  
+         public int ClientRelationDetailId { get; set; }
+
+
         public int ClientRelationId { get; set; }
 
         public virtual ClientRelation ClientRelation { get; set; }

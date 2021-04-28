@@ -23,23 +23,10 @@ namespace Liaoxin.Model
 
         public DbSet<Player> Players { get; set; }
 
-        public DbSet<ClientEquipment> ClientEquipments { get; set; }
 
-      //  public DbSet<LotteryClassify> LotteryClassifies { get; set; }
+        public DbSet<PlayerLoginLog> PlayerLoginLogs { get; set; }
 
-     //   public DbSet<LotteryType> LotteryTypes { get; set; }
 
-      //  public DbSet<LotteryOpenTime> LotteryOpenTimes { get; set; }
-
-      //  public DbSet<LotteryData> LotteryDatas { get; set; }
-
-      //  public DbSet<LotteryPlayDetail> LotteryPlayDetails { get; set; }
-
-       // public DbSet<LotteryPlayType> LotteryPlayTypes { get; set; }
-
-      //  public DbSet<BetMode> BetModes { get; set; }
-
-    //    public DbSet<Bet> Bets { get; set; }
 
         public DbSet<CoinLog> CoinLogs { get; set; }
 
@@ -48,7 +35,23 @@ namespace Liaoxin.Model
 
         public DbSet<ClientRelation> ClientRelations { get; set; }
 
-        public DbSet<PlayerLoginLog> PlayerLoginLogs { get; set; }
+        public DbSet<ClientRelationDetail> ClientRelationDetails { get; set; }
+
+        public DbSet<ClientEquipment> ClientEquipments { get; set; }
+
+
+        public DbSet<ClientAdd> ClientAdds { get; set; }
+
+
+        public DbSet<ClientAddDetail> ClientAddDetails { get; set; }
+
+        public DbSet<ClientTag> ClientTags { get; set; }
+
+        public DbSet<Group> Groups { get; set; }
+
+        public DbSet<GroupClient> GroupClients { get; set; }
+
+        public DbSet<GroupManager> GroupManagers { get; set; }
 
         public DbSet<SystemBank> SystemBanks { get; set; }
 
@@ -92,7 +95,7 @@ namespace Liaoxin.Model
 
      //   public DbSet<PlayerLotteryType> PlayerLotteryTypes { get; set; }
 
-        public DbSet<PlatformMoneyLog> PlatformMoneyLogs { get; set; }
+      //  public DbSet<PlatformMoneyLog> PlatformMoneyLogs { get; set; }
 
      //   public DbSet<Platform> Platforms { get; set; }
 

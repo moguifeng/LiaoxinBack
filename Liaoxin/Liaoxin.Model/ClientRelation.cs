@@ -16,6 +16,7 @@ namespace Liaoxin.Model
         {
         }
 
+        public int ClientRelationId { get; set; }
         /// <summary>
         /// 客户Id
         /// </summary>
@@ -33,7 +34,9 @@ namespace Liaoxin.Model
 
         public enum RelationTypeEnum
         {
+            [Description("好友")]
             Friend = 0,
+            [Description("黑名单")]
             Black = 1,
         }
 

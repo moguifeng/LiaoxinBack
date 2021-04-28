@@ -1,0 +1,65 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Zzb.EF;
+
+namespace Liaoxin.Model
+{
+    /// <summary>
+    /// 群成员
+    /// </summary>
+    public class GroupClient : BaseModel
+    {
+        public GroupClient()
+        {
+        }
+
+        public int GroupClientId { get; set; }
+
+        public int GroupId { get; set; }
+
+        public virtual Group Group { get; set; }
+
+
+        public int ClientId { get; set; }
+
+        public virtual Client Client{get;set;}
+
+
+        /// <summary>
+        /// 我的群昵称
+        /// </summary>
+        public string MyNickName { get; set; }
+
+
+        /// <summary>
+        /// 显示其他成员的群昵称
+        /// </summary>
+        public bool ShowOtherNickName { get; set; }
+
+        /// <summary>
+        /// 保存到我的群聊
+        /// </summary>
+        public bool SaveMyGroup { get; set; }
+
+        /// <summary>
+        /// 保存到顶置
+        /// </summary>
+        public bool SetTop { get; set; }
+
+        /// <summary>
+        /// 设置为免打扰
+        /// </summary>
+        public bool SetNoDisturb { get; set; }
+
+
+        /// <summary>
+        /// 聊天背景
+        /// </summary>
+        public string BackgroundImg { get; set; }
+    }
+
+ 
+}

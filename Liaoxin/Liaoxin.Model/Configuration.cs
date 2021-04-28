@@ -91,20 +91,7 @@ namespace Liaoxin.Model
             }
 
             _context.Players.Add(ceshi);
-        }
-
- 
- 
- 
-
+        }   
     }
-
-    public class IntiLottertTime
-    {
-        public TimeSpan BeginTime { get; set; }
-
-        public TimeSpan EndTime { get; set; }
-
-        public TimeSpan Interval { get; set; } = new TimeSpan(0, 10, 0);
-    }
+ 
 }

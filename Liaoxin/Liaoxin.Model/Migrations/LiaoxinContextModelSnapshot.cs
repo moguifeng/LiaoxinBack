@@ -3,16 +3,14 @@ using System;
 using Liaoxin.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Liaoxin.Model.Migrations
 {
     [DbContext(typeof(LiaoxinContext))]
-    [Migration("20210427095523_TestClientE")]
-    partial class TestClientE
+    partial class LiaoxinContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -85,7 +83,7 @@ namespace Liaoxin.Model.Migrations
 
             modelBuilder.Entity("Liaoxin.Model.Client", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ClientId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<bool>("AddMeNeedChecked");
@@ -94,20 +92,20 @@ namespace Liaoxin.Model.Migrations
 
                     b.Property<string>("CharacterSignature");
 
-                    b.Property<int>("City");
+                    b.Property<int?>("City");
 
                     b.Property<decimal>("Coin")
                         .HasColumnType("decimal(18, 6)");
 
                     b.Property<string>("CoinPassword");
 
-                    b.Property<int>("Country");
+                    b.Property<int?>("Country");
 
                     b.Property<string>("Cover");
 
                     b.Property<DateTime>("CreateTime");
 
-                    b.Property<int>("CurrentDeviceId");
+                    b.Property<int?>("CurrentDeviceId");
 
                     b.Property<string>("Email");
 
@@ -131,7 +129,7 @@ namespace Liaoxin.Model.Migrations
 
                     b.Property<string>("Password");
 
-                    b.Property<int>("Province");
+                    b.Property<int?>("Province");
 
                     b.Property<int>("ShowFriendCircle");
 
@@ -147,7 +145,7 @@ namespace Liaoxin.Model.Migrations
 
                     b.Property<bool>("WifiVideoPlay");
 
-                    b.HasKey("Id");
+                    b.HasKey("ClientId");
 
                     b.HasIndex("CreateTime");
 
@@ -161,22 +159,22 @@ namespace Liaoxin.Model.Migrations
                     b.ToTable("Clients");
                 });
 
-            modelBuilder.Entity("Liaoxin.Model.ClientBlack", b =>
+            modelBuilder.Entity("Liaoxin.Model.ClientAdd", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ClientAddId")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ClientId");
 
                     b.Property<DateTime>("CreateTime");
 
-                    b.Property<int>("FromClientId");
-
                     b.Property<bool>("IsEnable");
-
-                    b.Property<int>("ToClientId");
 
                     b.Property<DateTime>("UpdateTime");
 
-                    b.HasKey("Id");
+                    b.HasKey("ClientAddId");
+
+                    b.HasIndex("ClientId");
 
                     b.HasIndex("CreateTime");
 
@@ -184,12 +182,40 @@ namespace Liaoxin.Model.Migrations
 
                     b.HasIndex("UpdateTime");
 
-                    b.ToTable("ClientBlacks");
+                    b.ToTable("ClientAdds");
+                });
+
+            modelBuilder.Entity("Liaoxin.Model.ClientAddDetail", b =>
+                {
+                    b.Property<int>("ClientAddDetailId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AddRemark");
+
+                    b.Property<int>("ClientId");
+
+                    b.Property<DateTime>("CreateTime");
+
+                    b.Property<bool>("IsEnable");
+
+                    b.Property<DateTime>("UpdateTime");
+
+                    b.HasKey("ClientAddDetailId");
+
+                    b.HasIndex("ClientId");
+
+                    b.HasIndex("CreateTime");
+
+                    b.HasIndex("IsEnable");
+
+                    b.HasIndex("UpdateTime");
+
+                    b.ToTable("ClientAddDetails");
                 });
 
             modelBuilder.Entity("Liaoxin.Model.ClientEquipment", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ClientEquipmentId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("ClientId");
@@ -206,7 +232,9 @@ namespace Liaoxin.Model.Migrations
 
                     b.Property<DateTime>("UpdateTime");
 
-                    b.HasKey("Id");
+                    b.HasKey("ClientEquipmentId");
+
+                    b.HasIndex("ClientId");
 
                     b.HasIndex("CreateTime");
 
@@ -215,6 +243,106 @@ namespace Liaoxin.Model.Migrations
                     b.HasIndex("UpdateTime");
 
                     b.ToTable("ClientEquipments");
+                });
+
+            modelBuilder.Entity("Liaoxin.Model.ClientRelation", b =>
+                {
+                    b.Property<int>("ClientRelationId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ClientId");
+
+                    b.Property<DateTime>("CreateTime");
+
+                    b.Property<bool>("IsEnable");
+
+                    b.Property<int>("Relation");
+
+                    b.Property<DateTime>("UpdateTime");
+
+                    b.HasKey("ClientRelationId");
+
+                    b.HasIndex("CreateTime");
+
+                    b.HasIndex("IsEnable");
+
+                    b.HasIndex("UpdateTime");
+
+                    b.ToTable("ClientRelations");
+                });
+
+            modelBuilder.Entity("Liaoxin.Model.ClientRelationDetail", b =>
+                {
+                    b.Property<int>("ClientRelationDetailId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AddSource");
+
+                    b.Property<int>("ClientId");
+
+                    b.Property<int>("ClientRelationId");
+
+                    b.Property<string>("ClientRemark");
+
+                    b.Property<int?>("ClientTagId");
+
+                    b.Property<DateTime>("CreateTime");
+
+                    b.Property<bool>("IsEnable");
+
+                    b.Property<int>("MutipleGroup");
+
+                    b.Property<bool>("NotLetSee");
+
+                    b.Property<bool>("NotSee");
+
+                    b.Property<bool>("SpecialAttention");
+
+                    b.Property<string>("Telephone");
+
+                    b.Property<DateTime>("UpdateTime");
+
+                    b.HasKey("ClientRelationDetailId");
+
+                    b.HasIndex("ClientId");
+
+                    b.HasIndex("ClientRelationId");
+
+                    b.HasIndex("ClientTagId");
+
+                    b.HasIndex("CreateTime");
+
+                    b.HasIndex("IsEnable");
+
+                    b.HasIndex("UpdateTime");
+
+                    b.ToTable("ClientRelationDetails");
+                });
+
+            modelBuilder.Entity("Liaoxin.Model.ClientTag", b =>
+                {
+                    b.Property<int>("ClientTagId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ClientId");
+
+                    b.Property<DateTime>("CreateTime");
+
+                    b.Property<bool>("IsEnable");
+
+                    b.Property<string>("Name");
+
+                    b.Property<DateTime>("UpdateTime");
+
+                    b.HasKey("ClientTagId");
+
+                    b.HasIndex("CreateTime");
+
+                    b.HasIndex("IsEnable");
+
+                    b.HasIndex("UpdateTime");
+
+                    b.ToTable("ClientTags");
                 });
 
             modelBuilder.Entity("Liaoxin.Model.CoinLog", b =>
@@ -265,6 +393,114 @@ namespace Liaoxin.Model.Migrations
                     b.HasIndex("UpdateTime");
 
                     b.ToTable("CoinLogs");
+                });
+
+            modelBuilder.Entity("Liaoxin.Model.Group", b =>
+                {
+                    b.Property<int>("GroupId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("AllBlock");
+
+                    b.Property<int>("ClientId");
+
+                    b.Property<DateTime>("CreateTime");
+
+                    b.Property<string>("HuanxinGroupId");
+
+                    b.Property<bool>("IsEnable");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Notice");
+
+                    b.Property<bool>("SureConfirmInvite");
+
+                    b.Property<DateTime>("UpdateTime");
+
+                    b.HasKey("GroupId");
+
+                    b.HasIndex("ClientId");
+
+                    b.HasIndex("CreateTime");
+
+                    b.HasIndex("IsEnable");
+
+                    b.HasIndex("UpdateTime");
+
+                    b.ToTable("Groups");
+                });
+
+            modelBuilder.Entity("Liaoxin.Model.GroupClient", b =>
+                {
+                    b.Property<int>("GroupClientId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("BackgroundImg");
+
+                    b.Property<int>("ClientId");
+
+                    b.Property<DateTime>("CreateTime");
+
+                    b.Property<int>("GroupId");
+
+                    b.Property<bool>("IsEnable");
+
+                    b.Property<string>("MyNickName");
+
+                    b.Property<bool>("SaveMyGroup");
+
+                    b.Property<bool>("SetNoDisturb");
+
+                    b.Property<bool>("SetTop");
+
+                    b.Property<bool>("ShowOtherNickName");
+
+                    b.Property<DateTime>("UpdateTime");
+
+                    b.HasKey("GroupClientId");
+
+                    b.HasIndex("ClientId");
+
+                    b.HasIndex("CreateTime");
+
+                    b.HasIndex("GroupId");
+
+                    b.HasIndex("IsEnable");
+
+                    b.HasIndex("UpdateTime");
+
+                    b.ToTable("GroupClients");
+                });
+
+            modelBuilder.Entity("Liaoxin.Model.GroupManager", b =>
+                {
+                    b.Property<int>("GroupManagerId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ClientId");
+
+                    b.Property<DateTime>("CreateTime");
+
+                    b.Property<int>("GroupId");
+
+                    b.Property<bool>("IsEnable");
+
+                    b.Property<DateTime>("UpdateTime");
+
+                    b.HasKey("GroupManagerId");
+
+                    b.HasIndex("ClientId");
+
+                    b.HasIndex("CreateTime");
+
+                    b.HasIndex("GroupId");
+
+                    b.HasIndex("IsEnable");
+
+                    b.HasIndex("UpdateTime");
+
+                    b.ToTable("GroupManagers");
                 });
 
             modelBuilder.Entity("Liaoxin.Model.MerchantsBank", b =>
@@ -382,35 +618,6 @@ namespace Liaoxin.Model.Migrations
                     b.HasIndex("UpdateTime");
 
                     b.ToTable("PictureNewses");
-                });
-
-            modelBuilder.Entity("Liaoxin.Model.PlatformMoneyLog", b =>
-                {
-                    b.Property<int>("PlatformMoneyLogId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("CreateTime");
-
-                    b.Property<decimal>("FlowMoney")
-                        .HasColumnType("decimal(18, 6)");
-
-                    b.Property<bool>("IsEnable");
-
-                    b.Property<int>("PlayerId");
-
-                    b.Property<DateTime>("UpdateTime");
-
-                    b.HasKey("PlatformMoneyLogId");
-
-                    b.HasIndex("CreateTime");
-
-                    b.HasIndex("IsEnable");
-
-                    b.HasIndex("PlayerId");
-
-                    b.HasIndex("UpdateTime");
-
-                    b.ToTable("PlatformMoneyLogs");
                 });
 
             modelBuilder.Entity("Liaoxin.Model.Player", b =>
@@ -978,11 +1185,86 @@ namespace Liaoxin.Model.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("Liaoxin.Model.ClientAdd", b =>
+                {
+                    b.HasOne("Liaoxin.Model.Client", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Liaoxin.Model.ClientAddDetail", b =>
+                {
+                    b.HasOne("Liaoxin.Model.Client", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Liaoxin.Model.ClientEquipment", b =>
+                {
+                    b.HasOne("Liaoxin.Model.Client", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Liaoxin.Model.ClientRelationDetail", b =>
+                {
+                    b.HasOne("Liaoxin.Model.Client", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Liaoxin.Model.ClientRelation", "ClientRelation")
+                        .WithMany("ClientRelationDetail")
+                        .HasForeignKey("ClientRelationId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Liaoxin.Model.ClientTag", "ClientTag")
+                        .WithMany()
+                        .HasForeignKey("ClientTagId");
+                });
+
             modelBuilder.Entity("Liaoxin.Model.CoinLog", b =>
                 {
                     b.HasOne("Liaoxin.Model.Player", "Player")
                         .WithMany()
                         .HasForeignKey("PlayerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Liaoxin.Model.Group", b =>
+                {
+                    b.HasOne("Liaoxin.Model.Client", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Liaoxin.Model.GroupClient", b =>
+                {
+                    b.HasOne("Liaoxin.Model.Client", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Liaoxin.Model.Group", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Liaoxin.Model.GroupManager", b =>
+                {
+                    b.HasOne("Liaoxin.Model.Client", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Liaoxin.Model.Group", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -1011,14 +1293,6 @@ namespace Liaoxin.Model.Migrations
                     b.HasOne("Zzb.EF.Affix", "Affix")
                         .WithMany()
                         .HasForeignKey("AffixId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Liaoxin.Model.PlatformMoneyLog", b =>
-                {
-                    b.HasOne("Liaoxin.Model.Player", "Player")
-                        .WithMany()
-                        .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

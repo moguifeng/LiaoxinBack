@@ -9,7 +9,7 @@ namespace Zzb.Common
     {
         public static string Encrypt(string p)
         {
-            var md5 = MD5Encrypt(p + "ZaibinZhang");
+            var md5 = MD5Encrypt(p + "LiaoxinApiApp");
             return md5;
         }
 

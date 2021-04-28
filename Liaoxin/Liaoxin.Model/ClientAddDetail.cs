@@ -8,22 +8,28 @@ using Zzb.EF;
 namespace Liaoxin.Model
 {
     /// <summary>
-    /// 客户标签表
+    /// 客户添加详细
     /// </summary>
-    public class ClientTag : BaseModel
+    public class ClientAddDetail : BaseModel
     {
-        public ClientTag()
+        public ClientAddDetail()
         {
-        }           
-        public int ClientTagId { get; set; }
+        }
+ 
+       public int ClientAddDetailId { get; set; }
  
         public int ClientId { get; set; }
 
+        public virtual Client Client { get; set; }
+
         /// <summary>
-        /// 标签
+        /// 添加备注
         /// </summary>
-        public string Name { get; set; }
- 
+        public string AddRemark { get; set; }
+       
+
+        
+
     }
 
  
