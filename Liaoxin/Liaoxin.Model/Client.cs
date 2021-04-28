@@ -74,25 +74,25 @@ namespace Liaoxin.Model
         /// <summary>
         /// 国家
         /// </summary>
-        public int Country { get; set; }
+        public int? Country { get; set; }
 
 
 
         /// <summary>
         /// 省份
         /// </summary>
-        public int Province { get; set; }
+        public int? Province { get; set; }
         /// <summary>
         /// 城市
         /// </summary>
-        public int City { get; set; }
+        public int? City { get; set; }
 
 
         /// <summary>
         /// 当前设备
         /// </summary>
 
-       public int CurrentDeviceId { get; set; }
+       public int? CurrentDeviceId { get; set; }
 
 
         /// <summary>
@@ -127,20 +127,20 @@ namespace Liaoxin.Model
         /// <summary>
         /// 设置->字体大小
         /// </summary>
-        public int FontSize { get; set; }
+        public int FontSize { get; set; } = 12;
 
-        
+
         /// <summary>
         /// 听筒模式
         /// </summary>
-        public  bool HandFree { get; set; }
+        public bool HandFree { get; set; } = false;
 
 
 
         /// <summary>
         /// 移动网络下视频自动播放
         /// </summary>
-        public bool WifiVideoPlay { get; set; }
+        public bool WifiVideoPlay { get; set; } = false;
 
         #endregion
 
