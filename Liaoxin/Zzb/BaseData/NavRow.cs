@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Zzb.BaseData.Attribute;
 using Zzb.BaseData.Model;
+using Zzb.BaseData.Model.Button;
 using Zzb.BaseData.StringHandle;
 using Zzb.Common;
 
@@ -78,9 +79,19 @@ namespace Zzb.BaseData
                             foreach (var b in buttons)
                             {
                                 BaseModal tempModal = b as BaseModal;
-                                lis.Add(new { ButtonName  = b.ButtonName, ButtonType = b.ButtonType, Icon = b.Icon,Id = b.Id,Type = b.Type,ModalId=tempModal?.ModalId });
+                                ConfirmActionButton cb = b as ConfirmActionButton;
+                                lis.Add(new
+                                {
+                                    ConfirmMessage = cb?.ConfirmMessage,
+                                    ButtonName = b.ButtonName,
+                                    ButtonType = b.ButtonType,
+                                    Icon = b.Icon,
+                                    Id = b.Id,
+                                    Type = b.Type,
+                                    ModalId = tempModal?.ModalId
+                                });
                             }
-                          
+
                             model.Rows[i].Add("Zzb_Buttons", lis);
                         }
                     }

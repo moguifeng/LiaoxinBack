@@ -120,6 +120,11 @@ namespace Liaoxin.Model
         /// </summary>
         public bool UpadteMind { get; set; } = false;
 
+        /// <summary>
+        /// 是否冻结
+        /// </summary>
+        public bool IsFreeze { get; set; } = false;
+
 
 
 

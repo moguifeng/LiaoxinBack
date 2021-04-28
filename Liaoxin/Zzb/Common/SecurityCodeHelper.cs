@@ -15,7 +15,7 @@ namespace Zzb.Common
         /// <returns></returns>
         public static string CreateRandomCode(int codeCount)
         {
-            string allChar = "2,3,4,5,6,7,8,9,A,B,C,D,E,a,b,c,d,e,f,g,h,i,g,k,m,n,p,q,r,F,G,H,I,G,K,L,M,N,P,Q,R,S,T,U,V,W,X,Y,Z,s,t,u,v,w,x,y,z";
+            string allChar = "7,8,9,A,B,C,D,E,a,b,c,d,e,f,g,h,i,g,k,m,n,p,q,r,F,G,H,I,G,K,L,M,N,P,Q,R,S,T,U,V,W,X,Y,Z,s,t,u,v,w,x,y,z";
             string[] allCharArray = allChar.Split(',');
             string randomCode = "";
             int temp = -1;

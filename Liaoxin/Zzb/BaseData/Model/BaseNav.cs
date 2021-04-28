@@ -31,7 +31,7 @@ namespace Zzb.BaseData.Model
         /// <summary>
         /// 排序
         /// </summary>
-        public virtual int Sort => 1;
+        public virtual int Sort => 100;
         /// <summary>
         /// 操作列宽
         /// </summary>
