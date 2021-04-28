@@ -22,13 +22,14 @@ namespace Liaoxin.Model
         /// </summary>
         public int ClientId { get; set; }
 
+        public  virtual Client Client { get; set; }
 
         public virtual List<ClientRelationDetail> ClientRelationDetail { get; set; }
 
         /// <summary>
         /// 这个客户的关系
         /// </summary>
-        public RelationTypeEnum Relation { get; set; }
+        public RelationTypeEnum RelationType { get; set; }
 
 
 

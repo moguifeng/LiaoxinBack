@@ -3,14 +3,16 @@ using System;
 using Liaoxin.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Liaoxin.Model.Migrations
 {
     [DbContext(typeof(LiaoxinContext))]
-    partial class LiaoxinContextModelSnapshot : ModelSnapshot
+    [Migration("20210428150956_Test8")]
+    partial class Test8
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -258,13 +260,11 @@ namespace Liaoxin.Model.Migrations
 
                     b.Property<bool>("IsEnable");
 
-                    b.Property<int>("RelationType");
+                    b.Property<int>("Relation");
 
                     b.Property<DateTime>("UpdateTime");
 
                     b.HasKey("ClientRelationId");
-
-                    b.HasIndex("ClientId");
 
                     b.HasIndex("CreateTime");
 
@@ -636,8 +636,6 @@ namespace Liaoxin.Model.Migrations
 
                     b.Property<bool>("CanWithdraw");
 
-                    b.Property<int>("ClientId");
-
                     b.Property<decimal>("Coin")
                         .HasColumnType("decimal(18, 6)");
 
@@ -702,8 +700,6 @@ namespace Liaoxin.Model.Migrations
                         .HasColumnType("decimal(18, 6)");
 
                     b.HasKey("PlayerId");
-
-                    b.HasIndex("ClientId");
 
                     b.HasIndex("CreateTime");
 
@@ -1217,14 +1213,6 @@ namespace Liaoxin.Model.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Liaoxin.Model.ClientRelation", b =>
-                {
-                    b.HasOne("Liaoxin.Model.Client", "Client")
-                        .WithMany()
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("Liaoxin.Model.ClientRelationDetail", b =>
                 {
                     b.HasOne("Liaoxin.Model.Client", "Client")
@@ -1314,11 +1302,6 @@ namespace Liaoxin.Model.Migrations
 
             modelBuilder.Entity("Liaoxin.Model.Player", b =>
                 {
-                    b.HasOne("Liaoxin.Model.Client", "Client")
-                        .WithMany()
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("Liaoxin.Model.Player", "ParentPlayer")
                         .WithMany("Players")
                         .HasForeignKey("ParentPlayerId");
