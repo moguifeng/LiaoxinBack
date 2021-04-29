@@ -81,6 +81,45 @@ namespace Liaoxin.Model.Migrations
                     b.ToTable("Announcements");
                 });
 
+            modelBuilder.Entity("Liaoxin.Model.Area", b =>
+                {
+                    b.Property<int>("AreaId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Code");
+
+                    b.Property<DateTime>("CreateTime");
+
+                    b.Property<string>("FullName");
+
+                    b.Property<bool>("IsEnable");
+
+                    b.Property<int>("Level");
+
+                    b.Property<string>("LongCode");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("ParentCode");
+
+                    b.Property<DateTime>("UpdateTime");
+
+                    b.HasKey("AreaId");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.HasIndex("CreateTime");
+
+                    b.HasIndex("IsEnable");
+
+                    b.HasIndex("Level");
+
+                    b.HasIndex("UpdateTime");
+
+                    b.ToTable("Areas");
+                });
+
             modelBuilder.Entity("Liaoxin.Model.Client", b =>
                 {
                     b.Property<int>("ClientId")

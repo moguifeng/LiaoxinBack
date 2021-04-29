@@ -23,7 +23,7 @@ namespace Liaoxin.Model
 
         public DbSet<Player> Players { get; set; }
 
-
+        public DbSet<Area> Areas { get; set; }
         public DbSet<PlayerLoginLog> PlayerLoginLogs { get; set; }
 
 

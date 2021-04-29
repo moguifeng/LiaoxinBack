@@ -12,7 +12,6 @@ namespace Liaoxin
             var host = CreateWebHostBuilder(args).UseUrls("http://*:22001").Build();
           
             host.ZzbInitEf<LiaoxinContext>(Configuration.Seed);
-
             host.Run();
         }
 
