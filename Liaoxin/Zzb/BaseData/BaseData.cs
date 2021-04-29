@@ -85,8 +85,7 @@ namespace Zzb.BaseData
             using (var scopet = app.ApplicationServices.CreateScope())
             {
                 using (var db = scopet.ServiceProvider.GetRequiredService<T>())
-                {
-                    
+                {                    
                     db.Permissions.ToList().ForEach(t => t.IsEnable = false);
                     db.SaveChanges();
 

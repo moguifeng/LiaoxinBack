@@ -6,13 +6,16 @@ using System.Linq;
 using System.Text;
 using Zzb.ICacheManger;
 
-namespace Zzb.ICacheManger
+namespace Liaoxin.Cache
 {
-    public class AreaCacheManager
+    public class AreaCacheManager : CacheManager
     {
-        private readonly ICacheManager _cache;
-        private static LiaoxinContext _context;
+
         private readonly string RedisAreaKey = CacheAreaEx.RedisAreaKey;
+
+        public AreaCacheManager(ICacheManager Cache, LiaoxinContext Context) : base(Cache, Context) { }
+
+        
         public void Load()
         {
 
@@ -22,6 +25,7 @@ namespace Zzb.ICacheManger
                 Name = a.Name,
                 FullName = a.FullName,
                 Level = a.Level,
+                Id = a.Code.ToString(),
                 LongCode = a.LongCode,
                 ParentCode = a.ParentCode
             }).ToList();
@@ -50,15 +54,14 @@ namespace Zzb.ICacheManger
     public class CacheAreaEx
     {
         public const string RedisAreaKey = "CacheAreaEx";
-        private static readonly ICacheManager _cache;
-
+ 
         public static List<CacheArea> Areas
         {
             get
             {
                 try
                 {
-                    var result = _cache.HashGet<CacheArea>(RedisAreaKey);
+                    var result = CacheManager.singleCache.HashGet<CacheArea>(RedisAreaKey);
                     return result;
                 }
                 catch (Exception)
@@ -70,7 +73,7 @@ namespace Zzb.ICacheManger
 
         public static CacheArea GetObj(string code)
         {
-            var cache = _cache.HashGet<CacheArea>(RedisAreaKey, code.ToString());
+            var cache = CacheManager.singleCache.HashGet<CacheArea>(RedisAreaKey, code.ToString());
             return cache;
         }
 

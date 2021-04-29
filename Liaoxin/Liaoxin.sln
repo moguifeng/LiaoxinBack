@@ -17,7 +17,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liaoxin.Model", "Liaoxin.Mo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LIaoxin.ViewModel", "Liaoxin.ViewModel\LIaoxin.ViewModel.csproj", "{5362C572-71A7-457C-B781-5AF8F955B39C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liaoxin.Cache", "Liaoxin.Cache\Liaoxin.Cache.csproj", "{1B780550-E47E-4936-8B44-749C428901A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liaoxin.Cache", "Liaoxin.Cache\Liaoxin.Cache.csproj", "{1B780550-E47E-4936-8B44-749C428901A2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B6E25C99-D4A0-4A3D-B824-A6B05344BEE7}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,7 +1,8 @@
-﻿ 
+﻿
 using Liaoxin.Business;
 using Liaoxin.Business.Socket;
 using Liaoxin.Business.ThirdPay;
+using Liaoxin.Cache;
 using Liaoxin.HostServices;
 using Liaoxin.Model;
 using Microsoft.AspNetCore.Builder;
@@ -38,7 +39,7 @@ namespace Liaoxin
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-        
+
             services.AddCors(builder =>
             {
                 builder.AddPolicy("AllowAllOrigin", b =>
@@ -72,28 +73,28 @@ namespace Liaoxin
                          Description = "Token Authentication"
 
                      });
-                    // c.SchemaGeneratorOptions.SchemaIdSelector = type => type.FullName;
+                     // c.SchemaGeneratorOptions.SchemaIdSelector = type => type.FullName;
                      c.AddSecurityRequirement(new OpenApiSecurityRequirement
                         {{new OpenApiSecurityScheme {Reference = new OpenApiReference {Type = ReferenceType.SecurityScheme, Id = "token"}}, new string[] { }}});
                      var basePath = Path.GetDirectoryName(typeof(Program).Assembly.Location);//获取应用程序所在目录
                      var xmlPath = Path.Combine(basePath, "Liaoxin.xml");
                      c.IncludeXmlComments(xmlPath);
 
-          
+
                  });
             services.AddMvc(o => { o.Filters.Add<LogFilter>(); }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             services.AddMvc(options => { options.EnableEndpointRouting = false; });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
-          
+
             services.AddSession(o =>
             {
                 o.IdleTimeout = TimeSpan.FromDays(1);
                 o.Cookie.SameSite = SameSiteMode.None;
             });
 
-            services.AddRedisCache(Configuration.GetSection("Redis")); 
+            services.AddRedisCache(Configuration.GetSection("Redis"));
 
 
             services.ZzbMvcInit<LiaoxinContext>();
@@ -113,15 +114,13 @@ namespace Liaoxin
                     list.Add(type);
                 }
             }
-            //foreach (Type type in Assembly.Load("Liaoxin.Cache").GetTypes())
-            //{
-            //    list.Add(type);
-            //}
+            foreach (Type type in Assembly.Load("Liaoxin.Cache").GetTypes())
+            {
+                list.Add(type);
+            }
+            services.AddTransient<AreaCacheManager>();            
+            services.ZzbAutofacInit("Liaoxin.Business", "Liaoxin.IBusiness", list.ToArray());            
 
-            //services.TryAddEnumerable(ServiceDescriptor.Singleton<IHostedService, CachingHostedService>());
-            services.ZzbAutofacInit("Liaoxin.Business", "Liaoxin.IBusiness", list.ToArray());
-        //   services.AddHostedService<CachingHostedService>();
-         
 
 
         }
@@ -130,7 +129,8 @@ namespace Liaoxin
         public void Configure(IApplicationBuilder app, Microsoft.AspNetCore.Hosting.IHostingEnvironment env)
         {
             app.UseCors("AllowAllOrigin");
-
+            //var cacheEntity =  app.ApplicationServices.GetService(typeof(AreaCacheManager)) as AreaCacheManager;
+            //cacheEntity.Load();
 
             if (env.IsDevelopment())
             {
@@ -155,15 +155,22 @@ namespace Liaoxin
 
 
             app.UseHttpsRedirection();
-       
+
             app.ZzbMvcInit();
             app.ZzbBaseDataInit<LiaoxinContext>();
+
+
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                var areaCache = scope.ServiceProvider.GetService<AreaCacheManager>();
+                areaCache.Load();
+            }            
             app.UseSession();
             //   MessageService.Start();
             // app.UseAuthentication();
             //  app.UseAuthorization();
             app.UseMvc();
-         
+
         }
     }
 }
