@@ -72,20 +72,9 @@ namespace Liaoxin.Model
 
 
         /// <summary>
-        /// 国家
+        /// 地区
         /// </summary>
-        public int? Country { get; set; }
-
-
-
-        /// <summary>
-        /// 省份
-        /// </summary>
-        public int? Province { get; set; }
-        /// <summary>
-        /// 城市
-        /// </summary>
-        public int? City { get; set; }
+        public string AreaCode { get; set; }
 
 
         /// <summary>

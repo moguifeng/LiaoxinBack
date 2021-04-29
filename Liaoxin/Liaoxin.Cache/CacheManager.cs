@@ -19,7 +19,10 @@ namespace Liaoxin.Cache
         public CacheManager(ICacheManager Cache, LiaoxinContext Context)
         {
             _cache = Cache;
-            CacheManager.singleCache = Cache;
+            if (CacheManager.singleCache == null)
+            {
+                CacheManager.singleCache = Cache;
+            }
             _context = Context;
         }
         public CacheManager() { }

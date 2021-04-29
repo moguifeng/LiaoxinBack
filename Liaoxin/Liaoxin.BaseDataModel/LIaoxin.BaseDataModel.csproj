@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Liaoxin.Business\Liaoxin.Business.csproj" />
+    <ProjectReference Include="..\Liaoxin.Cache\Liaoxin.Cache.csproj" />
     <ProjectReference Include="..\Liaoxin.Model\Liaoxin.Model.csproj" />
     <ProjectReference Include="..\Zzb\Zzb.csproj" />
   </ItemGroup>

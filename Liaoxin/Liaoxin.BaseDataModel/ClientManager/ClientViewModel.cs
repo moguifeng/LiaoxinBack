@@ -1,6 +1,7 @@
 ﻿using Castle.Components.DictionaryAdapter;
 using Liaoxin.BaseDataModel.ContentManager;
 using Liaoxin.Business.Config;
+using Liaoxin.Cache;
 using Liaoxin.IBusiness;
 using Liaoxin.Model;
 using Liaoxin.ViewModel;
@@ -69,7 +70,7 @@ namespace Liaoxin.BaseDataModel.RechargeManager
             return CreateEfDatas<Client, ClientViewModel>(from r in Context.Clients where r.IsEnable orderby r.CreateTime descending select r,
                 (k, t) =>
                 {
-                    t.Area = "广东深圳";
+                    t.Area = k.AreaCode.ToAreaFullName();
                     t.IsFreeze = k.IsFreeze;
 
                 },

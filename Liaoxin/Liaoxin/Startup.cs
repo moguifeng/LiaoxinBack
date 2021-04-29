@@ -24,6 +24,7 @@ using Zzb.BaseData;
 using Zzb.ICacheManger;
 using Zzb.Mvc;
 using Zzb.Redis;
+using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace Liaoxin
 {
@@ -37,7 +38,7 @@ namespace Liaoxin
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
 
             services.AddCors(builder =>
@@ -100,12 +101,7 @@ namespace Liaoxin
             services.ZzbMvcInit<LiaoxinContext>();
 
             services.ZzbBaseDataInit("Liaoxin.BaseDataModel", "Liaoxin");
-
-            //services.Configure<MvcOptions>(options =>
-            //{
-            //    options.Filters.Add(new CorsAuthorizationFilterFactory("AllowAllOrigin"));
-            //});
-
+ 
             List<Type> list = new List<Type>();
             foreach (Type type in Assembly.Load("Liaoxin.Business").GetTypes())
             {
@@ -114,24 +110,19 @@ namespace Liaoxin
                     list.Add(type);
                 }
             }
-            foreach (Type type in Assembly.Load("Liaoxin.Cache").GetTypes())
-            {
-                list.Add(type);
-            }
+         
             services.AddTransient<AreaCacheManager>();            
-            services.ZzbAutofacInit("Liaoxin.Business", "Liaoxin.IBusiness", list.ToArray());            
+          return   services.ZzbAutofacInit("Liaoxin.Business", "Liaoxin.IBusiness", list.ToArray());            
 
 
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, Microsoft.AspNetCore.Hosting.IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseCors("AllowAllOrigin");
-            //var cacheEntity =  app.ApplicationServices.GetService(typeof(AreaCacheManager)) as AreaCacheManager;
-            //cacheEntity.Load();
-
+ 
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -164,7 +155,7 @@ namespace Liaoxin
             {
                 var areaCache = scope.ServiceProvider.GetService<AreaCacheManager>();
                 areaCache.Load();
-            }            
+            }
             app.UseSession();
             //   MessageService.Start();
             // app.UseAuthentication();

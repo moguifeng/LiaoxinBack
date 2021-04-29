@@ -73,8 +73,14 @@ namespace Liaoxin.Cache
 
         public static CacheArea GetObj(string code)
         {
-            var cache = CacheManager.singleCache.HashGet<CacheArea>(RedisAreaKey, code.ToString());
-            return cache;
+            if (!string.IsNullOrEmpty(code))
+            {
+                var cache = CacheManager.singleCache.HashGet<CacheArea>(RedisAreaKey, code.ToString());
+                return cache;
+            }
+            return null;
+            
+          
         }
 
     }
