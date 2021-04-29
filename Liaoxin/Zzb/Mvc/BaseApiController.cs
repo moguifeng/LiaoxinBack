@@ -71,9 +71,9 @@ namespace Zzb.Mvc
         {
             get
             {
-                if (HttpContext.User.Identity.IsAuthenticated)
+                if (UserContext.Current.IsAuthenticated)
                 {
-                    if (int.TryParse(HttpContext.User.Identity.Name, out var id))
+                    if (int.TryParse(UserContext.Current.Name, out var id))
                     {
                         return id;
                     }

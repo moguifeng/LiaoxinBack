@@ -2,6 +2,7 @@
 using Liaoxin.Business;
 using Liaoxin.Business.Socket;
 using Liaoxin.Business.ThirdPay;
+using Liaoxin.HostServices;
 using Liaoxin.Model;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors.Infrastructure;
@@ -11,12 +12,15 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using Zzb.BaseData;
+using Zzb.ICacheManger;
 using Zzb.Mvc;
 using Zzb.Redis;
 
@@ -32,7 +36,7 @@ namespace Liaoxin
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
         
             services.AddCors(builder =>
@@ -82,7 +86,7 @@ namespace Liaoxin
             services.AddMvc(options => { options.EnableEndpointRouting = false; });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
-
+          
             services.AddSession(o =>
             {
                 o.IdleTimeout = TimeSpan.FromDays(1);
@@ -109,12 +113,21 @@ namespace Liaoxin
                     list.Add(type);
                 }
             }
+            //foreach (Type type in Assembly.Load("Liaoxin.Cache").GetTypes())
+            //{
+            //    list.Add(type);
+            //}
 
-            return services.ZzbAutofacInit("Liaoxin.Business", "Liaoxin.IBusiness", list.ToArray());
+            //services.TryAddEnumerable(ServiceDescriptor.Singleton<IHostedService, CachingHostedService>());
+            services.ZzbAutofacInit("Liaoxin.Business", "Liaoxin.IBusiness", list.ToArray());
+        //   services.AddHostedService<CachingHostedService>();
+         
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, Microsoft.AspNetCore.Hosting.IHostingEnvironment env)
         {
             app.UseCors("AllowAllOrigin");
 
