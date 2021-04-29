@@ -84,9 +84,10 @@ namespace Zzb.BaseData.Model
         {
             T[] ts = CreateEfDatas(queryable, null, pf);
             List<TF> f = new List<TF>();
+            var o = HttpContextAccessor.HttpContext.RequestServices.GetService(typeof(TF)) as TF;
             foreach (T t in ts)
             {
-                var o = HttpContextAccessor.HttpContext.RequestServices.GetService(typeof(TF)) as TF;
+
                 foreach (PropertyInfo property in t.GetType().GetProperties())
                 {
                     foreach (PropertyInfo fProperty in typeof(TF).GetProperties())
@@ -97,11 +98,22 @@ namespace Zzb.BaseData.Model
                         }
                     }
                 }
-                eachChange?.Invoke(t, o);
+             //   eachChange?.Invoke(t, o);
                 o.HttpContextAccessor = HttpContextAccessor;
                 f.Add(o);
             }
             return f.ToArray();
+        }
+
+        //protected T[] CreateEfDatasedHandle<T, TF>(IQueryable<T> queryable,
+        //      params Func<string, IQueryable<T>, IQueryable<T>>[] pf) where T : class where TF : BaseNav
+        protected T[] CreateEfDatasedHandle<T>(IQueryable<T> queryable,
+                params Func<string, IQueryable<T>, IQueryable<T>>[] pf) where T : class  
+        {
+            T[] ts = CreateEfDatas(queryable, null, pf);
+            return ts;
+           
+
         }
 
         protected T[] CreateEfDatas<T>(IQueryable<T> queryable, System.Func<IQueryable<T>, IOrderedQueryable<T>> sort, params Func<string, IQueryable<T>, IQueryable<T>>[] pf) where T : class

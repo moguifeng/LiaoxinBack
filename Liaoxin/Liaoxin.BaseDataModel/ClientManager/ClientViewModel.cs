@@ -19,9 +19,7 @@ namespace Liaoxin.BaseDataModel.RechargeManager
 {
     public class ClientViewModel : BaseServiceNav
     {
-        public IRechargeService RechargeService { get; set; }
-
-        public IUserOperateLogService UserOperateLogService { get; set; }
+ 
 
         public override int OperaColumnWidth => 140;
 

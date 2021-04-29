@@ -20,6 +20,8 @@ namespace Liaoxin.Model
         /// <summary>
         /// 客户Id
         /// </summary>
+        /// 
+        [ZzbIndex]
         public int ClientId { get; set; }
 
         public  virtual Client Client { get; set; }

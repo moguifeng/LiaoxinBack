@@ -60,7 +60,8 @@ namespace Liaoxin.Model
 
         /// <summary>
         /// 手机号码
-        /// </summary>
+        /// </summary>        
+        [ZzbIndex]
         public string Telephone { get; set; }
         
 

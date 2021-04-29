@@ -18,6 +18,7 @@ namespace Liaoxin.Model
          public int ClientRelationDetailId { get; set; }
 
 
+        [ZzbIndex]
         public int ClientRelationId { get; set; }
 
         public virtual ClientRelation ClientRelation { get; set; }
@@ -40,36 +41,38 @@ namespace Liaoxin.Model
         public virtual ClientTag ClientTag { get; set; }
 
         public int ClientId { get; set; }
-        
+
+
+        /// <summary>
+        /// 与客户关系的客户
+        /// </summary>
+        public virtual Client Client { get; set; }
 
         /// <summary>
         /// 不看Ta
         /// </summary>
-        public bool NotSee { get; set; }
+        public bool NotSee { get; set; } = false;
 
 
 
         /// <summary>
         /// 不让Ta看
         /// </summary>
-        public bool NotLetSee { get; set; }
+        public bool NotLetSee { get; set; } = false;
 
 
 
         /// <summary>
         /// 特别关注
         /// </summary>
-        public bool SpecialAttention { get; set; }
+        public bool SpecialAttention { get; set; } = false;
 
         /// <summary>
         /// 客户备注
         /// </summary>
         public string ClientRemark { get; set; }
 
-        /// <summary>
-        /// 与客户关系的客户
-        /// </summary>
-        public virtual Client Client { get; set; }
+
 
 
         /// <summary>
@@ -96,7 +99,7 @@ namespace Liaoxin.Model
         /// <summary>
         /// 共同群聊
         /// </summary>
-        public int MutipleGroup { get; set; }
+        public int MutipleGroup { get; set; } = 0;
 
 
 

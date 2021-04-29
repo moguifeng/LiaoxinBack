@@ -8,7 +8,7 @@ using Zzb.EF;
 namespace Liaoxin.Model
 {
     /// <summary>
-    /// 客户添加
+    /// 客户添加(默认3天)
     /// </summary>
     public class ClientAdd : BaseModel
     {

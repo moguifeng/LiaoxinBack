@@ -1,0 +1,97 @@
+﻿using Castle.Components.DictionaryAdapter;
+using Liaoxin.BaseDataModel.ContentManager;
+using Liaoxin.Business.Config;
+using Liaoxin.Cache;
+using Liaoxin.IBusiness;
+using Liaoxin.Model;
+using Liaoxin.ViewModel;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Zzb;
+using Zzb.BaseData.Attribute;
+using Zzb.BaseData.Attribute.Field;
+using Zzb.BaseData.Model.Button;
+using Zzb.Common;
+using static Liaoxin.Model.Client;
+using static Liaoxin.Model.ClientRelation;
+
+namespace Liaoxin.BaseDataModel.RechargeManager
+{
+    public class ClientRelationViewModel : BaseServiceNav
+    {
+ 
+
+        public override int OperaColumnWidth => 140;
+
+        public override string NavName => "客户关系表";
+
+        public override string FolderName => "客户管理";
+
+        public override int Sort => 2;
+
+
+        [NavField("源聊信号")]
+        public string SourceLiaoxinNumber { get; set; }
+
+        [NavField("目标聊信号")]
+        public string ToLiaoxinNumber { get; set; }
+
+
+
+        [NavField("目标昵称")]
+        public string NickName { get; set; }
+      
+
+        [NavField("目标电话号码")]
+        public string Telephone { get; set; }
+
+        [NavField("目标国家/地区")]
+        public string Area { get; set; }
+
+
+        [NavField("目标关系")]
+        public RelationTypeEnum RelationType { get; set; }
+
+        [NavField("创建关系时间")]
+        public DateTime CreateTime { get; set; }
+
+        protected override object[] DoGetNavDatas()
+        {
+            List<ClientRelationViewModel> lis = new List<ClientRelationViewModel>();
+            var sources  = CreateEfDatasedHandle<ClientRelationDetail>(from r in Context.ClientRelationDetails where r.IsEnable  orderby r.CreateTime 
+                                                                       descending select r,
+
+                (k, w) => w.Where(t => t.Client.LiaoxinNumber == k),
+                (k, w) => w.Where(t => t.Client.Telephone.Contains(k)),
+                (k, w) => ConvertEnum<ClientRelationDetail, RelationTypeEnum>(w, k, m => w.Where(t =>(int) t.ClientRelation.RelationType ==(int) m))
+                );
+
+            foreach (var item in sources)
+            {
+                ClientRelationViewModel model = new ClientRelationViewModel();
+                var source = item.ClientRelation.Client;
+                var to = item.Client;
+                model.SourceLiaoxinNumber = source.LiaoxinNumber;
+                model.ToLiaoxinNumber = to.LiaoxinNumber;
+                model.NickName = to.NickName;
+                model.Telephone = to.Telephone;
+                model.Area = to.AreaCode.ToAreaFullName();
+                model.RelationType = item.ClientRelation.RelationType;
+                model.CreateTime = item.CreateTime;
+                lis.Add(model);
+            }
+            return lis.ToArray();
+           
+        }
+
+        public override BaseFieldAttribute[] GetQueryConditionses()
+        {
+            return new BaseFieldAttribute[]
+            {   new TextFieldAttribute("LiaoxinNumber", "聊信号"),
+                new TextFieldAttribute("Telephone", "手机号码"),           
+                new DropListFieldAttribute("RelationType", "关系类型",RelationTypeEnum.Friend.GetDropListModels("全部")),
+            };
+        }    
+    }
+}
