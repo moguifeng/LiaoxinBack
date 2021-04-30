@@ -3,14 +3,16 @@ using System;
 using Liaoxin.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Liaoxin.Model.Migrations
 {
     [DbContext(typeof(LiaoxinContext))]
-    partial class LiaoxinContextModelSnapshot : ModelSnapshot
+    [Migration("20210430150216_TEST222")]
+    partial class TEST222
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -878,6 +880,8 @@ namespace Liaoxin.Model.Migrations
                     b.Property<string>("Remark");
 
                     b.Property<int>("State");
+
+                    b.Property<int>("TestField");
 
                     b.Property<DateTime>("UpdateTime");
 

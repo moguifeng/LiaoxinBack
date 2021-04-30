@@ -52,6 +52,8 @@ namespace Liaoxin.Model
 
         public virtual ClientBank ClientBank { get; set; }
 
+ 
+
         [Timestamp]
         public byte[] Version { get; set; }
     }

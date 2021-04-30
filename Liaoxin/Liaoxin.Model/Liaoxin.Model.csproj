@@ -11,6 +11,8 @@
     <Compile Remove="Migrations\20210423093428_CreateClientAgain.Designer.cs" />
     <Compile Remove="Migrations\20210423094747_CreateClientAgain.cs" />
     <Compile Remove="Migrations\20210423094747_CreateClientAgain.Designer.cs" />
+    <Compile Remove="Migrations\20210430145604_TESTFIELD.cs" />
+    <Compile Remove="Migrations\20210430145604_TESTFIELD.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

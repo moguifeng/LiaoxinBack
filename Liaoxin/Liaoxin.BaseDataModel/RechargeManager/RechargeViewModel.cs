@@ -27,6 +27,11 @@ namespace Liaoxin.BaseDataModel.RechargeManager
         [NavField("主键", IsKey = true, IsDisplay = false)]
         public int RechargeId { get; set; }
 
+
+        [NavField("聊信号")]
+        public string LiaoxinNumber { get; set; }
+
+
         [NavField("客户真实名称")]
         public string RealName { get; set; }
 
@@ -34,7 +39,7 @@ namespace Liaoxin.BaseDataModel.RechargeManager
         [NavField("订单号", 150)]
         public string OrderNo { get; set; }
 
-        [NavField("余额")]
+        [NavField("客户余额")]
         public decimal Coin { get; set; }
 
         [NavField("充值金额")]
@@ -43,10 +48,9 @@ namespace Liaoxin.BaseDataModel.RechargeManager
         [NavField("充值银行卡")]
         public string Bank { get; set; }
 
-        [NavField("备注")]
-        public string Remark { get; set; }
-
- 
+        [NavField("银行卡号")]
+        public string BankAccount { get; set; }
+  
 
         [NavField("状态")]
         public RechargeStateEnum State { get; set; }
@@ -54,20 +58,35 @@ namespace Liaoxin.BaseDataModel.RechargeManager
         [NavField("充值时间", 150)]
         public DateTime CreateTime { get; set; }
 
+        [NavField("备注")]
+        public string Remark { get; set; }
+
+
         protected override object[] DoGetNavDatas()
         {
-            return null;
-            //return CreateEfDatas<Recharge, RechargeViewModel>(from r in Context.Recharges where r.IsEnable orderby r.CreateTime descending select r,
-            //    (k, t) =>
-            //    {
-            //        t.PlayerName = k.Player.Name;
-            //        t.Coin = k.Player.Coin;                    
-            //        t.Bank = k.MerchantsBank == null ? "管理员充值" : k.MerchantsBank.Name;
-            //        if (k.State == RechargeStateEnum.Ok)
-            //        {
-            //            t.OkTime = k.UpdateTime.ToCommonString();
-            //        }
-            //    }, (k, w) => w.Where(t => t.Player.Name.Contains(k)));
+            List<RechargeViewModel> lis = new List<RechargeViewModel>();
+            var sources =  CreateEfDatasedHandle(from r in Context.Recharges where r.IsEnable orderby r.CreateTime descending select r,
+              (k, w) => w.Where(t => t.Client.LiaoxinNumber.Contains(k)),
+              (k, w) => w.Where(t => t.Client.RealName.Contains(k))
+              );
+            foreach (var item in sources)
+            {
+                RechargeViewModel model = new RechargeViewModel();
+                model.RechargeId = item.RechargeId;
+                model.RealName = item.Client.RealName;
+                model.LiaoxinNumber = item.Client.LiaoxinNumber;
+                model.OrderNo = item.OrderNo;
+                model.Coin = item.Client.Coin;
+                model.Money = item.Money;
+                model.Bank = item.ClientBank?.SystemBank.Name;
+                model.BankAccount = item.ClientBank?.CardNumber;
+                model.State = item.State;
+                model.CreateTime = item.CreateTime;
+                model.Remark = item.Remark;
+                lis.Add(model);
+            }
+            
+            return lis.ToArray();
         }
 
         //public override BaseButton[] CreateRowButtons()
@@ -156,7 +175,7 @@ namespace Liaoxin.BaseDataModel.RechargeManager
 
         public override BaseFieldAttribute[] GetQueryConditionses()
         {
-            return new[] { new TextFieldAttribute("Name", "客户聊信号"), new TextFieldAttribute("RealName", "客户真实姓名"), };
+            return new[] { new TextFieldAttribute("LiaoxinNumber", "客户聊信号"), new TextFieldAttribute("RealName", "客户真实姓名"), };
         }
     }
 }

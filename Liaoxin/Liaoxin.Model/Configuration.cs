@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Internal;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Zzb.Common;
 using Zzb.EF;
 
@@ -14,11 +15,10 @@ namespace Liaoxin.Model
         public static void Seed(LiaoxinContext context)
         {
             _context = context;
-          
-            {
 
-                if (!context.Clients.Any())
-                    AddClients();
+            if (context.Clients.Count() == 0)
+            {
+                AddClients();
                 AddArea();
                 AddSystemBank();
                 AddMerchantsBanks();
