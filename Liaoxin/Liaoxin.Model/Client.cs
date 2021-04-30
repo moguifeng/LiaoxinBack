@@ -204,6 +204,14 @@ namespace Liaoxin.Model
         }
 
 
+        public void AddMoney(decimal money, CoinLogTypeEnum type, int aboutId, out CoinLog coinLog, string remark)
+        {
+            Coin += money;
+            coinLog = new CoinLog(ClientId, money, Coin,   type, aboutId, remark);
+        }
+
+
+
 
     }
 

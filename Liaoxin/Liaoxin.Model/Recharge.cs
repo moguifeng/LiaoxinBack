@@ -13,19 +13,20 @@ namespace Liaoxin.Model
         {
         }
 
-        public Recharge(int playerId, decimal money, int? merchantsBankId)
+        public Recharge(int clientId, decimal money, int? clientBankId)
         {
-            PlayerId = playerId;
+            ClientId = clientId;
             Money = money;
-            MerchantsBankId = merchantsBankId;
+            ClientBankId = clientBankId;
         }
 
-        public Recharge(int playerId, decimal money, string remark, RechargeStateEnum state)
+        public Recharge(int clientId, decimal money, string remark,  int? clientBankId,RechargeStateEnum state)
         {
-            PlayerId = playerId;
+            ClientId = clientId;
             Money = money;
             Remark = remark;
             State = state;
+            ClientBankId = clientBankId;
         }
 
         public int RechargeId { get; set; }
@@ -34,9 +35,9 @@ namespace Liaoxin.Model
         [MaxLength(20)]
         public string OrderNo { get; set; } = RandomHelper.GetRandom("R");
 
-        public int PlayerId { get; set; }
+        public int ClientId { get; set; }
 
-        public virtual Player Player { get; set; }
+        public virtual Client Client { get; set; }
 
         public decimal Money { get; set; }
 
@@ -45,11 +46,11 @@ namespace Liaoxin.Model
         /// </summary>
         public string Remark { get; set; }
 
-        public RechargeStateEnum State { get; set; } = RechargeStateEnum.Wait;
+        public RechargeStateEnum State { get; set; } = RechargeStateEnum.Ok;
 
-        public int? MerchantsBankId { get; set; }
+        public int? ClientBankId { get; set; }
 
-        public virtual MerchantsBank MerchantsBank { get; set; }
+        public virtual ClientBank ClientBank { get; set; }
 
         [Timestamp]
         public byte[] Version { get; set; }
@@ -57,11 +58,9 @@ namespace Liaoxin.Model
 
     public enum RechargeStateEnum
     {
-        [Description("正在申请")]
-        Wait,
-        [Description("充值到帐")]
+        [Description("充值成功")]
         Ok,
-        [Description("充值失败")]
-        AdminCancel
+        [Description("代充值成功")]
+        AdminOk,
     }
 }

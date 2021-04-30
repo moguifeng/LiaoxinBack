@@ -73,14 +73,14 @@ namespace Liaoxin.Business.ThirdPay
                 }
             }
 
-            sb.Append("key=" + thrid.MerchantsBank.MerchantsKey);
+            //sb.Append("key=" + thrid.MerchantsBank.MerchantsKey);
 
-            if (dic["sign"] != SecurityHelper.MD5Encrypt(sb.ToString().Trim()).ToUpper())
-            {
-                LogHelper.Error($"{sb.ToString().Trim()}");
-                LogHelper.Error($"签名失败，我方签名[{SecurityHelper.MD5Encrypt(sb.ToString().Trim()).ToUpper()}]，对方签名[{ dic["sign"]}]");
-                return false;
-            }
+            //if (dic["sign"] != SecurityHelper.MD5Encrypt(sb.ToString().Trim()).ToUpper())
+            //{
+            //    LogHelper.Error($"{sb.ToString().Trim()}");
+            //    LogHelper.Error($"签名失败，我方签名[{SecurityHelper.MD5Encrypt(sb.ToString().Trim()).ToUpper()}]，对方签名[{ dic["sign"]}]");
+            //    return false;
+            //}
 
             return true;
         }

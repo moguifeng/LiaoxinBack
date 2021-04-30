@@ -59,12 +59,12 @@ namespace Liaoxin.Business.ThirdPay
                 return false;
             }
 
-            string parastring = merchant_id + orderid + money + thrid.MerchantsBank.MerchantsKey;
-            if (SecurityHelper.MD5Encrypt(parastring) != sign)
-            {
-                LogHelper.Error($"NiuPay返回错误签名[{sign}]，我方签名[{SecurityHelper.MD5Encrypt(parastring)}]，签名字符串[{parastring}]");
-                return false;
-            }
+            //string parastring = merchant_id + orderid + money + thrid.MerchantsBank.MerchantsKey;
+            //if (SecurityHelper.MD5Encrypt(parastring) != sign)
+            //{
+            //    LogHelper.Error($"NiuPay返回错误签名[{sign}]，我方签名[{SecurityHelper.MD5Encrypt(parastring)}]，签名字符串[{parastring}]");
+            //    return false;
+            //}
 
             return true;
         }

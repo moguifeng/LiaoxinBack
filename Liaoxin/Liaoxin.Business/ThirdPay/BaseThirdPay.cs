@@ -75,10 +75,11 @@ namespace Liaoxin.Business.ThirdPay
 
         protected virtual Recharge AddThirdPay(string order, int playerId, decimal money, int bankId, LiaoxinContext context)
         {
-            Recharge thirdPay = new Recharge() { PlayerId = playerId, Money = money, MerchantsBankId = bankId, State = RechargeStateEnum.Wait, IsEnable = false, OrderNo = order };
-            context.Recharges.Add(thirdPay);
-            context.SaveChanges();
-            return thirdPay;
+            return null;
+            //Recharge thirdPay = new Recharge() { PlayerId = playerId, Money = money, MerchantsBankId = bankId, State = RechargeStateEnum.Wait, IsEnable = false, OrderNo = order };
+            //context.Recharges.Add(thirdPay);
+            //context.SaveChanges();
+            //return thirdPay;
         }
 
         protected abstract ThirdPayModel ThirdPayUrl(Recharge recharge, decimal money, string url, MerchantsBank bank);

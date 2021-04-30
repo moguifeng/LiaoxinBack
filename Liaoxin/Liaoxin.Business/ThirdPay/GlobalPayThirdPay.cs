@@ -73,13 +73,13 @@ namespace Liaoxin.Business.ThirdPay
                 return false;
             }
 
-            string sb = signType + orderNo + orderAmount + orderCurrency + transactionId + status + thrid.MerchantsBank.MerchantsKey;
-            string sign = SecurityHelper.MD5Encrypt(sb);
-            if (sign != HttpContextAccessor.HttpContext.Request.Form["sign"])
-            {
-                LogHelper.Error($"全球支付签名不符合，我方签名[{sign}]，对方签名[{ HttpContextAccessor.HttpContext.Request.Form["sign"]}],签名字符串{sb}");
-                return false;
-            }
+            //string sb = signType + orderNo + orderAmount + orderCurrency + transactionId + status + thrid.MerchantsBank.MerchantsKey;
+            //string sign = SecurityHelper.MD5Encrypt(sb);
+            //if (sign != HttpContextAccessor.HttpContext.Request.Form["sign"])
+            //{
+            //    LogHelper.Error($"全球支付签名不符合，我方签名[{sign}]，对方签名[{ HttpContextAccessor.HttpContext.Request.Form["sign"]}],签名字符串{sb}");
+            //    return false;
+            //}
 
             return true;
         }

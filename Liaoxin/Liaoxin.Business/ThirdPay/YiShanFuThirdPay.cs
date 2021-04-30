@@ -70,14 +70,14 @@ namespace Liaoxin.Business.ThirdPay
                 return false;
             }
             string out_trade_no = dic["out_trade_no"];
-            thrid = (from t in Context.Recharges where t.OrderNo == out_trade_no select t)
-                .FirstOrDefault();
-            if (thrid?.MerchantsBankId == null)
-            {
-                LogHelper.Error(sb1.ToString());
-                LogHelper.Error($"易闪付无法找到订单号");
-                return false;
-            }
+            //thrid = (from t in Context.Recharges where t.OrderNo == out_trade_no select t)
+            //    .FirstOrDefault();
+            //if (thrid?.MerchantsBankId == null)
+            //{
+            //    LogHelper.Error(sb1.ToString());
+            //    LogHelper.Error($"易闪付无法找到订单号");
+            //    return false;
+            //}
 
             StringBuilder sb = new StringBuilder();
             foreach (string k in dic.Keys.OrderBy(t => t))
@@ -88,14 +88,14 @@ namespace Liaoxin.Business.ThirdPay
                 }
             }
 
-            sb.Append("key=" + thrid.MerchantsBank.MerchantsKey);
+            //sb.Append("key=" + thrid.MerchantsBank.MerchantsKey);
 
-            if (HttpContextAccessor.HttpContext.Request.Form["sign"] != SecurityHelper.MD5Encrypt(sb.ToString().Trim()).ToUpper())
-            {
-                LogHelper.Error($"{sb.ToString().Trim()}");
-                LogHelper.Error($"签名失败，我方签名[{SecurityHelper.MD5Encrypt(sb.ToString().Trim()).ToUpper()}]，对方签名[{ HttpContextAccessor.HttpContext.Request.Form["sign"]}]");
-                return false;
-            }
+            //if (HttpContextAccessor.HttpContext.Request.Form["sign"] != SecurityHelper.MD5Encrypt(sb.ToString().Trim()).ToUpper())
+            //{
+            //    LogHelper.Error($"{sb.ToString().Trim()}");
+            //    LogHelper.Error($"签名失败，我方签名[{SecurityHelper.MD5Encrypt(sb.ToString().Trim()).ToUpper()}]，对方签名[{ HttpContextAccessor.HttpContext.Request.Form["sign"]}]");
+            //    return false;
+            //}
 
             return true;
         }

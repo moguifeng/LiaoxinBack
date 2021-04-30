@@ -71,11 +71,15 @@ namespace Liaoxin.Model
         [Description("充值")]
         Recharge = 0,
 
-      
+        [Description("代充值")]
+        InsteadRecharge = 1,
+
+
         [Description("申请提现")]
         ApplyWithdraw = 2,
 
   
+
 
         [Description("提现成功")]
         Withdraw = 5,
