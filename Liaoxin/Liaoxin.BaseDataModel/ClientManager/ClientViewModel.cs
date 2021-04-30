@@ -15,7 +15,7 @@ using Zzb.BaseData.Model.Button;
 using Zzb.Common;
 using static Liaoxin.Model.Client;
 
-namespace Liaoxin.BaseDataModel.RechargeManager
+namespace Liaoxin.BaseDataModel.ClientManger
 {
     public class ClientViewModel : BaseServiceNav
     {
@@ -48,10 +48,10 @@ namespace Liaoxin.BaseDataModel.RechargeManager
         [NavField("电话号码")]
         public string Telephone { get; set; }
 
-        [NavField("国家/地区")]
+        [NavField("国家/地区", Width = 170)]
         public string Area { get; set; }
 
-        [NavField("当前使用设备")]
+        [NavField("当前登录设备" )]
         public string CurrenUserDevide { get; set; }
 
         [NavField("邮箱地址", 150)]
@@ -68,8 +68,12 @@ namespace Liaoxin.BaseDataModel.RechargeManager
             return CreateEfDatas<Client, ClientViewModel>(from r in Context.Clients where r.IsEnable orderby r.CreateTime descending select r,
                 (k, t) =>
                 {
+                    
                     t.Area = k.AreaCode.ToAreaFullName();
                     t.IsFreeze = k.IsFreeze;
+                 
+                    var equipmentEntity = k.ClientEquipments.OrderByDescending(o => o.LastLoginDate).FirstOrDefault();
+                    t.CurrenUserDevide = equipmentEntity?.Name;
 
                 },
                 (k, w) => w.Where(t => t.LiaoxinNumber.Contains(k)),

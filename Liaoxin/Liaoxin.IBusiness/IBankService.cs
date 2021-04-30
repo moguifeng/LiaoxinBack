@@ -6,7 +6,7 @@ namespace Liaoxin.IBusiness
     {
         SystemBank[] GetSystemBanks();
 
-        PlayerBank[] GetPlayerBanks(int playerId);
+        ClientBank[] GetClientBanks(int playerId);
 
         void AddPlayerBank(int playerId, int systemBankId, string name, string cardNumber);
 

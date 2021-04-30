@@ -3,29 +3,29 @@ using Zzb.EF;
 
 namespace Liaoxin.Model
 {
-    public class PlayerBank : BaseModel
+    public class ClientBank : BaseModel
     {
-        public PlayerBank()
+        public ClientBank()
         {
         }
 
-        public PlayerBank(int playerId, int systemBankId, string cardNumber, string payeeName)
+        public ClientBank(int clientId, int systemBankId, string cardNumber)
         {
-            PlayerId = playerId;
+            ClientId = clientId;
             SystemBankId = systemBankId;
             CardNumber = cardNumber;
-            PayeeName = payeeName;
+           
         }
 
-        public int PlayerBankId { get; set; }
+        public int ClientBankId { get; set; }
 
         /// <summary>
         /// 玩家
         /// </summary>
         [ZzbIndex("WeiYi", IsUnique = true)]
-        public int PlayerId { get; set; }
+        public int  ClientId { get; set; }
 
-        public virtual Player Player { get; set; }
+        public virtual Client Client { get; set; }
 
         /// <summary>
         /// 系统银行ID
@@ -40,10 +40,6 @@ namespace Liaoxin.Model
         [ZzbIndex("WeiYi", 1, IsUnique = true)]
         [MaxLength(20)]
         public string CardNumber { get; set; }
-
-        /// <summary>
-        /// 收款人
-        /// </summary>
-        public string PayeeName { get; set; }
+ 
     }
 }

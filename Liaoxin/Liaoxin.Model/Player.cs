@@ -28,9 +28,6 @@ namespace Liaoxin.Model
         /// </summary>
         public int PlayerId { get; set; }
 
-        public int ClientId { get; set; }
-        public virtual Client Client { get; set; }
-
         /// <summary>
         /// 玩家名
         /// </summary>

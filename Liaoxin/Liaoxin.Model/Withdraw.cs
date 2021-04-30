@@ -11,9 +11,9 @@ namespace Liaoxin.Model
         {
         }
 
-        public Withdraw(int playerBankId, decimal money)
+        public Withdraw(int clientBankId, decimal money)
         {
-            PlayerBankId = playerBankId;
+            ClientBankId = clientBankId;
             Money = money;
         }
 
@@ -23,12 +23,12 @@ namespace Liaoxin.Model
         [MaxLength(20)]
         public string OrderNo { get; set; } = RandomHelper.GetRandom("W");
 
-        public int PlayerBankId { get; set; }
+        public int ClientBankId { get; set; }
 
-        public virtual PlayerBank PlayerBank { get; set; }
+        public virtual ClientBank ClientBank { get; set; }
 
         [ZzbIndex]
-        public WithdrawStatusEnum Status { get; set; } = WithdrawStatusEnum.Wait;
+        public WithdrawStatusEnum Status { get; set; } = WithdrawStatusEnum.Ok;
 
         public decimal Money { get; set; }
 
@@ -40,13 +40,12 @@ namespace Liaoxin.Model
 
     public enum WithdrawStatusEnum
     {
-        [Description("正在申请")]
-        Wait,
+      
         [Description("提现成功")]
         Ok,
         [Description("提现失败")]
-        AdminCancel,
+        Fail,
         [Description("用户取消")]
-        UserCancel
+        Cancel,
     }
 }

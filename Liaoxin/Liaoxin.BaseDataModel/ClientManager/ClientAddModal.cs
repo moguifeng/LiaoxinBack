@@ -6,7 +6,7 @@ using Zzb.BaseData.Attribute.Field;
 using Zzb.BaseData.Model.Button;
 using Zzb.Common;
 
-namespace Liaoxin.BaseDataModel.ContentManager
+namespace Liaoxin.BaseDataModel.ClientManger
 {
     public class ClientAddModal : BaseServiceModal
     {

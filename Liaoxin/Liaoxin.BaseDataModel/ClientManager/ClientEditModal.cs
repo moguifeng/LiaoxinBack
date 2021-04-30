@@ -7,7 +7,7 @@ using Zzb.BaseData.Attribute.Field;
 using Zzb.BaseData.Model.Button;
 using Zzb.Common;
 
-namespace Liaoxin.BaseDataModel.ContentManager
+namespace Liaoxin.BaseDataModel.ClientManger
 {
     public class ClientEditModal : BaseServiceModal
     {
@@ -46,6 +46,8 @@ namespace Liaoxin.BaseDataModel.ContentManager
         [PasswordField("资金密码", Placeholder = "空代表不修改")]
         public string CoinPassword { get; set; }
 
+        [DropListField("允许提现")]
+        public bool CanWithdraw { get; set; }
 
         public override BaseButton[] Buttons()
         {
@@ -71,6 +73,7 @@ namespace Liaoxin.BaseDataModel.ContentManager
             {
                 entity.HuanXinId = this.HuanXinId;
             }
+            entity.CanWithdraw = this.CanWithdraw;
             Context.Clients.Update(entity);
             UserOperateLogService.Log($"编辑[{entity.LiaoxinNumber}]聊信客户", Context);
             Context.SaveChanges();

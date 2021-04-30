@@ -24,7 +24,7 @@ namespace Liaoxin.Model
         public DbSet<Player> Players { get; set; }
 
         public DbSet<Area> Areas { get; set; }
-        public DbSet<PlayerLoginLog> PlayerLoginLogs { get; set; }
+        public DbSet<ClientLoginLog> ClientLoginLogs { get; set; }
 
 
 
@@ -38,6 +38,9 @@ namespace Liaoxin.Model
         public DbSet<ClientRelationDetail> ClientRelationDetails { get; set; }
 
         public DbSet<ClientEquipment> ClientEquipments { get; set; }
+
+        public DbSet<ClientOperateLog> ClientOperateLogs { get; set; }
+
 
 
         public DbSet<ClientAdd> ClientAdds { get; set; }
@@ -55,7 +58,7 @@ namespace Liaoxin.Model
 
         public DbSet<SystemBank> SystemBanks { get; set; }
 
-        public DbSet<PlayerBank> PlayerBanks { get; set; }
+        public DbSet<ClientBank> ClientBanks { get; set; }
 
         public DbSet<MerchantsBank> MerchantsBanks { get; set; }
 
@@ -87,7 +90,7 @@ namespace Liaoxin.Model
 
      //   public DbSet<ProxyRegister> ProxyRegisters { get; set; }
 
-        public DbSet<PlayerOperateLog> PlayerOperateLogs { get; set; }
+
 
         public DbSet<Announcement> Announcements { get; set; }
 

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Liaoxin.Model.Migrations
 {
-    public partial class FirstImport1 : Migration
+    public partial class Test111 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -43,20 +43,24 @@ namespace Liaoxin.Model.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ClientRelations",
+                name: "Areas",
                 columns: table => new
                 {
-                    ClientRelationId = table.Column<int>(nullable: false)
+                    AreaId = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     CreateTime = table.Column<DateTime>(nullable: false),
                     UpdateTime = table.Column<DateTime>(nullable: false),
                     IsEnable = table.Column<bool>(nullable: false),
-                    ClientId = table.Column<int>(nullable: false),
-                    Relation = table.Column<int>(nullable: false)
+                    Code = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    FullName = table.Column<string>(nullable: true),
+                    LongCode = table.Column<string>(nullable: true),
+                    ParentCode = table.Column<string>(nullable: true),
+                    Level = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ClientRelations", x => x.ClientRelationId);
+                    table.PrimaryKey("PK_Areas", x => x.AreaId);
                 });
 
             migrationBuilder.CreateTable(
@@ -77,14 +81,18 @@ namespace Liaoxin.Model.Migrations
                     Coin = table.Column<decimal>(type: "decimal(18, 6)", nullable: false),
                     Telephone = table.Column<string>(nullable: true),
                     CharacterSignature = table.Column<string>(nullable: true),
-                    Country = table.Column<int>(nullable: true),
-                    Province = table.Column<int>(nullable: true),
-                    City = table.Column<int>(nullable: true),
+                    AreaCode = table.Column<string>(nullable: true),
                     CurrentDeviceId = table.Column<int>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     AddMeNeedChecked = table.Column<bool>(nullable: false),
                     ShowFriendCircle = table.Column<int>(nullable: false),
                     UpadteMind = table.Column<bool>(nullable: false),
+                    IsFreeze = table.Column<bool>(nullable: false),
+                    RealName = table.Column<string>(nullable: true),
+                    UniqueNo = table.Column<string>(nullable: true),
+                    UniqueFrontImg = table.Column<string>(nullable: true),
+                    UniqueBackImg = table.Column<string>(nullable: true),
+                    CanWithdraw = table.Column<bool>(nullable: false),
                     FontSize = table.Column<int>(nullable: false),
                     HandFree = table.Column<bool>(nullable: false),
                     WifiVideoPlay = table.Column<bool>(nullable: false),
@@ -436,6 +444,103 @@ namespace Liaoxin.Model.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ClientLoginLogs",
+                columns: table => new
+                {
+                    ClientLoginLogId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CreateTime = table.Column<DateTime>(nullable: false),
+                    UpdateTime = table.Column<DateTime>(nullable: false),
+                    IsEnable = table.Column<bool>(nullable: false),
+                    ClientId = table.Column<int>(nullable: false),
+                    IP = table.Column<string>(nullable: true),
+                    Address = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ClientLoginLogs", x => x.ClientLoginLogId);
+                    table.ForeignKey(
+                        name: "FK_ClientLoginLogs_Clients_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Clients",
+                        principalColumn: "ClientId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ClientOperateLogs",
+                columns: table => new
+                {
+                    ClientOperateLogId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CreateTime = table.Column<DateTime>(nullable: false),
+                    UpdateTime = table.Column<DateTime>(nullable: false),
+                    IsEnable = table.Column<bool>(nullable: false),
+                    Message = table.Column<string>(nullable: true),
+                    ClientId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ClientOperateLogs", x => x.ClientOperateLogId);
+                    table.ForeignKey(
+                        name: "FK_ClientOperateLogs_Clients_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Clients",
+                        principalColumn: "ClientId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ClientRelations",
+                columns: table => new
+                {
+                    ClientRelationId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CreateTime = table.Column<DateTime>(nullable: false),
+                    UpdateTime = table.Column<DateTime>(nullable: false),
+                    IsEnable = table.Column<bool>(nullable: false),
+                    ClientId = table.Column<int>(nullable: false),
+                    RelationType = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ClientRelations", x => x.ClientRelationId);
+                    table.ForeignKey(
+                        name: "FK_ClientRelations_Clients_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Clients",
+                        principalColumn: "ClientId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CoinLogs",
+                columns: table => new
+                {
+                    CoinLogId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CreateTime = table.Column<DateTime>(nullable: false),
+                    UpdateTime = table.Column<DateTime>(nullable: false),
+                    IsEnable = table.Column<bool>(nullable: false),
+                    ClientId = table.Column<int>(nullable: false),
+                    FlowCoin = table.Column<decimal>(type: "decimal(18, 6)", nullable: false),
+                    Coin = table.Column<decimal>(type: "decimal(18, 6)", nullable: false),
+                    Type = table.Column<int>(nullable: false),
+                    AboutId = table.Column<int>(nullable: false),
+                    Remark = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CoinLogs", x => x.CoinLogId);
+                    table.ForeignKey(
+                        name: "FK_CoinLogs_Clients_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Clients",
+                        principalColumn: "ClientId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Groups",
                 columns: table => new
                 {
@@ -463,78 +568,6 @@ namespace Liaoxin.Model.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ClientRelationDetails",
-                columns: table => new
-                {
-                    ClientRelationDetailId = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    CreateTime = table.Column<DateTime>(nullable: false),
-                    UpdateTime = table.Column<DateTime>(nullable: false),
-                    IsEnable = table.Column<bool>(nullable: false),
-                    ClientRelationId = table.Column<int>(nullable: false),
-                    Telephone = table.Column<string>(nullable: true),
-                    ClientTagId = table.Column<int>(nullable: true),
-                    ClientId = table.Column<int>(nullable: false),
-                    NotSee = table.Column<bool>(nullable: false),
-                    NotLetSee = table.Column<bool>(nullable: false),
-                    SpecialAttention = table.Column<bool>(nullable: false),
-                    ClientRemark = table.Column<string>(nullable: true),
-                    AddSource = table.Column<int>(nullable: false),
-                    MutipleGroup = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ClientRelationDetails", x => x.ClientRelationDetailId);
-                    table.ForeignKey(
-                        name: "FK_ClientRelationDetails_Clients_ClientId",
-                        column: x => x.ClientId,
-                        principalTable: "Clients",
-                        principalColumn: "ClientId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ClientRelationDetails_ClientRelations_ClientRelationId",
-                        column: x => x.ClientRelationId,
-                        principalTable: "ClientRelations",
-                        principalColumn: "ClientRelationId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ClientRelationDetails_ClientTags_ClientTagId",
-                        column: x => x.ClientTagId,
-                        principalTable: "ClientTags",
-                        principalColumn: "ClientTagId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CoinLogs",
-                columns: table => new
-                {
-                    CoinLogId = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    CreateTime = table.Column<DateTime>(nullable: false),
-                    UpdateTime = table.Column<DateTime>(nullable: false),
-                    IsEnable = table.Column<bool>(nullable: false),
-                    PlayerId = table.Column<int>(nullable: false),
-                    FlowCoin = table.Column<decimal>(type: "decimal(18, 6)", nullable: false),
-                    Coin = table.Column<decimal>(type: "decimal(18, 6)", nullable: false),
-                    FlowFCoin = table.Column<decimal>(type: "decimal(18, 6)", nullable: false),
-                    FCoin = table.Column<decimal>(type: "decimal(18, 6)", nullable: false),
-                    Type = table.Column<int>(nullable: false),
-                    AboutId = table.Column<int>(nullable: false),
-                    Remark = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CoinLogs", x => x.CoinLogId);
-                    table.ForeignKey(
-                        name: "FK_CoinLogs_Players_PlayerId",
-                        column: x => x.PlayerId,
-                        principalTable: "Players",
-                        principalColumn: "PlayerId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "NotReportPlayers",
                 columns: table => new
                 {
@@ -550,54 +583,6 @@ namespace Liaoxin.Model.Migrations
                     table.PrimaryKey("PK_NotReportPlayers", x => x.NotReportPlayerId);
                     table.ForeignKey(
                         name: "FK_NotReportPlayers_Players_PlayerId",
-                        column: x => x.PlayerId,
-                        principalTable: "Players",
-                        principalColumn: "PlayerId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PlayerLoginLogs",
-                columns: table => new
-                {
-                    PlayerLoginLogId = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    CreateTime = table.Column<DateTime>(nullable: false),
-                    UpdateTime = table.Column<DateTime>(nullable: false),
-                    IsEnable = table.Column<bool>(nullable: false),
-                    PlayerId = table.Column<int>(nullable: false),
-                    IP = table.Column<string>(nullable: true),
-                    Address = table.Column<string>(nullable: true),
-                    IsApp = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PlayerLoginLogs", x => x.PlayerLoginLogId);
-                    table.ForeignKey(
-                        name: "FK_PlayerLoginLogs_Players_PlayerId",
-                        column: x => x.PlayerId,
-                        principalTable: "Players",
-                        principalColumn: "PlayerId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PlayerOperateLogs",
-                columns: table => new
-                {
-                    PlayerOperateLogId = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    CreateTime = table.Column<DateTime>(nullable: false),
-                    UpdateTime = table.Column<DateTime>(nullable: false),
-                    IsEnable = table.Column<bool>(nullable: false),
-                    Message = table.Column<string>(nullable: true),
-                    PlayerId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PlayerOperateLogs", x => x.PlayerOperateLogId);
-                    table.ForeignKey(
-                        name: "FK_PlayerOperateLogs_Players_PlayerId",
                         column: x => x.PlayerId,
                         principalTable: "Players",
                         principalColumn: "PlayerId",
@@ -734,34 +719,76 @@ namespace Liaoxin.Model.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PlayerBanks",
+                name: "ClientBanks",
                 columns: table => new
                 {
-                    PlayerBankId = table.Column<int>(nullable: false)
+                    ClientBankId = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     CreateTime = table.Column<DateTime>(nullable: false),
                     UpdateTime = table.Column<DateTime>(nullable: false),
                     IsEnable = table.Column<bool>(nullable: false),
-                    PlayerId = table.Column<int>(nullable: false),
+                    ClientId = table.Column<int>(nullable: false),
                     SystemBankId = table.Column<int>(nullable: false),
-                    CardNumber = table.Column<string>(maxLength: 20, nullable: true),
-                    PayeeName = table.Column<string>(nullable: true)
+                    CardNumber = table.Column<string>(maxLength: 20, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PlayerBanks", x => x.PlayerBankId);
+                    table.PrimaryKey("PK_ClientBanks", x => x.ClientBankId);
                     table.ForeignKey(
-                        name: "FK_PlayerBanks_Players_PlayerId",
-                        column: x => x.PlayerId,
-                        principalTable: "Players",
-                        principalColumn: "PlayerId",
+                        name: "FK_ClientBanks_Clients_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Clients",
+                        principalColumn: "ClientId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PlayerBanks_SystemBanks_SystemBankId",
+                        name: "FK_ClientBanks_SystemBanks_SystemBankId",
                         column: x => x.SystemBankId,
                         principalTable: "SystemBanks",
                         principalColumn: "SystemBankId",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ClientRelationDetails",
+                columns: table => new
+                {
+                    ClientRelationDetailId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CreateTime = table.Column<DateTime>(nullable: false),
+                    UpdateTime = table.Column<DateTime>(nullable: false),
+                    IsEnable = table.Column<bool>(nullable: false),
+                    ClientRelationId = table.Column<int>(nullable: false),
+                    Telephone = table.Column<string>(nullable: true),
+                    ClientTagId = table.Column<int>(nullable: true),
+                    ClientId = table.Column<int>(nullable: false),
+                    NotSee = table.Column<bool>(nullable: false),
+                    NotLetSee = table.Column<bool>(nullable: false),
+                    SpecialAttention = table.Column<bool>(nullable: false),
+                    ClientRemark = table.Column<string>(nullable: true),
+                    AddSource = table.Column<int>(nullable: false),
+                    MutipleGroup = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ClientRelationDetails", x => x.ClientRelationDetailId);
+                    table.ForeignKey(
+                        name: "FK_ClientRelationDetails_Clients_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Clients",
+                        principalColumn: "ClientId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ClientRelationDetails_ClientRelations_ClientRelationId",
+                        column: x => x.ClientRelationId,
+                        principalTable: "ClientRelations",
+                        principalColumn: "ClientRelationId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ClientRelationDetails_ClientTags_ClientTagId",
+                        column: x => x.ClientTagId,
+                        principalTable: "ClientTags",
+                        principalColumn: "ClientTagId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -838,7 +865,7 @@ namespace Liaoxin.Model.Migrations
                     UpdateTime = table.Column<DateTime>(nullable: false),
                     IsEnable = table.Column<bool>(nullable: false),
                     OrderNo = table.Column<string>(maxLength: 20, nullable: true),
-                    PlayerBankId = table.Column<int>(nullable: false),
+                    ClientBankId = table.Column<int>(nullable: false),
                     Status = table.Column<int>(nullable: false),
                     Money = table.Column<decimal>(type: "decimal(18, 6)", nullable: false),
                     Version = table.Column<DateTime>(rowVersion: true, nullable: true),
@@ -848,10 +875,10 @@ namespace Liaoxin.Model.Migrations
                 {
                     table.PrimaryKey("PK_Withdraws", x => x.WithdrawId);
                     table.ForeignKey(
-                        name: "FK_Withdraws_PlayerBanks_PlayerBankId",
-                        column: x => x.PlayerBankId,
-                        principalTable: "PlayerBanks",
-                        principalColumn: "PlayerBankId",
+                        name: "FK_Withdraws_ClientBanks_ClientBankId",
+                        column: x => x.ClientBankId,
+                        principalTable: "ClientBanks",
+                        principalColumn: "ClientBankId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -906,6 +933,32 @@ namespace Liaoxin.Model.Migrations
                 column: "UpdateTime");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Areas_Code",
+                table: "Areas",
+                column: "Code",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Areas_CreateTime",
+                table: "Areas",
+                column: "CreateTime");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Areas_IsEnable",
+                table: "Areas",
+                column: "IsEnable");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Areas_Level",
+                table: "Areas",
+                column: "Level");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Areas_UpdateTime",
+                table: "Areas",
+                column: "UpdateTime");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ClientAddDetails_ClientId",
                 table: "ClientAddDetails",
                 column: "ClientId");
@@ -946,6 +999,37 @@ namespace Liaoxin.Model.Migrations
                 column: "UpdateTime");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ClientBanks_ClientId",
+                table: "ClientBanks",
+                column: "ClientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClientBanks_CreateTime",
+                table: "ClientBanks",
+                column: "CreateTime");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClientBanks_IsEnable",
+                table: "ClientBanks",
+                column: "IsEnable");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClientBanks_SystemBankId",
+                table: "ClientBanks",
+                column: "SystemBankId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClientBanks_UpdateTime",
+                table: "ClientBanks",
+                column: "UpdateTime");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClientBanks_CardNumber_ClientId",
+                table: "ClientBanks",
+                columns: new[] { "CardNumber", "ClientId" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ClientEquipments_ClientId",
                 table: "ClientEquipments",
                 column: "ClientId");
@@ -963,6 +1047,46 @@ namespace Liaoxin.Model.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_ClientEquipments_UpdateTime",
                 table: "ClientEquipments",
+                column: "UpdateTime");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClientLoginLogs_ClientId",
+                table: "ClientLoginLogs",
+                column: "ClientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClientLoginLogs_CreateTime",
+                table: "ClientLoginLogs",
+                column: "CreateTime");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClientLoginLogs_IsEnable",
+                table: "ClientLoginLogs",
+                column: "IsEnable");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClientLoginLogs_UpdateTime",
+                table: "ClientLoginLogs",
+                column: "UpdateTime");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClientOperateLogs_ClientId",
+                table: "ClientOperateLogs",
+                column: "ClientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClientOperateLogs_CreateTime",
+                table: "ClientOperateLogs",
+                column: "CreateTime");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClientOperateLogs_IsEnable",
+                table: "ClientOperateLogs",
+                column: "IsEnable");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClientOperateLogs_UpdateTime",
+                table: "ClientOperateLogs",
                 column: "UpdateTime");
 
             migrationBuilder.CreateIndex(
@@ -996,6 +1120,11 @@ namespace Liaoxin.Model.Migrations
                 column: "UpdateTime");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ClientRelations_ClientId",
+                table: "ClientRelations",
+                column: "ClientId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ClientRelations_CreateTime",
                 table: "ClientRelations",
                 column: "CreateTime");
@@ -1027,6 +1156,11 @@ namespace Liaoxin.Model.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Clients_Telephone",
+                table: "Clients",
+                column: "Telephone");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Clients_UpdateTime",
                 table: "Clients",
                 column: "UpdateTime");
@@ -1052,6 +1186,11 @@ namespace Liaoxin.Model.Migrations
                 column: "AboutId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CoinLogs_ClientId",
+                table: "CoinLogs",
+                column: "ClientId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CoinLogs_CoinLogId",
                 table: "CoinLogs",
                 column: "CoinLogId");
@@ -1065,11 +1204,6 @@ namespace Liaoxin.Model.Migrations
                 name: "IX_CoinLogs_IsEnable",
                 table: "CoinLogs",
                 column: "IsEnable");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CoinLogs_PlayerId",
-                table: "CoinLogs",
-                column: "PlayerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CoinLogs_Type",
@@ -1230,77 +1364,6 @@ namespace Liaoxin.Model.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_PictureNewses_UpdateTime",
                 table: "PictureNewses",
-                column: "UpdateTime");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PlayerBanks_CreateTime",
-                table: "PlayerBanks",
-                column: "CreateTime");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PlayerBanks_IsEnable",
-                table: "PlayerBanks",
-                column: "IsEnable");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PlayerBanks_PlayerId",
-                table: "PlayerBanks",
-                column: "PlayerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PlayerBanks_SystemBankId",
-                table: "PlayerBanks",
-                column: "SystemBankId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PlayerBanks_UpdateTime",
-                table: "PlayerBanks",
-                column: "UpdateTime");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PlayerBanks_CardNumber_PlayerId",
-                table: "PlayerBanks",
-                columns: new[] { "CardNumber", "PlayerId" },
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PlayerLoginLogs_CreateTime",
-                table: "PlayerLoginLogs",
-                column: "CreateTime");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PlayerLoginLogs_IsEnable",
-                table: "PlayerLoginLogs",
-                column: "IsEnable");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PlayerLoginLogs_PlayerId",
-                table: "PlayerLoginLogs",
-                column: "PlayerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PlayerLoginLogs_UpdateTime",
-                table: "PlayerLoginLogs",
-                column: "UpdateTime");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PlayerOperateLogs_CreateTime",
-                table: "PlayerOperateLogs",
-                column: "CreateTime");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PlayerOperateLogs_IsEnable",
-                table: "PlayerOperateLogs",
-                column: "IsEnable");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PlayerOperateLogs_PlayerId",
-                table: "PlayerOperateLogs",
-                column: "PlayerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PlayerOperateLogs_UpdateTime",
-                table: "PlayerOperateLogs",
                 column: "UpdateTime");
 
             migrationBuilder.CreateIndex(
@@ -1525,6 +1588,11 @@ namespace Liaoxin.Model.Migrations
                 column: "UserInfoId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Withdraws_ClientBankId",
+                table: "Withdraws",
+                column: "ClientBankId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Withdraws_CreateTime",
                 table: "Withdraws",
                 column: "CreateTime");
@@ -1539,11 +1607,6 @@ namespace Liaoxin.Model.Migrations
                 table: "Withdraws",
                 column: "OrderNo",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Withdraws_PlayerBankId",
-                table: "Withdraws",
-                column: "PlayerBankId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Withdraws_Status",
@@ -1565,6 +1628,9 @@ namespace Liaoxin.Model.Migrations
                 name: "Announcements");
 
             migrationBuilder.DropTable(
+                name: "Areas");
+
+            migrationBuilder.DropTable(
                 name: "ClientAddDetails");
 
             migrationBuilder.DropTable(
@@ -1572,6 +1638,12 @@ namespace Liaoxin.Model.Migrations
 
             migrationBuilder.DropTable(
                 name: "ClientEquipments");
+
+            migrationBuilder.DropTable(
+                name: "ClientLoginLogs");
+
+            migrationBuilder.DropTable(
+                name: "ClientOperateLogs");
 
             migrationBuilder.DropTable(
                 name: "ClientRelationDetails");
@@ -1590,12 +1662,6 @@ namespace Liaoxin.Model.Migrations
 
             migrationBuilder.DropTable(
                 name: "PictureNewses");
-
-            migrationBuilder.DropTable(
-                name: "PlayerLoginLogs");
-
-            migrationBuilder.DropTable(
-                name: "PlayerOperateLogs");
 
             migrationBuilder.DropTable(
                 name: "Recharges");
@@ -1634,6 +1700,9 @@ namespace Liaoxin.Model.Migrations
                 name: "MerchantsBanks");
 
             migrationBuilder.DropTable(
+                name: "Players");
+
+            migrationBuilder.DropTable(
                 name: "Permissions");
 
             migrationBuilder.DropTable(
@@ -1643,13 +1712,10 @@ namespace Liaoxin.Model.Migrations
                 name: "UserInfos");
 
             migrationBuilder.DropTable(
-                name: "PlayerBanks");
+                name: "ClientBanks");
 
             migrationBuilder.DropTable(
                 name: "Clients");
-
-            migrationBuilder.DropTable(
-                name: "Players");
 
             migrationBuilder.DropTable(
                 name: "SystemBanks");

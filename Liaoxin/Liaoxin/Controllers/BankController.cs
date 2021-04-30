@@ -23,12 +23,12 @@ namespace Liaoxin.Controllers
         [HttpPost("GetPlayerBanks")]
         public ServiceResult GetPlayerBanks()
         {
-            return JsonObjectResult(from b in BankService.GetPlayerBanks(UserId)
+            return JsonObjectResult(from b in BankService.GetClientBanks(UserId)
                                     select new
                                     {
-                                        b.PlayerBankId,
+                                        b.ClientBankId,
                                         CardNumber = "****" + b.CardNumber.Substring(b.CardNumber.Length - 4),
-                                        PayeeName = "*" + b.PayeeName.Substring(1),
+                                        PayeeName = "*" + b.Client.RealName.Substring(1),
                                         b.SystemBankId,
                                         b.SystemBank.AffixId
                                     });

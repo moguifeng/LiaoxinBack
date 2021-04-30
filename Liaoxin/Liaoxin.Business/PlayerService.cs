@@ -62,19 +62,19 @@ namespace Liaoxin.Business
                 {
                     using (var context = LiaoxinContext.CreateContext())
                     {
-                        PlayerLoginLog playerLog = new PlayerLoginLog()
+                        ClientLoginLog playerLog = new ClientLoginLog()
                         {
-                            PlayerId = player.PlayerId,
-                            IP = ip,
-                            Address = IpAddressHelper.GetLocation(ip),
-                            IsApp = isApp
+                            //PlayerId = player.PlayerId,
+                            //IP = ip,
+                            //Address = IpAddressHelper.GetLocation(ip),
+                            //IsApp = isApp
                         };
                         if (BaseConfig.HasValue(SystemConfigEnum.IsBoYue))
                         {
                             playerLog.IP = "";
                             playerLog.Address = "";
                         }
-                        context.PlayerLoginLogs.Add(playerLog);
+                        //context.PlayerLoginLogs.Add(playerLog);
                         context.SaveChanges();
                     }
                 }
@@ -110,7 +110,7 @@ namespace Liaoxin.Business
             player.Password = SecurityHelper.Encrypt(newPassword);
             player.IsChangePassword = true;
             player.Update();
-            Context.PlayerOperateLogs.Add(new PlayerOperateLog(player.PlayerId, "修改登录密码"));
+            //Context.PlayerOperateLogs.Add(new PlayerOperateLog(player.PlayerId, "修改登录密码"));
             Context.SaveChanges();
         }
 
@@ -129,7 +129,7 @@ namespace Liaoxin.Business
 
             player.CoinPassword = SecurityHelper.Encrypt(newPassword);
             player.Update();
-            Context.PlayerOperateLogs.Add(new PlayerOperateLog(player.PlayerId, "修改资金密码"));
+            //Context.PlayerOperateLogs.Add(new PlayerOperateLog(player.PlayerId, "修改资金密码"));
             Context.SaveChanges();
         }
 

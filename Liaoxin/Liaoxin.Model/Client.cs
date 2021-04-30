@@ -78,11 +78,8 @@ namespace Liaoxin.Model
         public string AreaCode { get; set; }
 
 
-        /// <summary>
-        /// 当前设备
-        /// </summary>
-
-       public int? CurrentDeviceId { get; set; }
+  
+        public virtual List<ClientEquipment> ClientEquipments { get; set; }
 
 
         /// <summary>
@@ -116,7 +113,31 @@ namespace Liaoxin.Model
         public bool IsFreeze { get; set; } = false;
 
 
+        /// <summary>
+        /// 真实姓名
+        /// </summary>
+        public string RealName { get; set; }
+        /// <summary>
+        /// 身份证号码
+        /// </summary>
+        public string UniqueNo { get; set; }
 
+        /// <summary>
+        /// 身份证前面照片
+        /// </summary>
+        public string UniqueFrontImg { get; set; }
+
+
+        /// <summary>
+        /// 身份证后面照片
+        /// </summary>
+        public string UniqueBackImg { get; set; }
+
+
+        /// <summary>
+        /// 是否允许提现
+        /// </summary>
+        public bool CanWithdraw { get; set; } = true;
 
         #region 通用设置
         /// <summary>
@@ -138,9 +159,6 @@ namespace Liaoxin.Model
         public bool WifiVideoPlay { get; set; } = false;
 
         #endregion
-
-
-
 
         #region  推送消息设置
 

@@ -16,13 +16,13 @@ using Zzb.Common;
 using static Liaoxin.Model.Client;
 using static Liaoxin.Model.ClientRelation;
 
-namespace Liaoxin.BaseDataModel.RechargeManager
+namespace Liaoxin.BaseDataModel.ClientManger
 {
     public class ClientRelationViewModel : BaseServiceNav
     {
  
 
-        public override int OperaColumnWidth => 140;
+        public override int OperaColumnWidth => 150;
 
         public override string NavName => "客户关系表";
 
@@ -30,6 +30,8 @@ namespace Liaoxin.BaseDataModel.RechargeManager
 
         public override int Sort => 2;
 
+        [NavField("ID", IsKey = true, IsDisplay = false)]
+        public int ClientRelationId { get; set; }
 
         [NavField("源聊信号")]
         public string SourceLiaoxinNumber { get; set; }
@@ -46,7 +48,7 @@ namespace Liaoxin.BaseDataModel.RechargeManager
         [NavField("目标电话号码")]
         public string Telephone { get; set; }
 
-        [NavField("目标国家/地区")]
+        [NavField("目标国家/地区",Width =170)]
         public string Area { get; set; }
 
 
@@ -59,11 +61,11 @@ namespace Liaoxin.BaseDataModel.RechargeManager
         protected override object[] DoGetNavDatas()
         {
             List<ClientRelationViewModel> lis = new List<ClientRelationViewModel>();
-            var sources  = CreateEfDatasedHandle<ClientRelationDetail>(from r in Context.ClientRelationDetails where r.IsEnable  orderby r.CreateTime 
+            var sources  = CreateEfDatasedHandle(from r in Context.ClientRelationDetails where r.IsEnable  orderby r.CreateTime 
                                                                        descending select r,
 
-                (k, w) => w.Where(t => t.Client.LiaoxinNumber == k),
-                (k, w) => w.Where(t => t.Client.Telephone.Contains(k)),
+                (k, w) => w.Where(t => t.ClientRelation.Client.LiaoxinNumber == k),
+                (k, w) => w.Where(t => t.ClientRelation.Client.Telephone.Contains(k)),
                 (k, w) => ConvertEnum<ClientRelationDetail, RelationTypeEnum>(w, k, m => w.Where(t =>(int) t.ClientRelation.RelationType ==(int) m))
                 );
 
@@ -72,6 +74,7 @@ namespace Liaoxin.BaseDataModel.RechargeManager
                 ClientRelationViewModel model = new ClientRelationViewModel();
                 var source = item.ClientRelation.Client;
                 var to = item.Client;
+                model.ClientRelationId = item.ClientRelationDetailId;
                 model.SourceLiaoxinNumber = source.LiaoxinNumber;
                 model.ToLiaoxinNumber = to.LiaoxinNumber;
                 model.NickName = to.NickName;
@@ -88,7 +91,7 @@ namespace Liaoxin.BaseDataModel.RechargeManager
         public override BaseFieldAttribute[] GetQueryConditionses()
         {
             return new BaseFieldAttribute[]
-            {   new TextFieldAttribute("LiaoxinNumber", "聊信号"),
+            {   new TextFieldAttribute("LiaoxinNumber", "源聊信号"),
                 new TextFieldAttribute("Telephone", "手机号码"),           
                 new DropListFieldAttribute("RelationType", "关系类型",RelationTypeEnum.Friend.GetDropListModels("全部")),
             };
