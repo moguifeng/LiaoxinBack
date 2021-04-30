@@ -37,6 +37,12 @@ namespace Liaoxin.BaseDataModel.ClientManger
         [NavField("聊信号")]
         public string LiaoxinNumber { get; set; }
 
+
+        [NavField("真实姓名")]
+        public string RealName { get; set; }
+
+
+
         [NavField("绑定环信号")]
         public string HuanXinId { get; set; }
         [NavField("昵称")]
@@ -71,7 +77,7 @@ namespace Liaoxin.BaseDataModel.ClientManger
                     
                     t.Area = k.AreaCode.ToAreaFullName();
                     t.IsFreeze = k.IsFreeze;
-                 
+                    t.RealName = k.RealName;
                     var equipmentEntity = k.ClientEquipments.OrderByDescending(o => o.LastLoginDate).FirstOrDefault();
                     t.CurrenUserDevide = equipmentEntity?.Name;
 
