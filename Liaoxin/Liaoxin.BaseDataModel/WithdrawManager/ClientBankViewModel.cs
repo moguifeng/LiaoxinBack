@@ -19,7 +19,7 @@ namespace Liaoxin.BaseDataModel.WithdrawManager
         public override string FolderName => "提款管理";
 
         [NavField("主键", IsKey = true, IsDisplay = false)]
-        public int ClientBankId { get; set; }
+        public Guid ClientBankId { get; set; }
 
         [NavField("聊信号码")]
         public string LiaoxinNumber { get; set; }

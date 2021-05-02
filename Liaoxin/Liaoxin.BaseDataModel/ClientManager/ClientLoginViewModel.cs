@@ -14,7 +14,7 @@ namespace Liaoxin.BaseDataModel.ClientManger
         public override string FolderName => "客户管理";
 
         [NavField("ID", IsKey = true, IsDisplay = false)]
-        public int CliengLoginId { get; set; }
+        public Guid CliengLoginId { get; set; }
 
         [NavField("客户手机号码")]
         public string Telephone { get; set; }

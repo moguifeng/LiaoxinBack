@@ -15,11 +15,11 @@ namespace Liaoxin.Model
         public ClientRelationDetail()
         {
         }
-         public int ClientRelationDetailId { get; set; }
+         public Guid ClientRelationDetailId { get; set; } = Guid.NewGuid();
 
 
         [ZzbIndex]
-        public int ClientRelationId { get; set; }
+        public Guid ClientRelationId { get; set; }
 
         public virtual ClientRelation ClientRelation { get; set; }
 
@@ -32,7 +32,7 @@ namespace Liaoxin.Model
         /// <summary>
         /// 标签
         /// </summary>
-        public int? ClientTagId { get; set; }
+        public Guid? ClientTagId { get; set; }
         
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace Liaoxin.Model
         /// </summary>
         public virtual ClientTag ClientTag { get; set; }
 
-        public int ClientId { get; set; }
+        public Guid ClientId { get; set; }
 
 
         /// <summary>

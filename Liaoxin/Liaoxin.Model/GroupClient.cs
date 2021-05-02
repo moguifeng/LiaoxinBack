@@ -16,14 +16,14 @@ namespace Liaoxin.Model
         {
         }
 
-        public int GroupClientId { get; set; }
+        public Guid GroupClientId { get; set; } = Guid.NewGuid(); 
 
-        public int GroupId { get; set; }
+        public Guid GroupId { get; set; }
 
         public virtual Group Group { get; set; }
 
 
-        public int ClientId { get; set; }
+        public Guid ClientId { get; set; }
 
         public virtual Client Client{get;set;}
 

@@ -31,7 +31,7 @@ namespace Liaoxin.BaseDataModel.ClientManger
         public override int Sort => 1;
 
         [NavField("主键", IsKey = true, IsDisplay = false)]
-        public int ClientId { get; set; }
+        public Guid ClientId { get; set; }
 
 
 

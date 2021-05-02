@@ -10,13 +10,13 @@ namespace Liaoxin.Model
     /// </summary>
     public class GroupManager : BaseModel
     {
-        public int GroupManagerId { get; set; }
+        public Guid GroupManagerId { get; set; } = Guid.NewGuid();
 
-        public int GroupId { get; set; }
+        public Guid GroupId { get; set; }
 
         public virtual Group Group { get; set; }
 
-        public int ClientId { get; set; }
+        public Guid ClientId { get; set; }
 
         /// <summary>
         /// 管理员

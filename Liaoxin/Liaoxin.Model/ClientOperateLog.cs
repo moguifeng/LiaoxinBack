@@ -1,4 +1,5 @@
-﻿using Zzb.EF;
+﻿using System;
+using Zzb.EF;
 
 namespace Liaoxin.Model
 {
@@ -8,17 +9,17 @@ namespace Liaoxin.Model
         {
         }
 
-        public ClientOperateLog(int clientId, string message)
+        public ClientOperateLog(Guid clientId, string message)
         {
             ClientId = clientId;
             Message = message;
         }
 
-        public int ClientOperateLogId { get; set; }
+        public Guid ClientOperateLogId { get; set; } = Guid.NewGuid();
 
         public string Message { get; set; }
 
-        public int ClientId { get; set; }
+        public Guid ClientId { get; set; }
 
         public virtual Client Client { get; set; }
     }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Zzb.Common;
 using Zzb.EF;
@@ -11,19 +12,19 @@ namespace Liaoxin.Model
         {
         }
 
-        public Withdraw(int clientBankId, decimal money)
+        public Withdraw(Guid clientBankId, decimal money)
         {
             ClientBankId = clientBankId;
             Money = money;
         }
 
-        public int WithdrawId { get; set; }
+        public Guid WithdrawId { get; set; } = Guid.NewGuid();
 
         [ZzbIndex(IsUnique = true)]
         [MaxLength(20)]
         public string OrderNo { get; set; } = RandomHelper.GetRandom("W");
 
-        public int ClientBankId { get; set; }
+        public Guid ClientBankId { get; set; }
 
         public virtual ClientBank ClientBank { get; set; }
 

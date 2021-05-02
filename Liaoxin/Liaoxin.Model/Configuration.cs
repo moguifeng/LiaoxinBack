@@ -88,16 +88,18 @@ namespace Liaoxin.Model
 
         public static void AddClients()
         {
+            List<Guid> clientIds = new List<Guid>();
             for (int i = 1; i <= 200; i++)
             {
-                var client = new Client() { ClientId = i, LiaoxinNumber = "fff" + i, HuanXinId = "abc" + i, NickName = "测试客户" + i, Password = SecurityHelper.Encrypt("1"), CoinPassword = SecurityHelper.Encrypt("1"), IsEnable = true };
+                var client = new Client() {  LiaoxinNumber = "fff" + i, HuanXinId = "abc" + i, NickName = "测试客户" + i, Password = SecurityHelper.Encrypt("1"), CoinPassword = SecurityHelper.Encrypt("1"), IsEnable = true };
+                clientIds.Add(client.ClientId);
                 _context.Clients.Add(client);
             }
 
 
             for (int i = 1; i <= 20; i++)
             {
-                var group = new Group() { Name = "群组" + i, AllBlock = false, HuanxinGroupId = "eifjeifje" + i, Notice = "公告" + i, ClientId = i };
+                var group = new Group() { Name = "群组" + i, AllBlock = false, HuanxinGroupId = "eifjeifje" + i, Notice = "公告" + i, ClientId = clientIds[0] };
                 _context.Groups.Add(group);
             }
 
@@ -106,14 +108,13 @@ namespace Liaoxin.Model
             {
                 if (i % 5 == 0 && i <= 190)
                 {
-                    ClientRelation cr = new ClientRelation() { ClientRelationId = i, ClientId = i, RelationType = ClientRelation.RelationTypeEnum.Friend };
+                    ClientRelation cr = new ClientRelation() { ClientId = clientIds[i], RelationType = ClientRelation.RelationTypeEnum.Friend };
                     _context.ClientRelations.Add(cr);
                     for (int j = i + 1; j < i + 5; j++)
                     {
                         ClientRelationDetail crd = new ClientRelationDetail()
                         {
-                            ClientId = j,
-                            ClientRelationDetailId = j,
+                            ClientId = clientIds[j],                            
                             ClientRelationId = cr.ClientRelationId,
                             AddSource = ClientRelationDetail.AddSourceTypeEnum.Phone
                         };

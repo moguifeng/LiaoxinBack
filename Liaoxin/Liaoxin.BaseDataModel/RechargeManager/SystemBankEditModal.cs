@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Zzb;
 using Zzb.BaseData.Attribute.Field;
 
@@ -15,7 +16,7 @@ namespace Liaoxin.BaseDataModel.RechargeManager
         }
 
         [HiddenTextField]
-        public int SystemBankId { get; set; }
+        public Guid SystemBankId { get; set; }
 
         public override ServiceResult Save()
         {

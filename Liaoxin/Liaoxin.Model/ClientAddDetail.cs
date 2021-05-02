@@ -15,10 +15,10 @@ namespace Liaoxin.Model
         public ClientAddDetail()
         {
         }
- 
-       public int ClientAddDetailId { get; set; }
 
-        public int ClientAddId { get; set; }
+        public Guid ClientAddDetailId { get; set; } = Guid.NewGuid();
+
+        public Guid ClientAddId { get; set; }
 
 
         public virtual ClientAdd ClientAdd { get; set; }
@@ -26,7 +26,7 @@ namespace Liaoxin.Model
         /// <summary>
         /// 当前登录客户的申请客户
         /// </summary>
-        public int ClientId { get; set; }
+        public Guid ClientId { get; set; }
 
         public virtual Client Client { get; set; }
 

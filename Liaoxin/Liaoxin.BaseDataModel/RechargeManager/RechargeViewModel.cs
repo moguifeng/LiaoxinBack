@@ -25,7 +25,7 @@ namespace Liaoxin.BaseDataModel.RechargeManager
         public override string FolderName => "充值管理";
 
         [NavField("主键", IsKey = true, IsDisplay = false)]
-        public int RechargeId { get; set; }
+        public Guid RechargeId { get; set; }
 
 
         [NavField("聊信号")]

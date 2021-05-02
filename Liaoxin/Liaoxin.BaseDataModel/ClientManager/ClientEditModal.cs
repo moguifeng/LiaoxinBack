@@ -25,8 +25,7 @@ namespace Liaoxin.BaseDataModel.ClientManger
 
 
         [HiddenTextField]
-
-        public int ClientId { get; set; }
+        public Guid ClientId { get; set; }
         [TextField("聊信号", IsReadOnly = true)]
         public string LiaoxinNumber { get; set; }
 

@@ -19,8 +19,15 @@ namespace Liaoxin.BaseDataModel.ClientManger
         public override int Sort => 2;
 
 
-        [NavField("群编号", IsKey = true)]
-        public int GroupId { get; set; }
+        [NavField("群编号", IsKey = true,IsDisplay =false)]
+        public Guid GroupId { get; set; }
+
+
+
+        [NavField("群编号")]
+        public string UniqueId { get; set; }
+
+
 
         [NavField("群名称")]
         public string Name { get; set; }
@@ -66,6 +73,7 @@ namespace Liaoxin.BaseDataModel.ClientManger
             {
                 GroupViewModel model = new GroupViewModel();
                 model.GroupId = item.GroupId;
+                model.UniqueId = item.UnqiueId;
                 model.Name = item.Name;
                 model.HuanxinGroupId = item.HuanxinGroupId;
                 model.Master = item.Client.LiaoxinNumber;

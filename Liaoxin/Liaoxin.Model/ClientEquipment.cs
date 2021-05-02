@@ -17,13 +17,13 @@ namespace Liaoxin.Model
         }
  
        
-        public int ClientEquipmentId { get; set; }
+        public Guid ClientEquipmentId { get; set; } = Guid.NewGuid();
 
 
         /// <summary>
         /// 客户id
         /// </summary>
-        public int ClientId { get; set; }
+        public Guid ClientId { get; set; }
        
 
         public virtual Client Client { get; set; }

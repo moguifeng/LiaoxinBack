@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Zzb.Common;
 using Zzb.EF;
 
 namespace Liaoxin.Model
@@ -15,8 +16,8 @@ namespace Liaoxin.Model
         public Client()
         {
          }
- 
-        public int ClientId { get; set; }
+
+        public Guid ClientId { get; set; } = Guid.NewGuid();
 
         /// <summary>
         /// 头像
@@ -30,14 +31,13 @@ namespace Liaoxin.Model
         /// <summary>
         /// 聊信号
         /// </summary>
-        [MaxLength(20)]
+        [MaxLength(15)]
         [ZzbIndex(IsUnique = true)]
-        public string LiaoxinNumber { get; set; }
+        public string LiaoxinNumber { get; set; } = "LX" + SecurityCodeHelper.CreateRandomCode(11);
 
         /// <summary>
         /// 昵称
         /// </summary>
-        [MaxLength(20)]
         public string NickName { get; set; }
 
      
@@ -204,7 +204,7 @@ namespace Liaoxin.Model
         }
 
 
-        public void AddMoney(decimal money, CoinLogTypeEnum type, int aboutId, out CoinLog coinLog, string remark)
+        public void AddMoney(decimal money, CoinLogTypeEnum type, Guid aboutId, out CoinLog coinLog, string remark)
         {
             Coin += money;
             coinLog = new CoinLog(ClientId, money, Coin,   type, aboutId, remark);

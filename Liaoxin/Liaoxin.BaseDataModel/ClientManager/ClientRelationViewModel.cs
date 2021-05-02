@@ -31,7 +31,7 @@ namespace Liaoxin.BaseDataModel.ClientManger
         public override int Sort => 2;
 
         [NavField("ID", IsKey = true, IsDisplay = false)]
-        public int ClientRelationId { get; set; }
+        public Guid ClientRelationId { get; set; }
 
         [NavField("源聊信号")]
         public string SourceLiaoxinNumber { get; set; }
@@ -91,7 +91,7 @@ namespace Liaoxin.BaseDataModel.ClientManger
         public override BaseButton[] CreateViewButtons()
         {
             return new BaseButton[] {
-                new ClientAddModal("Add", "申请添加关系"),
+                new ClientRelationApplyModel("Add", "申请添加关系"),
 
             };
 

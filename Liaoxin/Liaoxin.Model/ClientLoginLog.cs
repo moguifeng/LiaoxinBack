@@ -1,12 +1,13 @@
-﻿using Zzb.EF;
+﻿using System;
+using Zzb.EF;
 
 namespace Liaoxin.Model
 {
     public class ClientLoginLog : BaseModel
     {
-        public int ClientLoginLogId { get; set; }
+        public Guid ClientLoginLogId { get; set; } = Guid.NewGuid();
 
-        public int ClientId { get; set; }
+        public Guid ClientId { get; set; }
 
         public virtual Client Client { get; set; }
 

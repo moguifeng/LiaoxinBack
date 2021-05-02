@@ -26,7 +26,11 @@ namespace Liaoxin.BaseDataModel.ClientManger
 
         [HiddenTextField]
 
-        public int GroupId { get; set; }
+        public Guid GroupId { get; set; }
+
+        [TextField("群号", IsReadOnly =true)]
+
+        public string UniqueId { get; set; }
 
         [TextField("群名称", Placeholder = "空代表不修改")]
         public string Name { get; set; }

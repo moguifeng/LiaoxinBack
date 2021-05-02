@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Zzb.EF;
 
 namespace Liaoxin.Model
@@ -9,7 +10,7 @@ namespace Liaoxin.Model
         {
         }
 
-        public ClientBank(int clientId, int systemBankId, string cardNumber)
+        public ClientBank(Guid clientId, Guid systemBankId, string cardNumber)
         {
             ClientId = clientId;
             SystemBankId = systemBankId;
@@ -17,20 +18,20 @@ namespace Liaoxin.Model
            
         }
 
-        public int ClientBankId { get; set; }
+        public Guid ClientBankId { get; set; } = Guid.NewGuid();
 
         /// <summary>
         /// 玩家
         /// </summary>
         [ZzbIndex("WeiYi", IsUnique = true)]
-        public int  ClientId { get; set; }
+        public Guid  ClientId { get; set; }
 
         public virtual Client Client { get; set; }
 
         /// <summary>
         /// 系统银行ID
         /// </summary>
-        public int SystemBankId { get; set; }
+        public Guid SystemBankId { get; set; }
 
         public virtual SystemBank SystemBank { get; set; }
 

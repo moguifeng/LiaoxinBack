@@ -14,8 +14,8 @@ namespace Liaoxin.Model
     {
         public Area()
         {
-        }           
-        public int AreaId { get; set; }
+        }
+        public Guid AreaId { get; set; } = Guid.NewGuid();
  
         [ZzbIndex(IsUnique =true)]
         public string Code { get; set; }

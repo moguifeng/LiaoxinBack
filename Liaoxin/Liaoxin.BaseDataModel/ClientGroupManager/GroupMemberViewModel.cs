@@ -25,12 +25,11 @@ namespace Liaoxin.BaseDataModel.ClientManger
 
 
         [NavField("主键", IsKey = true, IsDisplay = false)]
-        public int GroupMemberId { get; set; }
+        public Guid GroupMemberId { get; set; }
 
 
         [NavField("群编号")]
-        public int Id { get; set; }
-
+        public string UniqueId { get; set; }
 
         [NavField("群名称")]
         public string Name { get; set; }
@@ -59,11 +58,10 @@ namespace Liaoxin.BaseDataModel.ClientManger
                                                 select c,
                      (k, w) => w.Where(t =>
 
-
-                           t.Group.GroupId == TryInt(k)
+                           t.Group.UnqiueId.Contains(UniqueId)
                      ),
 
-                      (k, w) => w.Where(t => t.Client.LiaoxinNumber.Contains(k))); 
+                      (k, w) => w.Where(t => t.Client.LiaoxinNumber.Contains(k)));; 
 
 
 
@@ -72,7 +70,7 @@ namespace Liaoxin.BaseDataModel.ClientManger
             {
                 GroupMemberViewModel model = new GroupMemberViewModel();
                 model.GroupMemberId = item.GroupClientId;
-                model.Id = item.Group.GroupId;
+                model.UniqueId = item.Group.UnqiueId;
                 model.Name = item.Group.Name;
                 model.MyNickName = item.MyNickName;
                 model.LiaoxinNumber = item.Client.LiaoxinNumber ;

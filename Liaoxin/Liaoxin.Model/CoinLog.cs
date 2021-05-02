@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using Zzb.EF;
 
 namespace Liaoxin.Model
@@ -9,7 +10,7 @@ namespace Liaoxin.Model
         {
         }
 
-        public CoinLog(int clientId, decimal flowCoin, decimal coin, CoinLogTypeEnum type, int aboutId, string remark)
+        public CoinLog(Guid clientId, decimal flowCoin, decimal coin, CoinLogTypeEnum type, Guid aboutId, string remark)
         {
             ClientId = clientId;
             FlowCoin = flowCoin;
@@ -21,9 +22,9 @@ namespace Liaoxin.Model
  
 
         [ZzbIndex]
-        public int CoinLogId { get; set; }
+        public Guid CoinLogId { get; set; } = Guid.NewGuid();
 
-        public int ClientId { get; set; }
+        public Guid ClientId { get; set; }
 
         public virtual Client Client { get; set; }
 
@@ -57,7 +58,7 @@ namespace Liaoxin.Model
         /// 相关ID
         /// </summary>
         [ZzbIndex]
-        public int AboutId { get; set; }
+        public Guid AboutId { get; set; }
 
         /// <summary>
         /// 备注

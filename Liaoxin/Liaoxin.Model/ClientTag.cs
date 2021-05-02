@@ -15,9 +15,11 @@ namespace Liaoxin.Model
         public ClientTag()
         {
         }           
-        public int ClientTagId { get; set; }
- 
-        public int ClientId { get; set; }
+        public Guid ClientTagId { get; set; } = Guid.NewGuid();
+
+        public Guid ClientId { get; set; }
+
+        public virtual Client Client { get; set; }
 
         /// <summary>
         /// 标签

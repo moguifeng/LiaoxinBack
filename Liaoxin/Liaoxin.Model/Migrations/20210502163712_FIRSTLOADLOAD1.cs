@@ -3,10 +3,14 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Liaoxin.Model.Migrations
 {
-    public partial class ADDFIELD : Migration
+    public partial class FIRSTLOADLOAD1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_ClientRelationDetails_ClientTags_ClientTagId",
+                table: "ClientRelationDetails");
+
             migrationBuilder.AlterColumn<DateTime>(
                 name: "Version",
                 table: "Withdraws",
@@ -23,39 +27,26 @@ namespace Liaoxin.Model.Migrations
                 oldClrType: typeof(DateTime),
                 oldNullable: true);
 
-            migrationBuilder.AddColumn<int>(
-                name: "ClientAddId",
-                table: "ClientAddDetails",
-                nullable: false,
-                defaultValue: 0);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ClientAddDetails_ClientAddId",
-                table: "ClientAddDetails",
-                column: "ClientAddId");
+            migrationBuilder.AlterColumn<Guid>(
+                name: "ClientTagId",
+                table: "ClientRelationDetails",
+                nullable: true,
+                oldClrType: typeof(Guid));
 
             migrationBuilder.AddForeignKey(
-                name: "FK_ClientAddDetails_ClientAdds_ClientAddId",
-                table: "ClientAddDetails",
-                column: "ClientAddId",
-                principalTable: "ClientAdds",
-                principalColumn: "ClientAddId",
-                onDelete: ReferentialAction.Cascade);
+                name: "FK_ClientRelationDetails_ClientTags_ClientTagId",
+                table: "ClientRelationDetails",
+                column: "ClientTagId",
+                principalTable: "ClientTags",
+                principalColumn: "ClientTagId",
+                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_ClientAddDetails_ClientAdds_ClientAddId",
-                table: "ClientAddDetails");
-
-            migrationBuilder.DropIndex(
-                name: "IX_ClientAddDetails_ClientAddId",
-                table: "ClientAddDetails");
-
-            migrationBuilder.DropColumn(
-                name: "ClientAddId",
-                table: "ClientAddDetails");
+                name: "FK_ClientRelationDetails_ClientTags_ClientTagId",
+                table: "ClientRelationDetails");
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "Version",
@@ -72,6 +63,21 @@ namespace Liaoxin.Model.Migrations
                 oldClrType: typeof(DateTime),
                 oldRowVersion: true,
                 oldNullable: true);
+
+            migrationBuilder.AlterColumn<Guid>(
+                name: "ClientTagId",
+                table: "ClientRelationDetails",
+                nullable: false,
+                oldClrType: typeof(Guid),
+                oldNullable: true);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_ClientRelationDetails_ClientTags_ClientTagId",
+                table: "ClientRelationDetails",
+                column: "ClientTagId",
+                principalTable: "ClientTags",
+                principalColumn: "ClientTagId",
+                onDelete: ReferentialAction.Cascade);
         }
     }
 }

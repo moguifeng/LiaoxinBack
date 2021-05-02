@@ -1,4 +1,5 @@
 ﻿using Liaoxin.Model;
+using System;
 using System.Linq;
 using Zzb.BaseData.Attribute;
 using Zzb.BaseData.Model.Button;
@@ -12,7 +13,7 @@ namespace Liaoxin.BaseDataModel.RechargeManager
         public override string FolderName => "充值管理";
 
         [NavField("主键", IsKey = true, IsDisplay = false)]
-        public int SystemBankId { get; set; }
+        public Guid SystemBankId { get; set; }
 
         [NavField("银行名称")]
         public string Name { get; set; }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Zzb.Common;
 using Zzb.EF;
 
 namespace Liaoxin.Model
@@ -17,13 +18,21 @@ namespace Liaoxin.Model
         }
  
        
-        public int GroupId { get; set; }
+        public Guid GroupId { get; set; } = Guid.NewGuid();
 
 
         /// <summary>
+        /// 群号码
+        /// </summary>
+        [MaxLength(15)]
+        [ZzbIndex(IsUnique = true)]
+        public string UnqiueId  { get; set; } = "LQ" + SecurityCodeHelper.CreateRandomCode(11);
+
+        
+        /// <summary>
         /// 组名称
         /// </summary>
-       public string Name { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// 环信组id
@@ -39,7 +48,7 @@ namespace Liaoxin.Model
         /// <summary>
         /// 群主
         /// </summary>
-        public int ClientId { get; set; }
+        public Guid ClientId { get; set; } 
 
         public virtual Client Client { get; set; }
 

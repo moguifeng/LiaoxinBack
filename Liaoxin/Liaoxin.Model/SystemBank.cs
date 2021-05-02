@@ -1,11 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Zzb.EF;
 
 namespace Liaoxin.Model
 {
     public class SystemBank : BaseModel
     {
-        public int SystemBankId { get; set; }
+        public Guid SystemBankId { get; set; } = Guid.NewGuid();
 
         /// <summary>
         /// 银行名称

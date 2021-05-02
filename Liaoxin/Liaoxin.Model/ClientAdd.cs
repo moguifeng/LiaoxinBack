@@ -15,14 +15,19 @@ namespace Liaoxin.Model
         public ClientAdd()
         {
         }
- 
-       public int ClientAddId { get; set; }
+
+        public Guid ClientAddId { get; set; } = Guid.NewGuid();
 
  
-        public int ClientId { get; set; }
 
         
         public virtual List<ClientAddDetail> ClientAddDetails { get; set; }
+
+        /// <summary>
+        /// 当前设备登录的客户
+        /// </summary>
+        public Guid ClientId { get; set; }
+
 
         /// <summary>
         /// 当前设备登录的客户

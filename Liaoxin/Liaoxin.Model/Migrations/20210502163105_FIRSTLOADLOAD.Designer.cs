@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Liaoxin.Model.Migrations
 {
     [DbContext(typeof(LiaoxinContext))]
-    [Migration("20210502134611_TEST")]
-    partial class TEST
+    [Migration("20210502163105_FIRSTLOADLOAD")]
+    partial class FIRSTLOADLOAD
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -85,7 +85,7 @@ namespace Liaoxin.Model.Migrations
 
             modelBuilder.Entity("Liaoxin.Model.Area", b =>
                 {
-                    b.Property<int>("AreaId")
+                    b.Property<Guid>("AreaId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Code");
@@ -124,7 +124,7 @@ namespace Liaoxin.Model.Migrations
 
             modelBuilder.Entity("Liaoxin.Model.Client", b =>
                 {
-                    b.Property<int>("ClientId")
+                    b.Property<Guid>("ClientId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<bool>("AddMeNeedChecked");
@@ -142,7 +142,7 @@ namespace Liaoxin.Model.Migrations
 
                     b.Property<string>("CoinPassword");
 
-                    b.Property<string>("Cover");
+                    b.Property<int>("Cover");
 
                     b.Property<DateTime>("CreateTime");
 
@@ -159,12 +159,11 @@ namespace Liaoxin.Model.Migrations
                     b.Property<bool>("IsFreeze");
 
                     b.Property<string>("LiaoxinNumber")
-                        .HasMaxLength(20);
+                        .HasMaxLength(15);
 
                     b.Property<bool>("NewMessageNotication");
 
-                    b.Property<string>("NickName")
-                        .HasMaxLength(20);
+                    b.Property<string>("NickName");
 
                     b.Property<bool>("OpenWhileShake");
 
@@ -210,10 +209,10 @@ namespace Liaoxin.Model.Migrations
 
             modelBuilder.Entity("Liaoxin.Model.ClientAdd", b =>
                 {
-                    b.Property<int>("ClientAddId")
+                    b.Property<Guid>("ClientAddId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("ClientId");
+                    b.Property<Guid>("ClientId");
 
                     b.Property<DateTime>("CreateTime");
 
@@ -236,12 +235,14 @@ namespace Liaoxin.Model.Migrations
 
             modelBuilder.Entity("Liaoxin.Model.ClientAddDetail", b =>
                 {
-                    b.Property<int>("ClientAddDetailId")
+                    b.Property<Guid>("ClientAddDetailId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("AddRemark");
 
-                    b.Property<int>("ClientId");
+                    b.Property<Guid>("ClientAddId");
+
+                    b.Property<Guid>("ClientId");
 
                     b.Property<DateTime>("CreateTime");
 
@@ -250,6 +251,8 @@ namespace Liaoxin.Model.Migrations
                     b.Property<DateTime>("UpdateTime");
 
                     b.HasKey("ClientAddDetailId");
+
+                    b.HasIndex("ClientAddId");
 
                     b.HasIndex("ClientId");
 
@@ -264,19 +267,19 @@ namespace Liaoxin.Model.Migrations
 
             modelBuilder.Entity("Liaoxin.Model.ClientBank", b =>
                 {
-                    b.Property<int>("ClientBankId")
+                    b.Property<Guid>("ClientBankId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("CardNumber")
                         .HasMaxLength(20);
 
-                    b.Property<int>("ClientId");
+                    b.Property<Guid>("ClientId");
 
                     b.Property<DateTime>("CreateTime");
 
                     b.Property<bool>("IsEnable");
 
-                    b.Property<int>("SystemBankId");
+                    b.Property<Guid>("SystemBankId");
 
                     b.Property<DateTime>("UpdateTime");
 
@@ -300,10 +303,10 @@ namespace Liaoxin.Model.Migrations
 
             modelBuilder.Entity("Liaoxin.Model.ClientEquipment", b =>
                 {
-                    b.Property<int>("ClientEquipmentId")
+                    b.Property<Guid>("ClientEquipmentId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("ClientId");
+                    b.Property<Guid>("ClientId");
 
                     b.Property<DateTime>("CreateTime");
 
@@ -332,12 +335,12 @@ namespace Liaoxin.Model.Migrations
 
             modelBuilder.Entity("Liaoxin.Model.ClientLoginLog", b =>
                 {
-                    b.Property<int>("ClientLoginLogId")
+                    b.Property<Guid>("ClientLoginLogId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Address");
 
-                    b.Property<int>("ClientId");
+                    b.Property<Guid>("ClientId");
 
                     b.Property<DateTime>("CreateTime");
 
@@ -362,10 +365,10 @@ namespace Liaoxin.Model.Migrations
 
             modelBuilder.Entity("Liaoxin.Model.ClientOperateLog", b =>
                 {
-                    b.Property<int>("ClientOperateLogId")
+                    b.Property<Guid>("ClientOperateLogId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("ClientId");
+                    b.Property<Guid>("ClientId");
 
                     b.Property<DateTime>("CreateTime");
 
@@ -390,10 +393,10 @@ namespace Liaoxin.Model.Migrations
 
             modelBuilder.Entity("Liaoxin.Model.ClientRelation", b =>
                 {
-                    b.Property<int>("ClientRelationId")
+                    b.Property<Guid>("ClientRelationId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("ClientId");
+                    b.Property<Guid>("ClientId");
 
                     b.Property<DateTime>("CreateTime");
 
@@ -418,18 +421,18 @@ namespace Liaoxin.Model.Migrations
 
             modelBuilder.Entity("Liaoxin.Model.ClientRelationDetail", b =>
                 {
-                    b.Property<int>("ClientRelationDetailId")
+                    b.Property<Guid>("ClientRelationDetailId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("AddSource");
 
-                    b.Property<int>("ClientId");
+                    b.Property<Guid>("ClientId");
 
-                    b.Property<int>("ClientRelationId");
+                    b.Property<Guid>("ClientRelationId");
 
                     b.Property<string>("ClientRemark");
 
-                    b.Property<int?>("ClientTagId");
+                    b.Property<Guid>("ClientTagId");
 
                     b.Property<DateTime>("CreateTime");
 
@@ -466,10 +469,10 @@ namespace Liaoxin.Model.Migrations
 
             modelBuilder.Entity("Liaoxin.Model.ClientTag", b =>
                 {
-                    b.Property<int>("ClientTagId")
+                    b.Property<Guid>("ClientTagId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("ClientId");
+                    b.Property<Guid>("ClientId");
 
                     b.Property<DateTime>("CreateTime");
 
@@ -480,6 +483,8 @@ namespace Liaoxin.Model.Migrations
                     b.Property<DateTime>("UpdateTime");
 
                     b.HasKey("ClientTagId");
+
+                    b.HasIndex("ClientId");
 
                     b.HasIndex("CreateTime");
 
@@ -492,12 +497,12 @@ namespace Liaoxin.Model.Migrations
 
             modelBuilder.Entity("Liaoxin.Model.CoinLog", b =>
                 {
-                    b.Property<int>("CoinLogId")
+                    b.Property<Guid>("CoinLogId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("AboutId");
+                    b.Property<Guid>("AboutId");
 
-                    b.Property<int>("ClientId");
+                    b.Property<Guid>("ClientId");
 
                     b.Property<decimal>("Coin")
                         .HasColumnType("decimal(18, 6)");
@@ -536,12 +541,12 @@ namespace Liaoxin.Model.Migrations
 
             modelBuilder.Entity("Liaoxin.Model.Group", b =>
                 {
-                    b.Property<int>("GroupId")
+                    b.Property<Guid>("GroupId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<bool>("AllBlock");
 
-                    b.Property<int>("ClientId");
+                    b.Property<Guid>("ClientId");
 
                     b.Property<DateTime>("CreateTime");
 
@@ -555,6 +560,9 @@ namespace Liaoxin.Model.Migrations
 
                     b.Property<bool>("SureConfirmInvite");
 
+                    b.Property<string>("UnqiueId")
+                        .HasMaxLength(15);
+
                     b.Property<DateTime>("UpdateTime");
 
                     b.HasKey("GroupId");
@@ -565,6 +573,9 @@ namespace Liaoxin.Model.Migrations
 
                     b.HasIndex("IsEnable");
 
+                    b.HasIndex("UnqiueId")
+                        .IsUnique();
+
                     b.HasIndex("UpdateTime");
 
                     b.ToTable("Groups");
@@ -572,16 +583,16 @@ namespace Liaoxin.Model.Migrations
 
             modelBuilder.Entity("Liaoxin.Model.GroupClient", b =>
                 {
-                    b.Property<int>("GroupClientId")
+                    b.Property<Guid>("GroupClientId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("BackgroundImg");
 
-                    b.Property<int>("ClientId");
+                    b.Property<Guid>("ClientId");
 
                     b.Property<DateTime>("CreateTime");
 
-                    b.Property<int>("GroupId");
+                    b.Property<Guid>("GroupId");
 
                     b.Property<bool>("IsBlock");
 
@@ -616,14 +627,14 @@ namespace Liaoxin.Model.Migrations
 
             modelBuilder.Entity("Liaoxin.Model.GroupManager", b =>
                 {
-                    b.Property<int>("GroupManagerId")
+                    b.Property<Guid>("GroupManagerId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("ClientId");
+                    b.Property<Guid>("ClientId");
 
                     b.Property<DateTime>("CreateTime");
 
-                    b.Property<int>("GroupId");
+                    b.Property<Guid>("GroupId");
 
                     b.Property<bool>("IsEnable");
 
@@ -862,12 +873,12 @@ namespace Liaoxin.Model.Migrations
 
             modelBuilder.Entity("Liaoxin.Model.Recharge", b =>
                 {
-                    b.Property<int>("RechargeId")
+                    b.Property<Guid>("RechargeId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("ClientBankId");
+                    b.Property<Guid?>("ClientBankId");
 
-                    b.Property<int>("ClientId");
+                    b.Property<Guid>("ClientId");
 
                     b.Property<DateTime>("CreateTime");
 
@@ -943,7 +954,7 @@ namespace Liaoxin.Model.Migrations
 
             modelBuilder.Entity("Liaoxin.Model.SystemBank", b =>
                 {
-                    b.Property<int>("SystemBankId")
+                    b.Property<Guid>("SystemBankId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("AffixId");
@@ -1039,6 +1050,8 @@ namespace Liaoxin.Model.Migrations
 
                     b.Property<int>("ClientBankId");
 
+                    b.Property<Guid?>("ClientBankId1");
+
                     b.Property<DateTime>("CreateTime");
 
                     b.Property<bool>("IsEnable");
@@ -1061,7 +1074,7 @@ namespace Liaoxin.Model.Migrations
 
                     b.HasKey("WithdrawId");
 
-                    b.HasIndex("ClientBankId");
+                    b.HasIndex("ClientBankId1");
 
                     b.HasIndex("CreateTime");
 
@@ -1238,6 +1251,11 @@ namespace Liaoxin.Model.Migrations
 
             modelBuilder.Entity("Liaoxin.Model.ClientAddDetail", b =>
                 {
+                    b.HasOne("Liaoxin.Model.ClientAdd", "ClientAdd")
+                        .WithMany("ClientAddDetails")
+                        .HasForeignKey("ClientAddId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("Liaoxin.Model.Client", "Client")
                         .WithMany()
                         .HasForeignKey("ClientId")
@@ -1303,7 +1321,16 @@ namespace Liaoxin.Model.Migrations
 
                     b.HasOne("Liaoxin.Model.ClientTag", "ClientTag")
                         .WithMany()
-                        .HasForeignKey("ClientTagId");
+                        .HasForeignKey("ClientTagId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Liaoxin.Model.ClientTag", b =>
+                {
+                    b.HasOne("Liaoxin.Model.Client", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Liaoxin.Model.CoinLog", b =>
@@ -1415,8 +1442,7 @@ namespace Liaoxin.Model.Migrations
                 {
                     b.HasOne("Liaoxin.Model.ClientBank", "ClientBank")
                         .WithMany()
-                        .HasForeignKey("ClientBankId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ClientBankId1");
                 });
 
             modelBuilder.Entity("Zzb.EF.RolePermission", b =>

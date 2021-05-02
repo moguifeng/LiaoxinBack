@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -13,14 +14,14 @@ namespace Liaoxin.Model
         {
         }
 
-        public Recharge(int clientId, decimal money, int? clientBankId)
+        public Recharge(Guid clientId, decimal money, Guid? clientBankId)
         {
             ClientId = clientId;
             Money = money;
             ClientBankId = clientBankId;
         }
 
-        public Recharge(int clientId, decimal money, string remark,  int? clientBankId,RechargeStateEnum state)
+        public Recharge(Guid clientId, decimal money, string remark,  Guid? clientBankId,RechargeStateEnum state)
         {
             ClientId = clientId;
             Money = money;
@@ -29,13 +30,13 @@ namespace Liaoxin.Model
             ClientBankId = clientBankId;
         }
 
-        public int RechargeId { get; set; }
+        public Guid RechargeId { get; set; } = Guid.NewGuid();
 
         [ZzbIndex(IsUnique = true)]
         [MaxLength(20)]
         public string OrderNo { get; set; } = RandomHelper.GetRandom("R");
 
-        public int ClientId { get; set; }
+        public Guid ClientId { get; set; }
 
         public virtual Client Client { get; set; }
 
@@ -48,7 +49,7 @@ namespace Liaoxin.Model
 
         public RechargeStateEnum State { get; set; } = RechargeStateEnum.Ok;
 
-        public int? ClientBankId { get; set; }
+        public Guid? ClientBankId { get; set; }
 
         public virtual ClientBank ClientBank { get; set; }
 

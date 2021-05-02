@@ -55,7 +55,6 @@ namespace Liaoxin.BaseDataModel.ClientManger
         {
             var client = new Client()
             {
-                LiaoxinNumber = SecurityCodeHelper.CreateRandomCode(11),
                 NickName = NickName,
                 Password = SecurityHelper.Encrypt(Password),
                 CoinPassword = SecurityHelper.Encrypt(CoinPassword),
