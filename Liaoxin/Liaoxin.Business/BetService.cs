@@ -18,7 +18,7 @@ namespace Liaoxin.Business
     //    public List<BetMode> GetBetModes()
     //    {
     //        return Context.BetModes.Where(t => t.IsEnable && !t.IsCredit).ToList();
-    //    }
+    //    }add
 
     //    public BetMode GetCreditBetMode()
     //    {

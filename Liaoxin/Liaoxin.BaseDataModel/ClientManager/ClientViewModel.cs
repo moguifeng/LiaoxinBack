@@ -19,7 +19,8 @@ namespace Liaoxin.BaseDataModel.ClientManger
 {
     public class ClientViewModel : BaseServiceNav
     {
- 
+        public IUserOperateLogService UserOperateLogService { get; set; }
+
 
         public override int OperaColumnWidth => 140;
 
@@ -63,7 +64,7 @@ namespace Liaoxin.BaseDataModel.ClientManger
         [NavField("邮箱地址", 150)]
         public string Email { get; set; }
 
-        [NavField("创建时间", 150)]
+        [NavField("创建时间", 170)]
         public DateTime CreateTime { get; set; }
 
         [NavField("是否启用", 150)]
@@ -122,7 +123,10 @@ namespace Liaoxin.BaseDataModel.ClientManger
             }
 
             entity.IsFreeze = !this.IsFreeze;
+            string title = entity.IsFreeze ? "禁用" : "启用";
+
             Context.Clients.Update(entity);
+            UserOperateLogService.Log($"[{title}了+{entity.LiaoxinNumber}]聊信客户", Context);
             int res = Context.SaveChanges();
             return new ServiceResult(ServiceResultCode.Success);
         }

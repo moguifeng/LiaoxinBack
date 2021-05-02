@@ -47,13 +47,15 @@ namespace Liaoxin.Model
         /// <summary>
         /// 全员禁言
         /// </summary>
-        public bool AllBlock { get; set; }
+        public bool AllBlock { get; set; } = false;
 
+
+        public virtual List<GroupManager> GroupMangers { get; set; }
 
         /// <summary>
         /// 确认群聊邀请
         /// </summary>
-        public bool SureConfirmInvite { get; set; }
+        public bool SureConfirmInvite { get; set; } = false;
 
         
 

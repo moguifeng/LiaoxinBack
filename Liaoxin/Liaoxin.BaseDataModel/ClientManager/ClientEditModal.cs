@@ -74,6 +74,7 @@ namespace Liaoxin.BaseDataModel.ClientManger
                 entity.HuanXinId = this.HuanXinId;
             }
             entity.CanWithdraw = this.CanWithdraw;
+            entity.UpdateTime = DateTime.Now;
             Context.Clients.Update(entity);
             UserOperateLogService.Log($"编辑[{entity.LiaoxinNumber}]聊信客户", Context);
             Context.SaveChanges();

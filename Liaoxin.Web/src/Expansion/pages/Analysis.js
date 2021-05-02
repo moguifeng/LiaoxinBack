@@ -201,7 +201,7 @@ class Analysis extends PureComponent {
             </Card>
           </Card.Grid>
 
-        
+
         </Card>
 
         <div>
@@ -235,13 +235,13 @@ class Analysis extends PureComponent {
               <Card.Meta title="提款" description={<div>{allReport.allWithdrawCoin}</div>} />
             </Card>
           </Card.Grid>
-         
+
           <Card.Grid style={gridStyle1}>
             <Card bodyStyle={{ padding: 0 }} bordered={false}>
               <Card.Meta title="红包中奖个数" description={<div>{allReport.allWinMoney}</div>} />
             </Card>
           </Card.Grid>
-          
+
           <Card.Grid style={gridStyle1}>
             <Card bodyStyle={{ padding: 0 }} bordered={false}>
               <Card.Meta
@@ -250,7 +250,7 @@ class Analysis extends PureComponent {
               />
             </Card>
           </Card.Grid>
-   
+
         </Card>
         <Card bordered={false}>
           <Table

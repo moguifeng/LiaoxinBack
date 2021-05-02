@@ -56,6 +56,10 @@ namespace Liaoxin.Model
 
 
         /// <summary>
+        /// 是否禁言
+        /// </summary>
+        public bool IsBlock { get; set; } = false;
+        /// <summary>
         /// 聊天背景
         /// </summary>
         public string BackgroundImg { get; set; }
