@@ -70,6 +70,9 @@ namespace Liaoxin.BaseDataModel.ClientManger
         [NavField("是否启用", 150)]
         public bool IsFreeze { get; set; }
 
+        [NavField("头像" , IsDisplay = false)]
+        public int? Cover { get; set; }
+
         protected override object[] DoGetNavDatas()
         {
             return CreateEfDatas<Client, ClientViewModel>(from r in Context.Clients where r.IsEnable orderby r.CreateTime descending select r,
@@ -78,6 +81,7 @@ namespace Liaoxin.BaseDataModel.ClientManger
                     
                     t.Area = k.AreaCode.ToAreaFullName();
                     t.IsFreeze = k.IsFreeze;
+                    t.Cover = k.Cover;
                     t.RealName = k.RealName;
                     var equipmentEntity = k.ClientEquipments.OrderByDescending(o => o.LastLoginDate).FirstOrDefault();
                     t.CurrenUserDevide = equipmentEntity?.Name;

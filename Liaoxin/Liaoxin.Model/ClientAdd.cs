@@ -18,9 +18,15 @@ namespace Liaoxin.Model
  
        public int ClientAddId { get; set; }
 
+ 
         public int ClientId { get; set; }
 
-          
+        
+        public virtual List<ClientAddDetail> ClientAddDetails { get; set; }
+
+        /// <summary>
+        /// 当前设备登录的客户
+        /// </summary>
         public virtual Client Client { get; set; }
 
        

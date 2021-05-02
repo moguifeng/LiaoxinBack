@@ -41,6 +41,10 @@ namespace Liaoxin.BaseDataModel.ClientManger
         public string CoinPassword { get; set; }
 
 
+        [ImageField("背景头像", IsRequired = true)]
+        public int? Cover { get; set; }
+
+
 
         public override BaseButton[] Buttons()
         {
@@ -57,6 +61,7 @@ namespace Liaoxin.BaseDataModel.ClientManger
                 CoinPassword = SecurityHelper.Encrypt(CoinPassword),
                 Telephone = Telephone,
                 HuanXinId = HuanXinId,
+                Cover = Cover.Value,
 
             };
             Context.Clients.Add(client);

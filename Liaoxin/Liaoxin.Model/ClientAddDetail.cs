@@ -17,7 +17,15 @@ namespace Liaoxin.Model
         }
  
        public int ClientAddDetailId { get; set; }
+
+        public int ClientAddId { get; set; }
+
+
+        public virtual ClientAdd ClientAdd { get; set; }
  
+        /// <summary>
+        /// 当前登录客户的申请客户
+        /// </summary>
         public int ClientId { get; set; }
 
         public virtual Client Client { get; set; }

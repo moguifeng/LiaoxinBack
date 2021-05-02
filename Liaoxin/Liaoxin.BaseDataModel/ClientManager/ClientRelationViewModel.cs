@@ -88,6 +88,15 @@ namespace Liaoxin.BaseDataModel.ClientManger
            
         }
 
+        public override BaseButton[] CreateViewButtons()
+        {
+            return new BaseButton[] {
+                new ClientAddModal("Add", "申请添加关系"),
+
+            };
+
+        }
+
         public override BaseFieldAttribute[] GetQueryConditionses()
         {
             return new BaseFieldAttribute[]

@@ -19,9 +19,9 @@ namespace Liaoxin.Model
         public int ClientId { get; set; }
 
         /// <summary>
-        /// 图片
+        /// 头像
         /// </summary>
-        public string Cover { get; set; }
+        public int Cover { get; set; }
         /// <summary>
         /// 环信的Id
         /// </summary>

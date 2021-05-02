@@ -49,6 +49,11 @@ namespace Liaoxin.BaseDataModel.ClientManger
         [DropListField("允许提现")]
         public bool CanWithdraw { get; set; }
 
+
+        [ImageField("背景头像",IsRequired =true)]
+        public  int? Cover { get; set; }
+
+
         public override BaseButton[] Buttons()
         {
             return new[] { new ActionButton("Save", "保存"), };
@@ -72,6 +77,10 @@ namespace Liaoxin.BaseDataModel.ClientManger
             if (!string.IsNullOrEmpty(this.HuanXinId))
             {
                 entity.HuanXinId = this.HuanXinId;
+            }
+            if (this.Cover.HasValue)
+            {
+                entity.Cover = this.Cover.Value;
             }
             entity.CanWithdraw = this.CanWithdraw;
             entity.UpdateTime = DateTime.Now;
