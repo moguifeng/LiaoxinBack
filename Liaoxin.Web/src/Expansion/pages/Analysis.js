@@ -127,7 +127,7 @@ class Analysis extends PureComponent {
       //     render: renderContent,
       //   },
       {
-        title: '彩种名称',
+        title: '群号',
         dataIndex: 'name',
         key: 'name',
         align: 'center',
@@ -140,8 +140,22 @@ class Analysis extends PureComponent {
           };
         },
       },
+
       {
-        title: '投注金额',
+        title: '尾数',
+        dataIndex: 'betMoney',
+        key: 'betMoney',
+        align: 'center',
+        render: (text, row, index) => {
+          if (index < allReport.lotteryTypes.length) {
+            return text;
+          }
+          return <span style={{ fontWeight: 600 }}>{text}</span>;
+        },
+      },
+
+      {
+        title: '群红包是否中奖',
         dataIndex: 'betMoney',
         key: 'betMoney',
         align: 'center',
@@ -153,7 +167,7 @@ class Analysis extends PureComponent {
         },
       },
       {
-        title: '中奖金额',
+        title: '红包中奖人',
         dataIndex: 'winMoney',
         key: 'winMoney',
         align: 'center',
@@ -165,7 +179,7 @@ class Analysis extends PureComponent {
         },
       },
       {
-        title: '投注亏盈',
+        title: '红包中奖金额',
         dataIndex: 'allWinMoney',
         key: 'allWinMoney',
         align: 'center',
@@ -177,29 +191,17 @@ class Analysis extends PureComponent {
         <Card title="用户统计" style={{ marginBottom: 24 }}>
           <Card.Grid style={gridStyle}>
             <Card bodyStyle={{ padding: 0 }} bordered={false}>
-              <Card.Meta title="用户总数" description={<div>{players.allPlayer}</div>} />
+              <Card.Meta title="客户总数" description={<div>{players.allPlayer}</div>} />
             </Card>
           </Card.Grid>
+
           <Card.Grid style={gridStyle}>
             <Card bodyStyle={{ padding: 0 }} bordered={false}>
-              <Card.Meta title="代理人数" description={<div>{players.proxyPlayer}</div>} />
+              <Card.Meta title="群总数" description={<div>{players.allPlayer}</div>} />
             </Card>
           </Card.Grid>
-          <Card.Grid style={gridStyle}>
-            <Card bodyStyle={{ padding: 0 }} bordered={false}>
-              <Card.Meta title="会员人数" description={<div>{players.memberPlayer}</div>} />
-            </Card>
-          </Card.Grid>
-          <Card.Grid style={gridStyle}>
-            <Card bodyStyle={{ padding: 0 }} bordered={false}>
-              <Card.Meta title="当前在线" description={<div>{players.onlinePlayer}</div>} />
-            </Card>
-          </Card.Grid>
-          <Card.Grid style={gridStyle}>
-            <Card bodyStyle={{ padding: 0 }} bordered={false}>
-              <Card.Meta title="账户可用" description={<div>{players.allCoin}</div>} />
-            </Card>
-          </Card.Grid>
+
+        
         </Card>
 
         <div>
@@ -220,7 +222,7 @@ class Analysis extends PureComponent {
 
         <Card
           title="亏盈统计"
-          extra={<p>投注盈亏 = (投注消费金额-中奖金额) 充提盈亏 = 充值金额-提款金额</p>}
+          extra={<p> 充提盈亏 = 充值金额-提款金额</p>}
           style={{ marginBottom: 24 }}
         >
           <Card.Grid style={gridStyle1}>
@@ -233,26 +235,13 @@ class Analysis extends PureComponent {
               <Card.Meta title="提款" description={<div>{allReport.allWithdrawCoin}</div>} />
             </Card>
           </Card.Grid>
+         
           <Card.Grid style={gridStyle1}>
             <Card bodyStyle={{ padding: 0 }} bordered={false}>
-              <Card.Meta title="消费" description={<div>{allReport.allBetMoney}</div>} />
+              <Card.Meta title="红包中奖个数" description={<div>{allReport.allWinMoney}</div>} />
             </Card>
           </Card.Grid>
-          <Card.Grid style={gridStyle1}>
-            <Card bodyStyle={{ padding: 0 }} bordered={false}>
-              <Card.Meta title="中奖" description={<div>{allReport.allWinMoney}</div>} />
-            </Card>
-          </Card.Grid>
-          <Card.Grid style={gridStyle1}>
-            <Card bodyStyle={{ padding: 0 }} bordered={false}>
-              <Card.Meta title="返点" description={<div>{allReport.allRebate}</div>} />
-            </Card>
-          </Card.Grid>
-          <Card.Grid style={gridStyle1}>
-            <Card bodyStyle={{ padding: 0 }} bordered={false}>
-              <Card.Meta title="活动" description={<div>{allReport.allGiftMoney}</div>} />
-            </Card>
-          </Card.Grid>
+          
           <Card.Grid style={gridStyle1}>
             <Card bodyStyle={{ padding: 0 }} bordered={false}>
               <Card.Meta
@@ -261,11 +250,7 @@ class Analysis extends PureComponent {
               />
             </Card>
           </Card.Grid>
-          <Card.Grid style={gridStyle1}>
-            <Card bodyStyle={{ padding: 0 }} bordered={false}>
-              <Card.Meta title="投注盈亏" description={<div>{allReport.allBetWinMoney}</div>} />
-            </Card>
-          </Card.Grid>
+   
         </Card>
         <Card bordered={false}>
           <Table
