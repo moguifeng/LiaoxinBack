@@ -1,6 +1,4 @@
 ﻿using Castle.Components.DictionaryAdapter;
-using Liaoxin.BaseDataModel.ContentManager;
-using Liaoxin.Business.Config;
 using Liaoxin.Cache;
 using Liaoxin.IBusiness;
 using Liaoxin.Model;
@@ -13,7 +11,6 @@ using Zzb.BaseData.Attribute;
 using Zzb.BaseData.Attribute.Field;
 using Zzb.BaseData.Model.Button;
 using Zzb.Common;
-using static Liaoxin.Model.Client;
 
 namespace Liaoxin.BaseDataModel.ClientManger
 {

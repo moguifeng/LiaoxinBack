@@ -41,7 +41,11 @@ namespace Liaoxin.Model
 
         public DbSet<ClientOperateLog> ClientOperateLogs { get; set; }
 
+        
 
+
+                   public DbSet<RedPacket> RedPackets { get; set; }
+        public DbSet<RedPacketReceive> RedPacketReceives { get; set; }
 
         public DbSet<ClientAdd> ClientAdds { get; set; }
 

@@ -1,19 +1,12 @@
-﻿using Castle.Components.DictionaryAdapter;
-using Liaoxin.BaseDataModel.ContentManager;
-using Liaoxin.Business.Config;
-using Liaoxin.Cache;
-using Liaoxin.IBusiness;
+﻿using Liaoxin.Cache;
 using Liaoxin.Model;
-using Liaoxin.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Zzb;
 using Zzb.BaseData.Attribute;
 using Zzb.BaseData.Attribute.Field;
 using Zzb.BaseData.Model.Button;
 using Zzb.Common;
-using static Liaoxin.Model.Client;
 using static Liaoxin.Model.ClientRelation;
 
 namespace Liaoxin.BaseDataModel.ClientManger

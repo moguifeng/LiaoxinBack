@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ContentManager\**" />
+    <EmbeddedResource Remove="ContentManager\**" />
+    <None Remove="ContentManager\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Liaoxin.Business\Liaoxin.Business.csproj" />
     <ProjectReference Include="..\Liaoxin.Cache\Liaoxin.Cache.csproj" />
     <ProjectReference Include="..\Liaoxin.Model\Liaoxin.Model.csproj" />
