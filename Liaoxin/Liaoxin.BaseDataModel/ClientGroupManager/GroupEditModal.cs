@@ -25,8 +25,8 @@ namespace Liaoxin.BaseDataModel.ClientManger
 
 
         [HiddenTextField]
-
         public Guid GroupId { get; set; }
+
 
         [TextField("群号", IsReadOnly =true)]
 

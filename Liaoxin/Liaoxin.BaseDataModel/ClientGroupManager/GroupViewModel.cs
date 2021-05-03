@@ -24,7 +24,7 @@ namespace Liaoxin.BaseDataModel.ClientManger
 
 
 
-        [NavField("群编号")]
+        [NavField("群编号", 200)]
         public string UniqueId { get; set; }
 
 
@@ -63,6 +63,7 @@ namespace Liaoxin.BaseDataModel.ClientManger
                                                 where c.IsEnable
                                                 orderby c.CreateTime descending
                                                 select c,
+                                                      (k, w) => w.Where(t => t.UnqiueId==(k)),
                      (k, w) => w.Where(t => t.Name.Contains(k)),
                       (k, w) => w.Where(t => t.Client.LiaoxinNumber.Contains(k)));
                    
@@ -98,9 +99,11 @@ namespace Liaoxin.BaseDataModel.ClientManger
 
         public override BaseFieldAttribute[] GetQueryConditionses()
         {
-            return new BaseFieldAttribute[] { new TextFieldAttribute("Name", "群名称"),
+            return new BaseFieldAttribute[] {
+                    new TextFieldAttribute("UniqueId", "群号"),
+                new TextFieldAttribute("Name", "群名称"),
                 new TextFieldAttribute("Master", "群主(聊信号)"),               
-                new DateTimeFieldAttribute("CreateTime", "创建时间" )};
+                 };
         }
  
     }

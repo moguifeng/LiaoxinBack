@@ -14,45 +14,54 @@ namespace Zzb.BaseData.StringHandle
                 handle = new DateTimeHandle();
             }
 
-            if (type == typeof(int))
+            else if (type == typeof(int))
             {
                 handle = new IntHandle();
             }
 
-            if (type == typeof(string[]))
+            else if (type == typeof(string[]))
             {
                 handle = new StringArrayHandle();
             }
 
-            if (type == typeof(bool))
+            else if (type == typeof(bool))
             {
                 handle = new BoolHandle();
             }
 
-            if (type == typeof(decimal))
+            else if (type == typeof(decimal))
             {
                 handle = new DecimalHandle();
             }
 
-            if (type.BaseType == typeof(Enum))
+            else if (type.BaseType == typeof(Enum))
             {
                 handle = new EnumHandle();
             }
 
-            if (type == typeof(decimal?))
+            else if (type == typeof(decimal?))
             {
                 handle = new DecimalNullHandle();
             }
 
-            if (type == typeof(int?))
+            else if (type == typeof(int?))
             {
                 handle = new IntNullHandle();
+            }
+            else if (type == typeof(Guid?))
+            {
+                handle = new GuidNullHandle();
+            }
+            else if (type == typeof(Guid))
+            {
+                handle = new GuidHandle();
             }
 
             if (handle != null)
             {
                 handle.Type = type;
             }
+           
             return handle;
         }
 

@@ -44,7 +44,7 @@ namespace Liaoxin.BaseDataModel.ClientManger
         public bool IsBlock { get; set; }
 
 
-        [NavField("加入群时间",width:170)]
+        [NavField("加入群时间", width: 170)]
         public DateTime CreateTime { get; set; }
 
 
@@ -61,7 +61,7 @@ namespace Liaoxin.BaseDataModel.ClientManger
                            t.Group.UnqiueId.Contains(UniqueId)
                      ),
 
-                      (k, w) => w.Where(t => t.Client.LiaoxinNumber.Contains(k)));; 
+                      (k, w) => w.Where(t => t.Client.LiaoxinNumber.Contains(k))); ;
 
 
 
@@ -73,21 +73,13 @@ namespace Liaoxin.BaseDataModel.ClientManger
                 model.UniqueId = item.Group.UnqiueId;
                 model.Name = item.Group.Name;
                 model.MyNickName = item.MyNickName;
-                model.LiaoxinNumber = item.Client.LiaoxinNumber ;
+                model.LiaoxinNumber = item.Client.LiaoxinNumber;
                 model.IsBlock = item.IsBlock;
                 model.CreateTime = item.CreateTime;
-             
+
                 lis.Add(model);
             }
             return lis.ToArray();
-        }
-
-
-        private int TryInt(string s )
-        {
-            int.TryParse(s, out int  r);
-            return r;
-            
         }
 
         public override BaseButton[] CreateRowButtons()
@@ -95,10 +87,12 @@ namespace Liaoxin.BaseDataModel.ClientManger
             List<BaseButton> list = new EditableList<BaseButton>();
             string title = this.IsBlock ? "解禁言" : "禁言";
             list.Add(new ConfirmActionButton("EnableOperation", title, "是否确认操作?"));
-       
+
             return list.ToArray();
 
         }
+
+
 
         public ServiceResult EnableOperation()
         {
@@ -119,8 +113,7 @@ namespace Liaoxin.BaseDataModel.ClientManger
         public override BaseFieldAttribute[] GetQueryConditionses()
         {
             return new BaseFieldAttribute[] {
-                new TextFieldAttribute("Id", "群编号"),
-                     new TextFieldAttribute("LiaoxinNumber", "聊信群名称"),
+                     new TextFieldAttribute("UniqueId", "聊信群编号"),
                 new TextFieldAttribute("LiaoxinNumber", "客户聊信号")};
 
 
