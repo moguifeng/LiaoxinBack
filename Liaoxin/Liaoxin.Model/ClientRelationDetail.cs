@@ -78,7 +78,7 @@ namespace Liaoxin.Model
         /// <summary>
         /// 来自于
         /// </summary>
-        public AddSourceTypeEnum AddSource { get; set; }
+        public AddSourceTypeEnum AddSource { get; set; }  
 
 
 

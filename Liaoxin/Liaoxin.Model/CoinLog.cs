@@ -75,22 +75,31 @@ namespace Liaoxin.Model
         [Description("代充值")]
         InsteadRecharge = 1,
 
-
-        [Description("申请提现")]
-        ApplyWithdraw = 2,
-
-  
-
-
+ 
         [Description("提现成功")]
-        Withdraw = 5,
+        Withdraw = 2,
 
         [Description("提款失败")]
-        CancelWithdraw = 6,
+        CancelWithdraw = 3,
 
-        [Description("赠送")]
-        GiftMoney = 7,
+        [Description("发红包")]
+        SendRedPacket = 4,
 
-      
+        [Description("抢红包")]
+        SnatRedPacket = 5,
+
+        [Description("接收红包")]
+        ReceiveRedPacket = 6,
+
+        [Description("转账")]
+        Transfer = 7,
+
+        [Description("接收转账")]
+        ReceiveTransfer = 8,
+
+        [Description("红包退回")]
+        RefundRedPacket = 9,
+
+
     }
 }

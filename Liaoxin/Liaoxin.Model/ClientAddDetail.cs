@@ -34,11 +34,11 @@ namespace Liaoxin.Model
         /// 添加备注
         /// </summary>
         public string AddRemark { get; set; }
-       
+
         /// <summary>
         /// 添加状态
         /// </summary>
-        public ClientAddDetailTypeEnum Status { get; set; }
+        public ClientAddDetailTypeEnum Status { get; set; } = ClientAddDetailTypeEnum.StandBy;
 
 
         public enum ClientAddDetailTypeEnum {
