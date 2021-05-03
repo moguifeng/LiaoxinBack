@@ -7,6 +7,7 @@ using Zzb;
 using Zzb.BaseData.Attribute.Field;
 using Zzb.BaseData.Model.Button;
 using Zzb.Common;
+using static Liaoxin.Model.ClientAddDetail;
 
 namespace Liaoxin.BaseDataModel.ClientManger
 {
@@ -60,7 +61,8 @@ namespace Liaoxin.BaseDataModel.ClientManger
             }
 
             var applySourceCnt =  Context.ClientAdds.Where(c => c.ClientId == sourceClient.ClientId).Count();
-            var applyToCnt = Context.ClientAddDetails.Where(c => c.ClientId == toClient.ClientId).Count();
+            var applyToCnt = Context.ClientAddDetails.Where(c => c.ClientId == toClient.ClientId && 
+                                    c.Status != ClientAddDetailTypeEnum.StandBy).Count();
             if (applySourceCnt > 0 && applyToCnt > 0)
             {
                 return new ServiceResult(ServiceResultCode.Error, "你已申请添加此客户,无需要重复申请");
@@ -74,9 +76,13 @@ namespace Liaoxin.BaseDataModel.ClientManger
                 return new ServiceResult(ServiceResultCode.Error, "你已添加此客户,无需要重复添加");
 
             }
-            ClientAdd clientAddEntity = new ClientAdd();
+            ClientAdd clientAddEntity = new ClientAdd(); ;
             clientAddEntity.ClientId = sourceClient.ClientId;
-            Context.ClientAdds.Add(clientAddEntity);
+
+            if (applySourceCnt == 0)
+            {
+                Context.ClientAdds.Add(clientAddEntity);
+            }         
             ClientAddDetail detailEntity = new ClientAddDetail()
             {
                 ClientAddId = clientAddEntity.ClientAddId,

@@ -8,7 +8,7 @@ using Zzb.EF;
 namespace Liaoxin.Model
 {
     /// <summary>
-    /// 客户添加详细
+    /// 客户添加(默认3天)
     /// </summary>
     public class ClientAddDetail : BaseModel
     {
@@ -35,7 +35,21 @@ namespace Liaoxin.Model
         /// </summary>
         public string AddRemark { get; set; }
        
+        /// <summary>
+        /// 添加状态
+        /// </summary>
+        public ClientAddDetailTypeEnum Status { get; set; }
 
+
+        public enum ClientAddDetailTypeEnum {
+            
+            [Description("待确认")]
+            StandBy = 0,
+            [Description("拒绝")]
+            Reject = 1,
+            [Description("已添加")]
+            Agree = 2,
+        }
         
 
     }
