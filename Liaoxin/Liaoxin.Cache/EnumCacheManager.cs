@@ -80,7 +80,7 @@ namespace Liaoxin.Cache
 
         public static CacheEnum GetObj(string enumText)
         {
-            if (!string.IsNullOrEmpty(enumText.ToLower()))
+            if (!string.IsNullOrEmpty(enumText))
             {
                 var cache = CacheManager.singleCache.HashGet<CacheEnum>(RedisEnumKey, enumText.ToLower().ToString());
                 return cache;
