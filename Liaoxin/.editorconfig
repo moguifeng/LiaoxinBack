@@ -2,3 +2,6 @@
 
 # IDE0022: 使用方法的程序块主体
 csharp_style_expression_bodied_methods = false
+
+# CS1591: 缺少对公共可见类型或成员的 XML 注释
+dotnet_diagnostic.CS1591.severity = none

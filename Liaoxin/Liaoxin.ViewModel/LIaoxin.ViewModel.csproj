@@ -4,6 +4,11 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>G:\liaoxinGit\LiaoxinBack\Liaoxin\Liaoxin.ViewModel\LIaoxin.ViewModel.xml</DocumentationFile>
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Liaoxin.Model\Liaoxin.Model.csproj" />
   </ItemGroup>

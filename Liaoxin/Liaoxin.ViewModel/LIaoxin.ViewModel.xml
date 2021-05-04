@@ -1,0 +1,198 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LIaoxin.ViewModel</name>
+    </assembly>
+    <members>
+        <member name="P:LIaoxin.ViewModel.ClientBankResponse.ClientBankId">
+            <summary>
+            客户银行卡id
+            </summary>
+        </member>
+        <member name="P:LIaoxin.ViewModel.ClientBankResponse.CardNumber">
+            <summary>
+            卡号
+            </summary>
+        </member>
+        <member name="P:LIaoxin.ViewModel.ClientBankResponse.RealName">
+            <summary>
+            真实姓名
+            </summary>
+        </member>
+        <member name="P:LIaoxin.ViewModel.ClientBankResponse.SystemBankId">
+            <summary>
+            银行卡id
+            </summary>
+        </member>
+        <member name="P:LIaoxin.ViewModel.ClientBankResponse.AffixId">
+            <summary>
+            附件id
+            </summary>
+        </member>
+        <member name="P:Liaoxin.ViewModel.ClientViewModel.ClientLoginRequest.Telephone">
+            <summary>
+            电话号码
+            </summary>
+        </member>
+        <member name="P:Liaoxin.ViewModel.ClientViewModel.ClientLoginRequest.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:Liaoxin.ViewModel.ClientViewModel.ClientSendCodeRequest.Telephone">
+            <summary>
+            电话号码
+            </summary>
+        </member>
+        <member name="P:Liaoxin.ViewModel.ClientViewModel.ClientLoginByCodeRequest.Telephone">
+            <summary>
+            电话号码
+            </summary>
+        </member>
+        <member name="P:Liaoxin.ViewModel.ClientViewModel.ClientLoginByCodeRequest.Code">
+            <summary>
+            验证码
+            </summary>
+        </member>
+        <member name="P:Liaoxin.ViewModel.ClientViewModel.ClientChangePasswordRequest.newPsssword">
+            <summary>
+            新的登录密码
+            </summary>
+        </member>
+        <member name="P:Liaoxin.ViewModel.ClientViewModel.ClientChangePasswordRequest.oldPassword">
+            <summary>
+            旧的登录密码
+            </summary>
+        </member>
+        <member name="P:Liaoxin.ViewModel.ClientViewModel.ClientChangeCoinPasswordRequest.newCoinPsssword">
+            <summary>
+            新的交易密码
+            </summary>
+        </member>
+        <member name="P:Liaoxin.ViewModel.ClientViewModel.ClientChangeCoinPasswordRequest.oldCoinPassword">
+            <summary>
+            旧的交易密码
+            </summary>
+        </member>
+        <member name="P:Liaoxin.ViewModel.ClientViewModel.ClientBaseInfoResponse.Cover">
+            <summary>
+            头像
+            </summary>
+        </member>
+        <member name="P:Liaoxin.ViewModel.ClientViewModel.ClientBaseInfoResponse.HuanXinId">
+            <summary>
+            环信的Id
+            </summary>
+        </member>
+        <member name="P:Liaoxin.ViewModel.ClientViewModel.ClientBaseInfoResponse.LiaoxinNumber">
+            <summary>
+            聊信号
+            </summary>
+        </member>
+        <member name="P:Liaoxin.ViewModel.ClientViewModel.ClientBaseInfoResponse.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:Liaoxin.ViewModel.ClientViewModel.ClientBaseInfoResponse.Coin">
+            <summary>
+            余额
+            </summary>
+        </member>
+        <member name="P:Liaoxin.ViewModel.ClientViewModel.ClientBaseInfoResponse.Telephone">
+            <summary>
+            手机号码
+            </summary>                    
+        </member>
+        <member name="P:Liaoxin.ViewModel.ClientViewModel.ClientBaseInfoResponse.CharacterSignature">
+            <summary>
+            个性签名
+            </summary>
+        </member>
+        <member name="P:Liaoxin.ViewModel.ClientViewModel.ClientBaseInfoResponse.AreaCode">
+            <summary>
+            地区
+            </summary>
+        </member>
+        <member name="P:Liaoxin.ViewModel.ClientViewModel.ClientBaseInfoResponse.AddMeNeedChecked">
+            <summary>
+            添加我为好友时需要验证.
+            </summary>
+        </member>
+        <member name="P:Liaoxin.ViewModel.ClientViewModel.ClientBaseInfoResponse.ShowFriendCircle">
+            <summary>
+            显示朋友圈时间范围(enum:ShowFriendCircleEnum)
+            </summary>
+        </member>
+        <member name="P:Liaoxin.ViewModel.ClientViewModel.ClientBaseInfoResponse.UpadteMind">
+             <summary>
+            更新提醒
+             </summary>
+        </member>
+        <member name="P:Liaoxin.ViewModel.ClientViewModel.ClientBaseInfoResponse.IsFreeze">
+            <summary>
+            是否冻结
+            </summary>
+        </member>
+        <member name="P:Liaoxin.ViewModel.ClientViewModel.ClientBaseInfoResponse.FontSize">
+            <summary>
+            设置->字体大小
+            </summary>
+        </member>
+        <member name="P:Liaoxin.ViewModel.ClientViewModel.ClientBaseInfoResponse.HandFree">
+            <summary>
+            听筒模式
+            </summary>
+        </member>
+        <member name="P:Liaoxin.ViewModel.ClientViewModel.ClientBaseInfoResponse.WifiVideoPlay">
+            <summary>
+            移动网络下视频自动播放
+            </summary>
+        </member>
+        <member name="P:Liaoxin.ViewModel.ClientViewModel.ClientBaseInfoResponse.NewMessageNotication">
+             <summary>
+            新消息通知
+             </summary>
+        </member>
+        <member name="P:Liaoxin.ViewModel.ClientViewModel.ClientBaseInfoResponse.VideoMessageNotication">
+            <summary>
+            音频通话提醒
+            </summary>
+        </member>
+        <member name="P:Liaoxin.ViewModel.ClientViewModel.ClientBaseInfoResponse.ShowMessageNotication">
+            <summary>
+            通知显示消息内容
+            </summary>
+        </member>
+        <member name="P:Liaoxin.ViewModel.ClientViewModel.ClientBaseInfoResponse.AppOpenWhileSound">
+            <summary>
+            打开时声音
+            </summary>
+        </member>
+        <member name="P:Liaoxin.ViewModel.ClientViewModel.ClientBaseInfoResponse.OpenWhileShake">
+            <summary>
+            打开时震动
+            </summary>
+        </member>
+        <member name="T:Liaoxin.ViewModel.LotteryNumberBetTimeViewMode">
+            <summary>
+            期号的投注开始时间结束时间
+            </summary>
+        </member>
+        <member name="P:Liaoxin.ViewModel.PlayerGetUnderPlayers.Phone">
+            <summary>
+            手机
+            </summary>
+        </member>
+        <member name="P:Liaoxin.ViewModel.PlayerGetUnderPlayers.QQ">
+            <summary>
+            QQ
+            </summary>
+        </member>
+        <member name="P:Liaoxin.ViewModel.PlayerGetUnderPlayers.WeChat">
+            <summary>
+            微信
+            </summary>
+        </member>
+    </members>
+</doc>

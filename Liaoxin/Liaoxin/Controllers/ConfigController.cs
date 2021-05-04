@@ -1,4 +1,5 @@
 ﻿using Liaoxin.Business.Config;
+using Liaoxin.Cache;
 using Liaoxin.Model;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,6 +13,13 @@ namespace Liaoxin.Controllers
     [ApiController]
     public class ConfigController : BaseApiController
     {
+
+        
+        /// <summary>
+        /// 获取配置表键值对 多个用 | 分隔
+        /// </summary>
+        /// <param name="configKeys"></param>
+        /// <returns></returns>
         [HttpPost("GetConfigValues")]
         public ServiceResult GetConfigValues(string configKeys)
         {
@@ -33,5 +41,33 @@ namespace Liaoxin.Controllers
             }
             return Json(() => new ServiceResult<Dictionary<string, string>>() { Data = dic, ReturnCode = ServiceResultCode.Success }, "失败.");
         }
+
+
+        /// <summary>
+        /// 获取枚举值
+        /// </summary>
+        /// <param name="enumName">枚举名称</param>
+        /// <returns></returns>
+        [HttpPost("GetEnums")]
+        public ServiceResult GetEnums(string enumName)
+        {
+            var lis =  enumName.ToEnums();            
+            return Json(() => new ServiceResult<List<CacheDetail>>() { Data = lis, ReturnCode = ServiceResultCode.Success }, "失败.");
+
+        }
+
+        /// <summary>
+        /// 获取地区
+        /// </summary>        
+        /// <returns></returns>
+        [HttpPost("GetAreas")]
+        public ServiceResult GetAreas()
+        {
+            var lis =  CacheAreaEx.Areas;
+            return Json(() => new ServiceResult<List<CacheArea>>() { Data = lis, ReturnCode = ServiceResultCode.Success }, "失败.");
+
+        }
+
+
     }
 }

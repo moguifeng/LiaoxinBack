@@ -21,11 +21,11 @@ namespace Liaoxin.Cache
 
             var list = _context.Areas.Where(a => a.IsEnable).Select(a => new CacheArea()
             {
+                Id = a.Code.ToString(),
                 Code = a.Code,
                 Name = a.Name,
                 FullName = a.FullName,
-                Level = a.Level,
-                Id = a.Code.ToString(),
+                Level = a.Level,             
                 LongCode = a.LongCode,
                 ParentCode = a.ParentCode
             }).ToList();

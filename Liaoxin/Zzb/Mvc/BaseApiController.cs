@@ -12,26 +12,14 @@ namespace Zzb.Mvc
     public class BaseApiController : ControllerBase
     {
         public UserContextManager _UserContext { get; set; }
-        protected void SignIn(string name)
-        {
-            //var claims = new List<Claim>
-            //{
-            //    new Claim(ClaimTypes.Name, name)
-            //};
-            //var claimsIdentity = new ClaimsIdentity(
-            //    claims, ZzbAuthorizeAttribute.ZzbAuthenticationScheme);
-            //HttpContext.SignInAsync(
-            //    ZzbAuthorizeAttribute.ZzbAuthenticationScheme,
-            //    new ClaimsPrincipal(claimsIdentity),
-            //    new AuthenticationProperties());
-        }
+ 
 
         protected void SignOut()
         {
             _UserContext.RemoveUserContext();
             //HttpContext.SignOutAsync(ZzbAuthorizeAttribute.ZzbAuthenticationScheme);
         }
-        
+
         protected ServiceResult Json(Func<ServiceResult> action, string error = null)
         {
             try
@@ -62,6 +50,21 @@ namespace Zzb.Mvc
             return new ServiceResult<object>(ServiceResultCode.Success, "OK", obj);
         }
 
+
+        protected ServiceResult<List<K>> ListGenericityResult<K>(List<K> lis)
+        {
+            return new ServiceResult<List<K>>(ServiceResultCode.Success, "sucess", lis);
+
+
+        }
+
+        protected ServiceResult<K> ObjectGenericityResult<K>(K obj)
+        {
+            return new ServiceResult<K>(ServiceResultCode.Success, "OK", obj);
+
+        }
+
+
         protected ServiceResult JsonObjectResult(object obj, string msg = null)
         {
             return Json(() => ObjectResult(obj), msg);
@@ -82,6 +85,21 @@ namespace Zzb.Mvc
                 }
 
                 return -1;
+            }
+        }
+
+        protected Guid ClientId
+        {
+
+            get
+            {
+                if (UserContext.Current.IsAuthenticated)
+                {
+                    return UserContext.Current.Id;
+                }
+                return Guid.Empty;
+
+
             }
         }
     }

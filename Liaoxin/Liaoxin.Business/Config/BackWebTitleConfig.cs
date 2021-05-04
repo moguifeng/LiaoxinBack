@@ -6,6 +6,6 @@ namespace Liaoxin.Business.Config
     {
         public override SystemConfigEnum Type => SystemConfigEnum.BackWebTitle;
 
-        public override string Default => "雅福";
+        public override string Default => "聊信";
     }
 }

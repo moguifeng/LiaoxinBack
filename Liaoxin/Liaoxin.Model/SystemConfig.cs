@@ -53,8 +53,6 @@ namespace Liaoxin.Model
         [Description("日工资计算时间")]
         DailyWageTime = 7,
 
-        [Description("系统彩盈利比例")]
-        WinRate = 8,
 
         [Description("系统LOGO")]
         Logo = 9,
@@ -77,11 +75,6 @@ namespace Liaoxin.Model
         [Description("站点秘钥")]
         SiteKey = 15,
 
-        [Description("是否博悦")]
-        IsBoYue = 16,
-
-        [Description("是否领盟")]
-        IsLingMeng = 17,
 
         [Description("注册编码")]
         RegisterNumber = 18,
@@ -95,8 +88,6 @@ namespace Liaoxin.Model
         [Description("后台标题")]
         BackWebTitle = 21,
 
-        [Description("是否亚太")]
-        IsYaTai = 22
 
     }
 }

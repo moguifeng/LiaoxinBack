@@ -1,5 +1,7 @@
 ﻿using Liaoxin.IBusiness;
+using LIaoxin.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Linq;
 using Zzb;
 using Zzb.Mvc;
@@ -20,18 +22,26 @@ namespace Liaoxin.Controllers
                 from b in BankService.GetSystemBanks() select new { b.AffixId, b.Name, b.SystemBankId }, "获取系统银行失败");
         }
 
-        [HttpPost("GetPlayerBanks")]
-        public ServiceResult GetPlayerBanks()
+        /// <summary>
+        /// 获取当前登录客户的银行卡
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("GetClientBanks")]
+        public ServiceResult<List<ClientBankResponse>> GetClientBanks()
         {
-            return JsonObjectResult(from b in BankService.GetClientBanks(UserId)
-                                    select new
-                                    {
-                                        b.ClientBankId,
-                                        CardNumber = "****" + b.CardNumber.Substring(b.CardNumber.Length - 4),
-                                        PayeeName = "*" + b.Client.RealName.Substring(1),
-                                        b.SystemBankId,
-                                        b.SystemBank.AffixId
-                                    });
+            var objs = (from b in BankService.GetClientBanks(UserId)
+                        select new ClientBankResponse()
+                        {
+                            ClientBankId = b.ClientBankId,
+                            CardNumber = "****" + b.CardNumber.Substring(b.CardNumber.Length - 4),
+                            RealName = "*" + b.Client.RealName.Substring(1),
+                            SystemBankId = b.SystemBankId,
+                            AffixId = b.SystemBank.AffixId
+                        }).ToList();
+
+            return (ServiceResult<List<ClientBankResponse>>)Json(() => {
+                return ListGenericityResult(objs);
+            });       
         }
 
         [HttpPost("AddPlayerBank")]
