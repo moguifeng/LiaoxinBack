@@ -46,8 +46,7 @@ namespace Liaoxin.ViewModel
 
         public class ClientChangePasswordRequest
         {
-
-            public Guid ClientId { get; set; }
+            
             /// <summary>
             /// 新的登录密码
             /// </summary>
@@ -61,8 +60,7 @@ namespace Liaoxin.ViewModel
 
         public class ClientChangeCoinPasswordRequest
         {
-
-            public Guid ClientId { get; set; }
+          
             /// <summary>
             /// 新的交易密码
             /// </summary>
@@ -99,7 +97,7 @@ namespace Liaoxin.ViewModel
             /// <summary>
             /// 余额
             /// </summary>
-            public decimal Coin { get; set; }
+            public decimal Coin { get; set; } 
 
             /// <summary>
             /// 手机号码
@@ -135,16 +133,7 @@ namespace Liaoxin.ViewModel
             /// <summary>
             ///更新提醒
             /// </summary>
-            public bool UpadteMind { get; set; } = false;
-
-            /// <summary>
-            /// 是否冻结
-            /// </summary>
-            public bool IsFreeze { get; set; } = false;
-
-
- 
-
+            public bool UpadteMind { get; set; } = false;  
   
             /// <summary>
             /// 设置->字体大小

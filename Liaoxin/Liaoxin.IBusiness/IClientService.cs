@@ -11,7 +11,7 @@ namespace Liaoxin.IBusiness
 
         Client LoginByCode(ClientLoginByCodeRequest request);
 
-        ClientBaseInfoResponse GetClient(BaseModel request);
+        ClientBaseInfoResponse GetClient();
 
         bool ChangePassword(ClientChangePasswordRequest request);
 

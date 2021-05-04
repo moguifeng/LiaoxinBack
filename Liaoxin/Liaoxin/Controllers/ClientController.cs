@@ -1,4 +1,5 @@
 ﻿using Liaoxin.IBusiness;
+using Liaoxin.Model;
 using Liaoxin.ViewModel;
 using LIaoxin.ViewModel;
 using Microsoft.AspNetCore.Authorization;
@@ -18,7 +19,7 @@ namespace Liaoxin.Controllers
     public class ClientController : BaseApiController
     {
         public IClientService clientService { get; set; }
-
+        public LiaoxinContext Context { get; set; }
 
         /// <summary>
         /// 获取客户
@@ -27,7 +28,7 @@ namespace Liaoxin.Controllers
         [HttpPost("GetClient")]
         public ServiceResult<ClientBaseInfoResponse> GetClient()
         {
-            var entity = clientService.GetClient(new BaseModel() {  Id = ClientId});
+            var entity = clientService.GetClient();
             return (ServiceResult<ClientBaseInfoResponse>)Json(() =>
             {
                 return ObjectGenericityResult<ClientBaseInfoResponse>(entity);
@@ -54,6 +55,43 @@ namespace Liaoxin.Controllers
                 return ObjectResult(token);
             }, "登录失败");
 
-        } 
+        }
+
+
+        /// <summary>
+        /// 修改客户密码
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost("ChangePassword")]
+        public ServiceResult ChangePassword(ClientChangePasswordRequest request)
+        {
+
+            return Json(() =>
+            {
+                var res = clientService.ChangePassword(request);                              
+                return ObjectResult(res);
+            }, "修改密码失败");
+
+        }
+
+
+        /// <summary>
+        /// 修改客户资金密码
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost("ChangeCoinPassword")]
+        public ServiceResult ChangeCoinPassword(ClientChangeCoinPasswordRequest request)
+        {              
+            return Json(() =>
+            {
+                var res = clientService.ChangeCoinPassword(request);
+                return ObjectResult(res);
+            }, "修改密码失败");
+
+        }
+
+
     }
 }

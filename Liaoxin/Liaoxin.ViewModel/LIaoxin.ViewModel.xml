@@ -129,11 +129,6 @@
             更新提醒
              </summary>
         </member>
-        <member name="P:Liaoxin.ViewModel.ClientViewModel.ClientBaseInfoResponse.IsFreeze">
-            <summary>
-            是否冻结
-            </summary>
-        </member>
         <member name="P:Liaoxin.ViewModel.ClientViewModel.ClientBaseInfoResponse.FontSize">
             <summary>
             设置->字体大小

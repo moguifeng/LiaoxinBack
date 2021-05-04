@@ -12,7 +12,8 @@ namespace Zzb.Mvc
     public class BaseApiController : ControllerBase
     {
         public UserContextManager _UserContext { get; set; }
- 
+
+
 
         protected void SignOut()
         {
@@ -69,7 +70,7 @@ namespace Zzb.Mvc
         {
             return Json(() => ObjectResult(obj), msg);
         }
-
+        
         protected int UserId
         {
             get
@@ -87,20 +88,6 @@ namespace Zzb.Mvc
                 return -1;
             }
         }
-
-        protected Guid ClientId
-        {
-
-            get
-            {
-                if (UserContext.Current.IsAuthenticated)
-                {
-                    return UserContext.Current.Id;
-                }
-                return Guid.Empty;
-
-
-            }
-        }
+ 
     }
 }

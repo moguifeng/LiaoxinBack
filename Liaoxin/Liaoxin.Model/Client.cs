@@ -112,6 +112,8 @@ namespace Liaoxin.Model
         /// </summary>
         public bool IsFreeze { get; set; } = false;
 
+        public int ErrorPasswordCount { get; set; } = 0;
+         
 
         /// <summary>
         /// 真实姓名

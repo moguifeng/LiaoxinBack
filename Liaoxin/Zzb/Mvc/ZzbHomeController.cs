@@ -191,7 +191,7 @@ namespace Zzb.Mvc
             {
                 var id = Login(model.Name, model.Password);
 
-                _UserContext.SetUserContext(Guid.NewGuid(), id.ToString(), model.Name);
+                _UserContext.SetUserContext(Guid.Empty, id.ToString(), model.Name);
                 var token = UserContext.Current.Token;
                 return ObjectResult(token);
             }, "登录失败");

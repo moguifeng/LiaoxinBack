@@ -2,7 +2,9 @@
 using Liaoxin.Model;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.IO;
+using Zzb.Context;
 using Zzb.EF;
 
 namespace Liaoxin.Controllers
@@ -23,10 +25,10 @@ namespace Liaoxin.Controllers
             {
                 return StatusCode(304, "没改变啊");
             }
-            var a = AffixService.GetAffix(id);
-            if (a != null)
+            var affix = AffixService.GetAffix(id);
+            if (affix != null)
             {
-                return new FileContentResult(AffixService.GetAffix(id), "image/jpeg");
+                return new FileContentResult(affix, "image/jpeg");
             }
             return null;
         }
@@ -38,6 +40,7 @@ namespace Liaoxin.Controllers
             {
                 var file = Request.Form.Files[0];
                 Affix affix = new Affix();
+                
                 if (!Directory.Exists(Path.Combine(HostingEnvironment.ContentRootPath, "Upload")))
                 {
                     Directory.CreateDirectory(Path.Combine(HostingEnvironment.ContentRootPath, "Upload"));
@@ -45,6 +48,10 @@ namespace Liaoxin.Controllers
                 using (var strean = new FileStream(Path.Combine(HostingEnvironment.ContentRootPath, affix.Path), FileMode.CreateNew))
                 {
                     file.CopyTo(strean);
+                }
+                if (UserContext.Current.Id != Guid.Empty)
+                {
+                    affix.ClientId = UserContext.Current.Id;
                 }
                 var exist = context.Affixs.Add(affix);
                 context.SaveChanges();
