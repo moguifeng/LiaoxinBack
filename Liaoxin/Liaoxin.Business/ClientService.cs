@@ -167,7 +167,29 @@ namespace Liaoxin.Business
 
         public Client LoginByCode(ClientLoginByCodeRequest request)
         {
-            throw new NotImplementedException();
+            if (!StringHelper.IsMobile(request.Telephone))
+            {
+                throw new ZzbException("请输入正确的手机号码");
+            }            
+            var client = (from p in Context.Clients where p.Telephone == request.Telephone select p).FirstOrDefault();
+            if (client == null)
+            {
+                Client entity = new Client();
+                entity.Telephone = request.Telephone;
+                var res = HuanxinRequest.RegisterClient(entity.HuanXinId);
+                if (res.ReturnCode == ServiceResultCode.Success)
+                {
+                    Context.Clients.Add(entity);
+                    Context.SaveChanges();
+                }
+                else
+                {
+                    throw new ZzbException(res.Message);
+                }
+                return entity;
+            }
+            return client;
+            
         }
 
     

@@ -46,16 +46,16 @@ namespace Zzb.Mvc
                 {
                     if (tree.Children == null)
                     {
-                        routers.Add(new RouterMenuModel() { Path = $"/ZzbTable/list/{tree.NavId}", Name = tree.Name });
+                        routers.Add(new RouterMenuModel() { Path = $"/lxTable/list/{tree.NavId}", Name = tree.Name });
                     }
                     else
                     {
                         List<RouterMenuModel> children = new List<RouterMenuModel>();
                         foreach (NavTree treeChild in tree.Children)
                         {
-                            children.Add(new RouterMenuModel() { Path = $"/ZzbTable/{SecurityHelper.MD5Encrypt(tree.Name)}/{treeChild.NavId}", Name = treeChild.Name });
+                            children.Add(new RouterMenuModel() { Path = $"/lxTable/{SecurityHelper.MD5Encrypt(tree.Name)}/{treeChild.NavId}", Name = treeChild.Name });
                         }
-                        routers.Add(new RouterMenuModel() { Path = $"/ZzbTable/{SecurityHelper.MD5Encrypt(tree.Name)}", Name = tree.Name, Routes = children.ToArray() });
+                        routers.Add(new RouterMenuModel() { Path = $"/lxTable/{SecurityHelper.MD5Encrypt(tree.Name)}", Name = tree.Name, Routes = children.ToArray() });
                     }
                 }
 

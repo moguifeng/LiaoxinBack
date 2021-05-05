@@ -1,4 +1,5 @@
-﻿using Liaoxin.IBusiness;
+﻿
+using Liaoxin.IBusiness;
 using Liaoxin.Model;
 using Liaoxin.ViewModel;
 using LIaoxin.ViewModel;
@@ -37,6 +38,31 @@ namespace Liaoxin.Controllers
         }
 
 
+
+
+        /// <summary>
+        /// 客户登录
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpPost("LoginByCode")]
+        public ServiceResult LoginByCode(ClientLoginByCodeRequest request)
+        {
+
+          
+            return Json(() =>
+            {
+                var entity = clientService.LoginByCode(request);
+                _UserContext.SetUserContext(entity.ClientId, entity.HuanXinId, entity.LiaoxinNumber);
+                string token = UserContext.Current.Token;
+                return ObjectResult(token);
+            }, "登录失败");
+
+        }
+
+
+
         /// <summary>
         /// 客户登录
         /// </summary>
@@ -47,10 +73,16 @@ namespace Liaoxin.Controllers
         public ServiceResult Login(ClientLoginRequest request)
         {
 
+            //var res = HostedService.RegisterClient();
+            //if (res.ReturnCode != Zzb.ServiceResultCode.Success)
+            //{
+            //    return res;
+            //}
+
             return Json(() =>
             {
                 var entity = clientService.Login(request);
-                _UserContext.SetUserContext(entity.ClientId, entity.NickName, entity.LiaoxinNumber);
+                _UserContext.SetUserContext(entity.ClientId, entity.HuanXinId, entity.LiaoxinNumber);
                 string token = UserContext.Current.Token;
                 return ObjectResult(token);
             }, "登录失败");

@@ -91,12 +91,12 @@ export default [
         ],
       },
       {
-        path: '/ZzbTable/:nav',
+        path: '/lxTable/:nav',
         icon: 'table',
         name: 'list',
         routes: [
           {
-            path: '/ZzbTable/:nav/:id',
+            path: '/lxTable/:nav/:id',
             name: '模仿',
             component: '../zzb/pages/ZzbTableList',
           },

@@ -310,4 +310,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="HostServices\" />
+  </ItemGroup>
+
 </Project>

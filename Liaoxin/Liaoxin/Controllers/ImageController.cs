@@ -1,8 +1,10 @@
-﻿using Liaoxin.IBusiness;
+﻿
+using Liaoxin.IBusiness;
 using Liaoxin.Model;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Zzb.Context;
 using Zzb.EF;
@@ -20,6 +22,7 @@ namespace Liaoxin.Controllers
         [HttpGet("GetAffix")]
         public IActionResult GetAffix(int id)
         {
+ 
             Response.Headers.Add("ETag", new[] { id.ToString() });
             if (Request.Headers.Keys.Contains("If-None-Match") && Request.Headers["If-None-Match"].ToString() == id.ToString())
             {

@@ -76,7 +76,7 @@ namespace Liaoxin.ViewModel
             /// <summary>
             /// 头像
             /// </summary>
-            public int Cover { get; set; }
+            public int? Cover { get; set; }
             /// <summary>
             /// 环信的Id
             /// </summary>

@@ -146,6 +146,13 @@ namespace Zzb
         /// </summary>
         [Description("操作引发错误。")]
         Error = 7,
+
+
+        [Description("未授权。")]
+        UnAuth = 401,
+
+        [Description("访问错误。")]
+        ErrOperation = 400
     }
 
 }

@@ -22,11 +22,11 @@ namespace Liaoxin.Model
         /// <summary>
         /// 头像
         /// </summary>
-        public int Cover { get; set; }
+        public int? Cover { get; set; }
         /// <summary>
         /// 环信的Id
         /// </summary>
-        public string HuanXinId { get; set; }
+        public string HuanXinId { get; set; } = SecurityCodeHelper.CreateRandomCode(11);
 
         /// <summary>
         /// 聊信号

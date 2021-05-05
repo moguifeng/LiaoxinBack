@@ -3,7 +3,7 @@ using Liaoxin.Business;
 using Liaoxin.Business.Socket;
 using Liaoxin.Business.ThirdPay;
 using Liaoxin.Cache;
-using Liaoxin.HostServices;
+
 using Liaoxin.Model;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors.Infrastructure;
