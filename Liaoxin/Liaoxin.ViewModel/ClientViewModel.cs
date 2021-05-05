@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using static Liaoxin.Model.Client;
+using static Liaoxin.Model.ClientAddDetail;
 
 namespace Liaoxin.ViewModel
 {
@@ -185,5 +186,81 @@ namespace Liaoxin.ViewModel
 
         }
 
+        public class ClientAddDetailResponse
+        {
+            /// <summary>
+            /// 添加时备注
+            /// </summary>
+            public string AddRemark { get; set; }
+
+            /// <summary>
+            /// 环信id
+            /// </summary>
+            public string HuanxinId { get; set; }
+
+            /// <summary>
+            /// 聊信Id
+            /// </summary>
+            public string LiaoxinNumber { get; set; }
+
+
+            /// <summary>
+            ///添加客户头像id
+            /// </summary>
+            public int? Cover { get; set; }
+
+            /// <summary>
+            /// 申请添加时间
+            /// </summary>
+            public DateTime CreateTime { get; set; }
+
+            /// <summary>
+            /// 申请添加状态 (枚举值:ClientAddDetailTypeEnum);
+            /// </summary>
+            public ClientAddDetailTypeEnum Status { get; set; }
+
+            public string StatusName { get; set; }
+
+
+            /// <summary>
+            /// 客户昵称
+            /// </summary>
+            public string NickName { get; set; }
+
+
+        }
+
+
+
+        public class ClientFriendResponse
+        {      
+            /// <summary>
+            /// 环信id
+            /// </summary>
+            public string HuanxinId { get; set; }
+
+            /// <summary>
+            /// 聊信Id
+            /// </summary>
+            public string LiaoxinNumber { get; set; }
+
+
+            /// <summary>
+            ///添加客户头像id
+            /// </summary>
+            public int? Cover { get; set; }
+
+            /// <summary>
+            /// 添加时间
+            /// </summary>
+            public DateTime CreateTime { get; set; }
+
+           
+            /// <summary>
+            /// 客户昵称
+            /// </summary>
+            public string NickName { get; set; }
+
+        }
     }
 }

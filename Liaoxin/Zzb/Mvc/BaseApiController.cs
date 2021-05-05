@@ -88,6 +88,19 @@ namespace Zzb.Mvc
                 return -1;
             }
         }
- 
+
+        protected Guid ClientId
+        {
+            get
+            {
+                if (UserContext.Current.IsAuthenticated)
+                {
+                    return UserContext.Current.Id;
+                }
+
+                return Guid.Empty;
+            }
+        }
+
     }
 }

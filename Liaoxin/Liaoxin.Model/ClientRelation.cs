@@ -21,7 +21,7 @@ namespace Liaoxin.Model
         /// 客户Id
         /// </summary>
         /// 
-        [ZzbIndex]
+        [ZzbIndex("weiyiRelation")]
         public Guid ClientId { get; set; }
 
         public  virtual Client Client { get; set; }
@@ -30,7 +30,8 @@ namespace Liaoxin.Model
 
         /// <summary>
         /// 这个客户的关系
-        /// </summary>
+        /// </summary>        
+        [ZzbIndex("weiyiRelation")]
         public RelationTypeEnum RelationType { get; set; }
 
 
