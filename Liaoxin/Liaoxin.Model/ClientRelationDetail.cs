@@ -15,7 +15,7 @@ namespace Liaoxin.Model
         public ClientRelationDetail()
         {
         }
-         public Guid ClientRelationDetailId { get; set; } = Guid.NewGuid();
+        public Guid ClientRelationDetailId { get; set; } = Guid.NewGuid();
 
 
         [ZzbIndex]
@@ -33,7 +33,7 @@ namespace Liaoxin.Model
         /// 标签
         /// </summary>
         public Guid? ClientTagId { get; set; }
-        
+
 
         /// <summary>
         /// 标签
@@ -78,14 +78,14 @@ namespace Liaoxin.Model
         /// <summary>
         /// 来自于
         /// </summary>
-        public AddSourceTypeEnum AddSource { get; set; }  
+        public AddSourceTypeEnum AddSource { get; set; }
 
 
 
         public enum AddSourceTypeEnum
         {
             [Description("通过手机号码添加好友")]
-            Phone = 0 ,
+            Phone = 0,
 
             [Description("通过扫描添加好友")]
             Scan = 1,
@@ -101,6 +101,7 @@ namespace Liaoxin.Model
         /// </summary>
         public int MutipleGroup { get; set; } = 0;
 
+ 
 
 
 
