@@ -41,7 +41,7 @@ namespace Liaoxin.Controllers
         }
 
         /// <summary>
-        /// 客户登录
+        /// 客户手机号码登录
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
@@ -63,7 +63,7 @@ namespace Liaoxin.Controllers
 
 
         /// <summary>
-        /// 客户登录
+        /// 客户账号登录
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
