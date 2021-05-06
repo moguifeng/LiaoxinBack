@@ -13,7 +13,7 @@ namespace Liaoxin.IBusiness
         /// <param name="clientId"></param>
         /// <param name="groupId"></param>
         /// <returns></returns>
-        GroupClient GetClientGroups(Guid clientId, Guid groupId);
+        GroupClient GetClientGroup(Guid clientId, Guid groupId);
         /// <summary>
         /// 获取客户的所有群
         /// </summary>
@@ -42,6 +42,13 @@ namespace Liaoxin.IBusiness
         /// <param name="clientId"></param>
         /// <param name="groupId"></param>
         public void CancelGroupManager(Guid clientId, Guid groupId);
+
+        /// <summary>
+        /// 获取群所有管理员
+        /// </summary>
+        /// <param name="groupId"></param>
+        /// <returns></returns>
+        IList<GroupManager> GetGroupManagerList(Guid groupId);
 
         /// <summary>
         /// 转让群主
@@ -92,7 +99,7 @@ namespace Liaoxin.IBusiness
         /// <param name="skip">起始位置,默认0</param>
         /// <param name="pageSize">记录数,默认1000</param>
         /// <returns></returns>
-        IList<Group> GetClientGroups(bool isEnable, int skip = 0, int pageSize = 1000);
+        IList<Group> GetGroups(bool isEnable, int skip = 0, int pageSize = 1000);
         /// <summary>
         /// 增加群成员
         /// </summary>
@@ -100,12 +107,18 @@ namespace Liaoxin.IBusiness
         /// <param name="groupId"></param>
         /// <param name="isEnable">是否通过</param>
         /// <param name="isExeSave">是否立刻执行数据库</param>
-        void AddGroupClient(Guid clientId, Guid groupId, bool isEnable, bool isExeSave = true);
+        void AddGroupClient(Guid clientId, Guid groupId, bool isEnable, bool isExeSave = true, Group g = null);
         /// <summary>
         /// 更新群成员信息
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="isExeSave">是否立刻执行数据库</param>
         void UpdateGroupClient(GroupClient entity, bool isExeSave = true);
+
+
+        void SaveChanges();
+
+        Guid GetCurClientId();
+
     }
 }

@@ -23,7 +23,7 @@ namespace Liaoxin.Business
         /// <param name="clientId"></param>
         /// <param name="groupId"></param>
         /// <returns></returns>
-        public GroupClient GetClientGroups(Guid clientId, Guid groupId)
+        public GroupClient GetClientGroup(Guid clientId, Guid groupId)
         {
             return Context.GroupClients.FirstOrDefault(a => a.ClientId == clientId && a.GroupId == groupId);
         }
@@ -47,7 +47,7 @@ namespace Liaoxin.Business
         public bool ClientLeaveGroup(Guid clientId, Guid groupId)
         {
             bool result = false;
-            GroupClient entity = GetClientGroups(clientId, groupId);
+            GroupClient entity = GetClientGroup(clientId, groupId);
             if (entity != null)
             {
                 Context.GroupClients.Remove(entity);
@@ -123,6 +123,17 @@ namespace Liaoxin.Business
                 Context.SaveChanges();
             }
         }
+
+        /// <summary>
+        /// 获取群所有管理员
+        /// </summary>
+        /// <param name="groupId"></param>
+        /// <returns></returns>
+        public IList<GroupManager> GetGroupManagerList(Guid groupId)
+        {
+            return Context.GroupManagers.Where(p=>p.GroupId== groupId).ToList();
+        }
+
 
         /// <summary>
         /// 转让群主
@@ -225,7 +236,7 @@ namespace Liaoxin.Business
         /// <param name="skip">起始位置,默认0</param>
         /// <param name="pageSize">记录数,默认1000</param>
         /// <returns></returns>
-        public IList<Group> GetClientGroups(bool isEnable, int skip = 0, int pageSize = 1000)
+        public IList<Group> GetGroups(bool isEnable, int skip = 0, int pageSize = 1000)
         {
             return (from a in Context.GroupClients where a.IsEnable == isEnable select a.Group).Skip(skip).Take(pageSize).ToList();
         }
@@ -237,9 +248,12 @@ namespace Liaoxin.Business
         /// <param name="groupId"></param>
         /// <param name="isEnable">是否通过</param>
         /// <param name="isExeSave">是否立刻执行数据库</param>
-        public void AddGroupClient(Guid clientId, Guid groupId, bool isEnable, bool isExeSave = true)
+        public void AddGroupClient(Guid clientId, Guid groupId, bool isEnable, bool isExeSave = true, Group g=null)
         {
-            Group g = GetGroup(groupId);
+            if (g == null)
+            {
+                g = GetGroup(groupId);
+            }
             if (g != null)
             {
                 GroupClient gc = new GroupClient();
@@ -270,5 +284,13 @@ namespace Liaoxin.Business
             }
         }
 
+        public void SaveChanges()
+        {
+            Context.SaveChanges();
+        }
+        public Guid GetCurClientId()
+        {
+            return ClientId;
+        }
     }
 }

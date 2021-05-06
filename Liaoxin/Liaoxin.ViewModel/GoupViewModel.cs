@@ -55,7 +55,7 @@ namespace LIaoxin.ViewModel
 
     }
 
-    public class CroupClientResponse
+    public class GroupClientResponse
     {
         public Guid GroupClientId { get; set; } = Guid.NewGuid();
 
