@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using static Liaoxin.Model.Client;
 using static Liaoxin.Model.ClientAddDetail;
+using static Liaoxin.Model.ClientRelationDetail;
 
 namespace Liaoxin.ViewModel
 {
@@ -261,6 +262,41 @@ namespace Liaoxin.ViewModel
             /// </summary>
             public string NickName { get; set; }
 
+            /// <summary>
+            /// 客户备注(自定义)
+            /// </summary>
+            public string ClientRemark { get; set; }
+
         }
+
+        public class ApplyAddFriendRequest
+        {
+            /// <summary>
+            /// 环信Id
+            /// </summary>
+            public string HuanxinId { get; set; }
+
+            /// <summary>
+            /// 申请添加备注
+            /// </summary>
+            public string AddRemark { get; set; }
+        }
+
+
+        public class SureAddFriendRequest
+        {
+            /// <summary>
+            /// 环信Id
+            /// </summary>
+            public string HuanxinId { get; set; }
+
+            /// <summary>
+            /// 添加方式 (枚举:AddSourceTypeEnum)
+            /// </summary>
+            public AddSourceTypeEnum Method { get; set; }
+        }
+
+        
+
     }
 }

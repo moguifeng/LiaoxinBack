@@ -41,17 +41,7 @@ namespace Liaoxin.Business
     //        {
     //            throw new ZzbException("该用户已被冻结");
     //        }
-
-    //        if (!playerBank.Player.IsEnable)
-    //        {
-    //            throw new ZzbException("该用户已被删除");
-    //        }
-
-    //        //if (playerBank.Player.Type == PlayerTypeEnum.TestPlay)
-    //        //{
-    //        //    throw new ZzbException("试用玩家不能提款");
-    //        //}
-
+     
     //        if (!playerBank.Player.CanWithdraw)
     //        {
     //            throw new ZzbException("申请提现失败:银行系统维护中，给您带来不便敬请谅解！");
@@ -90,10 +80,7 @@ namespace Liaoxin.Business
     //            throw new ZzbException($"提现金额不能低于{BaseConfig.CreateInstance(SystemConfigEnum.MinWithdraw).Value}");
     //        }
 
-    //        if (playerBank.Player.LastBetMoney > 0)
-    //        {
-    //            throw new ZzbException($"投注金额未达到最低消费,您的最低消费是{playerBank.Player.LastBetMoney:#0.00}元.");
-    //        }
+ 
 
     //        CheckPlayerWithdrawCount(playerId);
 
