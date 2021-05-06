@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Liaoxin.IBusiness.Huanxin
+namespace Liaoxin.IBusiness
 {
     public interface IGroupService
     {

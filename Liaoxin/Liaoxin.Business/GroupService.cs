@@ -11,7 +11,7 @@ using Zzb;
 using Zzb.EF;
 using Zzb.ZzbLog;
 
-namespace Liaoxin.Business.Huanxin
+namespace Liaoxin.Business
 {
     public class GroupService : BaseService, IGroupService
     {

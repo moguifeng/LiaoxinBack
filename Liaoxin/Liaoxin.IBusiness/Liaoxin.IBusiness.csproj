@@ -9,4 +9,8 @@
     <ProjectReference Include="..\Liaoxin.ViewModel\Liaoxin.ViewModel.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Huanxin\" />
+  </ItemGroup>
+
 </Project>
