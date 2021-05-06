@@ -1,6 +1,5 @@
 ﻿using Liaoxin.Business.Socket;
 using Liaoxin.IBusiness;
-using Liaoxin.IBusiness.Huanxin;
 using Liaoxin.Model;
 using System;
 using System.Collections.Generic;
@@ -15,6 +14,9 @@ namespace Liaoxin.Business
 {
     public class GroupService : BaseService, IGroupService
     {
+        public LiaoxinContext Context { get; set; }
+
+
         /// <summary>
         /// 获取当前群成员
         /// </summary>
@@ -237,16 +239,20 @@ namespace Liaoxin.Business
         /// <param name="isExeSave">是否立刻执行数据库</param>
         public void AddGroupClient(Guid clientId, Guid groupId, bool isEnable, bool isExeSave = true)
         {
-            GroupClient gc = new GroupClient();
-            gc.GroupClientId = Guid.NewGuid();
-            gc.ClientId = clientId;
-            gc.GroupId = groupId;
-            gc.IsBlock = false;
-            gc.IsEnable = isEnable;
-            Context.GroupClients.Add(gc);
-            if (isExeSave)
+            Group g = GetGroup(groupId);
+            if (g != null)
             {
-                Context.SaveChanges();
+                GroupClient gc = new GroupClient();
+                gc.GroupClientId = Guid.NewGuid();
+                gc.ClientId = clientId;
+                gc.GroupId = groupId;
+                gc.IsBlock = false;
+                gc.IsEnable = (isEnable || !g.SureConfirmInvite);
+                Context.GroupClients.Add(gc);
+                if (isExeSave)
+                {
+                    Context.SaveChanges();
+                }
             }
         }
 

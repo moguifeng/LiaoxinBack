@@ -23,7 +23,7 @@ namespace Liaoxin.Controllers
         public IClientService clientService { get; set; }
         public LiaoxinContext Context { get; set; }
 
-
+        public IGroupService groupService { get; set; }
         /// <summary>
         /// 获取客户
         /// </summary>
@@ -38,6 +38,10 @@ namespace Liaoxin.Controllers
             }, "获取客户失败");
 
         }
+
+
+
+
     }
 
 

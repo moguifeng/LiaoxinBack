@@ -6,6 +6,7 @@ namespace Liaoxin.IBusiness
 {
     public interface IGroupService
     {
+
         /// <summary>
         /// 获取当前群成员
         /// </summary>
