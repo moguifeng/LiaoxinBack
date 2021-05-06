@@ -24,6 +24,25 @@ namespace Liaoxin.Business
 
 
 
+        void InsertClientEquiment(string name, string type)
+        {
+            if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(type))
+            {
+                var equimentEntity = Context.ClientEquipments.Where(c => c.Name == name && c.Type == type).FirstOrDefault();
+                if (equimentEntity == null)
+                {
+                    equimentEntity = new ClientEquipment() { ClientId = ClientId, Type = type, Name = name, LastLoginDate = DateTime.Now };
+                    Context.ClientEquipments.Add(equimentEntity);
+                }
+                else
+                {
+                    equimentEntity.LastLoginDate = DateTime.Now;
+                    Context.ClientEquipments.Update(equimentEntity);
+                }
+
+            }
+        }
+
         void ClientLoginLog(Guid clientId)
         {
             string ip = HttpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
@@ -59,7 +78,7 @@ namespace Liaoxin.Business
 
 
             var cnt = (from c in Context.Clients where c.Telephone == request.Telephone && c.IsEnable select c).Count();
-            if (cnt ==0)
+            if (cnt == 0)
             {
                 throw new ZzbException("用户名或者密码错误");
             }
@@ -80,33 +99,42 @@ namespace Liaoxin.Business
             request.Password = SecurityHelper.Encrypt(request.Password);
             if (client.Password != request.Password)
             {
-                client.ErrorPasswordCount++;
-                Context.Clients.Update(client);
-                Context.SaveChanges();
+                // client.ErrorPasswordCount++;
+                //    Context.Clients.Update(client);
+                //   Context.SaveChanges();
                 LogHelper.Error($"[{client.ClientId}]密码错误!,请留意");
                 throw new ZzbException("用户名或者密码错误");
             }
             ClientLoginLog(client.ClientId);
-            if (client.ErrorPasswordCount > 0)
-            {
-                client.ErrorPasswordCount = 0;
-                Context.Clients.Update(client);
-                Context.SaveChanges();
+            InsertClientEquiment(request.EquimentName, request.EquimentType);
+            Context.SaveChanges();
+            //if (client.ErrorPasswordCount > 0)
+            //{
+            //    client.ErrorPasswordCount = 0;
+            //    Context.Clients.Update(client);
+            //    Context.SaveChanges();
 
-            }
+            //}
             return client;
         }
 
         public ClientBaseInfoResponse GetClient()
         {
-             var c =  (from p in Context.Clients where p.ClientId == ClientId select p).FirstOrDefault();           
+            var c = (from p in Context.Clients where p.ClientId == ClientId select p).FirstOrDefault();
+          
             if (c == null)
             {
                 return null;
             }
-      
+            var equiments = Context.ClientEquipments.Where(ce => ce.ClientId == ClientId).OrderByDescending(o => o.LastLoginDate).ToList();
+            List<CEquiment> lis = new List<CEquiment>();
+            equiments.ForEach(e =>
+            {
+                lis.Add(new CEquiment() { LastLoginDate = e.LastLoginDate, Name = e.Name, Type = e.Type });
+            });
             return new ClientBaseInfoResponse()
             {
+                Equiments = lis,
                 AddMeNeedChecked = c.AddMeNeedChecked,
                 AppOpenWhileSound = c.AppOpenWhileSound,
                 AreaCode = c.AreaCode,
@@ -116,7 +144,7 @@ namespace Liaoxin.Business
                 FontSize = c.FontSize,
                 HandFree = c.HandFree,
                 HuanXinId = c.HuanXinId,
-                LiaoxinNumber = c.LiaoxinNumber,          
+                LiaoxinNumber = c.LiaoxinNumber,
                 NewMessageNotication = c.NewMessageNotication,
                 NickName = c.NickName,
                 OpenWhileShake = c.OpenWhileShake,
@@ -125,11 +153,12 @@ namespace Liaoxin.Business
                 Telephone = c.Telephone,
                 UpadteMind = c.UpadteMind,
                 VideoMessageNotication = c.VideoMessageNotication,
-                WifiVideoPlay = c.WifiVideoPlay
+                WifiVideoPlay = c.WifiVideoPlay,
+
 
             };
 
-            }
+        }
 
         public bool ChangePassword(ClientChangePasswordRequest request)
         {
@@ -145,7 +174,7 @@ namespace Liaoxin.Business
             }
 
             client.Password = SecurityHelper.Encrypt(request.newPsssword);
-          
+
             client.Update();
             Context.ClientOperateLogs.Add(new ClientOperateLog(client.ClientId, "修改登录密码"));
             return Context.SaveChanges() > 0;
@@ -175,32 +204,30 @@ namespace Liaoxin.Business
             if (!StringHelper.IsMobile(request.Telephone))
             {
                 throw new ZzbException("请输入正确的手机号码");
-            }            
+            }
             var client = (from p in Context.Clients where p.Telephone == request.Telephone select p).FirstOrDefault();
             if (client == null)
             {
-                Client entity = new Client();
-                entity.Telephone = request.Telephone;
-                var res = HuanxinRequest.RegisterClient(entity.HuanXinId);
+                client = new Client();
+                client.Telephone = request.Telephone;
+                var res = HuanxinRequest.RegisterClient(client.HuanXinId);
                 if (res.ReturnCode == ServiceResultCode.Success)
                 {
-                    Context.Clients.Add(entity);
-                    ClientLoginLog(entity.ClientId);
-                    Context.SaveChanges();
+                    Context.Clients.Add(client);
+
                 }
                 else
                 {
                     throw new ZzbException(res.Message);
                 }
-             
-
-                return entity;
             }
+            InsertClientEquiment(request.EquimentName, request.EquimentType);
             ClientLoginLog(client.ClientId);
+            Context.SaveChanges();
             return client;
-            
+
         }
 
-    
+
     }
 }

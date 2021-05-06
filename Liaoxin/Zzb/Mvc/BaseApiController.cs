@@ -89,7 +89,7 @@ namespace Zzb.Mvc
             }
         }
 
-        protected Guid ClientId
+        protected Guid CurrentClientId
         {
             get
             {

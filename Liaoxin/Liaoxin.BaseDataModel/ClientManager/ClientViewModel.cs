@@ -101,7 +101,7 @@ namespace Liaoxin.BaseDataModel.ClientManger
         public override BaseButton[] CreateRowButtons()
         {
             List<BaseButton> list = new EditableList<BaseButton>();
-            string title = this.IsFreeze ? "禁用" : "启用";
+            string title = this.IsFreeze ? "启用" : "禁用";
             list.Add(new ConfirmActionButton("EnableOperation", title, "是否确认操作?"));
             list.Add(new ClientEditModal("Save", "编辑客户"));
             return list.ToArray();
@@ -124,7 +124,7 @@ namespace Liaoxin.BaseDataModel.ClientManger
             }
 
             entity.IsFreeze = !this.IsFreeze;
-            string title = entity.IsFreeze ? "禁用" : "启用";
+            string title = entity.IsFreeze ? "启用" : "禁用";
 
             Context.Clients.Update(entity);
             UserOperateLogService.Log($"[{title}了+{entity.LiaoxinNumber}]聊信客户", Context);

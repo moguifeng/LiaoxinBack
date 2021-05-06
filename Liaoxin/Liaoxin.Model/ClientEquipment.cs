@@ -41,7 +41,7 @@ namespace Liaoxin.Model
         /// <summary>
         /// 最后登录时间
         /// </summary>
-        public DateTime LastLoginDate { get; set; }
+        public DateTime LastLoginDate { get; set; } = DateTime.Now;
 
         
 

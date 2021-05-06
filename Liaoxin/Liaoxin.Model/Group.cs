@@ -61,6 +61,8 @@ namespace Liaoxin.Model
 
         public virtual List<GroupManager> GroupMangers { get; set; }
 
+        public virtual List<GroupClient> GroupClients { get;set; }
+
         /// <summary>
         /// 确认群聊邀请
         /// </summary>

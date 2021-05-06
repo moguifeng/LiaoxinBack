@@ -21,6 +21,16 @@ namespace Liaoxin.ViewModel
             /// </summary>
             public string Password { get; set; }
 
+            /// <summary>
+            /// 设备名称
+            /// </summary>
+            public string EquimentName { get; set; }
+
+            /// <summary>
+            /// 设备类型
+            /// </summary>
+            public string EquimentType { get; set; }
+
         }
 
 
@@ -43,6 +53,16 @@ namespace Liaoxin.ViewModel
             /// 验证码
             /// </summary>
             public string Code { get; set; }
+
+            /// <summary>
+            /// 设备名称
+            /// </summary>
+            public string EquimentName { get; set; }
+
+            /// <summary>
+            /// 设备类型
+            /// </summary>
+            public string EquimentType { get; set; }
 
         }
 
@@ -73,8 +93,35 @@ namespace Liaoxin.ViewModel
             public string oldCoinPassword { get; set; }
         }
 
+        public class CEquiment
+        {
+         
+            /// <summary>
+            /// 设备名称
+            /// </summary>
+            public string Name { get; set; }
+            /// <summary>
+            /// 设备类型
+            /// </summary>
+            public string Type { get; set; }
+            /// <summary>
+            /// 最后登录时间
+            /// </summary>
+            public DateTime LastLoginDate { get; set; }
+        }
+
         public class ClientBaseInfoResponse
         {
+
+            public ClientBaseInfoResponse()
+            {
+                Equiments = new List<CEquiment>();
+            }
+
+            /// <summary>
+            /// 我的登录设备列表
+            /// </summary>
+            public List<CEquiment> Equiments { get; set; }
             /// <summary>
             /// 头像
             /// </summary>
@@ -157,8 +204,6 @@ namespace Liaoxin.ViewModel
 
 
 
-
-
             /// <summary>
             ///新消息通知
             /// </summary>
@@ -184,8 +229,7 @@ namespace Liaoxin.ViewModel
             /// </summary>
             public bool OpenWhileShake { get; set; }
 
-
-         
+ 
 
 
         }
@@ -235,9 +279,64 @@ namespace Liaoxin.ViewModel
         }
 
 
+        public class ClientFriendDetailResponse
+        {
+
+            /// <summary>
+            /// 好友的唯一id
+            /// </summary>
+            public Guid ClientId { get; set; }
+
+            /// <summary>
+            /// 环信id
+            /// </summary>
+            public string HuanxinId { get; set; }
+
+            /// <summary>
+            /// 聊信Id
+            /// </summary>
+            public string LiaoxinNumber { get; set; }
+
+ 
+            /// <summary>
+            /// 个性签名
+            /// </summary>
+ 
+                public string CharacterSignature { get; set; }
+
+
+            /// <summary>
+            ///添加客户头像id
+            /// </summary>
+
+            public int? Cover { get; set; }
+
+            /// <summary>
+            /// 来自于
+            /// </summary>
+            public string Source { get; set; }
+
+            /// <summary>
+            /// 共同群聊
+            /// </summary>
+            public int MutipleGroupCnt { get; set; }
+
+            /// <summary>
+            /// 客户昵称
+            /// </summary>
+            public string NickName { get; set; }
+
+            /// <summary>
+            /// 客户昵称备注(自定义)
+            /// </summary>
+            public string ClientRemark { get; set; }
+
+        }
 
         public class ClientFriendResponse
         {
+
+            public Guid ClientId { get; set; }
             /// <summary>
             /// 环信id
             /// </summary>
@@ -253,11 +352,7 @@ namespace Liaoxin.ViewModel
             ///添加客户头像id
             /// </summary>
             public int? Cover { get; set; }
-
-            /// <summary>
-            /// 添加时间
-            /// </summary>
-            public DateTime CreateTime { get; set; }
+        
 
 
             /// <summary>
@@ -266,7 +361,7 @@ namespace Liaoxin.ViewModel
             public string NickName { get; set; }
 
             /// <summary>
-            /// 客户备注(自定义)
+            /// 客户昵称备注(自定义)
             /// </summary>
             public string ClientRemark { get; set; }
 
@@ -277,7 +372,7 @@ namespace Liaoxin.ViewModel
             /// <summary>
             /// 环信Id
             /// </summary>
-            public string HuanxinId { get; set; }
+            public Guid ClientId { get; set; }
 
             /// <summary>
             /// 申请添加备注
@@ -290,10 +385,8 @@ namespace Liaoxin.ViewModel
 
         public class SureAddFriendRequest
         {
-            /// <summary>
-            /// 环信Id
-            /// </summary>
-            public string HuanxinId { get; set; }
+   
+            public Guid ClientId { get; set; }
 
             /// <summary>
             /// 添加方式 (枚举:AddSourceTypeEnum)
@@ -302,12 +395,26 @@ namespace Liaoxin.ViewModel
         }
 
 
+        public class SetFriendRemarkRequest
+        {
+            /// <summary>
+            /// 好友的环信Id
+            /// </summary>
+            public Guid ClientId { get; set; }
+
+            /// <summary>
+            /// 好友备注
+            /// </summary>
+            public string Remark { get; set; }
+        }
+
+
         public class DeleteFriendRequest
         {
             /// <summary>
-            /// 环信Id
+            /// 好友的环信Id
             /// </summary>
-            public string HuanxinId { get; set; }
+            public Guid ClientId { get; set; }
         }
     }
 }
