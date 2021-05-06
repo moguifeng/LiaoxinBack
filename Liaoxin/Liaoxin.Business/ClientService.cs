@@ -135,6 +135,7 @@ namespace Liaoxin.Business
             return new ClientBaseInfoResponse()
             {
                 Equiments = lis,
+                ClientId = c.ClientId,
                 AddMeNeedChecked = c.AddMeNeedChecked,
                 AppOpenWhileSound = c.AppOpenWhileSound,
                 AreaCode = c.AreaCode,
