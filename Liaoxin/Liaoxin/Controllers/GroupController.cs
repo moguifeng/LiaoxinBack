@@ -19,7 +19,7 @@ namespace Liaoxin.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [ZzbAuthorize]
+    [Authorize]
     public class GroupControllerController : BaseApiController
     {
         public IClientService clientService { get; set; }
