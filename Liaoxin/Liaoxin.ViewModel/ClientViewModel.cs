@@ -185,6 +185,9 @@ namespace Liaoxin.ViewModel
             public bool OpenWhileShake { get; set; }
 
 
+         
+
+
         }
 
         public class ClientAddDetailResponse
@@ -280,6 +283,8 @@ namespace Liaoxin.ViewModel
             /// 申请添加备注
             /// </summary>
             public string AddRemark { get; set; }
+
+
         }
 
 

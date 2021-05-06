@@ -185,16 +185,18 @@ namespace Liaoxin.Business
                 if (res.ReturnCode == ServiceResultCode.Success)
                 {
                     Context.Clients.Add(entity);
+                    ClientLoginLog(entity.ClientId);
                     Context.SaveChanges();
                 }
                 else
                 {
                     throw new ZzbException(res.Message);
                 }
-                ClientLoginLog(client.ClientId);
+             
 
                 return entity;
             }
+            ClientLoginLog(client.ClientId);
             return client;
             
         }
