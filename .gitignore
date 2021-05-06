@@ -1,2 +1,3 @@
 .vs
 /AllLottery.Web/node_modules
+/Redis/dump.rdb
