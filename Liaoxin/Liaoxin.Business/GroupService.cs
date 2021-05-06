@@ -47,17 +47,21 @@ namespace Liaoxin.Business
         public bool ClientLeaveGroup(Guid clientId, Guid groupId)
         {
             bool result = false;
-            GroupClient entity = GetClientGroup(clientId, groupId);
-            if (entity != null)
+            Group g = GetGroup(groupId);
+            if (g != null && g.ClientId != clientId)
             {
-                Context.GroupClients.Remove(entity);
-                Context.SaveChanges();
-                if (Context.GroupClients.FirstOrDefault(p => p.GroupId == groupId) == null)
+                GroupClient entity = GetClientGroup(clientId, groupId);
+                if (entity != null)
                 {
-                    //群已经没人,自动解散
-                    DissolveGroup(groupId);
+                    Context.GroupClients.Remove(entity);
+                    Context.SaveChanges();
+                    if (Context.GroupClients.FirstOrDefault(p => p.GroupId == groupId) == null)
+                    {
+                        //群已经没人,自动解散
+                        DissolveGroup(groupId);
+                    }
+                    result = true;
                 }
-                result = true;
             }
             return result;
         }
@@ -70,7 +74,9 @@ namespace Liaoxin.Business
         public bool DissolveGroup(Guid groupId)
         {
             bool result = false;
+            Context.GroupManagers.RemoveRange(Context.GroupManagers.Where(p => p.GroupId == groupId));
             Context.GroupClients.RemoveRange(Context.GroupClients.Where(p => p.GroupId == groupId));
+            Context.Groups.RemoveRange(Context.Groups.Where(p => p.GroupId == groupId));
             Context.SaveChanges();
             result = true;
             return result;
@@ -86,7 +92,7 @@ namespace Liaoxin.Business
         {
 
             DateTime timeNow = DateTime.Now;
-            GroupManager gm = Context.GroupManagers.FirstOrDefault(p => p.GroupId == groupId);
+            GroupManager gm = Context.GroupManagers.FirstOrDefault(p => p.GroupId == groupId && p.ClientId == clientId);
             if (gm != null)
             {
 
@@ -113,9 +119,9 @@ namespace Liaoxin.Business
         /// </summary>
         /// <param name="clientId"></param>
         /// <param name="groupId"></param>
-        public void CancelGroupManager(Guid clientId, Guid groupId)
+        public void CancelGroupManager(Guid clientId, Guid groupId, bool isExeSave = true)
         {
-            GroupManager gm = Context.GroupManagers.FirstOrDefault(p => p.GroupId == groupId);
+            GroupManager gm = Context.GroupManagers.FirstOrDefault(p => p.GroupId == groupId&&p.ClientId==clientId);
             if (gm != null)
             {
 
@@ -150,8 +156,9 @@ namespace Liaoxin.Business
             {
                 g.ClientId = newMasterClientId;
                 Context.Groups.Update(g);
+                CancelGroupManager(originalMasterClientId, groupId,false);
+                SetGroupManager(newMasterClientId, groupId, false);
                 Context.SaveChanges();
-                CancelGroupManager(originalMasterClientId, groupId);
                 result = true;
             }
             return false;
@@ -167,7 +174,7 @@ namespace Liaoxin.Business
             entity.IsEnable = false;
             Context.Groups.Add(entity);
             SetGroupManager(entity.ClientId, entity.GroupId, false);
-            AddGroupClient(entity.ClientId, entity.GroupId, true, false);
+            AddGroupClient(entity.ClientId, entity.GroupId, true, false, entity);
             Context.SaveChanges();
             result = true;
             return result;
@@ -182,7 +189,9 @@ namespace Liaoxin.Business
         public bool UpdateGroup(Group entity)
         {
             bool result = false;
+            entity.UpdateTime = DateTime.Now;
             Context.Groups.Update(entity);
+            Context.SaveChanges();
             result = true;
             return result;
         }
@@ -194,7 +203,8 @@ namespace Liaoxin.Business
         /// <returns></returns>
         public IList<Client> GetGroupClients(Guid groupId, bool isEnable)
         {
-            return (from a in Context.GroupClients where a.GroupId == groupId && a.IsEnable select a.Client).Distinct().Where(p => p.IsEnable == isEnable).ToList();
+            IList<Guid> clientIdList = (from a in Context.GroupClients where a.GroupId == groupId && a.IsEnable select a.ClientId).ToList();
+            return (clientIdList==null|| clientIdList.Count==0)?null: Context.Clients.Where(p=>p.IsEnable==isEnable&& clientIdList.Contains(p.ClientId)).ToList();
         }
         /// <summary>
         /// 获取群
@@ -277,6 +287,7 @@ namespace Liaoxin.Business
         /// <param name="isExeSave"></param>
         public void UpdateGroupClient(GroupClient entity, bool isExeSave = true)
         {
+            entity.UpdateTime = DateTime.Now;
             Context.GroupClients.Update(entity);
             if (isExeSave)
             {

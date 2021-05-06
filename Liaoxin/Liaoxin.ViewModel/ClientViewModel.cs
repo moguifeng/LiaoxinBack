@@ -75,6 +75,7 @@ namespace Liaoxin.ViewModel
 
         public class ClientBaseInfoResponse
         {
+            public Guid ClientId { get; set; }
             /// <summary>
             /// 头像
             /// </summary>

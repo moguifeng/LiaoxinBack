@@ -41,7 +41,7 @@ namespace Liaoxin.IBusiness
         /// </summary>
         /// <param name="clientId"></param>
         /// <param name="groupId"></param>
-        public void CancelGroupManager(Guid clientId, Guid groupId);
+        public void CancelGroupManager(Guid clientId, Guid groupId, bool isExeSave = true);
 
         /// <summary>
         /// 获取群所有管理员
