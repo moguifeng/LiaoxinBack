@@ -120,7 +120,7 @@ namespace Liaoxin.Controllers
         /// 客户(新的好友添加)列表
         /// </summary>       
         /// <returns></returns>
-        [HttpPost("ApplyFriends")]
+        [HttpPost("ApplFriends")]
         public ServiceResult<List<ClientAddDetailResponse>> ApplyFriends()
         {
             return (ServiceResult<List<ClientAddDetailResponse>>)Json(() =>
@@ -265,8 +265,6 @@ namespace Liaoxin.Controllers
         //修改地区
 
         //个性签名
-
-
 
 
         //创建群

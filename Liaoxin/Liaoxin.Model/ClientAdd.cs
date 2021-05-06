@@ -27,7 +27,7 @@ namespace Liaoxin.Model
         /// 当前设备登录的客户
         /// </summary>
         /// 
-        [ZzbIndex("weiyiClient")]
+        [ZzbIndex]
         public Guid ClientId { get; set; }
 
 
