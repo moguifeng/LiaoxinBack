@@ -7,7 +7,7 @@ using static Liaoxin.Model.ClientRelationDetail;
 
 namespace Liaoxin.ViewModel
 {
-   public class ClientViewModel
+    public class ClientViewModel
     {
         public class ClientLoginRequest
         {
@@ -48,7 +48,7 @@ namespace Liaoxin.ViewModel
 
         public class ClientChangePasswordRequest
         {
-            
+
             /// <summary>
             /// 新的登录密码
             /// </summary>
@@ -56,13 +56,13 @@ namespace Liaoxin.ViewModel
             /// <summary>
             /// 旧的登录密码
             /// </summary>
-            public string oldPassword { get; set; }            
+            public string oldPassword { get; set; }
         }
 
 
         public class ClientChangeCoinPasswordRequest
         {
-          
+
             /// <summary>
             /// 新的交易密码
             /// </summary>
@@ -99,7 +99,7 @@ namespace Liaoxin.ViewModel
             /// <summary>
             /// 余额
             /// </summary>
-            public decimal Coin { get; set; } 
+            public decimal Coin { get; set; }
 
             /// <summary>
             /// 手机号码
@@ -135,8 +135,8 @@ namespace Liaoxin.ViewModel
             /// <summary>
             ///更新提醒
             /// </summary>
-            public bool UpadteMind { get; set; } = false;  
-  
+            public bool UpadteMind { get; set; } = false;
+
             /// <summary>
             /// 设置->字体大小
             /// </summary>
@@ -155,9 +155,9 @@ namespace Liaoxin.ViewModel
             /// </summary>
             public bool WifiVideoPlay { get; set; } = false;
 
-      
 
-           
+
+
 
             /// <summary>
             ///新消息通知
@@ -234,7 +234,7 @@ namespace Liaoxin.ViewModel
 
 
         public class ClientFriendResponse
-        {      
+        {
             /// <summary>
             /// 环信id
             /// </summary>
@@ -256,7 +256,7 @@ namespace Liaoxin.ViewModel
             /// </summary>
             public DateTime CreateTime { get; set; }
 
-           
+
             /// <summary>
             /// 客户昵称
             /// </summary>
@@ -296,7 +296,13 @@ namespace Liaoxin.ViewModel
             public AddSourceTypeEnum Method { get; set; }
         }
 
-        
 
+        public class DeleteFriendRequest
+        {
+            /// <summary>
+            /// 环信Id
+            /// </summary>
+            public string HuanxinId { get; set; }
+        }
     }
 }

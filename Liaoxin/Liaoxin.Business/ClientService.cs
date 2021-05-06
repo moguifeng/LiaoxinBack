@@ -22,6 +22,34 @@ namespace Liaoxin.Business
 
         public IMessageService MessageService { get; set; }
 
+
+
+        void ClientLoginLog(Guid clientId)
+        {
+            string ip = HttpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
+            new Task(() =>
+            {
+                try
+                {
+                    using (var context = LiaoxinContext.CreateContext())
+                    {
+                        ClientLoginLog clientLog = new ClientLoginLog()
+                        {
+                            ClientId = clientId,
+                            IP = ip,
+                            Address = IpAddressHelper.GetLocation(ip),
+                        };
+
+                        context.ClientLoginLogs.Add(clientLog);
+                        context.SaveChanges();
+                    }
+                }
+                catch (Exception e)
+                {
+                    LogHelper.Error($"插入玩家[{ClientId}]登录日志失败", e);
+                }
+            }).Start();
+        }
         public Client Login(ClientLoginRequest request)
         {
             //if (!ValidateCodeService.IsSameCode(code))
@@ -58,30 +86,7 @@ namespace Liaoxin.Business
                 LogHelper.Error($"[{client.ClientId}]密码错误!,请留意");
                 throw new ZzbException("用户名或者密码错误");
             }
-
-            string ip = HttpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
-            new Task(() =>
-            {
-                try
-                {
-                    using (var context = LiaoxinContext.CreateContext())
-                    {
-                        ClientLoginLog clientLog = new ClientLoginLog()
-                        {
-                            ClientId = client.ClientId,
-                            IP = ip,
-                            Address = IpAddressHelper.GetLocation(ip),
-                        };
-
-                        context.ClientLoginLogs.Add(clientLog);
-                        context.SaveChanges();
-                    }
-                }
-                catch (Exception e)
-                {
-                    LogHelper.Error($"插入玩家[{client.ClientId}]登录日志失败", e);
-                }
-            }).Start();
+            ClientLoginLog(client.ClientId);
             if (client.ErrorPasswordCount > 0)
             {
                 client.ErrorPasswordCount = 0;
@@ -186,6 +191,8 @@ namespace Liaoxin.Business
                 {
                     throw new ZzbException(res.Message);
                 }
+                ClientLoginLog(client.ClientId);
+
                 return entity;
             }
             return client;

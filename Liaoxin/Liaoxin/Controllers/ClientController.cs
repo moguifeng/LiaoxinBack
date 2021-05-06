@@ -186,7 +186,7 @@ namespace Liaoxin.Controllers
         [HttpPost("ApplyAddFriend")]
         public ServiceResult ApplyAddFriend(ApplyAddFriendRequest request)
         {
-            return (ServiceResult<List<ClientFriendResponse>>)Json(() =>
+            return Json(() =>
             {
                 var applyClientEntity = Context.Clients.Where(c => c.HuanXinId == request.HuanxinId).FirstOrDefault();
                 if (applyClientEntity == null)
@@ -207,6 +207,7 @@ namespace Liaoxin.Controllers
                     Status = ClientAddDetail.ClientAddDetailTypeEnum.StandBy,
                     AddRemark = request.AddRemark
                 };
+                Context.ClientOperateLogs.Add(new ClientOperateLog(ClientId, $"申请添加好友[{applyClientEntity.LiaoxinNumber}]"));
                 Context.ClientAddDetails.Add(detailEntity);
                 return ObjectResult(Context.SaveChanges() > 0);
             }, "添加好友申请失败");
@@ -221,7 +222,7 @@ namespace Liaoxin.Controllers
         [HttpPost("SureAddFriend")]
         public ServiceResult SureAddFriend(SureAddFriendRequest request)
         {
-            return (ServiceResult<List<ClientFriendResponse>>)Json(() =>
+            return Json(() =>
             {
                 var applyClientEntity = Context.Clients.Where(c => c.HuanXinId == request.HuanxinId).FirstOrDefault();
                 if (applyClientEntity == null)
@@ -242,17 +243,94 @@ namespace Liaoxin.Controllers
                     ClientRelationId = clientRelationEntity.ClientRelationId,
                 };
                 //环信确认添加
+                //
+
+                Context.ClientOperateLogs.Add(new ClientOperateLog(ClientId, $"确认添加好友[{applyClientEntity.LiaoxinNumber}]"));
                 Context.ClientRelationDetails.Add(detailEntity);
                 return ObjectResult(Context.SaveChanges() > 0);
             }, "确认添加好友失败");
 
         }
+        
+        /// <summary>
+        /// 删除好友
+        /// </summary>        
+        /// <returns></returns>
+
+        [HttpPost("DeleteFriend")]
+        public ServiceResult DeleteFriend(DeleteFriendRequest request)
+        {
+            return Json(() =>
+            {
+                var deleteClientEntity = Context.Clients.Where(c => c.HuanXinId == request.HuanxinId).FirstOrDefault();
+                if (deleteClientEntity == null)
+                {
+                    throw new ZzbException("找不到要删除的用户");
+                }
+                var clientRelationEntity = Context.ClientRelationDetails.Where(cd =>
+                cd.ClientRelation.ClientId == ClientId &&
+                cd.ClientRelation.RelationType == ClientRelation.RelationTypeEnum.Friend &&
+                cd.ClientId == deleteClientEntity.ClientId).FirstOrDefault();
+                if (clientRelationEntity == null)
+                {
+                    throw new ZzbException("这个用户不是你的好友,无法删除");
+                }
+                Context.ClientRelationDetails.Remove(clientRelationEntity);
+                Context.ClientOperateLogs.Add(new ClientOperateLog(ClientId, $"删除好友[{deleteClientEntity.LiaoxinNumber}]"));
+                //环信确认删除                
+                return ObjectResult(Context.SaveChanges() > 0);
+            }, "确认添加好友失败");
+        }
 
 
+        /// <summary>
+        /// 添加黑名单
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost("BlackFriend")]
+        public ServiceResult BlackFriend(DeleteFriendRequest request)
+        {
+            return Json(() =>
+            {
+                var blackClientEntity  = Context.Clients.Where(c => c.HuanXinId == request.HuanxinId).FirstOrDefault();
+                if (blackClientEntity == null)
+                {
+                    throw new ZzbException("找不到要拉黑的用户");
+                }
+                var clientRelationEntity = Context.ClientRelationDetails.Where(cd =>
+                cd.ClientRelation.ClientId == ClientId &&
+                cd.ClientRelation.RelationType == ClientRelation.RelationTypeEnum.Friend &&
+                cd.ClientId == blackClientEntity.ClientId).FirstOrDefault();
+                if (clientRelationEntity == null)
+                {
+                    throw new ZzbException("这个用户不是你的好友,无法拉黑");
+                }
+                Context.ClientRelationDetails.Remove(clientRelationEntity);
 
-        //删除好友
+                var blackCR =  Context.ClientRelations.Where(cr => cr.ClientId == ClientId && cr.RelationType == ClientRelation.RelationTypeEnum.Black).FirstOrDefault();
+                if (blackCR == null)
+                {
+                    blackCR = new ClientRelation()
+                    {
+                        ClientId = ClientId,
+                        RelationType = ClientRelation.RelationTypeEnum.Black,                       
+                    };
+                    Context.ClientRelations.Add(blackCR);
+                }
+                ClientRelationDetail detailEntity = new ClientRelationDetail()
+                {
+                    ClientId = blackClientEntity.ClientId,
+                    ClientRelationId = blackCR.ClientRelationId,
+                };
+                Context.ClientRelationDetails.Add(detailEntity);
+                Context.ClientOperateLogs.Add(new ClientOperateLog(ClientId, $"拉黑好友[{blackClientEntity.LiaoxinNumber}]"));
+                //环信确认拉黑
+                
+                return ObjectResult(Context.SaveChanges() > 0);
+            }, "确认添加好友失败");
+        }
 
-        //添加黑名单
 
         //设置好友备注
 
@@ -267,11 +345,7 @@ namespace Liaoxin.Controllers
         //个性签名
 
 
-        //创建群
-
-        //设置管理员
-
-        //删除管理员
+      
 
 
 
