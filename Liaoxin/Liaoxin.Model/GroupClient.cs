@@ -62,7 +62,7 @@ namespace Liaoxin.Model
         /// <summary>
         /// 聊天背景
         /// </summary>
-        public string BackgroundImg { get; set; }
+        public int? BackgroundImg { get; set; }
     }
 
  
