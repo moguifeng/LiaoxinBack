@@ -118,6 +118,7 @@ namespace Liaoxin.ViewModel
                 Equiments = new List<CEquiment>();
             }
 
+            public Guid ClientId { get; set; }
             /// <summary>
             /// 我的登录设备列表
             /// </summary>

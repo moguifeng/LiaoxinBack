@@ -69,7 +69,7 @@ namespace Liaoxin.Controllers
         {
             return (ServiceResult<IList<GroupResponse>>)Json(() =>
             {
-                return ObjectGenericityResult<IList<GroupResponse>>(ConvertHelper.ConvertToModel<IList<Group>, IList<GroupResponse>>(groupService.GetClientGroups(clientid, isEnable)));
+                return ObjectGenericityResult<IList<GroupResponse>>(ConvertHelper.ConvertToList<Group, GroupResponse>(groupService.GetClientGroups(clientid, isEnable)));
             }, "获取客户所有群基本信息失败");
         }
 
@@ -181,7 +181,7 @@ namespace Liaoxin.Controllers
         {
             return (ServiceResult<IList<ClientBaseInfoResponse>>)Json(() =>
             {
-                return ObjectGenericityResult<IList<ClientBaseInfoResponse>>(ConvertHelper.ConvertToModel<IList<Client>, IList<ClientBaseInfoResponse>>(groupService.GetGroupClients(groupId, isEnable)));
+                return ObjectGenericityResult<IList<ClientBaseInfoResponse>>(ConvertHelper.ConvertToList<Client, ClientBaseInfoResponse>(groupService.GetGroupClients(groupId, isEnable)));
             }, "获取群成员基本信息失败");
         }
 
@@ -202,7 +202,7 @@ namespace Liaoxin.Controllers
         }
 
         /// <summary>
-        /// 审核群是否通过
+        /// 管理员审核群
         /// </summary>
         /// <param name="groupId"></param>
         /// <param name="isEnable"></param>
@@ -214,7 +214,7 @@ namespace Liaoxin.Controllers
             {
                 groupService.AuditGroup(groupId, isEnable);
                 return ObjectGenericityResult<bool>(true);
-            }, "审核群是否通过失败");
+            }, "管理员审核群失败");
         }
 
 
@@ -229,19 +229,28 @@ namespace Liaoxin.Controllers
         {
             return (ServiceResult<IList<GroupResponse>>)Json(() =>
             {
-                return ObjectGenericityResult<IList<GroupResponse>>(ConvertHelper.ConvertToModel<IList<Group>, IList<GroupResponse>>(groupService.GetGroups(isEnable, 0, 10000)));
+                return ObjectGenericityResult<IList<GroupResponse>>(ConvertHelper.ConvertToList<Group, GroupResponse>(groupService.GetGroups(isEnable, 0, 10000)));
             }, "获取所有群基本信息失败");
         }
 
         /// <summary>
         /// 加入群
         /// </summary>
-        /// <param name="groupId"></param>
-        /// <param name="clientIdList"></param>
+        /// <param name="groupId">群Id</param>
+        /// <param name="clientIds">客户端Id,多个逗号相隔</param>
         /// <returns></returns>
         [HttpPost("BatchAddGroupClient")]
-        public ServiceResult<bool> BatchAddGroupClient(Guid groupId, List<Guid> clientIdList)
+        public ServiceResult<bool> BatchAddGroupClient(Guid groupId, string clientIds)
         {
+            List<Guid> clientIdList = new List<Guid>();
+            (clientIds + "").Split(',').ToList().ForEach(item=> {
+                Guid temp = Guid.Empty;
+                if (Guid.TryParse(item, out temp))
+                {
+                    clientIdList.Add(temp);
+                }
+            });
+            clientIdList = clientIdList.Distinct().ToList();
             Group groupEntity = groupService.GetGroup(groupId);
             IList<GroupManager> gmList = groupService.GetGroupManagerList(groupId);
             if (gmList == null)
@@ -275,7 +284,7 @@ namespace Liaoxin.Controllers
         [HttpPost("BatchUpdateGroupClient")]
         public ServiceResult<bool> BatchUpdateGroupClient(IList<GroupClientResponse> modelList)
         {
-            IList<GroupClient> entityList = ConvertHelper.ConvertToModel<IList<GroupClientResponse>, IList<GroupClient>>(modelList);
+            IList<GroupClient> entityList = ConvertHelper.ConvertToList<GroupClientResponse, GroupClient>(modelList);
             foreach (GroupClient entity in entityList)
             {
                 groupService.UpdateGroupClient(entity);

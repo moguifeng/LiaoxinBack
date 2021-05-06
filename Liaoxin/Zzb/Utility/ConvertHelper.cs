@@ -8,7 +8,7 @@ namespace Zzb.Utility
     public class ConvertHelper
     {
         
-        public static List<T2> ConvertToList<T1, T2>(List<T1> source)
+        public static IList<T2> ConvertToList<T1, T2>(IList<T1> source)
         {
             List<T2> t2List = new List<T2>();
             if (source == null || source.Count == 0)
