@@ -26,7 +26,7 @@ namespace Liaoxin.Model
         /// </summary>
         [MaxLength(15)]
         [ZzbIndex(IsUnique = true)]
-        public string UnqiueId  { get; set; } = "LQ" + SecurityCodeHelper.CreateRandomCode(11);
+        public string UnqiueId  { get; set; } =  SecurityCodeHelper.CreateRandomCode(15);
 
         
         /// <summary>
@@ -37,7 +37,7 @@ namespace Liaoxin.Model
         /// <summary>
         /// 环信组id
         /// </summary>
-        public  string HuanxinGroupId { get; set; }
+        public  string HuanxinGroupId { get; set; } = SecurityCodeHelper.CreateRandomCode(32);
 
 
         /// <summary>
