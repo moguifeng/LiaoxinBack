@@ -218,7 +218,7 @@ namespace Liaoxin.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
 
-        [HttpPost("ApplyAddFriend")]
+        [HttpPost("SureAddFriend")]
         public ServiceResult SureAddFriend(SureAddFriendRequest request)
         {
             return (ServiceResult<List<ClientFriendResponse>>)Json(() =>
