@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -107,7 +108,10 @@ namespace Liaoxin
             services.ZzbMvcInit<LiaoxinContext>();
 
             services.ZzbBaseDataInit("Liaoxin.BaseDataModel", "Liaoxin");
-
+            services.Configure<KestrelServerOptions>(options =>
+            {
+                options.AllowSynchronousIO = true;
+            });
             List<Type> list = new List<Type>();
             foreach (Type type in Assembly.Load("Liaoxin.Business").GetTypes())
             {
@@ -130,6 +134,7 @@ namespace Liaoxin
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.Use((context, next) => { context.Request.EnableBuffering(); return next(); });
             app.UseCors("AllowAllOrigin");
 
             if (env.IsDevelopment())
@@ -172,7 +177,7 @@ namespace Liaoxin
             // app.UseAuthentication();
             //  app.UseAuthorization();
             app.UseMvc();
-
+         
         }
     }
 }

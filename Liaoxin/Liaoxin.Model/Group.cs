@@ -48,9 +48,9 @@ namespace Liaoxin.Model
         /// <summary>
         /// 群主
         /// </summary>
-        public Guid ClientId { get; set; } 
+        public Guid ClientId { get; set; }
 
-        public virtual Client Client { get; set; }
+        public virtual Client Client { get; set; } = new Client();
 
 
         /// <summary>
@@ -59,9 +59,9 @@ namespace Liaoxin.Model
         public bool AllBlock { get; set; } = false;
 
 
-        public virtual List<GroupManager> GroupMangers { get; set; }
+        public virtual List<GroupManager> GroupMangers { get; set; } = new List<GroupManager>();
 
-        public virtual List<GroupClient> GroupClients { get;set; }
+        public virtual List<GroupClient> GroupClients { get; set; } = new List<GroupClient>();
 
         /// <summary>
         /// 确认群聊邀请

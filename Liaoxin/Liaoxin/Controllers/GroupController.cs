@@ -14,6 +14,10 @@ using Zzb.Mvc;
 using Zzb.Utility;
 using static Liaoxin.ViewModel.ClientViewModel;
 using Liaoxin.Model;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace Liaoxin.Controllers
 {
@@ -162,11 +166,22 @@ namespace Liaoxin.Controllers
         [HttpPost("UpdateGroup")]
         public ServiceResult<bool> UpdateGroup(GroupResponse model)
         {
+            IList<string> updateFieldList = GetPostBodyFiledKey(new List<string>() { "UpdateTime" });
+            if (!updateFieldList.Contains("UpdateTime"))
+            {
+                updateFieldList.Add("UpdateTime");
+            }
             return (ServiceResult<bool>)Json(() =>
             {
-                Group entity = ConvertHelper.ConvertToModel<GroupResponse, Group>(model);
+                //Group entity = groupService.GetGroup(model.GroupId);
+                //if (entity == null)
+                //{
+                //    return ObjectGenericityResult<bool>(false);
+                //}
+                //ConvertHelper.ModelCopyValue<GroupResponse, Group>(updateFieldList,model, ref entity);
+                Group entity = ConvertHelper.ConvertToModel<GroupResponse, Group>(model, updateFieldList);
                 entity.UpdateTime = DateTime.Now;
-                return ObjectGenericityResult<bool>(groupService.UpdateGroup(entity));
+                return ObjectGenericityResult<bool>(groupService.UpdateGroup(entity, updateFieldList));
             }, "更新群信息失败");
         }
 
@@ -243,7 +258,8 @@ namespace Liaoxin.Controllers
         public ServiceResult<bool> BatchAddGroupClient(Guid groupId, string clientIds)
         {
             List<Guid> clientIdList = new List<Guid>();
-            (clientIds + "").Split(',').ToList().ForEach(item=> {
+            (clientIds + "").Split(',').ToList().ForEach(item =>
+            {
                 Guid temp = Guid.Empty;
                 if (Guid.TryParse(item, out temp))
                 {

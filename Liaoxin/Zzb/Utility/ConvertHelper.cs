@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 
@@ -7,7 +8,7 @@ namespace Zzb.Utility
 {
     public class ConvertHelper
     {
-        
+
         public static IList<T2> ConvertToList<T1, T2>(IList<T1> source)
         {
             List<T2> t2List = new List<T2>();
@@ -54,6 +55,51 @@ namespace Zzb.Utility
                 }
             }
             return model;
+        }
+
+        public static T2 ConvertToModel<T1, T2>(T1 sourceEntity, IList<string> targetFieldList)
+        {
+            T2 targetEntity = default(T2);
+            IList<PropertyInfo> targetPIList = typeof(T2).GetProperties();
+            IList<PropertyInfo> sourcePIList = typeof(T1).GetProperties();
+            targetEntity = Activator.CreateInstance<T2>();
+            for (int i = 0; i < targetFieldList.Count; i++)
+            {
+                PropertyInfo targetPI = targetPIList.FirstOrDefault(p => string.Equals(p.Name, targetFieldList[i], StringComparison.OrdinalIgnoreCase));
+                PropertyInfo sourcePI = sourcePIList.FirstOrDefault(p => string.Equals(p.Name, targetFieldList[i], StringComparison.OrdinalIgnoreCase));
+                if (targetPI != null && sourcePI != null)
+                {
+                    targetFieldList[i] = targetPI.Name;
+                    targetPI.SetValue(targetEntity, sourcePI.GetValue(sourceEntity, null), null);
+                }
+                else
+                {
+                    targetFieldList.RemoveAt(i--);
+                }
+            }
+            return targetEntity;
+        }
+
+        public static void ModelCopyValue<T1, T2>(IList<string> targetFieldList,T1 sourceEntity,ref T2 targetEntity)
+        {
+
+            IList<PropertyInfo> targetPIList = typeof(T2).GetProperties();
+            IList<PropertyInfo> sourcePIList = typeof(T1).GetProperties();
+            targetEntity = Activator.CreateInstance<T2>();
+            for (int i = 0; i < targetFieldList.Count; i++)
+            {
+                PropertyInfo targetPI = targetPIList.FirstOrDefault(p => string.Equals(p.Name, targetFieldList[i], StringComparison.OrdinalIgnoreCase));
+                PropertyInfo sourcePI = sourcePIList.FirstOrDefault(p => string.Equals(p.Name, targetFieldList[i], StringComparison.OrdinalIgnoreCase));
+                if (targetPI != null && sourcePI != null)
+                {
+                    targetFieldList[i] = targetPI.Name;
+                    targetPI.SetValue(targetEntity, sourcePI.GetValue(sourceEntity, null),null);
+                }
+                else
+                {
+                    targetFieldList.RemoveAt(i--);
+                }
+            }
         }
     }
 }

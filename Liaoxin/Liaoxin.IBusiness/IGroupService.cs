@@ -71,7 +71,7 @@ namespace Liaoxin.IBusiness
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public bool UpdateGroup(Group entity);
+        public bool UpdateGroup(Group entity, IList<string> updateFieldList = null);
         /// <summary>
         /// 获取群成员
         /// </summary>
