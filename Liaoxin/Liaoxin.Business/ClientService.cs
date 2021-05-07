@@ -24,14 +24,14 @@ namespace Liaoxin.Business
 
 
 
-        void InsertClientEquiment(string name, string type)
+        void InsertClientEquiment(string name, string type,Guid clientId)
         {
             if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(type))
             {
                 var equimentEntity = Context.ClientEquipments.Where(c => c.Name == name && c.Type == type).FirstOrDefault();
                 if (equimentEntity == null)
                 {
-                    equimentEntity = new ClientEquipment() { ClientId = ClientId, Type = type, Name = name, LastLoginDate = DateTime.Now };
+                    equimentEntity = new ClientEquipment() { ClientId = clientId, Type = type, Name = name, LastLoginDate = DateTime.Now };
                     Context.ClientEquipments.Add(equimentEntity);
                 }
                 else
@@ -65,7 +65,7 @@ namespace Liaoxin.Business
                 }
                 catch (Exception e)
                 {
-                    LogHelper.Error($"插入玩家[{ClientId}]登录日志失败", e);
+                    LogHelper.Error($"插入玩家[{CurrentClientId}]登录日志失败", e);
                 }
             }).Start();
         }
@@ -106,7 +106,7 @@ namespace Liaoxin.Business
                 throw new ZzbException("用户名或者密码错误");
             }
             ClientLoginLog(client.ClientId);
-            InsertClientEquiment(request.EquimentName, request.EquimentType);
+            InsertClientEquiment(request.EquimentName, request.EquimentType,client.ClientId);
             Context.SaveChanges();
             //if (client.ErrorPasswordCount > 0)
             //{
@@ -120,13 +120,13 @@ namespace Liaoxin.Business
 
         public ClientBaseInfoResponse GetClient()
         {
-            var c = (from p in Context.Clients where p.ClientId == ClientId select p).FirstOrDefault();
+            var c = (from p in Context.Clients where p.ClientId == CurrentClientId select p).FirstOrDefault();
           
             if (c == null)
             {
                 return null;
             }
-            var equiments = Context.ClientEquipments.Where(ce => ce.ClientId == ClientId).OrderByDescending(o => o.LastLoginDate).ToList();
+            var equiments = Context.ClientEquipments.Where(ce => ce.ClientId == CurrentClientId).OrderByDescending(o => o.LastLoginDate).ToList();
             List<CEquiment> lis = new List<CEquiment>();
             equiments.ForEach(e =>
             {
@@ -163,7 +163,7 @@ namespace Liaoxin.Business
 
         public bool ChangePassword(ClientChangePasswordRequest request)
         {
-            var client = (from p in Context.Clients where p.ClientId == ClientId select p).FirstOrDefault();
+            var client = (from p in Context.Clients where p.ClientId == CurrentClientId select p).FirstOrDefault();
             if (client == null)
             {
                 throw new ZzbException("找不到当前登录用户");
@@ -183,7 +183,7 @@ namespace Liaoxin.Business
 
         public bool ChangeCoinPassword(ClientChangeCoinPasswordRequest request)
         {
-            var client = (from p in Context.Clients where p.ClientId == ClientId select p).FirstOrDefault();
+            var client = (from p in Context.Clients where p.ClientId == CurrentClientId select p).FirstOrDefault();
             if (client == null)
             {
                 throw new ZzbException("找不到当前登录用户");
@@ -211,7 +211,7 @@ namespace Liaoxin.Business
             {
                 client = new Client();
                 client.Telephone = request.Telephone;
-                var res = HuanxinRequest.RegisterClient(client.HuanXinId);
+                var res = HuanxinClientRequest.RegisterClient(client.HuanXinId);
                 if (res.ReturnCode == ServiceResultCode.Success)
                 {
                     Context.Clients.Add(client);
@@ -222,7 +222,7 @@ namespace Liaoxin.Business
                     throw new ZzbException(res.Message);
                 }
             }
-            InsertClientEquiment(request.EquimentName, request.EquimentType);
+            InsertClientEquiment(request.EquimentName, request.EquimentType,client.ClientId);
             ClientLoginLog(client.ClientId);
             Context.SaveChanges();
             return client;

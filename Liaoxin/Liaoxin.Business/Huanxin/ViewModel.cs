@@ -17,5 +17,5 @@ namespace Liaoxin.Business
     public class ErrorResponse
     {
         public string error_description { get; set; }
-    }
+    } 
 }

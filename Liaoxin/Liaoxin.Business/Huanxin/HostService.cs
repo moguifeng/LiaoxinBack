@@ -52,7 +52,7 @@ namespace Liaoxin.Business
             req.Method = method;
             if (needToken)
             {
-                req.Headers.Add("Authorization", access_token);
+                req.Headers.Add("Authorization", $"Bearer {access_token}");
             }
             //req.ContentType = "application/x-www-form-urlencoded";
             //req.ContentType = "application/json";
@@ -78,6 +78,7 @@ namespace Liaoxin.Business
             }
             try
             {
+                
                 HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
                 if (resp.StatusCode == HttpStatusCode.OK)
                 {
@@ -111,13 +112,20 @@ namespace Liaoxin.Business
                     var errorResponse = JsonConvert.DeserializeObject<ErrorResponse>(result);
                     if (errorResponse != null)
                     {
-                        var res =  new ServiceResult<string>();
+                        var res = new ServiceResult<string>();
                         res.Message = errorResponse.error_description;
                         res.ReturnCode = ServiceResultCode.ErrOperation;
                         return res;
                     }
+                    else
+                    {
+                        var res = new ServiceResult<string>();
+                        res.Message = result;
+                        res.ReturnCode = ServiceResultCode.ErrOperation;
+                        return res;
+                    }
                 }
-                return new ServiceResult();
+             
 
             }
         }

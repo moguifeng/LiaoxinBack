@@ -47,8 +47,6 @@ namespace Liaoxin.Model
         public DbSet<RedPacket> RedPackets { get; set; }
         public DbSet<RedPacketReceive> RedPacketReceives { get; set; }
 
-        public DbSet<ClientAdd> ClientAdds { get; set; }
-
 
         public DbSet<ClientAddDetail> ClientAddDetails { get; set; }
 

@@ -18,17 +18,21 @@ namespace Liaoxin.Model
 
         public Guid ClientAddDetailId { get; set; } = Guid.NewGuid();
 
-        public Guid ClientAddId { get; set; }
 
-
-        public virtual ClientAdd ClientAdd { get; set; }
- 
         /// <summary>
-        /// 当前登录客户的申请客户
+        /// 申请者
         /// </summary>
-        public Guid ClientId { get; set; }
+        public Guid FromClientId { get; set; }
 
-        public virtual Client Client { get; set; }
+        public virtual Client FromClient { get; set; }
+
+
+        /// <summary>
+        /// 向申请者
+        /// </summary>
+        public Guid ToClientId { get; set; }
+
+        public virtual Client ToClient { get; set; }
 
         /// <summary>
         /// 添加备注

@@ -207,32 +207,6 @@ namespace Liaoxin.Model.Migrations
                     b.ToTable("Clients");
                 });
 
-            modelBuilder.Entity("Liaoxin.Model.ClientAdd", b =>
-                {
-                    b.Property<Guid>("ClientAddId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<Guid>("ClientId");
-
-                    b.Property<DateTime>("CreateTime");
-
-                    b.Property<bool>("IsEnable");
-
-                    b.Property<DateTime>("UpdateTime");
-
-                    b.HasKey("ClientAddId");
-
-                    b.HasIndex("ClientId");
-
-                    b.HasIndex("CreateTime");
-
-                    b.HasIndex("IsEnable");
-
-                    b.HasIndex("UpdateTime");
-
-                    b.ToTable("ClientAdds");
-                });
-
             modelBuilder.Entity("Liaoxin.Model.ClientAddDetail", b =>
                 {
                     b.Property<Guid>("ClientAddDetailId")
@@ -240,27 +214,27 @@ namespace Liaoxin.Model.Migrations
 
                     b.Property<string>("AddRemark");
 
-                    b.Property<Guid>("ClientAddId");
-
-                    b.Property<Guid>("ClientId");
-
                     b.Property<DateTime>("CreateTime");
+
+                    b.Property<Guid>("FromClientId");
 
                     b.Property<bool>("IsEnable");
 
                     b.Property<int>("Status");
 
+                    b.Property<Guid>("ToClientId");
+
                     b.Property<DateTime>("UpdateTime");
 
                     b.HasKey("ClientAddDetailId");
 
-                    b.HasIndex("ClientAddId");
-
-                    b.HasIndex("ClientId");
-
                     b.HasIndex("CreateTime");
 
+                    b.HasIndex("FromClientId");
+
                     b.HasIndex("IsEnable");
+
+                    b.HasIndex("ToClientId");
 
                     b.HasIndex("UpdateTime");
 
@@ -1424,24 +1398,16 @@ namespace Liaoxin.Model.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Liaoxin.Model.ClientAdd", b =>
-                {
-                    b.HasOne("Liaoxin.Model.Client", "Client")
-                        .WithMany()
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("Liaoxin.Model.ClientAddDetail", b =>
                 {
-                    b.HasOne("Liaoxin.Model.ClientAdd", "ClientAdd")
-                        .WithMany("ClientAddDetails")
-                        .HasForeignKey("ClientAddId")
+                    b.HasOne("Liaoxin.Model.Client", "FromClient")
+                        .WithMany()
+                        .HasForeignKey("FromClientId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Liaoxin.Model.Client", "Client")
+                    b.HasOne("Liaoxin.Model.Client", "ToClient")
                         .WithMany()
-                        .HasForeignKey("ClientId")
+                        .HasForeignKey("ToClientId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -1539,7 +1505,7 @@ namespace Liaoxin.Model.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Liaoxin.Model.Group", "Group")
-                        .WithMany()
+                        .WithMany("GroupClients")
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

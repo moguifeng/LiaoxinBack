@@ -366,7 +366,7 @@ namespace Liaoxin.Business
         }
         public Guid GetCurClientId()
         {
-            return ClientId;
+            return CurrentClientId;
         }
     }
 }

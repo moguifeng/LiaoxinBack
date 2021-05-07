@@ -392,7 +392,7 @@ namespace Liaoxin.ViewModel
             /// <summary>
             /// 添加方式 (枚举:AddSourceTypeEnum)
             /// </summary>
-            public AddSourceTypeEnum Method { get; set; }
+            public AddSourceTypeEnum AddSource { get; set; }
         }
 
 
