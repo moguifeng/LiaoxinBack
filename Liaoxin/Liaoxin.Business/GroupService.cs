@@ -15,7 +15,6 @@ namespace Liaoxin.Business
 {
     public class GroupService : BaseService, IGroupService
     {
-        public LiaoxinContext Context { get; set; }
 
 
         /// <summary>
@@ -260,7 +259,7 @@ namespace Liaoxin.Business
         /// <param name="entity"></param>
         /// <param name="isExeSave"></param>
         public void UpdateGroupClient(GroupClient entity, bool isExeSave = true, IList<string> updateFieldList = null)
-        {
+        {            
             entity.UpdateTime = DateTime.Now;
             var entry = Context.Entry<GroupClient>(entity);
             entry.State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
@@ -295,6 +294,8 @@ namespace Liaoxin.Business
         public void SetGroupManager(Guid clientId, Guid groupId, bool isExeSave = true)
         {
             GroupClient gm = Context.GroupClients.AsNoTracking().FirstOrDefault(p => p.GroupId == groupId && p.ClientId == clientId);
+
+            
             if (gm != null)
             {
                 gm.IsGroupManager = true;
@@ -343,25 +344,7 @@ namespace Liaoxin.Business
 
 
 
-        public int Update<T>(T t, string keyName, IList<string> updateFieldList) where T : class
-        {
-            //不知明原因泛型会跪~~~~~~~~
-            //Context.Attach(t);
-            var userm = Context.Entry<T>(t);
-            //把user对象加入上下文,但是没有改变
-            userm.State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
-            //使用反射找到不为空的字段
-            foreach (var updateField in updateFieldList)
-            {
-                //不是主键才去修改，如果是主键就不需要修改了
-                if (!string.Equals(updateField, keyName, StringComparison.OrdinalIgnoreCase))
-                {
-                    //表示该字段需要更新
-                    userm.Property(updateField).IsModified = true;
-                }
-            }
-            return Context.SaveChanges();
-        }
+
 
 
 

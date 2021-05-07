@@ -11,7 +11,7 @@ namespace Liaoxin.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ConfigController : BaseApiController
+    public class ConfigController : LiaoxinBaseController
     {
 
         

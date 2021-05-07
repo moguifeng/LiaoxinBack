@@ -13,7 +13,7 @@ namespace Liaoxin.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : BaseApiController
+    public class ValuesController : LiaoxinBaseController
     {
         public IMessageService MessageService { get; set; }
 

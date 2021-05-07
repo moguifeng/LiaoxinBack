@@ -6,7 +6,7 @@ namespace Liaoxin.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValidateCodeController : BaseApiController
+    public class ValidateCodeController : LiaoxinBaseController
     {
         public IValidateCodeService ValidateCodeService { get; set; }
 

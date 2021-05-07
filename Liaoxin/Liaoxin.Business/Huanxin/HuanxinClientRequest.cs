@@ -88,6 +88,20 @@ namespace Liaoxin.Business
 
 
         /// <summary>
+        /// 修改用户昵称
+        /// </summary>        
+        /// <returns></returns>
+        public static ServiceResult<string> ModifyNickName(string username,string nickname)
+        {
+            var responseUrl = $"{HostService.url}/users/{username}";
+            Dictionary<string, object> dic = new Dictionary<string, object>();
+            dic.Add("nickname", nickname);
+            var res = HostService.Put(responseUrl, dic);
+            return res;
+        }
+
+
+        /// <summary>
         /// 黑名单加人
         /// </summary>
         /// <param name="id"></param>

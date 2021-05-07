@@ -13,6 +13,7 @@ using Zzb;
 using Zzb.Common;
 using Zzb.Context;
 using Zzb.Mvc;
+using Zzb.Utility;
 using static Liaoxin.ViewModel.ClientViewModel;
 
 namespace Liaoxin.Controllers
@@ -20,13 +21,12 @@ namespace Liaoxin.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class ClientController : BaseApiController
+    public class ClientController : LiaoxinBaseController
     {
 
 
         
-        public IClientService clientService { get; set; }
-        public LiaoxinContext Context { get; set; }
+        public IClientService clientService { get; set; }        
 
 
         /// <summary>
@@ -104,6 +104,85 @@ namespace Liaoxin.Controllers
         }
 
 
+        /// <summary>
+        /// 修改昵称
+        /// </summary>        
+        /// <returns></returns>
+        [HttpPost("ModifyNickName")]
+        public ServiceResult ModifyNickName(SetClientNickNameRequest request)
+        {
+            return Json(() =>
+            {
+
+                var entity = Context.Clients.Where(c => c.ClientId == CurrentClientId).First();
+                entity.NickName = request.nickName;
+                Context.Clients.Update(entity);
+                var res = HuanxinClientRequest.ModifyNickName(CurrentHuanxinId,request.nickName);
+                if (res.ReturnCode == ServiceResultCode.Success)
+                {
+                    return ObjectResult(Context.SaveChanges() > 0);
+                }
+                else
+                {
+                    return res;
+                }
+
+            }, "修改昵称失败");
+        }
+
+
+        /// <summary>
+        /// 修改头像
+        /// </summary>        
+        /// <returns></returns>
+        [HttpPost("ModifyCover")]
+        public ServiceResult ModifyCover(int coverId)
+        {
+            return Json(() =>
+            {
+                var entity = Context.Clients.Where(c => c.ClientId == CurrentClientId).First();
+                entity.Cover = coverId;
+                Context.Clients.Update(entity);     
+                return ObjectResult(Context.SaveChanges() > 0);             
+            }, "修改头像失败");
+
+        }
+        
+
+        /// <summary>
+        /// 基本设置修改:个性签名/震动/提醒/字体大小等字段普通更改
+        /// </summary>        
+        /// <returns></returns>
+        [HttpPost("ModifyBaseInfo")]
+        public ServiceResult ModifyBaseInfo(ClientBaseInfoResponse request)
+        {
+            return Json(() =>
+            {
+                if (request.ClientId != CurrentClientId)
+                {
+                    throw new ZzbException("你想干嘛?");
+                }
+                List<string> ingores = new List<string>();
+                ingores.Add("Cover");
+                ingores.Add("HuanXinId");
+                ingores.Add("RealName");
+                ingores.Add("UniqueNo");
+                ingores.Add("UniqueFrontImg");
+                ingores.Add("UniqueBackImg");
+                ingores.Add("Password");
+                ingores.Add("CoinPassword");
+                ingores.Add("LiaoxinNumber");
+                ingores.Add("NickName");
+                ingores.Add("Coin");
+                ingores.Add("Telephone");
+                IList<string> updateFieldList = GetPostBodyFiledKey(ingores);
+                Client entity = ConvertHelper.ConvertToModel<ClientBaseInfoResponse, Client>(request, updateFieldList);
+                Context.ClientOperateLogs.Add(new ClientOperateLog(CurrentClientId, $"进行了基本设置修改"));
+                return ObjectResult(base.Update(entity, "ClientId", updateFieldList) > 0);
+            }, "修改失败");
+
+        }
+        
         /// <summary>
         /// 修改客户资金密码
         /// </summary>
@@ -492,25 +571,15 @@ namespace Liaoxin.Controllers
                 var Combina = GetRelationDetailClient(request.ClientId);
                 ClientRelationDetail clientRelationDetailEntity = Combina.Item1;
                 Context.ClientRelationDetails.Update(clientRelationDetailEntity);
-
-                clientRelationDetailEntity.ClientRemark = request.Remark;
- 
-                Context.ClientOperateLogs.Add(new ClientOperateLog(CurrentClientId, $"设置好友备注[{Combina.Item2.LiaoxinNumber}]"));
-                //环信设置好有备注
-
+                clientRelationDetailEntity.ClientRemark = request.Remark; 
+                Context.ClientOperateLogs.Add(new ClientOperateLog(CurrentClientId, $"设置好友备注[{Combina.Item2.LiaoxinNumber}]"));                 
                 return ObjectResult(Context.SaveChanges() > 0);
             }, "设置好友备注失败");
         }
 
 
-        //基本设置
+ 
 
-        //修改头像
-
-        //修改昵称
-
-        //修改地区
-
-        //个性签名      
+   
     }
 }

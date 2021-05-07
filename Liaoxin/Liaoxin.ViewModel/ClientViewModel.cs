@@ -155,6 +155,16 @@ namespace Liaoxin.ViewModel
             public string Telephone { get; set; }
 
 
+            /// <summary>
+            /// 性别 1:男  0:女
+            /// </summary>
+            public int Gender { get; set; }
+
+
+            /// <summary>
+            ///电子邮箱
+            /// </summary>
+            public string Email { get; set; }
 
             /// <summary>
             /// 个性签名
@@ -417,5 +427,16 @@ namespace Liaoxin.ViewModel
             /// </summary>
             public Guid ClientId { get; set; }
         }
+
+        public class SetClientNickNameRequest
+        {
+ 
+
+            /// <summary>
+            /// 昵称
+            /// </summary>
+            public string nickName { get; set; }
+        }
+        
     }
 }

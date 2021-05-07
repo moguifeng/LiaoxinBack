@@ -14,6 +14,7 @@ namespace Zzb.Mvc
 {
     public class BaseApiController : ControllerBase
     {
+
         public UserContextManager _UserContext { get; set; }
 
 
@@ -74,46 +75,10 @@ namespace Zzb.Mvc
             return Json(() => ObjectResult(obj), msg);
         }
 
-        protected IList<string> GetPostBodyFiledKey(IList<string> defaultUpdateFieldList=null, string objKey = "")
-        {
-            List<string> list = new List<string>();
-            if (defaultUpdateFieldList != null)
-            {
-                list.AddRange(defaultUpdateFieldList);
-            }
-            Stream postData = Request.Body;
-            string postContent = "";
-            using (StreamReader sr = new StreamReader(postData))
-            {
-                sr.BaseStream.Seek(0, SeekOrigin.Begin);
-                postContent = sr.ReadToEndAsync().Result;
-                sr.BaseStream.Seek(0, SeekOrigin.Begin);
-            }
-            if (string.IsNullOrEmpty(postContent))
-            {
-                return null;
-            }
-            else
-            {
+   
 
-                Newtonsoft.Json.Linq.JObject jo = Newtonsoft.Json.Linq.JObject.Parse(postContent);
-                if (!string.IsNullOrEmpty(objKey))
-                {
-                    jo = jo[objKey].ToObject<JObject>();
-                }
-                if (jo.HasValues)
-                {
-                    foreach (JProperty item in jo.Properties())
-                    {
-                        if (list.FirstOrDefault(p => string.Equals(p, item.Name, StringComparison.OrdinalIgnoreCase)) == null)
-                        {
-                            list.Add(item.Name);
-                        }
-                    }
-                }
-                return list;
-            }
-        }
+
+
 
         protected int UserId
         {
@@ -133,32 +98,7 @@ namespace Zzb.Mvc
             }
         }
 
-        protected Guid CurrentClientId
-        {
-            get
-            {
-                if (UserContext.Current.IsAuthenticated)
-                {
-                    return UserContext.Current.Id;
-                }
-
-                return Guid.Empty;
-            }
-        }
-
-
-        protected string CurrentHuanxinId 
-        {
-            get
-            {
-                if (UserContext.Current.IsAuthenticated)
-                {
-                    return UserContext.Current.Name;
-                }
-
-                return "" ;
-            }
-        }
+    
 
     }
 }

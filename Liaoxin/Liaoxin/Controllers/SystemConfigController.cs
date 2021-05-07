@@ -13,7 +13,7 @@ namespace Liaoxin.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class SystemConfigController : BaseApiController
+    public class SystemConfigController : LiaoxinBaseController
     {
         [HttpPost("GetSystemConfigSettings")]
         public ServiceResult GetSystemConfigSettings()

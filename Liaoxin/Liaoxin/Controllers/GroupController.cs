@@ -19,26 +19,13 @@ namespace Liaoxin.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class GroupControllerController : BaseApiController
+    public class GroupControllerController : LiaoxinBaseController
     {
-        public IClientService clientService { get; set; }
-        public LiaoxinContext Context { get; set; }
+        public IClientService clientService { get; set; }        
 
         public IGroupService groupService { get; set; }
-        /// <summary>
-        /// 获取客户
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost("GetClient")]
-        public ServiceResult<ClientBaseInfoResponse> GetClient()
-        {
-            var entity = clientService.GetClient();
-            return (ServiceResult<ClientBaseInfoResponse>)Json(() =>
-            {
-                return ObjectGenericityResult<ClientBaseInfoResponse>(entity);
-            }, "获取客户失败");
+ 
 
-        }
         /// <summary>
         /// 获取群客户
         /// </summary>
@@ -161,11 +148,8 @@ namespace Liaoxin.Controllers
         [HttpPost("UpdateGroup")]
         public ServiceResult<bool> UpdateGroup(GroupResponse model)
         {
-            IList<string> updateFieldList = GetPostBodyFiledKey(new List<string>() { "UpdateTime" });
-            if (!updateFieldList.Contains("UpdateTime"))
-            {
-                updateFieldList.Add("UpdateTime");
-            }
+            IList<string> updateFieldList = GetPostBodyFiledKey( );
+          
             return (ServiceResult<bool>)Json(() =>
             {
                 //Group entity = groupService.GetGroup(model.GroupId);
@@ -311,11 +295,8 @@ namespace Liaoxin.Controllers
         [HttpPost("UpdateGroupClient")]
         public ServiceResult<bool> UpdateGroupClient(GroupClientResponse model)
         {
-            IList<string> updateFieldList = GetPostBodyFiledKey(new List<string>() { "UpdateTime" });
-            if (!updateFieldList.Contains("UpdateTime"))
-            {
-                updateFieldList.Add("UpdateTime");
-            }
+            IList<string> updateFieldList = GetPostBodyFiledKey();
+    
             GroupClient entity = ConvertHelper.ConvertToModel<GroupClientResponse, GroupClient>(model, updateFieldList);
             groupService.UpdateGroupClient(entity,true, updateFieldList);
             return ObjectGenericityResult<bool>(true);
