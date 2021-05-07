@@ -24,7 +24,7 @@ namespace Liaoxin.Business
 
 
 
-        void InsertClientEquiment(string name, string type)
+        void InsertClientEquiment(string name, string type,Guid clientId)
         {
             if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(type))
             {
@@ -106,7 +106,7 @@ namespace Liaoxin.Business
                 throw new ZzbException("用户名或者密码错误");
             }
             ClientLoginLog(client.ClientId);
-            InsertClientEquiment(request.EquimentName, request.EquimentType);
+            InsertClientEquiment(request.EquimentName, request.EquimentType,client.ClientId);
             Context.SaveChanges();
             //if (client.ErrorPasswordCount > 0)
             //{
@@ -222,7 +222,7 @@ namespace Liaoxin.Business
                     throw new ZzbException(res.Message);
                 }
             }
-            InsertClientEquiment(request.EquimentName, request.EquimentType);
+            InsertClientEquiment(request.EquimentName, request.EquimentType,client.ClientId);
             ClientLoginLog(client.ClientId);
             Context.SaveChanges();
             return client;
