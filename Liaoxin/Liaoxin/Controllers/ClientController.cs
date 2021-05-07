@@ -262,6 +262,46 @@ namespace Liaoxin.Controllers
             }, "添加好友申请失败");
         }
 
+
+
+
+        /// <summary>
+        /// 拒绝添加好友
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+
+        [HttpPost("RejectAddFriend")]
+        public ServiceResult RejectAddFriend(SureAddFriendRequest request)
+        {
+            return Json(() =>
+            {
+                var applyClientEntity = Context.Clients.Where(c => c.ClientId == request.ClientId).FirstOrDefault();
+                if (applyClientEntity == null)
+                {
+                    throw new ZzbException("找不到客户");
+                }
+                var clientRelationEntity = Context.ClientRelations.Where(c => c.ClientId == CurrentClientId && c.RelationType == ClientRelation.RelationTypeEnum.Friend).FirstOrDefault();
+                if (clientRelationEntity == null)
+                {
+                    clientRelationEntity = new ClientRelation();
+                    clientRelationEntity.ClientId = CurrentClientId;
+                    clientRelationEntity.RelationType = ClientRelation.RelationTypeEnum.Friend;
+                    Context.ClientRelations.Add(clientRelationEntity);
+                }
+                var isExist = Context.ClientRelationDetails.Where(c => c.ClientRelationId == clientRelationEntity.ClientRelationId && c.ClientId == applyClientEntity.ClientId).Any();
+                if (isExist)
+                {
+                    throw new ZzbException("你已添加这个好友,无法拒绝");
+                }
+                var addDetailEntity = Context.ClientAddDetails.Where(c => c.FromClientId == CurrentClientId && c.ToClientId == applyClientEntity.ClientId).FirstOrDefault();
+                addDetailEntity.Status = ClientAddDetail.ClientAddDetailTypeEnum.Reject;
+                return ObjectResult(Context.SaveChanges() > 0);
+            }, "拒绝添加好友失败");
+
+        }
+
+
         /// <summary>
         /// 确定添加好友
         /// </summary>
@@ -278,6 +318,12 @@ namespace Liaoxin.Controllers
                 {
                     throw new ZzbException("找不到客户");
                 }
+                var canSure =  Context.ClientAddDetails.Where(cd => cd.FromClientId == CurrentClientId && cd.ToClientId == applyClientEntity.ClientId && cd.Status == ClientAddDetail.ClientAddDetailTypeEnum.StandBy).Any();
+                if (!canSure)
+                {
+                    throw new ZzbException("请先申请,才能够添加好友");
+                }
+
                 var clientRelationEntity = Context.ClientRelations.Where(c => c.ClientId == CurrentClientId && c.RelationType == ClientRelation.RelationTypeEnum.Friend).FirstOrDefault();
                 if (clientRelationEntity == null)
                 {
@@ -296,6 +342,7 @@ namespace Liaoxin.Controllers
                 {
                     ClientId = applyClientEntity.ClientId,
                     ClientRelationId = clientRelationEntity.ClientRelationId,
+                    AddSource = request.AddSource
                 };
                 var currentHuanxinId =  Context.Clients.Where(c => c.ClientId == CurrentClientId).Select(c => c.HuanXinId).FirstOrDefault();
 
@@ -306,6 +353,9 @@ namespace Liaoxin.Controllers
                 {
                     Context.ClientOperateLogs.Add(new ClientOperateLog(CurrentClientId, $"确认添加好友[{applyClientEntity.LiaoxinNumber}]"));
                     Context.ClientRelationDetails.Add(detailEntity);
+                   var addDetailEntity =    Context.ClientAddDetails.Where(c => c.FromClientId == CurrentClientId && c.ToClientId == applyClientEntity.ClientId && c.Status == ClientAddDetail.ClientAddDetailTypeEnum.StandBy).FirstOrDefault();
+                    addDetailEntity.Status = ClientAddDetail.ClientAddDetailTypeEnum.Agree;
+                    Context.ClientAddDetails.Update(addDetailEntity);
                     return ObjectResult(Context.SaveChanges() > 0);
                 }
                 else {
