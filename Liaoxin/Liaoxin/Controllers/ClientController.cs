@@ -22,6 +22,9 @@ namespace Liaoxin.Controllers
     [Authorize]
     public class ClientController : BaseApiController
     {
+
+
+        
         public IClientService clientService { get; set; }
         public LiaoxinContext Context { get; set; }
 
@@ -344,11 +347,10 @@ namespace Liaoxin.Controllers
                     ClientRelationId = clientRelationEntity.ClientRelationId,
                     AddSource = request.AddSource
                 };
-                var currentHuanxinId =  Context.Clients.Where(c => c.ClientId == CurrentClientId).Select(c => c.HuanXinId).FirstOrDefault();
-
+              
          
                 //环信确认添加              
-                var res =  HuanxinClientRequest.AddFriend(currentHuanxinId, applyClientEntity.HuanXinId);
+                var res =  HuanxinClientRequest.AddFriend(CurrentHuanxinId, applyClientEntity.HuanXinId);
                 if (res.ReturnCode == ServiceResultCode.Success)
                 {
                     Context.ClientOperateLogs.Add(new ClientOperateLog(CurrentClientId, $"确认添加好友[{applyClientEntity.LiaoxinNumber}]"));
@@ -457,9 +459,22 @@ namespace Liaoxin.Controllers
                 };
                 Context.ClientRelationDetails.Add(detailEntity);
                 Context.ClientOperateLogs.Add(new ClientOperateLog(CurrentClientId, $"拉黑好友[{blackClientEntity.LiaoxinNumber}]"));
-                //环信确认拉黑
 
-                return ObjectResult(Context.SaveChanges() > 0);
+                //环信确认拉黑
+                List<string> blackIds = new List<string>();
+                blackIds.Add(blackClientEntity.HuanXinId);
+
+               var res =  HuanxinClientRequest.AddBlockFriend(CurrentHuanxinId, blackIds);
+                if (res.ReturnCode == ServiceResultCode.Success)
+                {
+                    return ObjectResult(Context.SaveChanges() > 0);
+                }
+                else
+                {
+                    return res;
+                }
+
+            
             }, "添加黑名单失败");
         }
 

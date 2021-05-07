@@ -112,13 +112,20 @@ namespace Liaoxin.Business
                     var errorResponse = JsonConvert.DeserializeObject<ErrorResponse>(result);
                     if (errorResponse != null)
                     {
-                        var res =  new ServiceResult<string>();
+                        var res = new ServiceResult<string>();
                         res.Message = errorResponse.error_description;
                         res.ReturnCode = ServiceResultCode.ErrOperation;
                         return res;
                     }
+                    else
+                    {
+                        var res = new ServiceResult<string>();
+                        res.Message = result;
+                        res.ReturnCode = ServiceResultCode.ErrOperation;
+                        return res;
+                    }
                 }
-                return new ServiceResult();
+             
 
             }
         }

@@ -102,5 +102,19 @@ namespace Zzb.Mvc
             }
         }
 
+
+        protected string CurrentHuanxinId 
+        {
+            get
+            {
+                if (UserContext.Current.IsAuthenticated)
+                {
+                    return UserContext.Current.Name;
+                }
+
+                return "" ;
+            }
+        }
+
     }
 }
