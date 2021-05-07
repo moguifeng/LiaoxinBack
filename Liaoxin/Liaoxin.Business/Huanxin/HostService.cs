@@ -11,6 +11,8 @@ using Zzb.ICacheManger;
 using Newtonsoft.Json;
 using Zzb;
 using Zzb.Common;
+using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace Liaoxin.Business
 {
@@ -27,7 +29,7 @@ namespace Liaoxin.Business
         private static string GetToken()
         {
             var responseUrl = $"{url}/token";
-            Dictionary<string, string> dic = new Dictionary<string, string>();
+            Dictionary<string, object> dic = new Dictionary<string, object>();
             dic.Add("grant_type", "client_credentials");
             dic.Add("client_id", "YXA6WZPgq60iTuSXL4QZHSY4Lg");
             dic.Add("client_secret", "YXA6KyN7SFU_ipKp582klBDK0HSLrOY");
@@ -42,96 +44,83 @@ namespace Liaoxin.Business
             return string.Empty;         
         }
 
-     
+
+
+        private static  HttpClient GetClient(string url,bool needToken)
+        {
+
+            HttpClient client = new HttpClient();
+       
+            if (needToken)
+            { 
+            client.DefaultRequestHeaders.Authorization = AuthenticationHeaderValue.Parse($"Bearer  {access_token}");
+            }
+
+            
+            return client;
+        }
+
         #region  请求
 
-        private static ServiceResult Request(string url, Dictionary<string, string> dic, bool needToken = true, string method ="POST")
+        private static ServiceResult Request(string url, Dictionary<string, object> dic, bool needToken = true, string method ="POST")
         {
-            string result = "";
-            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
-            req.Method = method;
-            if (needToken)
-            {
-                req.Headers.Add("Authorization", $"Bearer {access_token}");
-            }
-            //req.ContentType = "application/x-www-form-urlencoded";
-            //req.ContentType = "application/json";
+                var client = GetClient(url, needToken);
+                Uri u = new Uri(url);
 
-            if (dic != null && (method.ToLower() != "get" || method.ToLower() != "delete"))
-            {
-                StringBuilder builder = new StringBuilder();
-                int i = 0;
-                foreach (var item in dic)
-                {
-                    if (i > 0)
-                        builder.Append("&");
-                    builder.AppendFormat("{0}={1}", item.Key, item.Value);
-                    i++;
-                }
-                byte[] data = Encoding.UTF8.GetBytes(builder.ToString());
-                req.ContentLength = data.Length;
-                using (Stream reqStream = req.GetRequestStream())
-                {
-                    reqStream.Write(data, 0, data.Length);
-                    reqStream.Close();
-                }
-            }
-            try
-            {
-                
-                HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
-                if (resp.StatusCode == HttpStatusCode.OK)
-                {
-                    Stream stream = resp.GetResponseStream();
+                Task<HttpResponseMessage> httpResponse = null;
 
-                    using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
-                    {
-                        result = reader.ReadToEnd();
-                    }
-                    var res = new ServiceResult<string>();
-                    res.Data = result;
-                    return res;
+
+                if (method.ToLower() == "post")
+                {
+                    string jsonStr = JsonConvert.SerializeObject(dic);
+                    StringContent stringContent = new StringContent(jsonStr);
+                    httpResponse = client.PostAsync(u, stringContent);
+
+                }
+                else if (method.ToLower() == "put")
+                {
+                    string jsonStr = JsonConvert.SerializeObject(dic);
+                    StringContent stringContent = new StringContent(jsonStr);
+                    httpResponse = client.PutAsync(u, stringContent);
+                }
+                else if (method.ToLower() == "get")
+                {
+                    string jsonStr = JsonConvert.SerializeObject(dic);
+                    StringContent stringContent = new StringContent(jsonStr);
+                    httpResponse = client.GetAsync(u);
                 }
                 else
                 {
-                    return new ServiceResult();
-                }
-            }
-            catch (WebException ex)
-            {
-                HttpWebResponse resp = (HttpWebResponse)ex.Response;                         
-                if (resp.StatusCode == HttpStatusCode.Unauthorized)
-                {
-                    return new ServiceResult(ServiceResultCode.UnAuth);
+                    string jsonStr = JsonConvert.SerializeObject(dic);
+                    StringContent stringContent = new StringContent(jsonStr);
+                    httpResponse = client.DeleteAsync(u);
                 }
 
-                Stream stream = resp.GetResponseStream();
-                using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
+                var res = httpResponse.Result;
+                if (res.StatusCode == HttpStatusCode.OK)
                 {
-                    result = reader.ReadToEnd();
-                    var errorResponse = JsonConvert.DeserializeObject<ErrorResponse>(result);
-                    if (errorResponse != null)
-                    {
-                        var res = new ServiceResult<string>();
-                        res.Message = errorResponse.error_description;
-                        res.ReturnCode = ServiceResultCode.ErrOperation;
-                        return res;
-                    }
-                    else
-                    {
-                        var res = new ServiceResult<string>();
-                        res.Message = result;
-                        res.ReturnCode = ServiceResultCode.ErrOperation;
-                        return res;
-                    }
+                    var serviceRes = new ServiceResult<string>();
+                    serviceRes.Data = res.Content.ReadAsStringAsync().Result;
+                    return serviceRes;
                 }
-             
-
-            }
+                else if (res.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    var serviceRes = new ServiceResult<string>();
+                    serviceRes.Data = res.Content.ReadAsStringAsync().Result;
+                    serviceRes.ReturnCode = ServiceResultCode.UnAuth;
+                    return serviceRes;
+                }
+                else
+                {
+                    var serviceRes = new ServiceResult<string>();
+                    serviceRes.Data = res.Content.ReadAsStringAsync().Result;
+                    serviceRes.ReturnCode = ServiceResultCode.ErrOperation;
+                    return serviceRes;
+               }                            
         }
 
 
-        private static ServiceResult<string> doubleCheck(string url, Dictionary<string, string> dic, bool needToken, string method)
+        private static ServiceResult<string> doubleCheck(string url, Dictionary<string, object> dic, bool needToken, string method)
         {
             if (needToken)
             {
@@ -151,7 +140,7 @@ namespace Liaoxin.Business
 
         }
 
-        public static ServiceResult<string> Post(string url, Dictionary<string, string> dic, bool needToken = true)
+        public static ServiceResult<string> Post(string url, Dictionary<string, object> dic, bool needToken = true)
         {
            return  doubleCheck(url,dic,needToken,"POST");
          
@@ -160,7 +149,7 @@ namespace Liaoxin.Business
       
 
 
-        public static ServiceResult<string> Put(string url, Dictionary<string, string> dic, bool needToken = true)
+        public static ServiceResult<string> Put(string url, Dictionary<string, object> dic, bool needToken = true)
         {
             return doubleCheck(url, dic, needToken, "PUT");
         }

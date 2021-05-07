@@ -16,7 +16,7 @@ namespace Liaoxin.Business
         public static ServiceResult<string> RegisterClient(string id)
         {
             var responseUrl = $"{HostService.url}/users";
-            Dictionary<string, string> dic = new Dictionary<string, string>();
+            Dictionary<string, object> dic = new Dictionary<string, object>();
             dic.Add("username", id);
             dic.Add("password", id + "liaoxin");
             //dic.Add("nickname", "哈哈");
@@ -95,8 +95,8 @@ namespace Liaoxin.Business
         public static ServiceResult<string> AddBlockFriend(string owner_username,List<string> usernames)
         {
             var responseUrl = $"{HostService.url}/users/{owner_username}/blocks/users";
-            Dictionary<string, string> dic = new Dictionary<string, string>();          
-            dic.Add("usernames", JsonHelper.ToJson(usernames));      
+            Dictionary<string, object> dic = new Dictionary<string, object>();          
+            dic.Add("usernames", usernames);      
             var res = HostService.Post(responseUrl,dic);
             return res;
         }
