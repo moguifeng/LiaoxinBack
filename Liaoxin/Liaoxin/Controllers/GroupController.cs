@@ -8,16 +8,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Zzb;
-using Zzb.Common;
-using Zzb.Context;
+ 
 using Zzb.Mvc;
 using Zzb.Utility;
 using static Liaoxin.ViewModel.ClientViewModel;
-using Liaoxin.Model;
-using Microsoft.AspNetCore.Http;
-using System.IO;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
+ 
 
 namespace Liaoxin.Controllers
 {

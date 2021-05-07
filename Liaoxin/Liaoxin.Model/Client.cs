@@ -188,8 +188,7 @@ namespace Liaoxin.Model
         /// 打开时震动
         /// </summary>
         public bool OpenWhileShake { get; set; }
-
-
+        
         #endregion  
 
         public enum ShowFriendCircleEnum
@@ -205,6 +204,7 @@ namespace Liaoxin.Model
             
         }
 
+        
 
         public void AddMoney(decimal money, CoinLogTypeEnum type, Guid aboutId, out CoinLog coinLog, string remark)
         {

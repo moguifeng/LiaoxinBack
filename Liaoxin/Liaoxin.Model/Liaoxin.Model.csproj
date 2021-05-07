@@ -19,6 +19,8 @@
     <Compile Remove="Migrations\20210502161930_FIRSTLOAD.Designer.cs" />
     <Compile Remove="Migrations\20210507054225_LiaoxinSql.cs" />
     <Compile Remove="Migrations\20210507054225_LiaoxinSql.Designer.cs" />
+    <Compile Remove="Migrations\20210507113925_firstload.cs" />
+    <Compile Remove="Migrations\20210507113925_firstload.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
