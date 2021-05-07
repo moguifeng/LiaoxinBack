@@ -63,6 +63,11 @@ namespace Liaoxin.Model
         /// 聊天背景
         /// </summary>
         public int? BackgroundImg { get; set; }
+
+        /// <summary>
+        /// 是否群管理员
+        /// </summary>
+        public bool IsGroupManager { get; set; }
     }
 
  

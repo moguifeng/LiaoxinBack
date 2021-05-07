@@ -192,11 +192,11 @@ namespace Liaoxin.Controllers
         /// <param name="isEnable">客户是否已通过入群</param>
         /// <returns></returns>
         [HttpGet("GetGroupClients")]
-        public ServiceResult<IList<ClientBaseInfoResponse>> GetGroupClients(Guid groupId, bool isEnable)
+        public ServiceResult<IList<GroupClientResponse>> GetGroupClients(Guid groupId, bool isEnable)
         {
-            return (ServiceResult<IList<ClientBaseInfoResponse>>)Json(() =>
+            return (ServiceResult<IList<GroupClientResponse>>)Json(() =>
             {
-                return ObjectGenericityResult<IList<ClientBaseInfoResponse>>(ConvertHelper.ConvertToList<Client, ClientBaseInfoResponse>(groupService.GetGroupClients(groupId, isEnable)));
+                return ObjectGenericityResult<IList<GroupClientResponse>>(ConvertHelper.ConvertToList<GroupClient, GroupClientResponse>(groupService.GetGroupClients(groupId, isEnable)));
             }, "获取群成员基本信息失败");
         }
 
@@ -268,16 +268,16 @@ namespace Liaoxin.Controllers
             });
             clientIdList = clientIdList.Distinct().ToList();
             Group groupEntity = groupService.GetGroup(groupId);
-            IList<GroupManager> gmList = groupService.GetGroupManagerList(groupId);
+            IList<GroupClient> gmList = groupService.GetGroupManagerList(groupId);
             if (gmList == null)
             {
-                gmList = new List<GroupManager>();
+                gmList = new List<GroupClient>();
             }
             bool isEnable = false;
             if (groupEntity != null)
             {
-                Guid curClientId = groupService.GetCurClientId();
-                isEnable = !groupEntity.SureConfirmInvite || curClientId == groupEntity.ClientId || gmList.FirstOrDefault(p => p.ClientId == curClientId) != null;
+                Guid curUserClientId = groupService.GetCurClientId();
+                isEnable = !groupEntity.SureConfirmInvite || curUserClientId == groupEntity.ClientId || gmList.FirstOrDefault(p => p.ClientId == curUserClientId) != null;
             }
             return (ServiceResult<bool>)Json(() =>
             {
@@ -309,7 +309,22 @@ namespace Liaoxin.Controllers
             return ObjectGenericityResult<bool>(true);
         }
 
-
+        /// <summary>
+        /// 更新群成员信息
+        /// </summary>
+        /// <param name="model"></param>
+        [HttpPost("UpdateGroupClient")]
+        public ServiceResult<bool> UpdateGroupClient(GroupClientResponse model)
+        {
+            IList<string> updateFieldList = GetPostBodyFiledKey(new List<string>() { "UpdateTime" });
+            if (!updateFieldList.Contains("UpdateTime"))
+            {
+                updateFieldList.Add("UpdateTime");
+            }
+            GroupClient entity = ConvertHelper.ConvertToModel<GroupClientResponse, GroupClient>(model, updateFieldList);
+            groupService.UpdateGroupClient(entity,true, updateFieldList);
+            return ObjectGenericityResult<bool>(true);
+        }
 
 
 

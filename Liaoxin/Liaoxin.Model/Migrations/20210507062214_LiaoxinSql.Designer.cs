@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Liaoxin.Model.Migrations
 {
     [DbContext(typeof(LiaoxinContext))]
-    [Migration("20210507025504_REMOVECLIENTADD")]
-    partial class REMOVECLIENTADD
+    [Migration("20210507062214_LiaoxinSql")]
+    partial class LiaoxinSql
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -575,6 +575,8 @@ namespace Liaoxin.Model.Migrations
                     b.Property<bool>("IsBlock");
 
                     b.Property<bool>("IsEnable");
+
+                    b.Property<bool>("IsGroupManager");
 
                     b.Property<string>("MyNickName");
 

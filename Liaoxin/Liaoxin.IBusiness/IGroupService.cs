@@ -48,7 +48,7 @@ namespace Liaoxin.IBusiness
         /// </summary>
         /// <param name="groupId"></param>
         /// <returns></returns>
-        IList<GroupManager> GetGroupManagerList(Guid groupId);
+        IList<GroupClient> GetGroupManagerList(Guid groupId);
 
         /// <summary>
         /// 转让群主
@@ -77,7 +77,7 @@ namespace Liaoxin.IBusiness
         /// </summary>
         /// <param name="groupId"></param>
         /// <returns></returns>
-        IList<Client> GetGroupClients(Guid groupId, bool isEnable);
+        IList<GroupClient> GetGroupClients(Guid groupId, bool isEnable);
 
         /// <summary>
         /// 获取群
@@ -113,7 +113,7 @@ namespace Liaoxin.IBusiness
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="isExeSave">是否立刻执行数据库</param>
-        void UpdateGroupClient(GroupClient entity, bool isExeSave = true);
+        void UpdateGroupClient(GroupClient entity, bool isExeSave = true, IList<string> updateFieldList = null);
 
 
         void SaveChanges();

@@ -26,7 +26,7 @@ namespace Liaoxin.Business
         /// <returns></returns>
         public GroupClient GetClientGroup(Guid clientId, Guid groupId)
         {
-            return Context.GroupClients.FirstOrDefault(a => a.ClientId == clientId && a.GroupId == groupId);
+            return Context.GroupClients.AsNoTracking().FirstOrDefault(a => a.ClientId == clientId && a.GroupId == groupId);
         }
 
         #region Group
@@ -37,7 +37,7 @@ namespace Liaoxin.Business
         /// <returns></returns>
         public IList<Group> GetClientGroups(Guid clientId, bool isEnable)
         {
-            return (from a in Context.GroupClients where a.ClientId == clientId && a.IsEnable == isEnable select a.Group).ToList();
+            return (from a in Context.GroupClients.AsNoTracking() where a.ClientId == clientId && a.IsEnable == isEnable select a.Group).ToList();
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace Liaoxin.Business
         public bool DissolveGroup(Guid groupId)
         {
             bool result = false;
-            Context.GroupManagers.RemoveRange(Context.GroupManagers.Where(p => p.GroupId == groupId));
+            //Context.GroupManagers.RemoveRange(Context.GroupManagers.Where(p => p.GroupId == groupId));
             Context.GroupClients.RemoveRange(Context.GroupClients.Where(p => p.GroupId == groupId));
             Context.Groups.RemoveRange(Context.Groups.Where(p => p.GroupId == groupId));
             Context.SaveChanges();
@@ -67,7 +67,7 @@ namespace Liaoxin.Business
         public bool TransferGroupMaster(Guid newMasterClientId, Guid originalMasterClientId, Guid groupId)
         {
             bool result = false;
-            Group g = Context.Groups.FirstOrDefault(p => p.GroupId == groupId);
+            Group g = Context.Groups.AsNoTracking().FirstOrDefault(p => p.GroupId == groupId);
             if (g != null && g.ClientId == originalMasterClientId)
             {
                 g.ClientId = newMasterClientId;
@@ -89,7 +89,7 @@ namespace Liaoxin.Business
             bool result = false;
             entity.IsEnable = false;
             Context.Groups.Add(entity);
-            SetGroupManager(entity.ClientId, entity.GroupId, false);
+            //SetGroupManager(entity.ClientId, entity.GroupId, false);
             AddGroupClient(entity.ClientId, entity.GroupId, true, false, entity);
             Context.SaveChanges();
             result = true;
@@ -173,7 +173,7 @@ namespace Liaoxin.Business
         /// <returns></returns>
         public IList<Group> GetGroups(bool isEnable, int skip = 0, int pageSize = 1000)
         {
-            return (from a in Context.GroupClients where a.IsEnable == isEnable select a.Group).Skip(skip).Take(pageSize).ToList();
+            return (from a in Context.GroupClients.AsNoTracking() where a.IsEnable == isEnable select a.Group).Skip(skip).Take(pageSize).ToList();
         }
 
         #endregion
@@ -215,10 +215,10 @@ namespace Liaoxin.Business
         /// </summary>
         /// <param name="groupId"></param>
         /// <returns></returns>
-        public IList<Client> GetGroupClients(Guid groupId, bool isEnable)
+        public IList<GroupClient> GetGroupClients(Guid groupId, bool isEnable)
         {
             IList<Guid> clientIdList = (from a in Context.GroupClients where a.GroupId == groupId && a.IsEnable select a.ClientId).ToList();
-            return (clientIdList == null || clientIdList.Count == 0) ? null : Context.Clients.Where(p => p.IsEnable == isEnable && clientIdList.Contains(p.ClientId)).ToList();
+            return (clientIdList == null || clientIdList.Count == 0) ? null : Context.GroupClients.AsNoTracking().Where(p => p.IsEnable == isEnable && clientIdList.Contains(p.ClientId)).ToList();
         }
 
         /// <summary>
@@ -234,11 +234,15 @@ namespace Liaoxin.Business
             {
                 g = GetGroup(groupId);
             }
-            if (g != null)
+            Client c = Context.Clients.AsNoTracking().FirstOrDefault(p=>p.ClientId== clientId);
+            if (g != null&&c!=null)
             {
                 GroupClient gc = new GroupClient();
                 gc.GroupClientId = Guid.NewGuid();
                 gc.ClientId = clientId;
+                gc.MyNickName = c.NickName;
+                gc.ShowOtherNickName=true;
+                gc.IsGroupManager = (g.ClientId == clientId);
                 gc.GroupId = groupId;
                 gc.IsBlock = false;
                 gc.IsEnable = (isEnable || !g.SureConfirmInvite);
@@ -255,10 +259,24 @@ namespace Liaoxin.Business
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="isExeSave"></param>
-        public void UpdateGroupClient(GroupClient entity, bool isExeSave = true)
+        public void UpdateGroupClient(GroupClient entity, bool isExeSave = true, IList<string> updateFieldList = null)
         {
             entity.UpdateTime = DateTime.Now;
-            Context.GroupClients.Update(entity);
+            var entry = Context.Entry<GroupClient>(entity);
+            entry.State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+            if (updateFieldList != null)
+            {
+                updateFieldList.Remove("GroupClientId");
+                foreach (string updateField in updateFieldList)
+                {
+                    entry.Property(updateField).IsModified = true;
+                }
+                entry.Property("UpdateTime").IsModified = true;
+            }
+            if (updateFieldList == null)
+            {
+                Context.GroupClients.Update(entity);
+            }
             //Context.Entry(entity).Property("").IsModified = true;
             if (isExeSave)
             {
@@ -276,27 +294,15 @@ namespace Liaoxin.Business
         /// <returns></returns>
         public void SetGroupManager(Guid clientId, Guid groupId, bool isExeSave = true)
         {
-
-            DateTime timeNow = DateTime.Now;
-            GroupManager gm = Context.GroupManagers.FirstOrDefault(p => p.GroupId == groupId && p.ClientId == clientId);
+            GroupClient gm = Context.GroupClients.AsNoTracking().FirstOrDefault(p => p.GroupId == groupId && p.ClientId == clientId);
             if (gm != null)
             {
-
-                Context.GroupManagers.Remove(gm);
-                Context.SaveChanges();
-            }
-
-
-            gm = new GroupManager();
-            gm.CreateTime = timeNow;
-            gm.UpdateTime = timeNow;
-            gm.GroupManagerId = Guid.NewGuid();
-            gm.ClientId = clientId;
-            gm.GroupId = groupId;
-            Context.GroupManagers.Add(gm);
-            if (isExeSave)
-            {
-                Context.SaveChanges();
+                gm.IsGroupManager = true;
+                gm.UpdateTime = DateTime.Now;
+                if (isExeSave)
+                {
+                    Context.SaveChanges();
+                }
             }
         }
 
@@ -307,12 +313,15 @@ namespace Liaoxin.Business
         /// <param name="groupId"></param>
         public void CancelGroupManager(Guid clientId, Guid groupId, bool isExeSave = true)
         {
-            GroupManager gm = Context.GroupManagers.FirstOrDefault(p => p.GroupId == groupId && p.ClientId == clientId);
+            GroupClient gm = Context.GroupClients.AsNoTracking().FirstOrDefault(p => p.GroupId == groupId && p.ClientId == clientId);
             if (gm != null)
             {
-
-                Context.GroupManagers.Remove(gm);
-                Context.SaveChanges();
+                gm.IsGroupManager = false;
+                gm.UpdateTime = DateTime.Now;
+                if (isExeSave)
+                {
+                    Context.SaveChanges();
+                }
             }
         }
 
@@ -321,9 +330,9 @@ namespace Liaoxin.Business
         /// </summary>
         /// <param name="groupId"></param>
         /// <returns></returns>
-        public IList<GroupManager> GetGroupManagerList(Guid groupId)
+        public IList<GroupClient> GetGroupManagerList(Guid groupId)
         {
-            return Context.GroupManagers.Where(p => p.GroupId == groupId).ToList();
+            return Context.GroupClients.AsNoTracking().Where(p => p.GroupId == groupId&&p.IsGroupManager).ToList();
         }
         #endregion
 

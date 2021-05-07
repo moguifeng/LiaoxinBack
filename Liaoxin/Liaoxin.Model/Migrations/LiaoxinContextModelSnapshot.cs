@@ -574,6 +574,8 @@ namespace Liaoxin.Model.Migrations
 
                     b.Property<bool>("IsEnable");
 
+                    b.Property<bool>("IsGroupManager");
+
                     b.Property<string>("MyNickName");
 
                     b.Property<bool>("SaveMyGroup");
