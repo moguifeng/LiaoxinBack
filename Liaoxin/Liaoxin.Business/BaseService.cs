@@ -15,7 +15,7 @@ namespace Liaoxin.Business
 
         public IHostingEnvironment HostingEnvironment { get; set; }
 
-        protected Guid ClientId
+        protected Guid CurrentClientId
         {
 
             get

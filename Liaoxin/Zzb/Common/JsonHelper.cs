@@ -9,7 +9,7 @@ namespace Zzb.Common
             return JsonConvert.DeserializeObject(json, typeof(T)) as T;
         }
 
-        public static string FromJson(object json)
+        public static string ToJson(object json)
         {
             return JsonConvert.SerializeObject(json);
         }

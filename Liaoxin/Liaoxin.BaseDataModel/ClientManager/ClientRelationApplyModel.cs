@@ -60,10 +60,10 @@ namespace Liaoxin.BaseDataModel.ClientManger
                 return new ServiceResult(ServiceResultCode.QueryNull, "没有找到目标聊信号");
             }
 
-            var applySourceCnt =  Context.ClientAdds.Where(c => c.ClientId == sourceClient.ClientId).Count();
-            var applyToCnt = Context.ClientAddDetails.Where(c => c.ClientId == toClient.ClientId && 
+          //  var applySourceCnt =  Context.ClientAdds.Where(c => c.ClientId == sourceClient.ClientId).Count();
+            var applyToCnt = Context.ClientAddDetails.Where(c => c.ToClientId == toClient.ClientId &&  c.FromClientId == sourceClient.ClientId && 
                                     c.Status != ClientAddDetailTypeEnum.StandBy).Count();
-            if (applySourceCnt > 0 && applyToCnt > 0)
+            if (applyToCnt > 0)
             {
                 return new ServiceResult(ServiceResultCode.Error, "你已申请添加此客户,无需要重复申请");
             }
@@ -76,18 +76,13 @@ namespace Liaoxin.BaseDataModel.ClientManger
                 return new ServiceResult(ServiceResultCode.Error, "你已添加此客户,无需要重复添加");
 
             }
-            ClientAdd clientAddEntity = new ClientAdd(); ;
-            clientAddEntity.ClientId = sourceClient.ClientId;
-
-            if (applySourceCnt == 0)
-            {
-                Context.ClientAdds.Add(clientAddEntity);
-            }         
+       
             ClientAddDetail detailEntity = new ClientAddDetail()
             {
-                ClientAddId = clientAddEntity.ClientAddId,
                 AddRemark = Remark,
-                ClientId = toClient.ClientId
+                ToClientId = toClient.ClientId,
+                FromClientId = sourceClient.ClientId,
+                
             };
             Context.ClientAddDetails.Add(detailEntity);
             UserOperateLogService.Log($"添加客户申请,源客户[{sourceClient.LiaoxinNumber}]申请添加客户[{toClient.LiaoxinNumber}]", Context);
