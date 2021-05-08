@@ -23,9 +23,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="HostServices\**" />
     <Compile Remove="Upload\**" />
+    <Content Remove="HostServices\**" />
     <Content Remove="Upload\**" />
+    <EmbeddedResource Remove="HostServices\**" />
     <EmbeddedResource Remove="Upload\**" />
+    <None Remove="HostServices\**" />
     <None Remove="Upload\**" />
   </ItemGroup>
 
@@ -304,10 +308,6 @@
     <None Update="Image\支付宝二维码.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="HostServices\" />
   </ItemGroup>
 
 </Project>
