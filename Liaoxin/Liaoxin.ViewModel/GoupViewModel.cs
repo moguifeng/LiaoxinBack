@@ -4,7 +4,35 @@ using System.Text;
 
 namespace LIaoxin.ViewModel
 {
-   public class GroupResponse
+    public class CreateGroupRequest
+    {
+        /// <summary>
+        /// 群聊名称
+        /// </summary>
+        public string GroupName { get; set; }
+        /// <summary>
+        /// 群主ClientId
+        /// </summary>
+        public Guid MasterClientId { get; set; }
+        /// <summary>
+        /// 群成员ClientId清单
+        /// </summary>
+        public IList<Guid> ClientIdList { get; set; }
+    }
+
+    public class AddGroupRequest
+    {
+        /// <summary>
+        /// 群主ClientId
+        /// </summary>
+        public Guid GroupId { get; set; }
+        /// <summary>
+        /// 群成员ClientId清单
+        /// </summary>
+        public IList<Guid> ClientIdList { get; set; }
+    }
+
+    public class GroupResponse
     {
 
 
@@ -58,40 +86,28 @@ namespace LIaoxin.ViewModel
     public class GroupClientResponse
     {
         public Guid GroupClientId { get; set; } = Guid.NewGuid();
-
         public Guid GroupId { get; set; }
-
-
         public Guid ClientId { get; set; }
-
-
         /// <summary>
         /// 我的群昵称
         /// </summary>
         public string MyNickName { get; set; }
-
-
         /// <summary>
         /// 显示其他成员的群昵称
         /// </summary>
         public bool ShowOtherNickName { get; set; }
-
         /// <summary>
         /// 保存到我的群聊
         /// </summary>
         public bool SaveMyGroup { get; set; }
-
         /// <summary>
         /// 保存到顶置
         /// </summary>
         public bool SetTop { get; set; }
-
         /// <summary>
         /// 设置为免打扰
         /// </summary>
         public bool SetNoDisturb { get; set; }
-
-
         /// <summary>
         /// 是否禁言
         /// </summary>

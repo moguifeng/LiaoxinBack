@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Liaoxin.IBusiness
 {
-    public interface IGroupService
+    public interface IGroupService: IBaseService
     {
 
         /// <summary>
@@ -62,9 +62,10 @@ namespace Liaoxin.IBusiness
         /// <summary>
         /// 创建群信息
         /// </summary>
-        /// <param name="entity"></param>
+        /// <param name="entity">群对象</param>
+        /// <param name="clientIdList">群成员ClientId清单</param>
         /// <returns></returns>
-        public bool CreateGroup(Group entity);
+        public bool CreateGroup(Group entity, IList<Guid> clientIdList);
 
         /// <summary>
         /// 更新群信息
@@ -80,11 +81,18 @@ namespace Liaoxin.IBusiness
         IList<GroupClient> GetGroupClients(Guid groupId, bool isEnable);
 
         /// <summary>
+        /// 获取群成员
+        /// </summary>
+        /// <param name="groupId"></param>
+        /// <returns></returns>
+        IList<GroupClient> GetGroupClients(Guid groupId);
+
+        /// <summary>
         /// 获取群
         /// </summary>
         /// <param name="groupId"></param>
         /// <returns></returns>
-         Group GetGroup(Guid groupId);
+        Group GetGroup(Guid groupId);
         /// <summary>
         /// 审核群是否通过
         /// </summary>

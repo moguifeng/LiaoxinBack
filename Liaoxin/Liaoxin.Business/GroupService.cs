@@ -83,13 +83,17 @@ namespace Liaoxin.Business
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public bool CreateGroup(Group entity)
+        public bool CreateGroup(Group entity,IList<Guid>clientIds)
         {
             bool result = false;
             entity.IsEnable = false;
             Context.Groups.Add(entity);
             //SetGroupManager(entity.ClientId, entity.GroupId, false);
             AddGroupClient(entity.ClientId, entity.GroupId, true, false, entity);
+            foreach (Guid clientId in clientIds)
+            {
+                AddGroupClient(clientId, entity.GroupId, true, false, entity);
+            }
             Context.SaveChanges();
             result = true;
             return result;
@@ -216,10 +220,19 @@ namespace Liaoxin.Business
         /// <returns></returns>
         public IList<GroupClient> GetGroupClients(Guid groupId, bool isEnable)
         {
-            IList<Guid> clientIdList = (from a in Context.GroupClients where a.GroupId == groupId && a.IsEnable select a.ClientId).ToList();
-            return (clientIdList == null || clientIdList.Count == 0) ? null : Context.GroupClients.AsNoTracking().Where(p => p.IsEnable == isEnable && clientIdList.Contains(p.ClientId)).ToList();
+            IList<GroupClient> clientList =  Context.GroupClients.Where(p=> p.GroupId == groupId && p.IsEnable==isEnable ).ToList();
+            return clientList;
         }
-
+        /// <summary>
+        /// 获取群成员
+        /// </summary>
+        /// <param name="groupId"></param>
+        /// <returns></returns>
+        public IList<GroupClient> GetGroupClients(Guid groupId)
+        {
+            IList<GroupClient> clientList = Context.GroupClients.Where(p => p.GroupId == groupId).ToList();
+            return clientList;
+        }
         /// <summary>
         /// 增加群成员
         /// </summary>
