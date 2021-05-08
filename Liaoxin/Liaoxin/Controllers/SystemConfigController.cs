@@ -30,16 +30,7 @@ namespace Liaoxin.Controllers
                     Name = "网站设置",
                     Items = CreateSettingGroupItems(SystemConfigEnum.WebTitle,SystemConfigEnum.CustomerServiceLink)
                 },
-                new SystemConfigSettingsGroup()
-                {
-                    Name = "注册链接",
-                    Items = CreateSettingGroupItems(SystemConfigEnum.RegisterNumber)
-                },
-                new SystemConfigSettingsGroup()
-                {
-                    Name = "BI设置",
-                    Items = CreateSettingGroupItems(SystemConfigEnum.SiteNo,SystemConfigEnum.SiteKey)
-                },
+         
             });
         }
 

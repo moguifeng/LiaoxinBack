@@ -47,11 +47,7 @@ namespace Liaoxin.Model
         [Description("提款开始时间(时)")]
         WithdrawBegin = 5,
 
-        [Description("最大返点")]
-        MaxRebate = 6,
-
-        [Description("日工资计算时间")]
-        DailyWageTime = 7,
+      
 
 
         [Description("系统LOGO")]
@@ -60,24 +56,16 @@ namespace Liaoxin.Model
         [Description("网站名称")]
         WebTitle = 10,
 
-        [Description("银行卡绑定最大数")]
-        CardCount = 11,
-
+    
         [Description("APP下载二维码")]
         AppCode = 12,
 
         [Description("客服链接")]
         CustomerServiceLink = 13,
 
-        [Description("站点编号")]
-        SiteNo = 14,
+      
 
-        [Description("站点秘钥")]
-        SiteKey = 15,
-
-
-        [Description("注册编码")]
-        RegisterNumber = 18,
+ 
 
         [Description("取消超级密码")]
         CancleSuperLoginPassword = 19,

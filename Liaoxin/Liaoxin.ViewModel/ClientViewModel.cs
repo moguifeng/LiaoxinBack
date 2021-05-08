@@ -508,4 +508,11 @@ namespace Liaoxin.ViewModel
         public string NickName { get; set; }
     }
 
+    public class FindPasswordByPhoneRequest
+    {
+        public string Telephone { get; set; }
+        public string Code { get; set; }
+        
+    }
+
 }

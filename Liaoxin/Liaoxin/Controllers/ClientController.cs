@@ -260,5 +260,23 @@ namespace Liaoxin.Controllers
 
 
 
+        /// <summary>
+        /// 通过手机号找回密码
+        /// </summary>        
+        /// <returns></returns>
+        [HttpPost("FindPasswordByPhoneRequest")]
+        public ServiceResult FindPasswordByPhone(FindPasswordByPhoneRequest request)
+        {
+            return Json(() =>
+            {
+
+               
+                return ObjectResult(Context.SaveChanges() > 0);
+            }, "通过手机号找回密码失败");
+
+        }
+
+
+
     }
 }

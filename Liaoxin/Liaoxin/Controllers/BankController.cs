@@ -2,6 +2,7 @@
 using Liaoxin.Model;
 using Liaoxin.ViewModel;
 using LIaoxin.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace Liaoxin.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [ZzbAuthorize]
+    [Authorize]
     public class BankController :LiaoxinBaseController
     {
         public IBankService BankService { get; set; }
@@ -59,7 +60,7 @@ namespace Liaoxin.Controllers
         /// 绑定银行卡
         /// </summary>        
         /// <returns></returns>
-        [HttpPost("用户绑定银行卡")]
+        [HttpPost("BindClientBank")]
         public ServiceResult BindClientBank(BindClientBankRequest request)
         {
             return Json(() =>
