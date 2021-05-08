@@ -292,9 +292,6 @@
     <None Update="Image\News\3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Image\彩种.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="Image\微信.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

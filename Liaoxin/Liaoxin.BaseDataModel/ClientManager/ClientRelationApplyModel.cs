@@ -59,8 +59,7 @@ namespace Liaoxin.BaseDataModel.ClientManger
             {
                 return new ServiceResult(ServiceResultCode.QueryNull, "没有找到目标聊信号");
             }
-
-          //  var applySourceCnt =  Context.ClientAdds.Where(c => c.ClientId == sourceClient.ClientId).Count();
+          
             var applyToCnt = Context.ClientAddDetails.Where(c => c.ToClientId == toClient.ClientId &&  c.FromClientId == sourceClient.ClientId && 
                                     c.Status != ClientAddDetailTypeEnum.StandBy).Count();
             if (applyToCnt > 0)
@@ -68,7 +67,7 @@ namespace Liaoxin.BaseDataModel.ClientManger
                 return new ServiceResult(ServiceResultCode.Error, "你已申请添加此客户,无需要重复申请");
             }
 
-            var sourceCnt = Context.ClientRelations.Where(c => c.ClientId == sourceClient.ClientId && c.RelationType == ClientRelation.RelationTypeEnum.Friend).Count();
+            var sourceCnt = Context.ClientRelations.Where(c => c.ClientId == sourceClient.ClientId && c.RelationType == RelationTypeEnum.Friend).Count();
             var toCnt = Context.ClientRelationDetails.Where(c => c.ClientId == toClient.ClientId ).Count();
 
             if (sourceCnt > 0 && toCnt > 0)
