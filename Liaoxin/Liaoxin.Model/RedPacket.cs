@@ -100,7 +100,16 @@ namespace Liaoxin.Model
             [Description("未领完退款")]
             NotEndRefund = 3,
         }
-        
+        /// <summary>
+        /// 中奖末几位
+        /// </summary>
+        public int LuckIndex { get; set; }
+
+        /// <summary>
+        /// 累计中的Lucknumbers
+        /// </summary>
+        public string LuckNumbers { get; set; }
+
     }
 
  

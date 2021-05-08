@@ -33,6 +33,10 @@ namespace Liaoxin.Model
         /// </summary>
         public Guid ClientId { get; set; }
 
+        /// <summary>
+        /// 昵称
+        /// </summary>
+        public string NickName { get; set; }
 
         /// <summary>
         /// 红包接收者
@@ -41,10 +45,19 @@ namespace Liaoxin.Model
 
 
         /// <summary>
-        /// 是否中奖
+        /// 是否手气王
         /// </summary>
         public bool IsWin { get; set; } = false;
-        
+
+        /// <summary>
+        /// 是否中奖
+        /// </summary>
+        public bool IsLuck { get; set; } = false;
+
+        /// <summary>
+        /// 当前中的Lucknumbers
+        /// </summary>
+        public string LuckNumber { get; set; }
     }
 
  

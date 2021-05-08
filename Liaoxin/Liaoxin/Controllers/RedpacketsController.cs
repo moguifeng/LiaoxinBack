@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using Zzb;
 using Zzb.ICacheManger;
@@ -27,7 +28,7 @@ namespace Liaoxin.Controllers
     {
         public IClientService clientService { get; set; }
 
-        private readonly ICacheManager _cacheManager= CacheManager.singleCache;
+        private readonly ICacheManager _cacheManager = CacheManager.singleCache;
 
         /// <summary>
         /// 发群红包
@@ -46,32 +47,47 @@ namespace Liaoxin.Controllers
                 result = false;
                 return ObjectGenericityResult<GroupReadPacketsResponse>(result, returnObject);
             }
-
-            entity.Database.SqlQuery<User>(strSQL);
-
             Client sender = Context.Clients.AsNoTracking().FirstOrDefault(p => p.ClientId == request.SenderClientId);
             if (sender != null && sender.IsEnable && sender.Coin >= request.Money)
             {
-                RedPacket entity = new RedPacket();
-                entity.ClientId = request.SenderClientId;
-                entity.Count = request.Count;
-                entity.Money = request.Money;
-                entity.Over = request.Money;
-                entity.Greeting = request.Greeting;
-                entity.Type = (RedPacketTypeEnum)request.ReadPacketsType;
-                returnObject = ConvertHelper.ConvertToModel<RedPacket, GroupReadPacketsResponse>(entity);
-                Context.RedPackets.Add(entity);
-                sender.Coin -= request.Money;
-                sender.UpdateTime = DateTime.Now;
-                Update<Client>(sender, "ClientId", new List<string>() { "Coin", "UpdateTime" });
-                Context.SaveChanges();
+                using (IDbContextTransaction transaction = Context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        RedPacket entity = new RedPacket();
+                        entity.ClientId = request.SenderClientId;
+                        entity.GroupId = request.GroupId;
+                        entity.SendTime = DateTime.Now;
+                        entity.Count = request.Count;
+                        entity.Money = request.Money;
+                        entity.Over = request.Money;
+                        entity.Greeting = request.Greeting;
+                        entity.LuckIndex = request.LuckIndex;
+                        entity.Type = (RedPacketTypeEnum)request.ReadPacketsType;
+                        returnObject = ConvertHelper.ConvertToModel<RedPacket, GroupReadPacketsResponse>(entity);
+                        Context.RedPackets.Add(entity);
+                        Context.SaveChanges();
+                        sender.Coin -= request.Money;
+                        sender.UpdateTime = DateTime.Now;
+                        Update<Client>(sender, "ClientId", new List<string>() { "Coin", "UpdateTime" });
+                        Context.SaveChanges();
+                        transaction.Commit();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        result = false;
+                        returnObject = null;
+                        transaction.Rollback();
+                    }
+                }
             }
             else
             {
                 result = false;
                 errMsg = "用户无效或余额不足";
             }
-            return ObjectGenericityResult<GroupReadPacketsResponse>(result, returnObject);
+            return ObjectGenericityResult<GroupReadPacketsResponse>(result, returnObject, errMsg);
         }
 
         /// <summary>
@@ -90,14 +106,36 @@ namespace Liaoxin.Controllers
             decimal receiveMoney = 0;
             try
             {
+                //当前红包空闲
                 while (_cacheManager.Get<object>(operKey) != null)
                 {
                     Thread.Sleep(200);
                 }
-                _cacheManager.Set(operKey, clientId.ToString());
+                _cacheManager.Set(operKey, clientId.ToString(), 2);//2分钟过期
                 RedPacket entity = Context.RedPackets.FirstOrDefault(p => p.RedPacketId == redPacketId);
+                Client reveiver = Context.Clients.AsNoTracking().FirstOrDefault(p => p.ClientId == clientId);
 
-                if (entity == null)
+                int luckIndex = entity.LuckIndex;
+                List<string> luckNumbers = new List<string>();
+
+                string greeting = entity.Greeting;
+                greeting= Regex.Replace(greeting, @"[^\d,]*", "");
+
+
+                string[] greetingArr = greeting.Split(',');
+                foreach (string g in greetingArr)
+                {
+                    if (g.Trim().Length == 1)
+                    {
+                        luckNumbers.Add(g.Trim());
+                    }
+                }
+                if (reveiver == null)
+                {
+                    result = false;
+                    errMsg = "无效用户不能参与抽奖";
+                }
+                else if (entity == null)
                 {
                     result = false;
                     errMsg = "红包已失效";
@@ -113,7 +151,8 @@ namespace Liaoxin.Controllers
                     RedPacketReceive receive = Context.RedPacketReceives.AsNoTracking().FirstOrDefault(p => p.RedPacketId == entity.RedPacketId && p.ClientId == clientId);
                     if (receive != null)
                     {
-                        errMsg = "已领取";
+                        result = false;
+                        errMsg = "已领取,不能重复领取";
                     }
                     else
                     {
@@ -125,6 +164,7 @@ namespace Liaoxin.Controllers
                                 receive = new RedPacketReceive();
                                 receive.ClientId = clientId;
                                 receive.RedPacketId = entity.RedPacketId;
+                                receive.NickName = reveiver.NickName;
                                 entity.ReceiveCount += 1;
                                 if (entity.Count == entity.ReceiveCount)
                                 {
@@ -138,7 +178,11 @@ namespace Liaoxin.Controllers
                                     decimal curMoney = entity.Over;
 
                                     Random rd = new Random();
-                                    receiveMoney = Math.Round(curMoney * ((decimal)rd.Next(1, 10000) / (decimal)10000));
+                                    receiveMoney = Math.Floor(curMoney * ((decimal)rd.Next(1, 1000000) / (decimal)1000000));
+                                    //lucknumber
+                                    decimal lucknumber = (decimal)rd.Next(1, 99) / 100;
+
+                                    receiveMoney += lucknumber;
 
                                     //要确保剩余的钱足够剩余的人分
                                     while (curMoney - receiveMoney < (entity.Count - entity.ReceiveCount) * (decimal)0.01)
@@ -158,11 +202,37 @@ namespace Liaoxin.Controllers
                                 {
                                     receiveMoney = entity.Money / entity.Count;
                                 }
+                                receiveMoney = Math.Round(receiveMoney, 2);
                                 receive.SnatchMoney = receiveMoney;//领取金额
+                                if (entity.Type == RedPacketTypeEnum.Lucky && luckIndex >= 1 && luckIndex <= 3 && luckNumbers != null)
+                                {
+                                    string temp = receiveMoney.ToString().Replace(".", "");
+                                    string luckIndexChar = temp.Substring(temp.Length - luckIndex, 1);
+                                    if (luckNumbers.Contains(luckIndexChar))
+                                    {
+                                        receive.IsLuck = true;
+                                        receive.LuckNumber = luckIndexChar;
+                                    }
+                                }
                                 entity.Over -= receiveMoney;//更新剩余金额
                                 Context.RedPacketReceives.Add(receive);
-                                Update<RedPacket>(entity, "RedPacketId", new List<string>() { "ReceiveCount", "Status", "Over", "UpdateTime" });
+                                int addCount = Context.SaveChanges();
+                                int updateCount = Update<RedPacket>(entity, "RedPacketId", new List<string>() { "ReceiveCount", "Status", "Over", "UpdateTime" });
                                 Context.SaveChanges();
+
+                                if (entity.Type == RedPacketTypeEnum.Lucky && luckIndex >= 1 && luckIndex <= 3 && luckNumbers != null)
+                                {
+                                    //LuckNumber
+                                    string strsql = $@"  UPDATE redpackets SET LuckNumbers=(SELECT GROUP_CONCAT(DISTINCT LuckNumber) FROM redpacketreceives WHERE RedPacketId='{entity.RedPacketId}' AND IsLuck )  WHERE RedPacketId='{entity.RedPacketId}' ";
+                                    int exeCount = Context.Database.ExecuteSqlCommand(strsql);
+                                }
+                                if (entity.ReceiveCount >= entity.Count)
+                                {
+                                    //抢完红包,决定谁是手气王
+                                    string strsql = $@" UPDATE redpacketreceives SET isWin=TRUE WHERE RedPacketId='{entity.RedPacketId}' 
+ AND SnatchMoney = (SELECT MAX(SnatchMoney) FROM (SELECT SnatchMoney FROM redpacketreceives WHERE RedPacketId='{entity.RedPacketId}')v) ";
+                                    int exeCount = Context.Database.ExecuteSqlCommand(strsql);
+                                }
                                 transaction.Commit();
                             }
                             catch (Exception ex)
@@ -194,118 +264,10 @@ namespace Liaoxin.Controllers
             }
             return ObjectGenericityResult<decimal>(result, receiveMoney, errMsg);
         }
-    }
-
-    public class GroupReadPacketsResponse
-    {
-
-        public Guid RedPacketId { get; set; }
 
 
-        public Guid GroupId { get; set; }
-        public virtual Group Group { get; set; }
-
-        /// <summary>
-        /// 红包发送者
-        /// </summary>
-        public Guid ClientId { get; set; }
-
-        /// <summary>
-        /// 祝福语(尾数)
-        /// </summary>
-        public string Greeting { get; set; }
-
-        /// <summary>
-        /// 发送时间
-        /// </summary>
-        public DateTime SendTime { get; set; }
-
-
-        /// <summary>
-        /// 红包类型
-        /// </summary>
-        public RedPacketTypeEnum Type { get; set; }
-
-
-        /// <summary>
-        /// 红包个数
-        /// </summary>
-        public int Count { get; set; }
-
-        /// <summary>
-        /// 红包金额
-        /// </summary>
-        public decimal Money { get; set; }
-
-        /// <summary>
-        /// 剩余红包金额
-        /// </summary>
-        public decimal Over { get; set; }
-
-
-        /// <summary>
-        /// 红包状态
-        /// </summary>
-        public RedPacketStatus Status { get; set; }
-
-
-        public enum RedPacketTypeEnum
-        {
-            [Description("拼手气红包")]
-            Lucky = 0,
-            [Description("普通红包")]
-            Normal = 1,
-        }
-
-        public enum RedPacketStatus
-        {
-            [Description("发出")]
-            Send = 0,
-            [Description("已领完")]
-            End = 1,
-            [Description("已退款")]
-            Refund = 2,
-            [Description("未领完退款")]
-            NotEndRefund = 3,
-        }
 
     }
 
-    public class CreateGroupReadPacketsRequest
-    {
-        /// <summary>
-        /// 发红包者ClientId
-        /// </summary>
-        public Guid SenderClientId { get; set; }
-        /// <summary>
-        /// 群Id
-        /// </summary>
-        public Guid GroupId { get; set; }
-        /// <summary>
-        /// 红包总金额
-        /// </summary>
-        public decimal Money { get; set; }
-        /// <summary>
-        /// 红包总个数
-        /// </summary>
-        public int Count { get; set; }
-
-        /// <summary>
-        /// 红包类型 0:拼手气红包;1:普通红包
-        /// </summary>
-        public int ReadPacketsType { get; set; }
-
-        /// <summary>
-        /// 祝福语
-        /// </summary>
-        public string Greeting { get; set; }
-    }
-
-    public class ReceiveGroupRedPacketsRequest
-    {
-        public Guid RedPacketId { get; set; }
-
-        public Guid ClientId { get; set; }
-    }
 
 }

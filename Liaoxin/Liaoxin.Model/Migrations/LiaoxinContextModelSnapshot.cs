@@ -983,6 +983,10 @@ namespace Liaoxin.Model.Migrations
 
                     b.Property<bool>("IsEnable");
 
+                    b.Property<int>("LuckIndex");
+
+                    b.Property<string>("LuckNumbers");
+
                     b.Property<decimal>("Money")
                         .HasColumnType("decimal(18, 2)");
 
@@ -1025,7 +1029,13 @@ namespace Liaoxin.Model.Migrations
 
                     b.Property<bool>("IsEnable");
 
+                    b.Property<bool>("IsLuck");
+
                     b.Property<bool>("IsWin");
+
+                    b.Property<string>("LuckNumber");
+
+                    b.Property<string>("NickName");
 
                     b.Property<Guid>("RedPacketId");
 
