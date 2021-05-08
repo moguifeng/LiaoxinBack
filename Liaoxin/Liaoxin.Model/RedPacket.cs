@@ -60,6 +60,11 @@ namespace Liaoxin.Model
         public int Count { get; set; }
 
         /// <summary>
+        /// 已领取个数
+        /// </summary>
+        public int ReceiveCount { get; set; }
+
+        /// <summary>
         /// 红包金额
         /// </summary>
         public decimal Money { get; set; }

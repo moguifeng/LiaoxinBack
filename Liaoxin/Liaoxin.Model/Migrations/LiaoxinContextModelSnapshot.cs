@@ -989,6 +989,8 @@ namespace Liaoxin.Model.Migrations
                     b.Property<decimal>("Over")
                         .HasColumnType("decimal(18, 2)");
 
+                    b.Property<int>("ReceiveCount");
+
                     b.Property<DateTime>("SendTime");
 
                     b.Property<int>("Status");

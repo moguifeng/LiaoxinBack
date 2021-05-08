@@ -75,9 +75,9 @@ namespace Zzb.Mvc
             return Json(() => ObjectResult(obj), msg);
         }
 
-        protected ServiceResult<K> ObjectGenericityResult<K>(bool result,K obj)
+        protected ServiceResult<K> ObjectGenericityResult<K>(bool result,K obj,string msg=null)
         {
-            return new ServiceResult<K>(result?ServiceResultCode.Success: ServiceResultCode.NoChanged, result ? "Success":"Error", obj);
+            return new ServiceResult<K>(result?ServiceResultCode.Success: ServiceResultCode.NoChanged, msg??(result ? "Success":"Error"), obj);
 
         }
 
