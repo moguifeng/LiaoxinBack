@@ -28,7 +28,7 @@ namespace LIaoxin.ViewModel
         /// <summary>
         /// 附件id
         /// </summary>
-        public int AffixId { get; set; }
+        public Guid AffixId { get; set; }
 
     }
 }

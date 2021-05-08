@@ -22,8 +22,41 @@ namespace Liaoxin.Controllers
     [ApiController]
     [Authorize]
     public class ClientRelationController : LiaoxinBaseController
-    {   
-      /// <summary>
+    {
+
+
+        /// <summary>
+        /// 全局搜索添加好友(聊信号/手机号码)
+        /// </summary>       
+        /// <returns></returns>
+        [HttpPost("ApplyFriends")]
+        public ServiceResult<GlobalSearchCliengResponse> GlobalSearchFriend(string  searchText)
+        {
+            return (ServiceResult<GlobalSearchCliengResponse>)Json(() =>
+            {
+
+                var entity = Context.Clients.Where(c => c.Telephone == searchText || c.LiaoxinNumber == searchText).FirstOrDefault();
+                if (entity == null)
+                {
+                    throw new ZzbException("找不到联系人");
+                }
+                GlobalSearchCliengResponse response = new GlobalSearchCliengResponse()
+                {
+                    ClientId = entity.ClientId,
+                    Cover = entity.Cover,
+                    HuanxinId = entity.HuanXinId,
+                    LiaoxinNumber = entity.LiaoxinNumber,
+                    NickName = entity.NickName,
+                };
+             
+                return ObjectGenericityResult(response);
+            }, "查找失败");
+
+        }
+
+
+
+        /// <summary>
         /// 客户(新的好友添加)列表
         /// </summary>       
         /// <returns></returns>
@@ -71,6 +104,7 @@ namespace Liaoxin.Controllers
                 {
                     lis.Add(new ClientFriendResponse()
                     {
+                         ClientId =e.Client.ClientId,
                         Cover = e.Client.Cover,
                         HuanxinId = e.Client.HuanXinId,
                         LiaoxinNumber = e.Client.LiaoxinNumber,
@@ -114,6 +148,7 @@ namespace Liaoxin.Controllers
                     lis.Add(new ClientFriendResponse()
                     {
                         Cover = e.Client.Cover,
+                        ClientId = e.Client.ClientId,
                         HuanxinId = e.Client.HuanXinId,
                         LiaoxinNumber = e.Client.LiaoxinNumber,
                         NickName = e.Client.NickName,
@@ -442,7 +477,6 @@ Select(g => new { Key = g.Key, Count = g.Count() }).Where(g => g.Count > 1).Coun
         }
 
 
-
         /// <summary>
         /// 移除黑名单
         /// </summary>
@@ -510,27 +544,6 @@ Select(g => new { Key = g.Key, Count = g.Count() }).Where(g => g.Count > 1).Coun
                 Context.ClientOperateLogs.Add(new ClientOperateLog(CurrentClientId, $"设置好友备注[{Combina.Item2.LiaoxinNumber}]"));                 
                 return ObjectResult(Context.SaveChanges() > 0);
             }, "设置好友备注失败");
-        }
-
-
-        /// <summary>
-        /// 好友的基本设置修改
-        /// </summary>        
-        /// <returns></returns>
-        [HttpPost("ModifyFirendBaseInfo")]
-        public ServiceResult ModifyFirendBaseInfo(SetFriendRemarkRequest request)
-        {
-            return Json(() =>
-            {
-
-                var Combina = GetRelationDetailClient(request.ClientId);
-                ClientRelationDetail clientRelationDetailEntity = Combina.Item1;
-                Context.ClientRelationDetails.Update(clientRelationDetailEntity);
-                clientRelationDetailEntity.ClientRemark = request.Remark;
-                Context.ClientOperateLogs.Add(new ClientOperateLog(CurrentClientId, $"设置好友备注[{Combina.Item2.LiaoxinNumber}]"));
-                return ObjectResult(Context.SaveChanges() > 0);
-            }, "设置好友备注失败");
-        }
-
+        } 
     }
 }

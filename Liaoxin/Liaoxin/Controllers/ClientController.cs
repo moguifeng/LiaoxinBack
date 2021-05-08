@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Zzb;
 using Zzb.Common;
 using Zzb.Context;
@@ -26,8 +27,14 @@ namespace Liaoxin.Controllers
 
 
         
-        public IClientService clientService { get; set; }        
+        public IClientService clientService { get; set; }
 
+
+        private Client GetCurrentClient()
+        {
+            var entity = Context.Clients.Where(c => c.ClientId == CurrentClientId).FirstOrDefault();
+            return entity;
+        }
 
         /// <summary>
         /// 获取客户
@@ -115,9 +122,9 @@ namespace Liaoxin.Controllers
             {
 
                 var entity = Context.Clients.Where(c => c.ClientId == CurrentClientId).First();
-                entity.NickName = request.nickName;
+                entity.NickName = request.NickName;
                 Context.Clients.Update(entity);
-                var res = HuanxinClientRequest.ModifyNickName(CurrentHuanxinId,request.nickName);
+                var res = HuanxinClientRequest.ModifyNickName(CurrentHuanxinId,request.NickName);
                 if (res.ReturnCode == ServiceResultCode.Success)
                 {
                     return ObjectResult(Context.SaveChanges() > 0);
@@ -140,7 +147,7 @@ namespace Liaoxin.Controllers
         {
             return Json(() =>
             {
-                var entity = Context.Clients.Where(c => c.ClientId == CurrentClientId).First();
+                var entity = GetCurrentClient();
                 entity.Cover = coverId;
                 Context.Clients.Update(entity);     
                 return ObjectResult(Context.SaveChanges() > 0);             
@@ -219,6 +226,10 @@ namespace Liaoxin.Controllers
                 {
                     throw new ZzbException("请输入身份证号码");
                 }
+                if ((!Regex.IsMatch(request.UniqueNo, @"^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$", RegexOptions.IgnoreCase)))
+                {
+                    throw new ZzbException("请输入正确身份证号码");
+                }
 
                 if (request.FrontCover == Guid.Empty)
                 {
@@ -229,14 +240,25 @@ namespace Liaoxin.Controllers
                     throw new ZzbException("请上传身份证背面");
                 }
 
-                var entity = Context.Clients.Where(c => c.ClientId == CurrentClientId).FirstOrDefault();
+                var entity = this.GetCurrentClient();
+                if (!string.IsNullOrEmpty(entity.RealName))
+                {
+                    throw new ZzbException("已绑定身份认证,不能更改了");
+                }
+                
                 entity.UniqueNo = request.UniqueNo;
-                entity.UniqueBackImg = request.FrontCover;
-                entity.UniqueFrontImg = request.BackCover;                
+                entity.RealName = request.RealName;
+                entity.UniqueBackImg = request.BackCover;
+                entity.UniqueFrontImg = request.FrontCover;
                 Context.Clients.Update(entity);
                 return ObjectResult(Context.SaveChanges() > 0);
-            }, "修改头像失败");
+            }, "修改实名认证失败");
 
         }
+
+
+
+
+
     }
 }
