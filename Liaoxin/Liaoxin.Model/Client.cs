@@ -127,13 +127,13 @@ namespace Liaoxin.Model
         /// <summary>
         /// 身份证前面照片
         /// </summary>
-        public Guid UniqueFrontImg { get; set; }
+        public Guid? UniqueFrontImg { get; set; }
 
 
         /// <summary>
         /// 身份证后面照片
         /// </summary>
-        public Guid UniqueBackImg { get; set; }
+        public Guid? UniqueBackImg { get; set; }
 
 
         /// <summary>

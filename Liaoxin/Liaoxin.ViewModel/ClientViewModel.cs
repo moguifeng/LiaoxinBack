@@ -433,16 +433,12 @@ namespace Liaoxin.ViewModel
             /// <summary>
             /// 昵称
             /// </summary>
-            public string nickName { get; set; }
+            public string NickName { get; set; }
         }
 
 
 
-        public class ClientFriendBaseInfoRequest
-        {
-            
-        }
-
+ 
 
         public class ClientRealNameRequest
         {
@@ -458,12 +454,65 @@ namespace Liaoxin.ViewModel
             /// <summary>
             /// 身份证正面
             /// </summary>
-            public int? FrontCover { get; set; }
+            public Guid FrontCover { get; set; }
 
             /// <summary>
             /// 身份证反面
             /// </summary>
-            public int? BackCover { get; set; }
+            public Guid BackCover { get; set; }
         }
+
+
+
     }
+
+    public class BindClientBankRequest
+    {
+
+        /// <summary>
+        /// 系统银行卡编号 获取SystemBanks列表
+        /// </summary>
+        public Guid SystemBankdId { get; set; }
+
+        /// <summary>
+        /// 银行卡号
+        /// </summary>
+        public string CardNumber { get; set; }
+    }
+
+
+    public class GlobalSearchCliengResponse
+    {
+        public Guid ClientId { get; set; }
+        /// <summary>
+        /// 环信id
+        /// </summary>
+        public string HuanxinId { get; set; }
+
+        /// <summary>
+        /// 聊信Id
+        /// </summary>
+        public string LiaoxinNumber { get; set; }
+
+
+        /// <summary>
+        ///添加客户头像id
+        /// </summary>
+        public Guid? Cover { get; set; }
+
+
+
+        /// <summary>
+        /// 客户昵称
+        /// </summary>
+        public string NickName { get; set; }
+    }
+
+    public class FindPasswordByPhoneRequest
+    {
+        public string Telephone { get; set; }
+        public string Code { get; set; }
+        
+    }
+
 }

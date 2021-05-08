@@ -18,5 +18,6 @@ namespace Zzb.EF
         /// 绑定客户Id(不可以随便访问图片)
         /// </summary>
         public Guid? ClientId { get; set; }
+        
     }
 }
