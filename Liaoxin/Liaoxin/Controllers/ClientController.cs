@@ -220,19 +220,19 @@ namespace Liaoxin.Controllers
                     throw new ZzbException("请输入身份证号码");
                 }
 
-                if (!request.FrontCover.HasValue)
+                if (request.FrontCover == Guid.Empty)
                 {
                     throw new ZzbException("请上传身份证正面");
                 }
-                if (!request.BackCover.HasValue)
+                if (request.BackCover == Guid.Empty)
                 {
                     throw new ZzbException("请上传身份证背面");
                 }
 
                 var entity = Context.Clients.Where(c => c.ClientId == CurrentClientId).FirstOrDefault();
                 entity.UniqueNo = request.UniqueNo;
-                //entity.UniqueBackImg = request.UniqueBackImg;
-                //entity.UniqueFrontImg = request.UniqueFrontImg;                
+                entity.UniqueBackImg = request.FrontCover;
+                entity.UniqueFrontImg = request.BackCover;                
                 Context.Clients.Update(entity);
                 return ObjectResult(Context.SaveChanges() > 0);
             }, "修改头像失败");

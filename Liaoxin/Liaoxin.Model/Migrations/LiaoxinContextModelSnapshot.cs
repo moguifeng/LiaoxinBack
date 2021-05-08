@@ -177,9 +177,9 @@ namespace Liaoxin.Model.Migrations
 
                     b.Property<string>("Telephone");
 
-                    b.Property<Guid>("UniqueBackImg");
+                    b.Property<Guid?>("UniqueBackImg");
 
-                    b.Property<Guid>("UniqueFrontImg");
+                    b.Property<Guid?>("UniqueFrontImg");
 
                     b.Property<string>("UniqueNo");
 

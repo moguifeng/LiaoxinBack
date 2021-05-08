@@ -458,12 +458,12 @@ namespace Liaoxin.ViewModel
             /// <summary>
             /// 身份证正面
             /// </summary>
-            public int? FrontCover { get; set; }
+            public Guid FrontCover { get; set; }
 
             /// <summary>
             /// 身份证反面
             /// </summary>
-            public int? BackCover { get; set; }
+            public Guid BackCover { get; set; }
         }
     }
 }
