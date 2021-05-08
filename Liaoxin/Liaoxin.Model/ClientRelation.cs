@@ -34,14 +34,16 @@ namespace Liaoxin.Model
 
 
 
-        public enum RelationTypeEnum
-        {
-            [Description("好友")]
-            Friend = 0,
-            [Description("黑名单")]
-            Black = 1,
-        }
+  
 
+    }
+
+    public enum RelationTypeEnum
+    {
+        [Description("好友")]
+        Friend = 0,
+        [Description("黑名单")]
+        Black = 1,
     }
 
 

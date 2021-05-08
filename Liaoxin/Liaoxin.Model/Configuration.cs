@@ -108,7 +108,7 @@ namespace Liaoxin.Model
             {
                 if (i % 5 == 0 && i <= 190)
                 {
-                    ClientRelation cr = new ClientRelation() { ClientId = clientIds[i], RelationType = ClientRelation.RelationTypeEnum.Friend };
+                    ClientRelation cr = new ClientRelation() { ClientId = clientIds[i], RelationType = RelationTypeEnum.Friend };
                     _context.ClientRelations.Add(cr);
                     for (int j = i + 1; j < i + 5; j++)
                     {

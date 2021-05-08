@@ -420,10 +420,10 @@ namespace Liaoxin.ViewModel
         }
 
 
-        public class DeleteFriendRequest
+        public class ClientRelationShipRequest
         {
             /// <summary>
-            /// 好友的环信Id
+            /// 关系(好友/黑名单)环信Id
             /// </summary>
             public Guid ClientId { get; set; }
         }
