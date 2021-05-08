@@ -22,7 +22,7 @@ namespace Liaoxin.Model
         /// <summary>
         /// 头像
         /// </summary>
-        public int? Cover { get; set; }
+        public Guid? Cover { get; set; }
         /// <summary>
         /// 环信的Id
         /// </summary>
@@ -114,7 +114,7 @@ namespace Liaoxin.Model
 
         public int ErrorPasswordCount { get; set; } = 0;
          
-
+        
         /// <summary>
         /// 真实姓名
         /// </summary>
@@ -127,13 +127,13 @@ namespace Liaoxin.Model
         /// <summary>
         /// 身份证前面照片
         /// </summary>
-        public string UniqueFrontImg { get; set; }
+        public Guid UniqueFrontImg { get; set; }
 
 
         /// <summary>
         /// 身份证后面照片
         /// </summary>
-        public string UniqueBackImg { get; set; }
+        public Guid UniqueBackImg { get; set; }
 
 
         /// <summary>

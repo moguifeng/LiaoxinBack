@@ -1,4 +1,5 @@
 ﻿using Liaoxin.Model;
+using System;
 using Zzb.BaseData.Attribute.Field;
 
 namespace Liaoxin.BaseDataModel.RechargeManager
@@ -15,7 +16,7 @@ namespace Liaoxin.BaseDataModel.RechargeManager
 
         public override string Name { get; set; }
 
-        public override int? BannerAffixId { get; set; }
+        public override Guid? BannerAffixId { get; set; }
 
         [DropListField("第三方商家")]
         public ThirdPayMerchantsType ThirdPayMerchantsType { get; set; }

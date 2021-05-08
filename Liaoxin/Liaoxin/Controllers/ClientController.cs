@@ -136,7 +136,7 @@ namespace Liaoxin.Controllers
         /// </summary>        
         /// <returns></returns>
         [HttpPost("ModifyCover")]
-        public ServiceResult ModifyCover(int coverId)
+        public ServiceResult ModifyCover(Guid coverId)
         {
             return Json(() =>
             {
@@ -199,13 +199,44 @@ namespace Liaoxin.Controllers
 
         }
 
- 
- 
- 
 
+        /// <summary>
+        /// 实名认证
+        /// </summary>        
+        /// <returns></returns>
+        [HttpPost("RealNameAuth")]
+        public ServiceResult RealNameAuth(ClientRealNameRequest request)
+        {
+            return Json(() =>
+            {
 
- 
+                if (string.IsNullOrEmpty(request.RealName))
+                {
+                    throw new ZzbException("请输入真实姓名");
+                }
 
-   
+                if (string.IsNullOrEmpty(request.UniqueNo))
+                {
+                    throw new ZzbException("请输入身份证号码");
+                }
+
+                if (!request.FrontCover.HasValue)
+                {
+                    throw new ZzbException("请上传身份证正面");
+                }
+                if (!request.BackCover.HasValue)
+                {
+                    throw new ZzbException("请上传身份证背面");
+                }
+
+                var entity = Context.Clients.Where(c => c.ClientId == CurrentClientId).FirstOrDefault();
+                entity.UniqueNo = request.UniqueNo;
+                //entity.UniqueBackImg = request.UniqueBackImg;
+                //entity.UniqueFrontImg = request.UniqueFrontImg;                
+                Context.Clients.Update(entity);
+                return ObjectResult(Context.SaveChanges() > 0);
+            }, "修改头像失败");
+
+        }
     }
 }

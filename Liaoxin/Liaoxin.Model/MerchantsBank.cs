@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using Zzb.EF;
 
@@ -16,7 +17,7 @@ namespace Liaoxin.Model
         /// <summary>
         /// 银行图片附件
         /// </summary>
-        public int BannerAffixId { get; set; }
+        public Guid BannerAffixId { get; set; }
 
         [ForeignKey("BannerAffixId")]
         public virtual Affix BannerAffix { get; set; }
@@ -40,7 +41,7 @@ namespace Liaoxin.Model
         /// <summary>
         /// 扫码图片
         /// </summary>
-        public int? ScanAffixId { get; set; }
+        public Guid? ScanAffixId { get; set; }
 
         [ForeignKey("ScanAffixId")]
         public virtual Affix ScanAffix { get; set; }

@@ -54,9 +54,7 @@ namespace Liaoxin.Model
 
         public DbSet<Group> Groups { get; set; }
 
-        public DbSet<GroupClient> GroupClients { get; set; }
-
-        public DbSet<GroupManager> GroupManagers { get; set; }
+        public DbSet<GroupClient> GroupClients { get; set; }        
 
         public DbSet<SystemBank> SystemBanks { get; set; }
 

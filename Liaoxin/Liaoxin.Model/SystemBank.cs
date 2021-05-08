@@ -17,10 +17,12 @@ namespace Liaoxin.Model
 
         public int SortIndex { get; set; }
 
+ 
+
         /// <summary>
         /// logo
         /// </summary>
-        public int AffixId { get; set; }
+        public Guid AffixId { get; set; }
 
         public virtual Affix Affix { get; set; }
     }

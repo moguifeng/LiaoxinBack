@@ -82,7 +82,7 @@ namespace Liaoxin.BaseDataModel.ClientManger
                 model.SureConfirmInvite = item.SureConfirmInvite;
                 model.CreateTime = item.CreateTime;
                 model.Notice = item.Notice;
-                string ms = string.Join(',',item.GroupMangers.Select(g => g.Client.LiaoxinNumber).ToArray());
+                string ms = string.Join(",",item.GroupClients.Where(c => c.IsGroupManager == true).Select(c => c.Client.LiaoxinNumber).ToList());
                 model.Managers = ms;
                 lis.Add(model);
             }

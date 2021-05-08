@@ -186,11 +186,6 @@ Select(g => new { Key = g.Key, Count = g.Count() }).Where(g => g.Count > 1).Coun
 
         }
 
-
-
-
-
-
         /// <summary>
         /// 添加好友申请
         /// </summary>       
@@ -518,8 +513,24 @@ Select(g => new { Key = g.Key, Count = g.Count() }).Where(g => g.Count > 1).Coun
         }
 
 
- 
+        /// <summary>
+        /// 好友的基本设置修改
+        /// </summary>        
+        /// <returns></returns>
+        [HttpPost("ModifyFirendBaseInfo")]
+        public ServiceResult ModifyFirendBaseInfo(SetFriendRemarkRequest request)
+        {
+            return Json(() =>
+            {
 
-   
+                var Combina = GetRelationDetailClient(request.ClientId);
+                ClientRelationDetail clientRelationDetailEntity = Combina.Item1;
+                Context.ClientRelationDetails.Update(clientRelationDetailEntity);
+                clientRelationDetailEntity.ClientRemark = request.Remark;
+                Context.ClientOperateLogs.Add(new ClientOperateLog(CurrentClientId, $"设置好友备注[{Combina.Item2.LiaoxinNumber}]"));
+                return ObjectResult(Context.SaveChanges() > 0);
+            }, "设置好友备注失败");
+        }
+
     }
 }

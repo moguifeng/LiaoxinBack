@@ -1,5 +1,6 @@
 ﻿using Liaoxin.IBusiness;
 using Liaoxin.Model;
+using System;
 using System.Linq;
 using Zzb;
 using Zzb.BaseData.Attribute.Field;
@@ -28,7 +29,7 @@ namespace Liaoxin.BaseDataModel.RechargeManager
         public virtual string Name { get; set; }
 
         [ImageField("银行图片")]
-        public virtual int? BannerAffixId { get; set; }
+        public virtual Guid? BannerAffixId { get; set; }
 
 
         [NumberField("最小充值金额", 0, 1000000)]

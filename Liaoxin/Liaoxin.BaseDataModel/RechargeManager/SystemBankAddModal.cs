@@ -1,4 +1,5 @@
 ﻿using Liaoxin.Model;
+using System;
 using System.Linq;
 using Zzb;
 using Zzb.BaseData.Attribute.Field;
@@ -22,7 +23,7 @@ namespace Liaoxin.BaseDataModel.RechargeManager
         public string Name { get; set; }
 
         [ImageField("银行图片")]
-        public int? AffixId { get; set; }
+        public Guid? AffixId { get; set; }
 
         [NumberField("排序")]
         public int SortIndex { get; set; }

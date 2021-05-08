@@ -126,7 +126,7 @@ namespace Liaoxin.ViewModel
             /// <summary>
             /// 头像
             /// </summary>
-            public int? Cover { get; set; }
+            public Guid? Cover { get; set; }
             /// <summary>
             /// 环信的Id
             /// </summary>
@@ -266,7 +266,7 @@ namespace Liaoxin.ViewModel
             /// <summary>
             ///添加客户头像id
             /// </summary>
-            public int? Cover { get; set; }
+            public Guid? Cover { get; set; }
 
             /// <summary>
             /// 申请添加时间
@@ -313,14 +313,14 @@ namespace Liaoxin.ViewModel
             /// 个性签名
             /// </summary>
  
-                public string CharacterSignature { get; set; }
+            public string CharacterSignature { get; set; }
 
 
             /// <summary>
             ///添加客户头像id
             /// </summary>
 
-            public int? Cover { get; set; }
+            public Guid? Cover { get; set; }
 
             /// <summary>
             /// 来自于
@@ -362,7 +362,7 @@ namespace Liaoxin.ViewModel
             /// <summary>
             ///添加客户头像id
             /// </summary>
-            public int? Cover { get; set; }
+            public Guid? Cover { get; set; }
         
 
 
@@ -429,14 +429,41 @@ namespace Liaoxin.ViewModel
         }
 
         public class SetClientNickNameRequest
-        {
- 
-
+        { 
             /// <summary>
             /// 昵称
             /// </summary>
             public string nickName { get; set; }
         }
-        
+
+
+
+        public class ClientFriendBaseInfoRequest
+        {
+            
+        }
+
+
+        public class ClientRealNameRequest
+        {
+            /// <summary>
+            /// 真实姓名
+            /// </summary>
+            public string RealName { get; set; }
+            /// <summary>
+            /// 身份证号码
+            /// </summary>
+            public string UniqueNo { get; set; }
+
+            /// <summary>
+            /// 身份证正面
+            /// </summary>
+            public int? FrontCover { get; set; }
+
+            /// <summary>
+            /// 身份证反面
+            /// </summary>
+            public int? BackCover { get; set; }
+        }
     }
 }

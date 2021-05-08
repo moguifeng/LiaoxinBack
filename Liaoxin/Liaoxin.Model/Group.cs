@@ -56,10 +56,7 @@ namespace Liaoxin.Model
         /// <summary>
         /// 全员禁言
         /// </summary>
-        public bool AllBlock { get; set; } = false;
-
-
-        public virtual List<GroupManager> GroupMangers { get; set; } = new List<GroupManager>();
+        public bool AllBlock { get; set; } = false;        
 
         public virtual List<GroupClient> GroupClients { get; set; } = new List<GroupClient>();
 

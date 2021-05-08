@@ -22,7 +22,7 @@ namespace Liaoxin.Model.Migrations
                     b.Property<int>("ActivityAnnouncementId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("AffixId");
+                    b.Property<Guid>("AffixId");
 
                     b.Property<DateTime>("BeginTime");
 
@@ -140,7 +140,7 @@ namespace Liaoxin.Model.Migrations
 
                     b.Property<string>("CoinPassword");
 
-                    b.Property<int?>("Cover");
+                    b.Property<Guid?>("Cover");
 
                     b.Property<DateTime>("CreateTime");
 
@@ -177,9 +177,9 @@ namespace Liaoxin.Model.Migrations
 
                     b.Property<string>("Telephone");
 
-                    b.Property<string>("UniqueBackImg");
+                    b.Property<Guid>("UniqueBackImg");
 
-                    b.Property<string>("UniqueFrontImg");
+                    b.Property<Guid>("UniqueFrontImg");
 
                     b.Property<string>("UniqueNo");
 
@@ -562,7 +562,7 @@ namespace Liaoxin.Model.Migrations
                     b.Property<Guid>("GroupClientId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("BackgroundImg");
+                    b.Property<Guid?>("BackgroundImg");
 
                     b.Property<Guid>("ClientId");
 
@@ -603,36 +603,6 @@ namespace Liaoxin.Model.Migrations
                     b.ToTable("GroupClients");
                 });
 
-            modelBuilder.Entity("Liaoxin.Model.GroupManager", b =>
-                {
-                    b.Property<Guid>("GroupManagerId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<Guid>("ClientId");
-
-                    b.Property<DateTime>("CreateTime");
-
-                    b.Property<Guid>("GroupId");
-
-                    b.Property<bool>("IsEnable");
-
-                    b.Property<DateTime>("UpdateTime");
-
-                    b.HasKey("GroupManagerId");
-
-                    b.HasIndex("ClientId");
-
-                    b.HasIndex("CreateTime");
-
-                    b.HasIndex("GroupId");
-
-                    b.HasIndex("IsEnable");
-
-                    b.HasIndex("UpdateTime");
-
-                    b.ToTable("GroupManagers");
-                });
-
             modelBuilder.Entity("Liaoxin.Model.MerchantsBank", b =>
                 {
                     b.Property<int>("MerchantsBankId")
@@ -644,7 +614,7 @@ namespace Liaoxin.Model.Migrations
 
                     b.Property<string>("BankUserName");
 
-                    b.Property<int>("BannerAffixId");
+                    b.Property<Guid>("BannerAffixId");
 
                     b.Property<DateTime>("CreateTime");
 
@@ -670,7 +640,7 @@ namespace Liaoxin.Model.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int?>("ScanAffixId");
+                    b.Property<Guid?>("ScanAffixId");
 
                     b.Property<int>("ThirdPayMerchantsType");
 
@@ -725,7 +695,7 @@ namespace Liaoxin.Model.Migrations
                     b.Property<int>("PictureNewsId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("AffixId");
+                    b.Property<Guid>("AffixId");
 
                     b.Property<DateTime>("CreateTime");
 
@@ -1116,7 +1086,7 @@ namespace Liaoxin.Model.Migrations
                     b.Property<Guid>("SystemBankId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("AffixId");
+                    b.Property<Guid>("AffixId");
 
                     b.Property<DateTime>("CreateTime");
 
@@ -1249,7 +1219,7 @@ namespace Liaoxin.Model.Migrations
 
             modelBuilder.Entity("Zzb.EF.Affix", b =>
                 {
-                    b.Property<int>("AffixId")
+                    b.Property<Guid>("AffixId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<Guid?>("ClientId");
@@ -1257,6 +1227,8 @@ namespace Liaoxin.Model.Migrations
                     b.Property<DateTime>("CreateTime");
 
                     b.Property<bool>("IsEnable");
+
+                    b.Property<bool>("NotAllowOtherSee");
 
                     b.Property<string>("Path");
 
@@ -1508,19 +1480,6 @@ namespace Liaoxin.Model.Migrations
 
                     b.HasOne("Liaoxin.Model.Group", "Group")
                         .WithMany("GroupClients")
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Liaoxin.Model.GroupManager", b =>
-                {
-                    b.HasOne("Liaoxin.Model.Client", "Client")
-                        .WithMany()
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Liaoxin.Model.Group", "Group")
-                        .WithMany("GroupMangers")
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

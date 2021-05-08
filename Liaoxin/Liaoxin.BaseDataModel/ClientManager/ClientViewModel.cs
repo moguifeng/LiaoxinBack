@@ -68,7 +68,7 @@ namespace Liaoxin.BaseDataModel.ClientManger
         public bool IsFreeze { get; set; }
 
         [NavField("头像" , IsDisplay = false)]
-        public int? Cover { get; set; }
+        public Guid? Cover { get; set; }
 
         protected override object[] DoGetNavDatas()
         {

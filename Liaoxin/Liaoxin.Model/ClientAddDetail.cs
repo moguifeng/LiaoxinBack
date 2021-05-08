@@ -24,6 +24,8 @@ namespace Liaoxin.Model
         /// </summary>
         public Guid FromClientId { get; set; }
 
+        
+
         public virtual Client FromClient { get; set; }
 
 
@@ -32,6 +34,7 @@ namespace Liaoxin.Model
         /// </summary>
         public Guid ToClientId { get; set; }
 
+        
         public virtual Client ToClient { get; set; }
 
         /// <summary>

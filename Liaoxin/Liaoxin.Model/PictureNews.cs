@@ -1,4 +1,5 @@
-﻿using Zzb.EF;
+﻿using System;
+using Zzb.EF;
 
 namespace Liaoxin.Model
 {
@@ -11,7 +12,7 @@ namespace Liaoxin.Model
         {
         }
 
-        public PictureNews(int affixId, string url, int sortIndex)
+        public PictureNews(Guid affixId, string url, int sortIndex)
         {
             AffixId = affixId;
             Url = url;
@@ -20,7 +21,7 @@ namespace Liaoxin.Model
 
         public int PictureNewsId { get; set; }
 
-        public int AffixId { get; set; }
+        public Guid AffixId { get; set; }
 
         public virtual Affix Affix { get; set; }
 

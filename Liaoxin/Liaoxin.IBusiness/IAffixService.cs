@@ -1,7 +1,9 @@
-﻿namespace Liaoxin.IBusiness
+﻿using System;
+
+namespace Liaoxin.IBusiness
 {
     public interface IAffixService
     {
-        byte[] GetAffix(int id);
+        byte[] GetAffix(Guid id);
     }
 }

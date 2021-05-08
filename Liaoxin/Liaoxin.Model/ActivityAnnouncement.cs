@@ -9,7 +9,7 @@ namespace Liaoxin.Model
         {
         }
 
-        public ActivityAnnouncement(string title, DateTime beginTime, DateTime endTime, string content, int affixId)
+        public ActivityAnnouncement(string title, DateTime beginTime, DateTime endTime, string content, Guid affixId)
         {
             Title = title;
             BeginTime = beginTime;
@@ -28,7 +28,7 @@ namespace Liaoxin.Model
 
         public string Content { get; set; }
 
-        public int AffixId { get; set; }
+        public Guid AffixId { get; set; }
 
         public virtual Affix Affix { get; set; }
 

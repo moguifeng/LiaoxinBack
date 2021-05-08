@@ -42,7 +42,7 @@ namespace Liaoxin.BaseDataModel.ClientManger
 
 
         [ImageField("背景头像", IsRequired = true)]
-        public int? Cover { get; set; }
+        public Guid? Cover { get; set; }
 
 
 

@@ -20,7 +20,7 @@ namespace Liaoxin.Controllers
         public IAffixService AffixService { get; set; }
 
         [HttpGet("GetAffix")]
-        public IActionResult GetAffix(int id)
+        public IActionResult GetAffix(Guid id)
         {
  
             Response.Headers.Add("ETag", new[] { id.ToString() });
