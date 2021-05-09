@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Liaoxin.Model.Migrations
 {
     [DbContext(typeof(LiaoxinContext))]
-    [Migration("20210508053301_DDDDD")]
-    partial class DDDDD
+    [Migration("20210509071413_AAAA")]
+    partial class AAAA
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -179,9 +179,9 @@ namespace Liaoxin.Model.Migrations
 
                     b.Property<string>("Telephone");
 
-                    b.Property<Guid>("UniqueBackImg");
+                    b.Property<Guid?>("UniqueBackImg");
 
-                    b.Property<Guid>("UniqueFrontImg");
+                    b.Property<Guid?>("UniqueFrontImg");
 
                     b.Property<string>("UniqueNo");
 
@@ -985,6 +985,10 @@ namespace Liaoxin.Model.Migrations
 
                     b.Property<bool>("IsEnable");
 
+                    b.Property<int>("LuckIndex");
+
+                    b.Property<string>("LuckNumbers");
+
                     b.Property<decimal>("Money")
                         .HasColumnType("decimal(18, 2)");
 
@@ -1027,7 +1031,13 @@ namespace Liaoxin.Model.Migrations
 
                     b.Property<bool>("IsEnable");
 
+                    b.Property<bool>("IsLuck");
+
                     b.Property<bool>("IsWin");
+
+                    b.Property<string>("LuckNumber");
+
+                    b.Property<string>("NickName");
 
                     b.Property<Guid>("RedPacketId");
 

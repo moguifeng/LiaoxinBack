@@ -103,7 +103,7 @@ namespace Liaoxin.Model
         /// <summary>
         /// 中奖末几位
         /// </summary>
-        public int LuckIndex { get; set; }
+        public int LuckIndex { get; set; } = 1;
 
         /// <summary>
         /// 累计中的Lucknumbers
