@@ -1,4 +1,5 @@
 ﻿using Liaoxin.Model;
+using LIaoxin.ViewModel;
 using System;
 using System.Collections.Generic;
 
@@ -20,6 +21,9 @@ namespace Liaoxin.IBusiness
         /// <param name="client"></param>
         /// <returns></returns>
         IList<Group> GetClientGroups(Guid clientid, bool isEnable);
+
+
+        List<GroupClientByGroupResponse> GetClientsOfGroup(Guid groupId);
 
         /// <summary>
         /// 解散群

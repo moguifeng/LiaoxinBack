@@ -37,7 +37,10 @@ namespace Liaoxin.Model
         /// <summary>
         /// 环信组id
         /// </summary>
-        public  string HuanxinGroupId { get; set; } = SecurityCodeHelper.CreateRandomCode(32);
+        /// 
+        [ZzbIndex(IsUnique = true)]
+
+        public  string HuanxinGroupId { get; set; } = SecurityCodeHelper.CreateRandomCode(15);
 
 
         /// <summary>

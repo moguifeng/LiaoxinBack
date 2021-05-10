@@ -31,6 +31,7 @@ namespace Liaoxin.BaseDataModel.ClientManger
         [NavField("群编号")]
         public string UniqueId { get; set; }
 
+
         [NavField("群名称")]
         public string Name { get; set; }
 

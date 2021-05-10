@@ -547,6 +547,9 @@ namespace Liaoxin.Model.Migrations
 
                     b.HasIndex("CreateTime");
 
+                    b.HasIndex("HuanxinGroupId")
+                        .IsUnique();
+
                     b.HasIndex("IsEnable");
 
                     b.HasIndex("UnqiueId")

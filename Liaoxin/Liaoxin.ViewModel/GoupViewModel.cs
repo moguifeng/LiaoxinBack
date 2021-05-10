@@ -6,6 +6,8 @@ namespace LIaoxin.ViewModel
 {
     public class CreateGroupRequest
     {
+
+ 
         /// <summary>
         /// 群聊名称
         /// </summary>
@@ -83,11 +85,28 @@ namespace LIaoxin.ViewModel
 
     }
 
+
+    public class GroupClientByGroupResponse
+    {
+        public Guid GroupClientId { get; set; }
+        public Guid GroupId { get; set; }
+
+        public Guid ClientId { get; set; }
+
+        public string NickName { get; set; }
+
+        public Guid? Cover { get; set; }
+
+
+    }
+
     public class GroupClientResponse
     {
-        public Guid GroupClientId { get; set; } = Guid.NewGuid();
+        public Guid GroupClientId { get; set; } 
         public Guid GroupId { get; set; }
         public Guid ClientId { get; set; }
+
+
         /// <summary>
         /// 我的群昵称
         /// </summary>

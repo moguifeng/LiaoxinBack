@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Zzb;
+using Zzb.Common;
 
 namespace Liaoxin.Business
 {
@@ -10,12 +11,22 @@ namespace Liaoxin.Business
 
     {
 
+
+        public class CreateGroupResponse
+        {
+            public CreateGroupDataResponse Data { get; set; }
+        }
+
+        public class CreateGroupDataResponse
+        {
+            public string GroupId { get; set; }
+        }
         /// <summary>
         /// 创建群组
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static ServiceResult<string> CreateGroup(string groupName,string owner,string[] members)
+        public static ServiceResult<string> CreateGroup(string groupName, string owner, string[] members)
         {
 
 
@@ -49,8 +60,28 @@ namespace Liaoxin.Business
             dic.Add("member", members);
             var responseUrl = $"{HostService.url}/chatgroups";
             var res = HostService.Post(responseUrl, dic);
+            if (res.ReturnCode == ServiceResultCode.Success)
+            {
+                CreateGroupResponse response = JsonHelper.Json<CreateGroupResponse>(res.Data);
+                res.Data = response.Data.GroupId;
+
+            }
             return res;
         }
+
+
+        public static ServiceResult<string> AddGroupMembers(string chatGroupId, string[] members)
+        {
+            var responseUrl = $"{HostService.url}/chatgroups/{chatGroupId}/users";
+            Dictionary<string, object> dic = new Dictionary<string, object>();
+            dic.Add("usernames",members);
+            var res = HostService.Post(responseUrl, dic);
+            return res;
+        }
+
+
+
+
     }
 
 
