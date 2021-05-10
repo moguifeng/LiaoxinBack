@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Liaoxin.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
@@ -67,26 +68,21 @@ namespace LIaoxin.ViewModel
         public IList<RedPacketReceiveResponse> RedPacketReceives { get; set; } = new List<RedPacketReceiveResponse>();
     }
 
-    public class ClientRedPacketResponse
+    public class RedPacketPersonalResponse
     {
 
-        public Guid RedPacketId { get; set; }
-
+        public Guid RedPacketPersonalId { get; set; } = Guid.NewGuid();
 
         /// <summary>
         /// 红包发送者
         /// </summary>
-        public Guid ClientId { get; set; }
+        public Guid FromClientId { get; set; }
 
         /// <summary>
-        /// 昵称
+        /// 红包接收者者
         /// </summary>
-        public string NickName { get; set; }
+        public Guid ToClientId { get; set; }
 
-        /// <summary>
-        /// 祝福语(尾数)
-        /// </summary>
-        public string Greeting { get; set; }
 
         /// <summary>
         /// 发送时间
@@ -95,23 +91,27 @@ namespace LIaoxin.ViewModel
 
 
         /// <summary>
+        /// 红包类型
+        /// </summary>
+        public RedPacketTranferTypeEnum Type { get; set; }
+
+
+
+        /// <summary>
         /// 红包金额
         /// </summary>
         public decimal Money { get; set; }
 
-        /// <summary>
-        /// 剩余红包金额
-        /// </summary>
-        public decimal Over { get; set; }
 
 
         /// <summary>
-        /// 红包状态
+        /// 是否领取
         /// </summary>
-        public RedPacketStatus Status { get; set; }
+        public bool IsReceive { get; set; }
 
 
-        public RedPacketReceiveResponse RedPacketReceive { get; set; }
+
+
     }
 
     public class RedPacketReceiveResponse  
@@ -184,13 +184,18 @@ namespace LIaoxin.ViewModel
         /// 祝福语
         /// </summary>
         public string Greeting { get; set; }
+
+        /// <summary>
+        /// 钱包密码
+        /// </summary>
+        public string CoinPassword { get; set; }
         ///// <summary>
         ///// 中奖末几位
         ///// </summary>
         //public int LuckIndex { get; set; }
     }
 
-    public class CreateClientRedPacketsRequest
+    public class CreateRedPacketPersonalRequest
     {
         /// <summary>
         /// 发红包者ClientId
@@ -198,18 +203,39 @@ namespace LIaoxin.ViewModel
         public Guid SenderClientId { get; set; }
 
         /// <summary>
+        /// 收红包者ClientId
+        /// </summary>
+        public Guid ReceiverClientId { get; set; }
+
+        /// <summary>
         /// 红包总金额
         /// </summary>
         public decimal Money { get; set; }
 
         /// <summary>
+        /// 0:红包;1:转账
+        /// </summary>
+        public int Type { get; set; }
+
+        /// <summary>
         /// 祝福语
         /// </summary>
         public string Greeting { get; set; }
+        /// <summary>
+        /// 钱包密码
+        /// </summary>
+        public string CoinPassword { get; set; }
 
     }
 
-    public class ReceiveGroupRedPacketsRequest
+    public class ReceiveGroupRedPacketRequest
+    {
+        public Guid RedPacketPersonalId { get; set; }
+
+        public Guid ClientId { get; set; }
+    }
+
+    public class ReceiveRedPacketPersonalRequest
     {
         public Guid RedPacketId { get; set; }
 
