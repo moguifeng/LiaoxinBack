@@ -38,14 +38,13 @@ namespace Liaoxin.Controllers
         public ServiceResult<GroupResponse> CreateGroup(CreateGroupRequest requestObj)
         {
             string groupName = requestObj.GroupName;
-            Guid masterClientId = requestObj.MasterClientId;
 
             List<Guid> clientIdList = requestObj.ClientIdList.Distinct().ToList();
         
             Group entity = new Group();
             entity.IsEnable = true;
             entity.Name = groupName;
-            entity.ClientId = masterClientId;
+            entity.ClientId = CurrentClientId;
             bool result = groupService.CreateGroup(entity, clientIdList);
             GroupResponse returnObj = null;
             if (result)

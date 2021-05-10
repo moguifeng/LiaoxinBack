@@ -30,10 +30,22 @@ namespace Liaoxin.Business
 
             }
         }
+        protected string CurrentHuanxinId
+        {
+            get
+            {
+                if (UserContext.Current.IsAuthenticated)
+                {
+                    return UserContext.Current.Name;
+                }
+
+                return "";
+            }
+        }
 
         public int Update<T>(T t, string keyName, IList<string> updateFieldList) where T : class
         {
-            //Context.Attach(t);
+            Context.Attach(t);
             var userm = Context.Entry<T>(t);
             userm.State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
             foreach (var updateField in updateFieldList)
