@@ -68,6 +68,17 @@ namespace Liaoxin.Controllers
                         entity.Money = request.Money;
                         entity.Over = request.Money;
                         entity.Greeting = request.Greeting;
+                        string greeting = entity.Greeting + "";
+                        Regex regex = new System.Text.RegularExpressions.Regex(@"^[0-9]\d*$");
+                        if (request.ReadPacketsType == 0 && greeting.Length >= 1 && greeting.Length <= 3 && regex.IsMatch(greeting))
+                        {
+                            entity.LuckIndex = 1;
+                        }
+                        else
+                        {
+                            entity.LuckIndex = 0;
+                        }
+
                         //默认1
                         //entity.LuckIndex = request.LuckIndex;
                         entity.Type = (RedPacketTypeEnum)request.ReadPacketsType;
@@ -77,6 +88,14 @@ namespace Liaoxin.Controllers
                         sender.Coin -= request.Money;
                         sender.UpdateTime = DateTime.Now;
                         Update<Client>(sender, "ClientId", new List<string>() { "Coin", "UpdateTime" });
+
+                        CoinLog coinLogEntity = new CoinLog();
+                        coinLogEntity.ClientId = entity.ClientId;
+                        coinLogEntity.FlowCoin = -request.Money;
+                        coinLogEntity.Coin = sender.Coin;
+                        coinLogEntity.Type = CoinLogTypeEnum.SendRedPacket;
+                        coinLogEntity.AboutId = entity.RedPacketId;
+                        Context.CoinLogs.Add(coinLogEntity);
                         Context.SaveChanges();
                         transaction.Commit();
 
@@ -98,7 +117,82 @@ namespace Liaoxin.Controllers
         }
 
         /// <summary>
-        /// 领取群红包
+        /// 发个人红包
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost("CreateClientRedPacket")]
+        public ServiceResult<ClientRedPacketResponse> CreateClientRedPacket(CreateClientRedPacketsRequest request)
+        {
+            ClientRedPacketResponse returnObject = null;
+            bool result = true;
+            string errMsg = "";
+            if (request.Money < (decimal)0.01)
+            {
+                errMsg = "红包最小金额为0.01";
+                result = false;
+                return ObjectGenericityResult<ClientRedPacketResponse>(result, returnObject, errMsg);
+            }
+            else if (request.Money > 1800)
+            {
+                errMsg = "红包最大金额为1800";
+                result = false;
+                return ObjectGenericityResult<ClientRedPacketResponse>(result, returnObject, errMsg);
+            }
+            Client sender = Context.Clients.AsNoTracking().FirstOrDefault(p => p.ClientId == request.SenderClientId);
+            if (sender != null && sender.IsEnable && sender.Coin >= request.Money)
+            {
+                using (IDbContextTransaction transaction = Context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        RedPacket entity = new RedPacket();
+                        entity.ClientId = request.SenderClientId;
+                        entity.GroupId = Guid.Empty;
+                        entity.SendTime = DateTime.Now;
+                        entity.Count = 1;
+                        entity.Money = request.Money;
+                        entity.Over = request.Money;
+                        entity.Greeting = request.Greeting;
+                        //默认1
+                        //entity.LuckIndex = request.LuckIndex;
+                        entity.Type = RedPacketTypeEnum.Normal;
+                        returnObject = ConvertHelper.ConvertToModel<RedPacket, ClientRedPacketResponse>(entity);
+                        Context.RedPackets.Add(entity);
+                        Context.SaveChanges();
+                        sender.Coin -= request.Money;
+                        sender.UpdateTime = DateTime.Now;
+                        Update<Client>(sender, "ClientId", new List<string>() { "Coin", "UpdateTime" });
+                        CoinLog coinLogEntity = new CoinLog();
+                        coinLogEntity.ClientId = entity.ClientId;
+                        coinLogEntity.FlowCoin = -request.Money;
+                        coinLogEntity.Coin = sender.Coin;
+                        coinLogEntity.Type = CoinLogTypeEnum.SendRedPacket;
+                        coinLogEntity.AboutId = entity.RedPacketId;
+                        Context.CoinLogs.Add(coinLogEntity);
+                        Context.SaveChanges();
+                        transaction.Commit();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        result = false;
+                        returnObject = null;
+                        transaction.Rollback();
+                    }
+                }
+            }
+            else
+            {
+                result = false;
+                errMsg = "用户无效或余额不足";
+            }
+            return ObjectGenericityResult<ClientRedPacketResponse>(result, returnObject, errMsg);
+        }
+
+
+        /// <summary>
+        /// 领取红包
         /// </summary>
         /// <param name="requestObj"></param>
         /// <returns></returns>
@@ -120,7 +214,7 @@ namespace Liaoxin.Controllers
                 }
                 _cacheManager.Set(operKey, clientId.ToString(), 2);//2分钟过期
                 RedPacket entity = Context.RedPackets.FirstOrDefault(p => p.RedPacketId == redPacketId);
-                //Client reveiver = Context.Clients.AsNoTracking().FirstOrDefault(p => p.ClientId == clientId);
+                Client reveiver = Context.Clients.AsNoTracking().FirstOrDefault(p => p.ClientId == clientId);
 
                 int luckIndex = entity.LuckIndex;
                 List<string> luckNumbers = new List<string>();
@@ -129,9 +223,10 @@ namespace Liaoxin.Controllers
                 Regex regex = new System.Text.RegularExpressions.Regex(@"^[0-9]\d*$");
                 if (greeting.Length >= 1 && greeting.Length <= 3 && regex.IsMatch(greeting))
                 {
-                    if (greeting.Split().Distinct().Count() == greeting.Length)
+                    List<char> arr = greeting.ToCharArray().Distinct().ToList();
+                    if (arr.Count == greeting.Length)
                     {
-                        greeting.Split().ToList().ForEach(c =>
+                        arr.ForEach(c =>
                         {
                             luckNumbers.Add(c.ToString());
                         });
@@ -240,7 +335,17 @@ namespace Liaoxin.Controllers
                                 int addCount = Context.SaveChanges();
                                 int updateCount = Update<RedPacket>(entity, "RedPacketId", new List<string>() { "ReceiveCount", "Status", "Over", "UpdateTime" });
                                 Context.SaveChanges();
-
+                                reveiver.Coin += receiveMoney;
+                                reveiver.UpdateTime = DateTime.Now;
+                                Update<Client>(reveiver, "ClientId", new List<string>() { "Coin", "UpdateTime" });
+                                CoinLog coinLogEntity = new CoinLog();
+                                coinLogEntity.ClientId = entity.ClientId;
+                                coinLogEntity.FlowCoin = receiveMoney;
+                                coinLogEntity.Coin = reveiver.Coin;
+                                coinLogEntity.Type = CoinLogTypeEnum.ReceiveRedPacket;
+                                coinLogEntity.AboutId = receive.RedPacketReceiveId;
+                                Context.CoinLogs.Add(coinLogEntity);
+                                Context.SaveChanges();
                                 if (entity.Type == RedPacketTypeEnum.Lucky && luckIndex >= 1 && luckIndex <= 3 && luckNumbers != null)
                                 {
                                     //LuckNumber
@@ -317,6 +422,37 @@ namespace Liaoxin.Controllers
             return ObjectGenericityResult<GroupRedPacketResponse>(result, returnObject, msg);
         }
 
+
+        /// <summary>
+        /// 获取个人红包信息
+        /// </summary>
+        /// <param name="redPacketId">redPacketId</param>
+        /// <returns></returns>
+        [HttpGet("GetClientRedPacket")]
+        public ServiceResult<ClientRedPacketResponse> GetClientRedPacket(Guid redPacketId)
+        {
+            bool result = false;
+            string msg = "";
+            RedPacket entity = Context.RedPackets.AsNoTracking().FirstOrDefault(p => p.RedPacketId == redPacketId);
+            ClientRedPacketResponse returnObject = null;
+            if (entity != null)
+            {
+                result = true;
+                returnObject = ConvertHelper.ConvertToModel<RedPacket, ClientRedPacketResponse>(entity);
+                RedPacketReceive detail = Context.RedPacketReceives.AsNoTracking().FirstOrDefault(p => p.RedPacketId == redPacketId);
+                if (detail != null)
+                {
+                    returnObject.RedPacketReceive = ConvertHelper.ConvertToModel<RedPacketReceive, RedPacketReceiveResponse>(detail);
+                }
+            }
+            else
+            {
+                result = false;
+                msg = "无法获取红包信息";
+            }
+            return ObjectGenericityResult<ClientRedPacketResponse>(result, returnObject, msg);
+        }
+
         /// <summary>
         /// 获取Client的红包获取记录
         /// </summary>
@@ -344,109 +480,6 @@ namespace Liaoxin.Controllers
             return ObjectGenericityResult<RedPacketReceiveResponse>(result, returnObject, msg);
 
         }
-
-
-
-        /// <summary>
-        /// 发个人红包
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        [HttpPost("CreateClientRedPacket")]
-        public ServiceResult<ClientRedPacketResponse> CreateClientRedPacket(CreateClientRedPacketsRequest request)
-        {
-            ClientRedPacketResponse returnObject = null;
-            bool result = true;
-            string errMsg = "";
-            if (request.Money < (decimal)0.01)
-            {
-                errMsg = "红包最小金额为0.01";
-                result = false;
-                return ObjectGenericityResult<ClientRedPacketResponse>(result, returnObject, errMsg);
-            }
-            else if (request.Money > 1800)
-            {
-                errMsg = "红包最大金额为1800";
-                result = false;
-                return ObjectGenericityResult<ClientRedPacketResponse>(result, returnObject, errMsg);
-            }
-            Client sender = Context.Clients.AsNoTracking().FirstOrDefault(p => p.ClientId == request.SenderClientId);
-            if (sender != null && sender.IsEnable && sender.Coin >= request.Money)
-            {
-                using (IDbContextTransaction transaction = Context.Database.BeginTransaction())
-                {
-                    try
-                    {
-                        RedPacket entity = new RedPacket();
-                        entity.ClientId = request.SenderClientId;
-                        entity.GroupId = Guid.Empty;
-                        entity.SendTime = DateTime.Now;
-                        entity.Count = 1;
-                        entity.Money = request.Money;
-                        entity.Over = request.Money;
-                        entity.Greeting = request.Greeting;
-                        //默认1
-                        //entity.LuckIndex = request.LuckIndex;
-                        entity.Type = RedPacketTypeEnum.Normal;
-                        returnObject = ConvertHelper.ConvertToModel<RedPacket, ClientRedPacketResponse>(entity);
-                        Context.RedPackets.Add(entity);
-                        Context.SaveChanges();
-                        sender.Coin -= request.Money;
-                        sender.UpdateTime = DateTime.Now;
-                        Update<Client>(sender, "ClientId", new List<string>() { "Coin", "UpdateTime" });
-                        Context.SaveChanges();
-                        transaction.Commit();
-
-                    }
-                    catch (Exception ex)
-                    {
-                        result = false;
-                        returnObject = null;
-                        transaction.Rollback();
-                    }
-                }
-            }
-            else
-            {
-                result = false;
-                errMsg = "用户无效或余额不足";
-            }
-            return ObjectGenericityResult<ClientRedPacketResponse>(result, returnObject, errMsg);
-        }
-
-
-
-
-        /// <summary>
-        /// 获取Client红包信息
-        /// </summary>
-        /// <param name="redPacketId">redPacketId</param>
-        /// <returns></returns>
-        [HttpGet("GetClientRedPacket")]
-        public ServiceResult<ClientRedPacketResponse> GetClientRedPacket(Guid redPacketId)
-        {
-            bool result = false;
-            string msg = "";
-            RedPacket entity = Context.RedPackets.AsNoTracking().FirstOrDefault(p => p.RedPacketId == redPacketId);
-            ClientRedPacketResponse returnObject = null;
-            if (entity != null)
-            {
-                result = true;
-                returnObject = ConvertHelper.ConvertToModel<RedPacket, ClientRedPacketResponse>(entity);
-                RedPacketReceive detail = Context.RedPacketReceives.AsNoTracking().FirstOrDefault(p => p.RedPacketId == redPacketId);
-                if (detail != null )
-                {
-                    returnObject.RedPacketReceive = ConvertHelper.ConvertToModel<RedPacketReceive, RedPacketReceiveResponse>(detail);
-                }
-            }
-            else
-            {
-                result = false;
-                msg = "无法获取红包信息";
-            }
-            return ObjectGenericityResult<ClientRedPacketResponse>(result, returnObject, msg);
-        }
-
 
 
 
