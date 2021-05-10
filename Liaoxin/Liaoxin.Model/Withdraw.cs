@@ -24,6 +24,10 @@ namespace Liaoxin.Model
         [MaxLength(20)]
         public string OrderNo { get; set; } = RandomHelper.GetRandom("W");
 
+        public Guid ClientId { get; set; }
+
+        public virtual Client Client { get; set; }
+
         public Guid ClientBankId { get; set; }
 
         public virtual ClientBank ClientBank { get; set; }

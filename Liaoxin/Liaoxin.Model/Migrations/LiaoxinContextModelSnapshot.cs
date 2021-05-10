@@ -1232,6 +1232,8 @@ namespace Liaoxin.Model.Migrations
 
                     b.Property<Guid>("ClientBankId");
 
+                    b.Property<Guid>("ClientId");
+
                     b.Property<DateTime>("CreateTime");
 
                     b.Property<bool>("IsEnable");
@@ -1255,6 +1257,8 @@ namespace Liaoxin.Model.Migrations
                     b.HasKey("WithdrawId");
 
                     b.HasIndex("ClientBankId");
+
+                    b.HasIndex("ClientId");
 
                     b.HasIndex("CreateTime");
 
@@ -1673,6 +1677,11 @@ namespace Liaoxin.Model.Migrations
                     b.HasOne("Liaoxin.Model.ClientBank", "ClientBank")
                         .WithMany()
                         .HasForeignKey("ClientBankId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Liaoxin.Model.Client", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
