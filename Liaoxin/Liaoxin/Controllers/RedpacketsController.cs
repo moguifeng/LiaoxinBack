@@ -196,8 +196,8 @@ namespace Liaoxin.Controllers
         /// </summary>
         /// <param name="requestObj"></param>
         /// <returns></returns>
-        [HttpPost("ReceiveRedPacket")]
-        public ServiceResult<decimal> ReceiveRedPacket(ReceiveGroupRedPacketsRequest requestObj)
+        [HttpPost("ReceiveGroupRedPacket")]
+        public ServiceResult<decimal> ReceiveGroupRedPacket(ReceiveGroupRedPacketsRequest requestObj)
         {
             bool result = true;
             string errMsg = "";
@@ -215,42 +215,16 @@ namespace Liaoxin.Controllers
                 _cacheManager.Set(operKey, clientId.ToString(), 2);//2分钟过期
                 RedPacket entity = Context.RedPackets.FirstOrDefault(p => p.RedPacketId == redPacketId);
                 Client reveiver = Context.Clients.AsNoTracking().FirstOrDefault(p => p.ClientId == clientId);
-
-                int luckIndex = entity.LuckIndex;
+               
+             
                 List<string> luckNumbers = new List<string>();
 
-                string greeting = entity.Greeting + "";
-                Regex regex = new System.Text.RegularExpressions.Regex(@"^[0-9]\d*$");
-                if (greeting.Length >= 1 && greeting.Length <= 3 && regex.IsMatch(greeting))
+                if (reveiver == null)
                 {
-                    List<char> arr = greeting.ToCharArray().Distinct().ToList();
-                    if (arr.Count == greeting.Length)
-                    {
-                        arr.ForEach(c =>
-                        {
-                            luckNumbers.Add(c.ToString());
-                        });
-                    }
-
+                    result = false;
+                    errMsg = "无效用户不能参与抽奖";
                 }
-                //greeting= Regex.Replace(greeting, @"[^\d,]*", "");
-
-
-                //string[] greetingArr = greeting.Split(',');
-                //foreach (string g in greetingArr)
-                //{
-                //    if (g.Trim().Length == 1)
-                //    {
-                //        luckNumbers.Add(g.Trim());
-                //    }
-                //}
-
-
-                //if (reveiver == null)
-                //{
-                //    result = false;
-                //    errMsg = "无效用户不能参与抽奖";
-                //} else
+                else
                 if (entity == null)
                 {
                     result = false;
@@ -263,9 +237,32 @@ namespace Liaoxin.Controllers
                 }
                 else
                 {
+                    int luckIndex = entity.LuckIndex;
+                    string greeting = entity.Greeting + "";
+                    Regex regex = new System.Text.RegularExpressions.Regex(@"^[0-9]\d*$");
+                    if (greeting.Length >= 1 && greeting.Length <= 3 && regex.IsMatch(greeting))
+                    {
+                        List<char> arr = greeting.ToCharArray().Distinct().ToList();
+                        if (arr.Count == greeting.Length)
+                        {
+                            arr.ForEach(c =>
+                            {
+                                luckNumbers.Add(c.ToString());
+                            });
+                        }
+
+                    }
+
+                    List<Guid> groupClientIdList = (from c in Context.GroupClients.Where(p => p.IsEnable && p.GroupId == entity.GroupId) select c.ClientId).ToList();
+
                     //检查是否已经领了,不能重复领取
                     RedPacketReceive receive = Context.RedPacketReceives.AsNoTracking().FirstOrDefault(p => p.RedPacketId == entity.RedPacketId && p.ClientId == clientId);
-                    if (receive != null)
+                    if (!groupClientIdList.Contains(clientId))
+                    {
+                        result = false;
+                        errMsg = "不是群成员不能领取";
+                    }
+                    else if (receive != null)
                     {
                         result = false;
                         errMsg = "已领取,不能重复领取";
