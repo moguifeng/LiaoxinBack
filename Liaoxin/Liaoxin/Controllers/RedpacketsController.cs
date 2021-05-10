@@ -410,56 +410,74 @@ namespace Liaoxin.Controllers
                 result = false;
                 return ObjectGenericityResult<RedPacketPersonalResponse>(result, returnObject, errMsg);
             }
-            string coinpassword = SecurityHelper.Encrypt(request.CoinPassword);
-            Client sender = Context.Clients.AsNoTracking().FirstOrDefault(p => p.ClientId == request.SenderClientId);
-            if (sender != null && sender.IsEnable && sender.Coin >= request.Money && coinpassword == sender.CoinPassword)
+            string operKey = returnObject.RedPacketPersonalId.ToString();
+            try
             {
-                using (IDbContextTransaction transaction = Context.Database.BeginTransaction())
+                //当前红包空闲
+                while (_cacheManager.Get<object>(operKey) != null)
                 {
-                    try
+                    Thread.Sleep(200);
+                }
+                string coinpassword = SecurityHelper.Encrypt(request.CoinPassword);
+                Client sender = Context.Clients.AsNoTracking().FirstOrDefault(p => p.ClientId == request.SenderClientId);
+                if (sender != null && sender.IsEnable && sender.Coin >= request.Money && coinpassword == sender.CoinPassword)
+                {
+                    using (IDbContextTransaction transaction = Context.Database.BeginTransaction())
                     {
-                        RedPacketPersonal entity = new RedPacketPersonal();
-                        entity.FromClientId = request.SenderClientId;
-                        entity.SendTime = DateTime.Now;
-                        entity.ToClientId = request.ReceiverClientId;
-                        entity.Money = request.Money;
-                        entity.Type = (RedPacketTranferTypeEnum)request.Type;
-                        entity.Greeting = request.Greeting;
+                        try
+                        {
+                            RedPacketPersonal entity = new RedPacketPersonal();
+                            entity.FromClientId = request.SenderClientId;
+                            entity.SendTime = DateTime.Now;
+                            entity.ToClientId = request.ReceiverClientId;
+                            entity.Money = request.Money;
+                            entity.Type = (RedPacketTranferTypeEnum)request.Type;
+                            entity.Greeting = request.Greeting;
 
-                        returnObject = ConvertHelper.ConvertToModel<RedPacketPersonal, RedPacketPersonalResponse>(entity);
-                        Context.RedPacketPersonals.Add(entity);
-                        Context.SaveChanges();
-                        sender.Coin -= request.Money;
-                        sender.UpdateTime = DateTime.Now;
-                        Update<Client>(sender, "ClientId", new List<string>() { "Coin", "UpdateTime" });
-                        CoinLog coinLogEntity = new CoinLog();
-                        coinLogEntity.ClientId = entity.FromClientId;
-                        coinLogEntity.FlowCoin = -request.Money;
-                        coinLogEntity.Coin = sender.Coin;
-                        coinLogEntity.Type = entity.Type == RedPacketTranferTypeEnum.RedPacket ? CoinLogTypeEnum.SendRedPacket : CoinLogTypeEnum.Transfer;
-                        coinLogEntity.AboutId = entity.RedPacketPersonalId;
-                        Context.CoinLogs.Add(coinLogEntity);
-                        Context.SaveChanges();
-                        transaction.Commit();
+                            returnObject = ConvertHelper.ConvertToModel<RedPacketPersonal, RedPacketPersonalResponse>(entity);
+                            Context.RedPacketPersonals.Add(entity);
+                            Context.SaveChanges();
+                            sender.Coin -= request.Money;
+                            sender.UpdateTime = DateTime.Now;
+                            Update<Client>(sender, "ClientId", new List<string>() { "Coin", "UpdateTime" });
+                            CoinLog coinLogEntity = new CoinLog();
+                            coinLogEntity.ClientId = entity.FromClientId;
+                            coinLogEntity.FlowCoin = -request.Money;
+                            coinLogEntity.Coin = sender.Coin;
+                            coinLogEntity.Type = entity.Type == RedPacketTranferTypeEnum.RedPacket ? CoinLogTypeEnum.SendRedPacket : CoinLogTypeEnum.Transfer;
+                            coinLogEntity.AboutId = entity.RedPacketPersonalId;
+                            Context.CoinLogs.Add(coinLogEntity);
+                            Context.SaveChanges();
+                            transaction.Commit();
 
-                    }
-                    catch (Exception ex)
-                    {
-                        result = false;
-                        returnObject = null;
-                        transaction.Rollback();
+                        }
+                        catch (Exception ex)
+                        {
+                            result = false;
+                            returnObject = null;
+                            transaction.Rollback();
+                        }
                     }
                 }
+                else if (sender.CoinPassword != coinpassword)
+                {
+                    result = false;
+                    errMsg = "密码错误";
+                }
+                else
+                {
+                    result = false;
+                    errMsg = "用户无效或余额不足";
+                }
             }
-            else if (sender.CoinPassword != coinpassword)
+            catch (Exception ex)
             {
                 result = false;
-                errMsg = "密码错误";
+                errMsg = "未知异常";
             }
-            else
+            finally
             {
-                result = false;
-                errMsg = "用户无效或余额不足";
+                _cacheManager.Remove(operKey);
             }
             return ObjectGenericityResult<RedPacketPersonalResponse>(result, returnObject, errMsg);
         }
