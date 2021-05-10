@@ -16,7 +16,7 @@ namespace Liaoxin.Model
         {
         }
 
-        public Guid RedPacketPersonal { get; set; } = Guid.NewGuid();
+        public Guid RedPacketPersonalId { get; set; } = Guid.NewGuid();
  
 
         /// <summary>
