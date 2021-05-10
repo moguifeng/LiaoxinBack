@@ -1,5 +1,6 @@
 ﻿using Liaoxin.Model;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Zzb.BaseData.Attribute;
 using Zzb.BaseData.Model.Button;
@@ -22,14 +23,28 @@ namespace Liaoxin.BaseDataModel.RechargeManager
         public int SortIndex { get; set; }
 
         [NavField("图片", IsDisplay = false)]
-        public int AffixId { get; set; }
+        public Guid AffixId { get; set; }
 
         protected override object[] DoGetNavDatas()
         {
-            return CreateEfDatas<SystemBank, SystemBankViewModel>(from b in Context.SystemBanks
+            List<SystemBankViewModel> lis = new List<SystemBankViewModel>();
+            var sources =  CreateEfDatasedHandle(from b in Context.SystemBanks
                                                                   where b.IsEnable
                                                                   orderby b.SortIndex
                                                                   select b);
+
+            foreach (var model in sources)
+            {
+                SystemBankViewModel entity = new SystemBankViewModel();
+                entity.SystemBankId = model.SystemBankId;
+                entity.Name = model.Name;
+                entity.SortIndex = model.SortIndex;
+                entity.AffixId = model.AffixId;
+                lis.Add(entity);
+            }
+            return lis.ToArray();
+
+
         }
 
         public override BaseButton[] CreateRowButtons()

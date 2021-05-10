@@ -4,6 +4,7 @@ using Liaoxin.ViewModel;
 using LIaoxin.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +41,7 @@ namespace Liaoxin.Controllers
             Guid masterClientId = requestObj.MasterClientId;
 
             List<Guid> clientIdList = requestObj.ClientIdList.Distinct().ToList();
-
+        
             Group entity = new Group();
             entity.IsEnable = true;
             entity.Name = groupName;

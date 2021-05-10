@@ -94,6 +94,8 @@ namespace Liaoxin.Business
             {
                 AddGroupClient(clientId, entity.GroupId, true, false, entity);
             }
+            var huanxinIds  = Context.Clients.Where(c => clientIds.Contains(c.ClientId)).AsNoTracking().Select(c => c.HuanXinId).ToList();
+            HuanxinGroupRequest.CreateGroup(entity.Name, CurrentClientId, huanxinIds.ToArray());
             Context.SaveChanges();
             result = true;
             return result;
