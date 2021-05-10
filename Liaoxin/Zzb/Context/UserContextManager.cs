@@ -42,12 +42,24 @@ namespace Zzb.Context
             UserContext.Current.AccountName = accountName;
             UserContext.Current.Token = HashEncryptHelper.MD5Encrypt(accountName + Guid.NewGuid());
 
+
+            var tokenPri = (userId.ToString() + name + accountName);
+          
+            if (!string.IsNullOrEmpty(_cacheManager.Get<string>(tokenPri)))
+            {
+                var previousToken = _cacheManager.Get<string>(tokenPri);
+                previousToken =   this.GetTokenCacheKey(previousToken);
+                _cacheManager.Remove(previousToken);
+            }
+
             var cacheKey = GetTokenCacheKey(UserContext.Current.Token);
             var ttl = TTL;
             if (rememberMe)
                 ttl = 7 * 24 * 60;
             else if (duration.HasValue)
                 ttl = duration.Value;
+
+            _cacheManager.Set(tokenPri, cacheKey);
             _cacheManager.Set(cacheKey,
                 new { Id = userId, Name = name, AccountName = accountName, UserContext.Current.Token, Time = DateTime.Now }, ttl);
             UserContext.Current.IsAuthenticated = true;

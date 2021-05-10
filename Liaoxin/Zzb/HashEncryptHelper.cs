@@ -24,6 +24,7 @@ namespace Zzb
 
         public static string MD5Encrypt(string source)
         {
+            source += "awfjiwej5AE";
             using (MD5 md5 = MD5.Create())
             {
                 byte[] inputBytes = Encoding.UTF8.GetBytes(source);
