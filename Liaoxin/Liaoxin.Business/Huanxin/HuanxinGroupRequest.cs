@@ -54,7 +54,8 @@ namespace Liaoxin.Business
 
             dic.Add("groupname", groupName);
             dic.Add("desc", " ");
-            dic.Add("public", true);
+            dic.Add("public", false);
+            dic.Add("allowinvites", true);
             dic.Add("maxusers", 1000);
             dic.Add("owner", owner);
             dic.Add("member", members);
@@ -74,7 +75,7 @@ namespace Liaoxin.Business
         {
             var responseUrl = $"{HostService.url}/chatgroups/{chatGroupId}/users";
             Dictionary<string, object> dic = new Dictionary<string, object>();
-            dic.Add("usernames",members);
+            dic.Add("usernames", members);
             var res = HostService.Post(responseUrl, dic);
             return res;
         }
@@ -82,7 +83,54 @@ namespace Liaoxin.Business
 
 
 
-    }
+
+        public static ServiceResult<string> RemoveGroupMember(string chatGroupId, string username)
+        {
+            var responseUrl = $"{HostService.url}/chatgroups/{chatGroupId}/users/{username}";
+            var res = HostService.Delete(responseUrl);
+            return res;
+
+        }
+
+        public static ServiceResult<string> ModifyGroup(string chatGroupId,string description, string groupname)
+        {
+            var responseUrl = $"{HostService.url}/chatgroups/{chatGroupId}";
+
+            Dictionary<string, object> dic = new Dictionary<string, object>();
+            if (!string.IsNullOrEmpty(description))
+            {
+                dic.Add("description", description);
+            }
+
+            if (!string.IsNullOrEmpty(groupname))
+            {
+                dic.Add("groupname", groupname);
+            }
+
+            var res = HostService.Put(responseUrl, dic);
+            return res;
+        }
+
+
+        public static ServiceResult<string> RemoveGroup(string chatGroupId)
+        {
+            var responseUrl = $"{HostService.url}/chatgroups/{chatGroupId}";
+            var res = HostService.Delete(responseUrl);
+            return res;
+
+
+        }
+
+        public static ServiceResult<string> TranferGroup(string chatGroupId,string newowner)
+        {
+            var responseUrl = $"{HostService.url}/chatgroups/{chatGroupId}";
+            Dictionary<string, object> dic = new Dictionary<string, object>();
+            dic.Add("newowner", newowner);
+            var res = HostService.Put(responseUrl, dic);
+            return res;
+        }
+
+        }
 
 
 }

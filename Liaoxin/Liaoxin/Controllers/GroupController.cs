@@ -31,7 +31,7 @@ namespace Liaoxin.Controllers
         #region Group
 
         /// <summary>
-        /// 
+        /// 创建群聊
         /// </summary>
         /// <param name="requestObj"></param>
         /// <returns></returns>
@@ -122,8 +122,6 @@ namespace Liaoxin.Controllers
         /// <summary>
         /// 获取客户所有群基本信息
         /// </summary>
-        /// <param name = "clientid" > 客户端群id </ param >
-        /// < param name="isEnable">群是已审核通过</param>
         /// <returns></returns>
         [HttpGet("GetClientGroups")]
         public ServiceResult<IList<GroupResponse>> GetClientGroups(Guid clientid, bool isEnable)
@@ -378,7 +376,7 @@ namespace Liaoxin.Controllers
         ///// <param name="clientid">客户端群id</param>
         ///// <param name="isEnable">群是已审核通过</param>
         ///// <returns></returns>
-        //[HttpGet("GetGroups")]
+        //[HttpGet("GetGroups")]/api/GroupController/GetClientGroups
         //public ServiceResult<IList<GroupResponse>> GetGroups(bool isEnable)
         //{
         //    return (ServiceResult<IList<GroupResponse>>)Json(() =>
