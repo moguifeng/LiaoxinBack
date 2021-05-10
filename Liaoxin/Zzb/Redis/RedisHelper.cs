@@ -25,6 +25,7 @@ namespace Zzb.Redis
                 AbortOnConnectFail = options.AbortOnConnectFail,
                 ConnectTimeout = options.ConnectTimeout,
                 SyncTimeout = options.SyncTimeout,
+                Password = options.Password,
                 DefaultDatabase = options.Db
             };
             foreach (var endpoint in options.Endpoints)
