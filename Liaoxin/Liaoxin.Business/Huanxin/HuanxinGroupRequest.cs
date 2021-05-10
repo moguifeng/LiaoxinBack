@@ -15,7 +15,7 @@ namespace Liaoxin.Business
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static ServiceResult<string> CreateGroup(string groupName, string friend_username)
+        public static ServiceResult<string> CreateGroup(string groupName,string owner,string[] members)
         {
 
             // {
@@ -39,6 +39,13 @@ namespace Liaoxin.Business
             //                "members":群组成员，此属性为可选的，但是如果加了此项，数组元素至少一个（注：群主jma1不需要写入到members里面）。
 
             Dictionary<string, object> dic = new Dictionary<string, object>();
+
+            dic.Add("groupname", groupName);
+            dic.Add("desc", " ");
+            dic.Add("public", true);
+            dic.Add("maxusers", 1000);
+            dic.Add("owner", owner);
+            dic.Add("member", members);
             var responseUrl = $"{HostService.url}/chatgroups";
             var res = HostService.Post(responseUrl, dic);
             return res;
