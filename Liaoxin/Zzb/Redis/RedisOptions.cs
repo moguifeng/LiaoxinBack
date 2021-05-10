@@ -12,5 +12,7 @@ namespace Zzb.Redis
         public int ConnectTimeout { get; set; } = 2000;
         public int SyncTimeout { get; set; } = 2000;
         public int Db { get; set; } = 0;
+
+        public string Password { get; set; } = null;
     }
 }
