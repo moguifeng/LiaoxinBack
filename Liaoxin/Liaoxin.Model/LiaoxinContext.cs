@@ -27,7 +27,7 @@ namespace Liaoxin.Model
         public DbSet<ClientLoginLog> ClientLoginLogs { get; set; }
 
 
-
+        public DbSet<RedPacketPersonal> RedPacketPersonals { get; set; }
         public DbSet<CoinLog> CoinLogs { get; set; }
 
 

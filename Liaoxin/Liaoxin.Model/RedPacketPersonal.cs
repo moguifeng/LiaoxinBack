@@ -16,14 +16,8 @@ namespace Liaoxin.Model
         {
         }
 
-        public Guid RedPacketId { get; set; } = Guid.NewGuid();
+        public Guid RedPacketPersonal { get; set; } = Guid.NewGuid();
  
-
-        public  Guid GroupId { get; set; }
-        public virtual Group Group { get; set; }
- 
-
-        public virtual List<RedPacketReceive> RedPacketReceives { get; set; }
 
         /// <summary>
         /// 红包发送者
