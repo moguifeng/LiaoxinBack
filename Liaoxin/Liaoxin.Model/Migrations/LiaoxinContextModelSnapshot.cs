@@ -1018,6 +1018,47 @@ namespace Liaoxin.Model.Migrations
                     b.ToTable("RedPackets");
                 });
 
+            modelBuilder.Entity("Liaoxin.Model.RedPacketPersonal", b =>
+                {
+                    b.Property<Guid>("RedPacketPersonalId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreateTime");
+
+                    b.Property<Guid>("FromClientId");
+
+                    b.Property<string>("Greeting");
+
+                    b.Property<bool>("IsEnable");
+
+                    b.Property<bool>("IsReceive");
+
+                    b.Property<decimal>("Money")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<DateTime>("SendTime");
+
+                    b.Property<Guid>("ToClientId");
+
+                    b.Property<int>("Type");
+
+                    b.Property<DateTime>("UpdateTime");
+
+                    b.HasKey("RedPacketPersonalId");
+
+                    b.HasIndex("CreateTime");
+
+                    b.HasIndex("FromClientId");
+
+                    b.HasIndex("IsEnable");
+
+                    b.HasIndex("ToClientId");
+
+                    b.HasIndex("UpdateTime");
+
+                    b.ToTable("RedPacketPersonals");
+                });
+
             modelBuilder.Entity("Liaoxin.Model.RedPacketReceive", b =>
                 {
                     b.Property<Guid>("RedPacketReceiveId")
@@ -1582,6 +1623,19 @@ namespace Liaoxin.Model.Migrations
                     b.HasOne("Liaoxin.Model.Group", "Group")
                         .WithMany()
                         .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Liaoxin.Model.RedPacketPersonal", b =>
+                {
+                    b.HasOne("Liaoxin.Model.Client", "FromClient")
+                        .WithMany()
+                        .HasForeignKey("FromClientId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Liaoxin.Model.Client", "ToClient")
+                        .WithMany()
+                        .HasForeignKey("ToClientId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

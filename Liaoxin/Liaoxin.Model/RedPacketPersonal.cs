@@ -18,7 +18,6 @@ namespace Liaoxin.Model
 
         public Guid RedPacketPersonalId { get; set; } = Guid.NewGuid();
  
-
         /// <summary>
         /// 红包发送者
         /// </summary>
@@ -29,8 +28,6 @@ namespace Liaoxin.Model
         /// 红包发送者
         /// </summary>
         public virtual Client FromClient { get; set; }
-
-
 
 
         /// <summary>
@@ -71,8 +68,11 @@ namespace Liaoxin.Model
         public   bool  IsReceive   { get; set; }
 
 
- 
- 
+        /// <summary>
+        /// 祝福语(尾数)
+        /// </summary>
+        public string Greeting { get; set; }
+
 
     }
 
