@@ -18,6 +18,7 @@ namespace Liaoxin.Business
         public static ServiceResult<string> CreateGroup(string groupName,string owner,string[] members)
         {
 
+
             // {
             //  "groupname": "string",
             //  "desc": "string",

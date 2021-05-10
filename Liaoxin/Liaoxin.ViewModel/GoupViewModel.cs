@@ -13,7 +13,7 @@ namespace LIaoxin.ViewModel
         /// <summary>
         /// 群主ClientId
         /// </summary>
-        public Guid MasterClientId { get; set; }
+        //public Guid MasterClientId { get; set; }
         /// <summary>
         /// 群成员ClientId清单
         /// </summary>
