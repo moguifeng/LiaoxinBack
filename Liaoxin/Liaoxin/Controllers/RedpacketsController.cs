@@ -146,7 +146,7 @@ namespace Liaoxin.Controllers
                     Thread.Sleep(200);
                 }
                 _cacheManager.Set(operKey, clientId.ToString(), 2);//2分钟过期
-                RedPacket entity = Context.RedPackets.FirstOrDefault(p => p.RedPacketId == redPacketId);
+                RedPacket entity = Context.RedPackets.AsNoTracking().FirstOrDefault(p => p.RedPacketId == redPacketId);
                 Client reveiver = Context.Clients.AsNoTracking().FirstOrDefault(p => p.ClientId == clientId);
 
 
@@ -404,6 +404,12 @@ namespace Liaoxin.Controllers
                 result = false;
                 return ObjectGenericityResult<RedPacketPersonalResponse>(result, returnObject, errMsg);
             }
+            else if (request.Money > 10000)
+            {
+                errMsg = "转账最大金额为10000";
+                result = false;
+                return ObjectGenericityResult<RedPacketPersonalResponse>(result, returnObject, errMsg);
+            }
             string coinpassword = SecurityHelper.Encrypt(request.CoinPassword);
             Client sender = Context.Clients.AsNoTracking().FirstOrDefault(p => p.ClientId == request.SenderClientId);
             if (sender != null && sender.IsEnable && sender.Coin >= request.Money && coinpassword == sender.CoinPassword)
@@ -466,7 +472,7 @@ namespace Liaoxin.Controllers
         [HttpGet("GetNotReceiveRedPacketPersonals")]
         public ServiceResult<IList<RedPacketPersonalResponse>> GetNotReceiveRedPacketPersonals(Guid clientId)
         {
-            IList<RedPacketPersonal> list = Context.RedPacketPersonals.Where(p => p.IsEnable && !p.IsReceive && p.ToClientId == clientId).ToList();
+            IList<RedPacketPersonal> list = Context.RedPacketPersonals.AsNoTracking().Where(p => p.IsEnable && !p.IsReceive && p.ToClientId == clientId).ToList();
 
             bool result = false;
             string msg = "";
@@ -490,7 +496,7 @@ namespace Liaoxin.Controllers
         /// </summary>
         /// <param name="requestObj"></param>
         /// <returns></returns>
-        [HttpPost("ReceiveGroupRedPacketPersonal")]
+        [HttpPost("ReceiveRedPacketPersonal")]
         public ServiceResult<decimal> ReceiveRedPacketPersonal(ReceiveGroupRedPacketRequest requestObj)
         {
             bool result = true;
@@ -507,7 +513,7 @@ namespace Liaoxin.Controllers
                     Thread.Sleep(200);
                 }
                 _cacheManager.Set(operKey, clientId.ToString(), 2);//2分钟过期
-                RedPacketPersonal entity = Context.RedPacketPersonals.FirstOrDefault(p => p.RedPacketPersonalId == redPacketId);
+                RedPacketPersonal entity = Context.RedPacketPersonals.AsNoTracking().FirstOrDefault(p => p.RedPacketPersonalId == redPacketId);
                 Client reveiver = Context.Clients.AsNoTracking().FirstOrDefault(p => p.ClientId == clientId);
 
 
@@ -518,8 +524,7 @@ namespace Liaoxin.Controllers
                     result = false;
                     errMsg = "无效用户不能参与抽奖";
                 }
-
-                if (entity == null)
+                else if (entity == null)
                 {
                     result = false;
                     errMsg = "红包已失效";
@@ -541,30 +546,14 @@ namespace Liaoxin.Controllers
                 }
                 else
                 {
-
-                    string greeting = entity.Greeting + "";
-                    Regex regex = new System.Text.RegularExpressions.Regex(@"^[0-9]\d*$");
-                    if (greeting.Length >= 1 && greeting.Length <= 3 && regex.IsMatch(greeting))
-                    {
-                        List<char> arr = greeting.ToCharArray().Distinct().ToList();
-                        if (arr.Count == greeting.Length)
-                        {
-                            arr.ForEach(c =>
-                            {
-                                luckNumbers.Add(c.ToString());
-                            });
-                        }
-
-                    }
-
-
                     using (IDbContextTransaction transaction = Context.Database.BeginTransaction())
                     {
                         try
                         {
                             entity.IsReceive = true;
                             entity.UpdateTime = DateTime.Now;
-                            int updateCount = Update<RedPacketPersonal>(entity, "RedPacketPersonalId", new List<string>() { "IsReceive", "UpdateTime" });
+                            //entity.Update();//追踪的时候更新方法
+                            int updateCount = Update<RedPacketPersonal>(entity, "RedPacketPersonalId", new List<string>() { "IsReceive", "UpdateTime" });//不追踪的时候更新方法
                             Context.SaveChanges();
                             reveiver.Coin += entity.Money;
                             reveiver.UpdateTime = DateTime.Now;

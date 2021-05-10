@@ -109,8 +109,10 @@ namespace LIaoxin.ViewModel
         /// </summary>
         public bool IsReceive { get; set; }
 
-
-
+        /// <summary>
+        /// 祝福语
+        /// </summary>
+        public string Greeting { get; set; }
 
     }
 
