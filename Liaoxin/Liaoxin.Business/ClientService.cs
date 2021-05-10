@@ -206,6 +206,7 @@ namespace Liaoxin.Business
             {
                 throw new ZzbException("请输入正确的手机号码");
             }
+          var a =   (from p in Context.Clients where p.Telephone == request.Telephone select p).Count();
             var client = (from p in Context.Clients where p.Telephone == request.Telephone select p).FirstOrDefault();
             if (client == null)
             {
