@@ -17,14 +17,16 @@ namespace Liaoxin.Business
     public class GroupService : BaseService, IGroupService
     {
 
+        public IClientService clientService { get; set; }
 
-        private void IsCurrentGroup(Guid groupId)
+        public bool IsCurrentGroup(Guid groupId)
         {
             var isexist = Context.GroupClients.Where(c => c.ClientId == CurrentClientId && c.GroupId == groupId).Any();
             if (isexist == false)
             {
                 throw new ZzbException("你不是这个群的成员,无法操作/获取");
             }
+            return true;
         }
 
         /// <summary>
@@ -129,7 +131,7 @@ namespace Liaoxin.Business
         public bool UpdateGroup(Group entity, IList<string> updateFieldList = null)
         {
 
-            this.IsCurrentGroup(groupId);
+            this.IsCurrentGroup(entity.GroupId);
             bool result = false;
             entity.UpdateTime = DateTime.Now;
             var entry = Context.Entry<Group>(entity);
@@ -374,21 +376,28 @@ namespace Liaoxin.Business
         {
             this.IsCurrentGroup(groupId);
 
+            //黑名单列表
+            var blacks = Context.ClientRelationDetails.Where(crd => crd.ClientRelation.RelationType ==
+            RelationTypeEnum.Black && crd.ClientRelation.ClientId == CurrentClientId).Select(crd => crd.ClientId).ToList();
+
+            //好友列表
+            var friends = Context.ClientRelationDetails.Where(crd => crd.ClientRelation.RelationType ==
+       RelationTypeEnum.Friend && crd.ClientRelation.ClientId == CurrentClientId).Select(crd => crd.ClientId).ToList();
 
             var groupClients = Context.GroupClients.Where(g => g.GroupId == groupId).Select(s => new
             {
                 GroupId = s.GroupId,
                 GroupClientId = s.GroupClientId,
-                Cover = s.Group.Client.Cover,
-                NickName = s.Group.Client.NickName,
-                ClientId = s.Group.Client.ClientId,
+                Cover = s.Client.Cover,
+                NickName = s.Client.NickName,
+                ClientId = s.Client.ClientId,
                 Sort = s.Group.ClientId == s.ClientId ? 1 : s.IsGroupManager ? 2 : 3,
                 JoinTime = s.CreateTime,
             });
             groupClients = groupClients.OrderByDescending(g => g.Sort);
 
-            var managers = groupClients.Where(s=>s.Sort== 1 || s.Sort ==2).OrderByDescending(s=>s.Sort);
-            var clients  = groupClients.Where(s => s.Sort == 3).OrderByDescending(s => s.JoinTime);
+            var managers = groupClients.Where(s => s.Sort == 1 || s.Sort == 2).OrderByDescending(s => s.Sort);
+            var clients = groupClients.Where(s => s.Sort == 3).OrderByDescending(s => s.JoinTime);
             List<GroupClientByGroupResponse> lis = new List<GroupClientByGroupResponse>();
             foreach (var item in managers)
             {
@@ -398,7 +407,9 @@ namespace Liaoxin.Business
                 entity.Cover = item.Cover;
                 entity.NickName = item.Sort == 1 ? "群主-" + item.NickName : "管理-" + item.NickName;
                 entity.ClientId = item.ClientId;
-
+                entity.FriendShipType = blacks.Contains(item.ClientId) ? RelationTypeEnum.Black : 
+                    friends.Contains(item.ClientId) ? 
+                    RelationTypeEnum.Friend : RelationTypeEnum.Stranger;
                 lis.Add(entity);
             }
 
@@ -412,9 +423,8 @@ namespace Liaoxin.Business
                 entity.ClientId = item.ClientId;
 
                 lis.Add(entity);
-
             }
-                return lis;
+            return lis;
         }
 
         /// <summary>
@@ -427,19 +437,6 @@ namespace Liaoxin.Business
             return Context.GroupClients.AsNoTracking().Where(p => p.GroupId == groupId && p.IsGroupManager).ToList();
         }
         #endregion
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

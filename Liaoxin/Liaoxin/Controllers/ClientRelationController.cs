@@ -6,6 +6,7 @@ using Liaoxin.ViewModel;
 using LIaoxin.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +41,16 @@ namespace Liaoxin.Controllers
                 {
                     throw new ZzbException("找不到联系人");
                 }
+
+
+                //黑名单列表
+                var blacks = Context.ClientRelationDetails.Where(crd => crd.ClientRelation.RelationType ==
+                RelationTypeEnum.Black && crd.ClientRelation.ClientId == CurrentClientId).Select(crd => crd.ClientId).ToList();
+
+                //好友列表
+                var friends = Context.ClientRelationDetails.Where(crd => crd.ClientRelation.RelationType ==
+
+           RelationTypeEnum.Friend && crd.ClientRelation.ClientId == CurrentClientId).Select(crd => crd.ClientId).ToList();
                 GlobalSearchCliengResponse response = new GlobalSearchCliengResponse()
                 {
                     ClientId = entity.ClientId,
@@ -47,12 +58,38 @@ namespace Liaoxin.Controllers
                     HuanxinId = entity.HuanXinId,
                     LiaoxinNumber = entity.LiaoxinNumber,
                     NickName = entity.NickName,
-                };
+                    FriendShipType = blacks.Contains(entity.ClientId) ? RelationTypeEnum.Black :
+                    friends.Contains(entity.ClientId) ?
+                    RelationTypeEnum.Friend : RelationTypeEnum.Stranger
+            };
              
                 return ObjectGenericityResult(response);
             }, "查找失败");
 
         }
+
+
+        /// <summary>
+        /// 陌生人详细
+        /// </summary>       
+        /// <returns></returns>
+        [HttpPost("ClientStrangerDetail")]
+        public ServiceResult<List<ClientStrangerDetailResponse>> ClientStrangerDetail(Guid clientId)
+        {
+            var lis = Context.Clients.Where(c => c.ClientId == clientId).AsNoTracking().Select(s => new ClientStrangerDetailResponse()
+            {
+                ClientId = s.ClientId,
+                CharacterSignature = s.CharacterSignature,
+                Cover = s.Cover,
+                HuanxinId = s.HuanXinId,
+                LiaoxinNumber = s.LiaoxinNumber,
+                NickName = s.NickName
+            }).ToList();
+
+            return ListGenericityResult(lis);
+
+        }
+
 
 
 

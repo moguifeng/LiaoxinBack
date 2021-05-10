@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Liaoxin.Model;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using static Liaoxin.Model.Client;
@@ -290,6 +291,44 @@ namespace Liaoxin.ViewModel
         }
 
 
+
+        public class ClientStrangerDetailResponse
+        {
+
+            public Guid ClientId { get; set; }
+
+            /// <summary>
+            /// 环信id
+            /// </summary>
+            public string HuanxinId { get; set; }
+
+            /// <summary>
+            /// 聊信Id
+            /// </summary>
+            public string LiaoxinNumber { get; set; }
+
+
+            /// <summary>
+            /// 个性签名
+            /// </summary>
+
+            public string CharacterSignature { get; set; }
+
+
+            /// <summary>
+            ///添加客户头像id
+            /// </summary>
+
+            public Guid? Cover { get; set; }
+
+
+            /// <summary>
+            /// 客户昵称
+            /// </summary>
+
+            public string NickName { get; set; }
+
+        }
         public class ClientFriendDetailResponse
         {
 
@@ -499,6 +538,13 @@ namespace Liaoxin.ViewModel
         ///添加客户头像id
         /// </summary>
         public Guid? Cover { get; set; }
+
+
+        /// <summary>
+        /// 关系  0:好友   1:黑名单 2:陌生人
+        /// </summary>
+
+        public RelationTypeEnum FriendShipType { get; set; }
 
 
 

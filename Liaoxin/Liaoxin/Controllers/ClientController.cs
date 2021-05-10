@@ -37,10 +37,10 @@ namespace Liaoxin.Controllers
         }
 
         /// <summary>
-        /// 获取客户
+        /// 获取当前登录用户
         /// </summary>
         /// <returns></returns>
-        [HttpPost("GetClient")]
+        [HttpPost("GetCurrenClient")]
         public ServiceResult<ClientBaseInfoResponse> GetClient()
         {
             var entity = clientService.GetClient();

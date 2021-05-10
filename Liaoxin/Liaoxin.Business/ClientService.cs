@@ -43,6 +43,22 @@ namespace Liaoxin.Business
             }
         }
 
+       // public RelationTypeEnum GetRelationThoughtClientId(Guid SourceClientId, Guid CompareClientId)
+       // {
+       //     //黑名单列表
+       //     var blacks = Context.ClientRelationDetails.Where(crd => crd.ClientRelation.RelationType ==
+       //     RelationTypeEnum.Black && crd.ClientRelation.ClientId == SourceClientId).Select(crd => crd.ClientId).ToList();
+
+       //     //好友列表
+       //     var friends = Context.ClientRelationDetails.Where(crd => crd.ClientRelation.RelationType ==
+       //RelationTypeEnum.Friend && crd.ClientRelation.ClientId == SourceClientId).Select(crd => crd.ClientId).ToList();
+
+       //     return blacks.Contains(CompareClientId) ?
+       //         RelationTypeEnum.Black : friends.Contains(CompareClientId) ?
+       //         RelationTypeEnum.Friend : RelationTypeEnum.Stranger;
+
+       // }
+
         void ClientLoginLog(Guid clientId)
         {
             string ip = HttpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();

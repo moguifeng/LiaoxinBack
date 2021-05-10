@@ -44,6 +44,11 @@ namespace Liaoxin.Model
         Friend = 0,
         [Description("黑名单")]
         Black = 1,
+
+        [Description("陌生人")]
+
+        Stranger = 2,
+
     }
 
 

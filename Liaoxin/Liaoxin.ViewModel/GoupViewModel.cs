@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Liaoxin.Model;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -34,6 +35,27 @@ namespace LIaoxin.ViewModel
         public IList<Guid> ClientIdList { get; set; }
     }
 
+
+
+    public class MyGroupResponse
+    {
+        public Guid GroupId { get; set; } = Guid.NewGuid();
+
+
+
+        public string UnqiueId { get; set; }
+
+
+        /// <summary>
+        /// 组名称
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// 环信组id
+        /// </summary>
+        public string HuanxinGroupId { get; set; }
+    }
     public class GroupResponse
     {
 
@@ -93,9 +115,20 @@ namespace LIaoxin.ViewModel
 
         public Guid ClientId { get; set; }
 
+        /// <summary>
+        /// 用户/陌生人昵称
+        /// </summary>
         public string NickName { get; set; }
 
+        /// <summary>
+        /// 用户/陌生人头像
+        /// </summary>
         public Guid? Cover { get; set; }
+
+        /// <summary>
+        /// 关系  0:好友   1:黑名单 2:陌生人
+        /// </summary>
+        public RelationTypeEnum FriendShipType { get; set; }
 
 
     }
