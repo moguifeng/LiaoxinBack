@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Liaoxin.Model.Migrations
 {
     [DbContext(typeof(LiaoxinContext))]
-    [Migration("20210509071413_AAAA")]
-    partial class AAAA
+    [Migration("20210510014902_CCC")]
+    partial class CCC
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
