@@ -38,22 +38,27 @@ namespace Liaoxin.Controllers
         [HttpPost("CreateGroup")]
         public ServiceResult<GroupResponse> CreateGroup(CreateGroupRequest requestObj)
         {
-            string groupName = requestObj.GroupName;
 
-            List<Guid> clientIdList = requestObj.ClientIdList.Distinct().ToList();
-
-            Group entity = new Group();
-            entity.IsEnable = true;
-            entity.Name = groupName;
-            entity.ClientId = CurrentClientId;
-
-            bool result = groupService.CreateGroup(entity, clientIdList);
-            GroupResponse returnObj = null;
-            if (result)
+            return (ServiceResult<GroupResponse>)Json(() =>
             {
-                returnObj = ConvertHelper.ConvertToModel<Group, GroupResponse>(entity);
-            }
-            return ObjectGenericityResult<GroupResponse>(result, returnObj);
+
+                string groupName = requestObj.GroupName;
+
+                List<Guid> clientIdList = requestObj.ClientIdList.Distinct().ToList();
+
+                Group entity = new Group();
+                entity.IsEnable = true;
+                entity.Name = groupName;
+                entity.ClientId = CurrentClientId;
+
+                bool result = groupService.CreateGroup(entity, clientIdList);
+                GroupResponse returnObj = null;
+                if (result)
+                {
+                    returnObj = ConvertHelper.ConvertToModel<Group, GroupResponse>(entity);
+                }
+                return ObjectGenericityResult<GroupResponse>(result, returnObj);
+            });
         }
 
         /// <summary>
@@ -102,9 +107,12 @@ namespace Liaoxin.Controllers
         [HttpPost("MyGroups")]
         public ServiceResult<List<MyGroupResponse>> MyGroups()
         {
-            var groupIds = Context.GroupClients.Where(g => g.ClientId == CurrentClientId).Select(s => s.GroupId).ToList();
-            var lis = Context.Groups.Where(g => groupIds.Contains(g.GroupId)).AsNoTracking().ToList();
-            return ListGenericityResult(ConvertHelper.ConvertToList<Group, MyGroupResponse>(lis).ToList());
+            return (ServiceResult<List<MyGroupResponse>>)Json(() => {
+                var groupIds = Context.GroupClients.Where(g => g.ClientId == CurrentClientId).Select(s => s.GroupId).ToList();
+                var lis = Context.Groups.Where(g => groupIds.Contains(g.GroupId)).AsNoTracking().ToList();
+                return ListGenericityResult(ConvertHelper.ConvertToList<Group, MyGroupResponse>(lis).ToList());
+            });
+          
 
         }
 
@@ -147,30 +155,31 @@ namespace Liaoxin.Controllers
         [HttpPost("DissolveGroup")]
         public ServiceResult DissolveGroup(Guid groupId)
         {
-            bool result = true;
-            string msg = "操作成功";
-            Group g = groupService.GetGroup(groupId);
-            if (g == null)
+
+            return Json(() =>
             {
-                result = false;
-                msg = "无效群";
-                return JsonObjectResult(result, msg);
-            }
-            if (!groupService.IsCurrentGroup(groupId))
-            {
-                result = false;
-                msg = "不在群中无法解散群";
-                return JsonObjectResult(result, msg);
-            }
-            Guid clientId = groupService.GetCurClientId();
-            if (clientId != g.ClientId)
-            {
-                result = false;
-                msg = "不是群主不能解散群";
-                return JsonObjectResult(result, msg);
-            }
-            result = groupService.DissolveGroup(groupId);
-            return JsonObjectResult(result, result ? "操作成功" : "操作失败");
+
+                Group g = groupService.GetGroup(groupId);
+                if (g == null)
+                {
+                    throw new ZzbException("无效群");
+                }
+                if (!groupService.IsCurrentGroup(groupId))
+                {
+                    throw new ZzbException("不在群中无法解散群");
+ 
+                }
+                Guid clientId = groupService.GetCurClientId();
+                if (clientId != g.ClientId)
+                {
+                    throw new ZzbException("不是群主不能解散群");
+                }
+              var  result = groupService.DissolveGroup(groupId);
+                return JsonObjectResult(result);
+
+
+            });
+          
         }
 
         /// <summary>
@@ -183,30 +192,29 @@ namespace Liaoxin.Controllers
         [HttpPost("TransferGroupMaster")]
         public ServiceResult TransferGroupMaster(Guid newMasterClientId, Guid originalMasterClientId, Guid groupId)
         {
-            bool result = true;
-            string msg = "操作成功";
-            Group g = groupService.GetGroup(groupId);
-            if (g == null)
-            {
-                result = false;
-                msg = "无效群";
-                return JsonObjectResult(result, msg);
-            }
-            if (!groupService.IsCurrentGroup(groupId))
-            {
-                result = false;
-                msg = "不在群中无法变更群主";
-                return JsonObjectResult(result, msg);
-            }
-            Guid clientId = groupService.GetCurClientId();
-            if (clientId != g.ClientId)
-            {
-                result = false;
-                msg = "不是群主不能变更群主";
-                return JsonObjectResult(result, msg);
-            }
-            result = groupService.TransferGroupMaster(newMasterClientId, originalMasterClientId, groupId);
-            return JsonObjectResult(result, result ? "操作成功" : "操作失败");
+
+
+            return Json(() => {
+
+                Group g = groupService.GetGroup(groupId);
+                if (g == null)
+                {
+                    throw new ZzbException("无效群");
+                }
+                if (!groupService.IsCurrentGroup(groupId))
+                {
+                    throw new ZzbException("不在群中无法变更群主");
+                }
+                Guid clientId = groupService.GetCurClientId();
+                if (clientId != g.ClientId)
+                {
+                    throw new ZzbException("不是群主不能变更群主");
+                }
+               var  result = groupService.TransferGroupMaster(newMasterClientId, originalMasterClientId, groupId);
+                return JsonObjectResult(result);
+
+            });
+
 
         }
 
@@ -271,6 +279,8 @@ namespace Liaoxin.Controllers
         [HttpPost("UpdateGroupClient")]
         public ServiceResult<bool> UpdateGroupClient(GroupClientResponse model)
         {
+
+
             List<string> ingores = new List<string>();
             ingores.Add("CreateTime");
             ingores.Add("IsEnable");
@@ -297,52 +307,59 @@ namespace Liaoxin.Controllers
         [HttpPost("BatchAddGroupClient")]
         public ServiceResult BatchAddGroupClient(AddGroupRequest requestObj)
         {
-            Guid groupId = requestObj.GroupId;
 
-            List<Guid> clientIdList = requestObj.ClientIdList.Distinct().ToList();
 
-            Group groupEntity = groupService.GetGroup(groupId);
-            IList<GroupClient> clientList = groupService.GetGroupClients(groupId);
-            IList<GroupClient> gmList = clientList.Where(p => p.IsGroupManager).ToList();
-            //不能重复进群
-            for (int i = 0; i < clientIdList.Count; i++)
+            return Json(() =>
             {
-                if (clientList.FirstOrDefault(p => p.GroupId == clientIdList[i]) != null)
+
+                Guid groupId = requestObj.GroupId;
+
+                List<Guid> clientIdList = requestObj.ClientIdList.Distinct().ToList();
+
+                Group groupEntity = groupService.GetGroup(groupId);
+                IList<GroupClient> clientList = groupService.GetGroupClients(groupId);
+                IList<GroupClient> gmList = clientList.Where(p => p.IsGroupManager).ToList();
+                //不能重复进群
+                for (int i = 0; i < clientIdList.Count; i++)
                 {
-                    clientIdList.RemoveAt(i--);
+                    if (clientList.FirstOrDefault(p => p.GroupId == clientIdList[i]) != null)
+                    {
+                        clientIdList.RemoveAt(i--);
+                    }
                 }
-            }
-            if (clientIdList.Count == 0)
-            {
-                return JsonObjectResult(false, "无成员可入群");
-            }
-            if (gmList == null)
-            {
-                gmList = new List<GroupClient>();
-            }
-            bool isEnable = false;
-            if (groupEntity != null)
-            {
-                Guid curUserClientId = groupService.GetCurClientId();
-                isEnable = !groupEntity.SureConfirmInvite || curUserClientId == groupEntity.ClientId || gmList.FirstOrDefault(p => p.ClientId == curUserClientId) != null;
-            }
+                if (clientIdList.Count == 0)
+                {
+                    return JsonObjectResult(false, "无成员可入群");
+                }
+                if (gmList == null)
+                {
+                    gmList = new List<GroupClient>();
+                }
+                bool isEnable = false;
+                if (groupEntity != null)
+                {
+                    Guid curUserClientId = groupService.GetCurClientId();
+                    isEnable = !groupEntity.SureConfirmInvite || curUserClientId == groupEntity.ClientId || gmList.FirstOrDefault(p => p.ClientId == curUserClientId) != null;
+                }
 
-            foreach (Guid clientId in clientIdList)
-            {
-                groupService.AddGroupClient(clientId, groupId, isEnable, false, groupEntity);
-            }
-            var huanxinIds = Context.Clients.Where(c => clientIdList.Contains(c.ClientId)).AsNoTracking().Select(c => c.HuanXinId).ToList();
-            var res = HuanxinGroupRequest.AddGroupMembers(groupEntity.HuanxinGroupId, huanxinIds.ToArray());
+                foreach (Guid clientId in clientIdList)
+                {
+                    groupService.AddGroupClient(clientId, groupId, isEnable, false, groupEntity);
+                }
+                var huanxinIds = Context.Clients.Where(c => clientIdList.Contains(c.ClientId)).AsNoTracking().Select(c => c.HuanXinId).ToList();
+                var res = HuanxinGroupRequest.AddGroupMembers(groupEntity.HuanxinGroupId, huanxinIds.ToArray());
 
-            if (res.ReturnCode == ServiceResultCode.Success)
-            {
-                //批量操作后再保存数据库
-                groupService.SaveChanges();
+                if (res.ReturnCode == ServiceResultCode.Success)
+                {
+                    //批量操作后再保存数据库
+                    groupService.SaveChanges();
 
-                return JsonObjectResult(true, "操作成功");
-            }
+                    return JsonObjectResult(true, "操作成功");
+                }
 
-            return JsonObjectResult(false, "操作失败");
+                return JsonObjectResult(false, "操作失败");
+            });
+ 
 
         }
 
@@ -354,40 +371,64 @@ namespace Liaoxin.Controllers
         [HttpPost("LeaveGroup")]
         public ServiceResult LeaveGroup(Guid groupId)
         {
-            bool result = true;
-            string msg = "操作成功";
-            Guid clientId = groupService.GetCurClientId();
 
-            if (groupService.IsCurrentGroup(groupId))
+            return Json(() =>
             {
-                Group g = groupService.GetGroup(groupId);
-                //群主不能退群
-                if (g != null && g.ClientId != clientId)
+
+
+                ServiceResult service = new ServiceResult();
+                //bool result = true;
+                //string msg = "操作成功";
+                Guid clientId = groupService.GetCurClientId();
+
+                if (groupService.IsCurrentGroup(groupId))
                 {
-                    GroupClient entity = Context.GroupClients.FirstOrDefault(a => a.ClientId == clientId && a.GroupId == groupId);
-                    if (entity != null)
+                    Group g = groupService.GetGroup(groupId);
+                    //群主不能退群
+                    if (g != null && g.ClientId != clientId)
                     {
-                        Context.GroupClients.Remove(entity);
-                        Context.SaveChanges();
+                        GroupClient entity = Context.GroupClients.FirstOrDefault(a => a.ClientId == clientId && a.GroupId == groupId);
+                        if (entity != null)
+                        {
+                            var res = HuanxinGroupRequest.RemoveGroupMember(g.HuanxinGroupId, entity.Client.HuanXinId);
+                            if (res.ReturnCode == ServiceResultCode.Success)
+                            {
+                                Context.GroupClients.Remove(entity);
+                                Context.SaveChanges();
+                            }
+                            else
+                            {
+
+
+                                throw new ZzbException(res.Message);
+                            }
+
+                        }
+                    }
+                    else if (g == null)
+                    {
+
+                        throw new ZzbException("群无效,操作失败");
+
+                    }
+                    else if (g.ClientId == clientId)
+                    {
+                        throw new ZzbException("群主不能退群");
+
                     }
                 }
-                else if (g == null)
+                else
                 {
-                    result = false;
-                    msg = "群无效,操作失败";
+                    throw new ZzbException("不在该群中,操作失败");
+
                 }
-                else if (g.ClientId == clientId)
-                {
-                    result = false;
-                    msg = "群主不能退群";
-                }
-            }
-            else
-            {
-                result = false;
-                msg = "不在该群中,操作失败";
-            }
-            return JsonObjectResult(result, msg);
+                return JsonObjectResult(true);
+
+
+            });
+
+
+
 
         }
 
@@ -399,64 +440,80 @@ namespace Liaoxin.Controllers
         [HttpPost("SetLeaveGroup")]
         public ServiceResult SetLeaveGroup(SetLeaveGroupRequest requestObj)
         {
-            Guid groupId = requestObj.GroupId;
-            IList<Guid> clientIdList = requestObj.clientIdList;
-            bool result = true;
-            string msg = "操作成功";
 
-            if (clientIdList == null || clientIdList.Count == 0)
+            return Json(() =>
             {
-                result = false;
-                msg = "无退群名单";
-                return JsonObjectResult(result, msg);
-            }
-            Group g = groupService.GetGroup(groupId);
-            if (g == null)
-            {
-                result = false;
-                msg = "无效群";
-                return JsonObjectResult(result, msg);
-            }
-            if (!groupService.IsCurrentGroup(groupId))
-            {
-                result = false;
-                msg = "不在群中无法设置退群";
-                return JsonObjectResult(result, msg);
-            }
-            Guid clientId = groupService.GetCurClientId();
-            if (clientIdList.Contains(clientId))
-            {
-                result = false;
-                msg = "不能设置自己退群";
-                return JsonObjectResult(result, msg);
-            }
-            bool isMaster = g.ClientId == clientId;
-            if (clientIdList.Contains(g.ClientId))
-            {
-                result = false;
-                msg = "群主不能退群";
-                return JsonObjectResult(result, msg);
-            }
-            IList<GroupClient> gm = groupService.GetGroupManagerList(groupId);
-            bool isManager = gm.FirstOrDefault(p => p.ClientId == clientId) != null;
 
-            IList<GroupClient> leaveList = Context.GroupClients.Where(a => clientIdList.Contains(a.ClientId) && a.GroupId == groupId).ToList();
-            if (!isManager && !isMaster)
-            {
-                result = false;
-                msg = "无设置退群权限";
-                return JsonObjectResult(result, msg);
-            }
-            else if (isManager && !isMaster && leaveList.FirstOrDefault(p => p.IsGroupManager) != null)
-            {
-                result = false;
-                msg = "只有群主可以设置群管理员退群";
-                return JsonObjectResult(result, msg);
 
-            }
-            Context.GroupClients.RemoveRange(leaveList);
-            Context.SaveChanges();
-            return JsonObjectResult(result, msg);
+                Guid groupId = requestObj.GroupId;
+                IList<Guid> clientIdList = requestObj.clientIdList;
+                bool result = true;
+                string msg = "操作成功";
+
+                if (clientIdList == null || clientIdList.Count == 0)
+                {
+                    throw new ZzbException("无退群名单");
+                }
+                Group g = groupService.GetGroup(groupId);
+                if (g == null)
+                {
+                    throw new ZzbException("无效群");
+      
+                }
+                if (!groupService.IsCurrentGroup(groupId))
+                {
+                    throw new ZzbException("不在群中无法设置退群");
+     
+                }
+                Guid clientId = groupService.GetCurClientId();
+                if (clientIdList.Contains(clientId))
+                {
+
+                    throw new ZzbException("不能设置自己退群");
+  
+                }
+                bool isMaster = g.ClientId == clientId;
+                if (clientIdList.Contains(g.ClientId))
+                {
+
+                    throw new ZzbException("群主不能退群");
+ 
+                }
+                IList<GroupClient> gm = groupService.GetGroupManagerList(groupId);
+                bool isManager = gm.FirstOrDefault(p => p.ClientId == clientId) != null;
+
+                IList<GroupClient> leaveList = Context.GroupClients.Where(a => clientIdList.Contains(a.ClientId) && a.GroupId == groupId).ToList();
+                if (!isManager && !isMaster)
+                {
+
+                    throw new ZzbException("无设置退群权限");
+
+  
+                }
+                else if (isManager && !isMaster && leaveList.FirstOrDefault(p => p.IsGroupManager) != null)
+                {
+                    throw new ZzbException("只有群主可以设置群管理员退群"); 
+
+                }
+
+                var huanxinIds = string.Join(",", leaveList.Select(l => l.Client.HuanXinId).ToArray());
+                var res = HuanxinGroupRequest.RemoveGroupMember(g.HuanxinGroupId, huanxinIds);
+                if (res.ReturnCode == ServiceResultCode.Success)
+                {
+                    Context.GroupClients.RemoveRange(leaveList);
+                    Context.SaveChanges();
+                    return JsonObjectResult(result, msg);
+                }
+                else
+                {
+                    return JsonObjectResult(false, res.Message);
+                }
+
+
+            });
+           
+
+
 
         }
 
@@ -466,6 +523,9 @@ namespace Liaoxin.Controllers
         {
             public Guid GroupId { get; set; }
 
+            /// <summary>
+            /// 要退出的用户id列表
+            /// </summary>
             public IList<Guid> clientIdList { get; set; }
         }
 

@@ -24,10 +24,7 @@ namespace Liaoxin.Controllers
     [ApiController]
     [Authorize]
     public class ClientController : LiaoxinBaseController
-    {
-
-
-        
+    {        
         public IClientService clientService { get; set; }
 
         public   ICacheManager _cacheManager { get; set; }
