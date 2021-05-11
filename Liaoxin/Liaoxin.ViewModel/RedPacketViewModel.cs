@@ -234,7 +234,7 @@ namespace LIaoxin.ViewModel
     {
         public Guid RedPacketPersonalId { get; set; }
 
-        public Guid ClientId { get; set; }
+        //public Guid ClientId { get; set; }
     }
 
     public class ReceiveRedPacketPersonalRequest

@@ -29,6 +29,7 @@ namespace Liaoxin.Controllers
     {
         public IClientService clientService { get; set; }
 
+        public IGroupService groupService { get; set; }
         private readonly ICacheManager _cacheManager = CacheManager.singleCache;
 
         /// <summary>
@@ -135,7 +136,7 @@ namespace Liaoxin.Controllers
             bool result = true;
             string errMsg = "";
             Guid redPacketId = requestObj.RedPacketPersonalId;
-            Guid clientId = requestObj.ClientId;
+            Guid clientId = groupService.GetCurClientId();
             string operKey = redPacketId.ToString();
             decimal receiveMoney = 0;
             try
@@ -148,14 +149,19 @@ namespace Liaoxin.Controllers
                 _cacheManager.Set(operKey, clientId.ToString(), 2);//2分钟过期
                 RedPacket entity = Context.RedPackets.AsNoTracking().FirstOrDefault(p => p.RedPacketId == redPacketId);
                 Client reveiver = Context.Clients.AsNoTracking().FirstOrDefault(p => p.ClientId == clientId);
-
-
+                GroupClient cp = groupService.GetGroupClient(entity.GroupId, clientId);
+                
                 List<string> luckNumbers = new List<string>();
 
                 if (reveiver == null)
                 {
                     result = false;
                     errMsg = "无效用户不能参与抽奖";
+                }
+                else if (cp == null)
+                {
+                    result = false;
+                    errMsg = "不是群成员不能参与抽奖";
                 }
                 else
                 if (entity == null)
@@ -520,7 +526,7 @@ namespace Liaoxin.Controllers
             bool result = true;
             string errMsg = "";
             Guid redPacketId = requestObj.RedPacketPersonalId;
-            Guid clientId = requestObj.ClientId;
+            Guid clientId = groupService.GetCurClientId();
             string operKey = redPacketId.ToString();
             decimal receiveMoney = 0;
             try
