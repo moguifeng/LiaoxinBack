@@ -59,8 +59,6 @@ namespace Liaoxin.Business
         /// <returns></returns>
         public bool DissolveGroup(Guid groupId)
         {
-          
-
             this.IsCurrentGroup(groupId);
             var huanxinGroupId =     Context.Groups.Where(g => g.GroupId == groupId).Select(g => g.HuanxinGroupId).FirstOrDefault();
             var res = HuanxinGroupRequest.RemoveGroup(huanxinGroupId);
@@ -76,9 +74,6 @@ namespace Liaoxin.Business
             {
                 throw new ZzbException(res.Message);
             }
-
-            
-           
         }
 
 

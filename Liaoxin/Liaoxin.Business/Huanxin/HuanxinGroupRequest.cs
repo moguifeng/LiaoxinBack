@@ -58,7 +58,7 @@ namespace Liaoxin.Business
             dic.Add("allowinvites", true);
             dic.Add("maxusers", 1000);
             dic.Add("owner", owner);
-            dic.Add("member", members);
+            dic.Add("members", members);
             var responseUrl = $"{HostService.url}/chatgroups";
             var res = HostService.Post(responseUrl, dic);
             if (res.ReturnCode == ServiceResultCode.Success)
