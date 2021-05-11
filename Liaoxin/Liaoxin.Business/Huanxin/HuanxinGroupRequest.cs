@@ -83,6 +83,12 @@ namespace Liaoxin.Business
 
 
 
+        /// <summary>
+        /// 移除成员
+        /// </summary>
+        /// <param name="chatGroupId"></param>
+        /// <param name="username"></param>
+        /// <returns></returns>
 
         public static ServiceResult<string> RemoveGroupMember(string chatGroupId, string username)
         {
@@ -112,6 +118,11 @@ namespace Liaoxin.Business
         }
 
 
+        /// <summary>
+        /// 解散群
+        /// </summary>
+        /// <param name="chatGroupId"></param>
+        /// <returns></returns>
         public static ServiceResult<string> RemoveGroup(string chatGroupId)
         {
             var responseUrl = $"{HostService.url}/chatgroups/{chatGroupId}";
@@ -121,6 +132,12 @@ namespace Liaoxin.Business
 
         }
 
+        /// <summary>
+        /// 转让群
+        /// </summary>
+        /// <param name="chatGroupId"></param>
+        /// <param name="newowner"></param>
+        /// <returns></returns>
         public static ServiceResult<string> TranferGroup(string chatGroupId,string newowner)
         {
             var responseUrl = $"{HostService.url}/chatgroups/{chatGroupId}";

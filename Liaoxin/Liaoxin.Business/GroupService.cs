@@ -59,15 +59,26 @@ namespace Liaoxin.Business
         /// <returns></returns>
         public bool DissolveGroup(Guid groupId)
         {
-            bool result = false;
+          
 
             this.IsCurrentGroup(groupId);
-            //Context.GroupManagers.RemoveRange(Context.GroupManagers.Where(p => p.GroupId == groupId));
-            Context.GroupClients.RemoveRange(Context.GroupClients.Where(p => p.GroupId == groupId));
-            Context.Groups.RemoveRange(Context.Groups.Where(p => p.GroupId == groupId));
-            Context.SaveChanges();
-            result = true;
-            return result;
+            var huanxinGroupId =     Context.Groups.Where(g => g.GroupId == groupId).Select(g => g.HuanxinGroupId).FirstOrDefault();
+            var res = HuanxinGroupRequest.RemoveGroup(huanxinGroupId);
+
+            if (res.ReturnCode == ServiceResultCode.Success)
+            {
+                Context.GroupClients.RemoveRange(Context.GroupClients.Where(p => p.GroupId == groupId));
+                Context.Groups.RemoveRange(Context.Groups.Where(p => p.GroupId == groupId));
+                return Context.SaveChanges() > 0;
+                
+            }
+            else
+            {
+                throw new ZzbException(res.Message);
+            }
+
+            
+           
         }
 
 
@@ -80,18 +91,28 @@ namespace Liaoxin.Business
         /// <returns></returns>
         public bool TransferGroupMaster(Guid newMasterClientId, Guid originalMasterClientId, Guid groupId)
         {
-            bool result = false;
+          
 
             this.IsCurrentGroup(groupId);
             Group g = Context.Groups.AsNoTracking().FirstOrDefault(p => p.GroupId == groupId);
+            var newHuanxinId = Context.Clients.Where(c => c.ClientId == newMasterClientId).AsNoTracking().Select(c => c.HuanXinId).FirstOrDefault();
             if (g != null && g.ClientId == originalMasterClientId)
             {
-                g.ClientId = newMasterClientId;
-                Context.Groups.Update(g);
-                CancelGroupManager(originalMasterClientId, groupId, false);
-                SetGroupManager(newMasterClientId, groupId, false);
-                Context.SaveChanges();
-                result = true;
+                var res = HuanxinGroupRequest.TranferGroup(g.HuanxinGroupId, newHuanxinId);
+                if (res.ReturnCode == ServiceResultCode.Success)
+                {
+                    g.ClientId = newMasterClientId;
+                    Context.Groups.Update(g);
+                    CancelGroupManager(originalMasterClientId, groupId, false);
+                    SetGroupManager(newMasterClientId, groupId, false);
+                    return Context.SaveChanges() > 0;
+                }
+                else
+                {
+                    throw new ZzbException(res.Message);
+                }
+              
+              
             }
             return false;
         }
