@@ -108,7 +108,7 @@ namespace Liaoxin.Model
         /// <summary>
         /// 累计中的Lucknumbers
         /// </summary>
-        public string LuckNumbers { get; set; }
+        public string LuckNumbers { get; set; } = "";
 
     }
 

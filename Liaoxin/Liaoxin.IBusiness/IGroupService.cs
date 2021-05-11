@@ -23,7 +23,7 @@ namespace Liaoxin.IBusiness
         IList<Group> GetClientGroups(Guid clientid, bool isEnable);
 
 
-        bool IsCurrentGroup(Guid groupId);
+        bool IsCurrentGroup(Guid groupId, Guid? clientId = null);
 
         List<GroupClientByGroupResponse> GetClientsOfGroup(Guid groupId);
 

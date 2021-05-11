@@ -19,9 +19,13 @@ namespace Liaoxin.Business
 
         public IClientService clientService { get; set; }
 
-        public bool IsCurrentGroup(Guid groupId)
+        public bool IsCurrentGroup(Guid groupId,Guid? clientId= null)
         {
-            var isexist = Context.GroupClients.Where(c => c.ClientId == CurrentClientId && c.GroupId == groupId).Any();
+            if (clientId == null)
+            {
+                clientId = CurrentClientId;
+            }
+            var isexist = Context.GroupClients.AsNoTracking().FirstOrDefault(c => c.ClientId == clientId.Value && c.GroupId == groupId)!=null;
             if (isexist == false)
             {
                 throw new ZzbException("你不是这个群的成员,无法操作/获取");
@@ -35,9 +39,9 @@ namespace Liaoxin.Business
         /// <param name="clientId"></param>
         /// <param name="groupId"></param>
         /// <returns></returns>
-        public GroupClient GetGroupClient(Guid clientId, Guid groupId)
+        public GroupClient GetGroupClient(Guid groupId,Guid clientId)
         {
-            this.IsCurrentGroup(groupId);
+            this.IsCurrentGroup(groupId, clientId);
             return Context.GroupClients.AsNoTracking().FirstOrDefault(a => a.ClientId == clientId && a.GroupId == groupId);
         }
 
@@ -239,7 +243,7 @@ namespace Liaoxin.Business
             //群主不能退群
             if (g != null && g.ClientId != clientId)
             {
-                GroupClient entity = GetGroupClient(clientId, groupId);
+                GroupClient entity = GetGroupClient(groupId,clientId);
                 if (entity != null)
                 {
                     Context.GroupClients.Remove(entity);
