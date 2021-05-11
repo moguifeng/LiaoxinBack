@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 using Zzb;
 using Zzb.Common;
 using Zzb.Context;
+using Zzb.ICacheManger;
 using Zzb.Mvc;
 using Zzb.Utility;
 using static Liaoxin.ViewModel.ClientViewModel;
@@ -29,12 +30,50 @@ namespace Liaoxin.Controllers
         
         public IClientService clientService { get; set; }
 
+        public   ICacheManager _cacheManager { get; set; }
+
 
         private Client GetCurrentClient()
         {
             var entity = Context.Clients.Where(c => c.ClientId == CurrentClientId).FirstOrDefault();
             return entity;
         }
+
+
+
+        /// <summary>
+        /// 发送验证码  发送类型(Type) 0:登录  1:找回密码  4:修改手机号码
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpPost("SendCode")]
+        public ServiceResult SendCode(ClientSendCodeRequest request)
+        {
+            return Json(() =>
+            {
+                if (!StringHelper.IsMobile(request.Telephone))
+                {
+                    throw new ZzbException("请输入正确的手机号码");
+                }
+                var code = GenerateRandomCode();
+                var cacheKey = string.Format($"sendCode:{request.Type}:{request.Telephone}");
+                _cacheManager.Set(cacheKey, code, 10);
+                return ObjectResult(code);
+                //object obj = new { code };
+                //if (string.IsNullOrWhiteSpace(request.Mobile)) request.Mobile = UserContext.Current?.AccountName;
+                //var templates = _configuration[$"SmsTemplates:RegisterLogin"];
+                //var result = _smsBusiness.Send(
+                //     templates,
+                //     obj,
+                //     new[] { request.Mobile }
+                //);
+                //if (result) return Result.OutputSuccess();
+            }, "验证码发送失败");
+
+
+        }
+
 
         /// <summary>
         /// 获取当前登录用户
@@ -56,14 +95,26 @@ namespace Liaoxin.Controllers
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
+ 
         [AllowAnonymous]
         [HttpPost("LoginByCode")]
         public ServiceResult LoginByCode(ClientLoginByCodeRequest request)
         {
-
-
             return Json(() =>
             {
+                if (!StringHelper.IsMobile(request.Telephone))
+                {
+                    throw new ZzbException("请输入正确的手机号码");
+                }
+
+                var cacheKey = $"sendCode:{VerificationCodeTypes.Login}:{request.Telephone}";
+                var cacheCode = _cacheManager.Get<string>(cacheKey);
+
+                if (string.IsNullOrEmpty(cacheCode))
+                    throw new ZzbException("验证码已过期");
+                if (cacheCode != request.Code)
+                    throw new ZzbException("验证码错误");
+
                 var entity = clientService.LoginByCode(request);
                 _UserContext.SetUserContext(entity.ClientId, entity.HuanXinId, entity.LiaoxinNumber);
                 string token = UserContext.Current.Token;
@@ -71,6 +122,19 @@ namespace Liaoxin.Controllers
             }, "登录失败");
 
         }
+
+
+        private static string GenerateRandomCode(int length = 4)
+        {
+            Random ra = new Random();
+            string randString = "";
+
+            for (int i = 0; i < length; i++)
+                randString += ra.Next(9).ToString();
+
+            return randString;
+        }
+
 
 
         /// <summary>
@@ -257,9 +321,6 @@ namespace Liaoxin.Controllers
         }
 
 
-
-
-
         /// <summary>
         /// 通过手机号找回密码
         /// </summary>        
@@ -269,10 +330,79 @@ namespace Liaoxin.Controllers
         {
             return Json(() =>
             {
+                if (!StringHelper.IsMobile(request.Telephone))
+                {
+                    throw new ZzbException("请输入正确的手机号码");
+                }
 
-               
+                if (request.NewPassword.Length<8)
+                {
+                    throw new ZzbException("请输入至少8位的密码");
+                }
+
+                var cacheKey = $"sendCode:{VerificationCodeTypes.ForgetPassword}:{request.Telephone}";
+                var cacheCode = _cacheManager.Get<string>(cacheKey);
+
+                if (string.IsNullOrEmpty(cacheCode))
+                    throw new ZzbException("验证码已过期");
+                if (cacheCode != request.Code)
+                    throw new ZzbException("验证码错误");
+
+               var entity =   Context.Clients.Where(c => c.Telephone == request.Telephone).FirstOrDefault();
+                if (entity.ClientId != CurrentClientId)
+                {
+                    throw new ZzbException("账户手机不匹配");
+                }
+
+                entity.Password = SecurityHelper.Encrypt(request.NewPassword);
+                Context.Clients.Update(entity);
                 return ObjectResult(Context.SaveChanges() > 0);
-            }, "通过手机号找回密码失败");
+            }, "找回密码失败");
+
+        }
+
+
+        /// <summary>
+        /// 修改手机号码
+        /// </summary>        
+        /// <returns></returns>
+        [HttpPost("ModifyClientTelephone")]
+        public ServiceResult ModifyClientTelephone(ModifyClientTelephoneRequest request)
+        {
+            return Json(() =>
+            {
+                if (!StringHelper.IsMobile(request.OldTelephone))
+                {
+                    throw new ZzbException("请输入正确的手机号码");
+                }
+                if (!StringHelper.IsMobile(request.NewTelephone))
+                {
+                    throw new ZzbException("请输入正确的手机号码");
+                }       
+                var cacheKey = $"sendCode:{VerificationCodeTypes.ChangeTelephone}:{request.NewTelephone}";
+                var cacheCode = _cacheManager.Get<string>(cacheKey);
+
+                if (string.IsNullOrEmpty(cacheCode))
+                    throw new ZzbException("验证码已过期");
+                if (cacheCode != request.Code)
+                    throw new ZzbException("验证码错误");
+
+                var entity = Context.Clients.Where(c => c.Telephone == request.OldTelephone).FirstOrDefault();
+                if (entity.ClientId != CurrentClientId)
+                {
+                    throw new ZzbException("账户的旧手机不匹配");
+                }
+                 var exists = Context.Clients.Where(c => c.Telephone == request.NewTelephone.Trim()).Any();
+                if (exists)
+                {
+                    throw new ZzbException("已存在手机号码,无法更新");
+                }
+               
+               
+                entity.Telephone = request.NewTelephone;
+                Context.Clients.Update(entity);
+                return ObjectResult(Context.SaveChanges() > 0);
+            }, "找回密码失败");
 
         }
 

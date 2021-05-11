@@ -26,14 +26,14 @@ namespace Liaoxin.Model
         /// <summary>
         /// 环信的Id
         /// </summary>
-        public string HuanXinId { get; set; } = SecurityCodeHelper.CreateRandomCode(32);
+        public string HuanXinId { get; set; } = SecurityCodeHelper.CreateRandomCode(15);
 
         /// <summary>
         /// 聊信号
         /// </summary>
         [MaxLength(15)]
         [ZzbIndex(IsUnique = true)]
-        public string LiaoxinNumber { get; set; } =  SecurityCodeHelper.CreateRandomCode(13);
+        public string LiaoxinNumber { get; set; } =  SecurityCodeHelper.CreateRandomCode(15);
 
         /// <summary>
         /// 昵称
@@ -215,5 +215,7 @@ namespace Liaoxin.Model
 
     }
 
- 
-}
+
+
+
+    }

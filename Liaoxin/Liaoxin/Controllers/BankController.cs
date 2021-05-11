@@ -27,6 +27,10 @@ namespace Liaoxin.Controllers
 
         }
 
+        /// <summary>
+        /// 获取系统银行
+        /// </summary>
+        /// <returns></returns>
         [HttpPost("GetSystemBanks")]
         public ServiceResult GetSystemBanks()
         {

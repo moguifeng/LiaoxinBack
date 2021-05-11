@@ -41,7 +41,7 @@ namespace Liaoxin.Controllers
             string groupName = requestObj.GroupName;
 
             List<Guid> clientIdList = requestObj.ClientIdList.Distinct().ToList();
-        
+
             Group entity = new Group();
             entity.IsEnable = true;
             entity.Name = groupName;
@@ -84,10 +84,11 @@ namespace Liaoxin.Controllers
                     bool result = groupService.Update<Group>(entity, "GroupId", updateFieldList) > 0;
                     return ObjectResult(result);
                 }
-                else {
+                else
+                {
                     return res;
-                }           
-            },"更新失败");
+                }
+            }, "更新失败");
 
 
         }
@@ -101,9 +102,9 @@ namespace Liaoxin.Controllers
         [HttpPost("MyGroups")]
         public ServiceResult<List<MyGroupResponse>> MyGroups()
         {
-         
-                var groupIds =    Context.GroupClients.Where(g => g.ClientId == CurrentClientId).Select(s => s.GroupId).ToList();
-          var lis =    Context.Groups.Where(g => groupIds.Contains(g.GroupId)).AsNoTracking().Select(g => new MyGroupResponse
+
+            var groupIds = Context.GroupClients.Where(g => g.ClientId == CurrentClientId).Select(s => s.GroupId).ToList();
+            var lis = Context.Groups.Where(g => groupIds.Contains(g.GroupId)).AsNoTracking().Select(g => new MyGroupResponse
             {
                 GroupId = g.GroupId,
                 HuanxinGroupId = g.HuanxinGroupId,
@@ -124,7 +125,7 @@ namespace Liaoxin.Controllers
         [HttpGet("GetGroup")]
         public ServiceResult<GroupResponse> GetGroup(Guid groupId)
         {
-        
+
             return (ServiceResult<GroupResponse>)Json(() =>
             {
                 return ObjectGenericityResult<GroupResponse>(ConvertHelper.ConvertToModel<Group, GroupResponse>(groupService.GetGroup(groupId)));
@@ -223,12 +224,12 @@ namespace Liaoxin.Controllers
             return (ServiceResult<List<GroupClientByGroupResponse>>)Json(() =>
             {
                 return ListGenericityResult(groupService.GetClientsOfGroup(groupId));
- 
+
             }, "获取群成员基本信息失败");
         }
 
 
-        
+
 
         /// <summary>
         /// 更新我的某一个群的基本信息(我的群昵称/设置顶置/免打扰)等
@@ -297,8 +298,8 @@ namespace Liaoxin.Controllers
             {
                 groupService.AddGroupClient(clientId, groupId, isEnable, false, groupEntity);
             }
-           var huanxinIds =   Context.Clients.Where(c => clientIdList.Contains(c.ClientId)).AsNoTracking().Select(c => c.HuanXinId).ToList();
-            var res = HuanxinGroupRequest.AddGroupMembers(groupEntity.HuanxinGroupId,huanxinIds.ToArray());
+            var huanxinIds = Context.Clients.Where(c => clientIdList.Contains(c.ClientId)).AsNoTracking().Select(c => c.HuanXinId).ToList();
+            var res = HuanxinGroupRequest.AddGroupMembers(groupEntity.HuanxinGroupId, huanxinIds.ToArray());
 
             if (res.ReturnCode == ServiceResultCode.Success)
             {
@@ -307,7 +308,7 @@ namespace Liaoxin.Controllers
 
                 return JsonObjectResult(true, "操作成功");
             }
-  
+
             return JsonObjectResult(false, "操作失败");
 
         }
@@ -330,7 +331,7 @@ namespace Liaoxin.Controllers
         //[HttpPost("SetGroupManager")]
         //public ServiceResult<bool> SetGroupManager(Guid groupClientId)
         //{
-           
+
         //    GroupClient gc = new GroupClient();
         //    gc.GroupClientId = groupClientId;
         //    gc.IsGroupManager = true;

@@ -17,7 +17,7 @@ namespace Liaoxin.Controllers
     public class LiaoxinBaseController : BaseApiController
     {
         public LiaoxinContext Context { get; set; }
-
+        
 
         protected Guid CurrentClientId
         {
