@@ -14,7 +14,7 @@ namespace Liaoxin.IBusiness
         /// <param name="clientId"></param>
         /// <param name="groupId"></param>
         /// <returns></returns>
-        GroupClient GetClientGroup(Guid clientId, Guid groupId);
+        GroupClient GetGroupClient(Guid clientId, Guid groupId);
         /// <summary>
         /// 获取客户的所有群
         /// </summary>

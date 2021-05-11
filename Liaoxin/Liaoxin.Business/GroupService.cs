@@ -35,7 +35,7 @@ namespace Liaoxin.Business
         /// <param name="clientId"></param>
         /// <param name="groupId"></param>
         /// <returns></returns>
-        public GroupClient GetClientGroup(Guid clientId, Guid groupId)
+        public GroupClient GetGroupClient(Guid clientId, Guid groupId)
         {
             this.IsCurrentGroup(groupId);
             return Context.GroupClients.AsNoTracking().FirstOrDefault(a => a.ClientId == clientId && a.GroupId == groupId);
@@ -60,7 +60,7 @@ namespace Liaoxin.Business
         public bool DissolveGroup(Guid groupId)
         {
             this.IsCurrentGroup(groupId);
-            var huanxinGroupId =     Context.Groups.Where(g => g.GroupId == groupId).Select(g => g.HuanxinGroupId).FirstOrDefault();
+            var huanxinGroupId = Context.Groups.Where(g => g.GroupId == groupId).Select(g => g.HuanxinGroupId).FirstOrDefault();
             var res = HuanxinGroupRequest.RemoveGroup(huanxinGroupId);
 
             if (res.ReturnCode == ServiceResultCode.Success)
@@ -239,7 +239,7 @@ namespace Liaoxin.Business
             //群主不能退群
             if (g != null && g.ClientId != clientId)
             {
-                GroupClient entity = GetClientGroup(clientId, groupId);
+                GroupClient entity = GetGroupClient(clientId, groupId);
                 if (entity != null)
                 {
                     Context.GroupClients.Remove(entity);
