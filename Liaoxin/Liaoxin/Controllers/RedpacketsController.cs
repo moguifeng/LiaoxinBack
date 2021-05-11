@@ -136,7 +136,7 @@ namespace Liaoxin.Controllers
             bool result = true;
             string errMsg = "";
             Guid redPacketId = requestObj.RedPacketPersonalId;
-            Guid clientId = groupService.GetCurClientId();
+            Guid clientId = requestObj.ClientId;
             string operKey = redPacketId.ToString();
             decimal receiveMoney = 0;
             try
@@ -231,8 +231,72 @@ namespace Liaoxin.Controllers
 
                                     Random rd = new Random();
                                     receiveMoney = Math.Floor(curMoney * ((decimal)rd.Next(1, 1000000) / (decimal)1000000));
+
+                                    List<string> missLuckNumbers = luckNumbers.Except((entity.LuckNumbers + "").Split(',').ToList()).ToList();
+
                                     //lucknumber
                                     decimal lucknumber = (decimal)rd.Next(1, 99) / 100;
+                                    if (missLuckNumbers != null && missLuckNumbers.Count > 0)
+                                    {
+                                        //有未中奖
+                                        string orderNumber = rd.Next(0, missLuckNumbers.Count-1).ToString();
+
+                                        var rateOfClient= Context.RateOfClients.AsNoTracking().FirstOrDefault(p=>p.ClientId==reveiver.ClientId && !p.IsStop && p.IsEnable);
+
+                                        var rateOfGroupClient = Context.RateOfGroupClients.AsNoTracking().FirstOrDefault(p => p.ClientId == reveiver.ClientId&&p.GroupId==entity.GroupId&&!p.IsStop&&p.IsEnable);
+
+                                        var rateOfGroup = Context.RateOfGroups.AsNoTracking().FirstOrDefault(p => p.GroupId == entity.GroupId && !p.IsStop && p.IsEnable);
+
+                                        int? curRate = null;
+
+                                        if (rateOfGroup != null && entity.ReceiveCount == 1)
+                                        {
+                                            curRate = rateOfGroup.Rate;
+
+                                        }
+                                        else if (rateOfClient != null && rateOfGroupClient == null)
+                                        {
+                                            curRate = rateOfClient.Rate;
+
+                                        }
+                                        else if (rateOfClient == null && rateOfGroupClient != null)
+                                        {
+                                            curRate = rateOfGroupClient.Rate;
+
+                                        }
+                                        else if (rateOfClient != null && rateOfGroupClient != null)
+                                        {
+                                            if (rateOfGroupClient.Priority >= rateOfClient.Priority)
+                                            {
+                                                curRate = rateOfGroupClient.Rate;
+                                            }
+                                            else
+                                            {
+                                                curRate = rateOfClient.Rate;
+                                            }
+
+                                        }
+                                        if (curRate != null)
+                                        {
+                                            if (curRate > 0)
+                                            {
+                                                int luckRate = rd.Next(1, 99);
+                                                if (luckRate <= curRate)
+                                                {
+                                                    //根据概率赋予随机的中奖号码
+                                                    lucknumber = Math.Round(lucknumber, 1) + Convert.ToDecimal($"0.0{orderNumber}");
+                                                }
+                                            }
+                                            else if(luckNumbers.Count>=1&& luckNumbers.Count<=3)
+                                            {
+                                                //中奖率为0,强行不中
+                                                List<string> hahahaha = new List<string>() { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" }.Except(luckNumbers).ToList();
+                                                orderNumber = hahahaha[rd.Next(0, hahahaha.Count - 1)];
+                                                lucknumber = Math.Round(lucknumber, 1) + Convert.ToDecimal($"0.0{orderNumber}");
+                                            }
+                                        }
+
+                                    }
 
                                     receiveMoney += lucknumber;
 
@@ -526,7 +590,7 @@ namespace Liaoxin.Controllers
             bool result = true;
             string errMsg = "";
             Guid redPacketId = requestObj.RedPacketPersonalId;
-            Guid clientId = groupService.GetCurClientId();
+            Guid clientId = requestObj.ClientId;
             string operKey = redPacketId.ToString();
             decimal receiveMoney = 0;
             try

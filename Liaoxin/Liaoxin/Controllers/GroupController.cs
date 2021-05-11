@@ -226,7 +226,7 @@ namespace Liaoxin.Controllers
         {
             return (ServiceResult<GroupClientResponse>)Json(() =>
             {
-                return ObjectGenericityResult<GroupClientResponse>(ConvertHelper.ConvertToModel<GroupClient, GroupClientResponse>(groupService.GetGroupClient(clientId, groupId)));
+                return ObjectGenericityResult<GroupClientResponse>(ConvertHelper.ConvertToModel<GroupClient, GroupClientResponse>(groupService.GetGroupClient(groupId,clientId)));
             }, "获取群客户失败");
         }
 
