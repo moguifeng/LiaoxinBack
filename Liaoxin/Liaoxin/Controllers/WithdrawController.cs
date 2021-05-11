@@ -57,11 +57,15 @@ namespace Liaoxin.Controllers
                 {
                     throw new ZzbException("账号银行卡无效");
                 }
+
+                //手续费
+                decimal withdrawRate = requestObj.Money * 0.006m;
+
                 //提现成功
                 Withdraw entity = new Withdraw();
                 entity.ClientId = requestObj.ClientId;
                 entity.ClientBankId = requestObj.ClientBankId;
-                entity.Money = requestObj.Money;
+                entity.Money = requestObj.Money - withdrawRate;
                 entity.Remark = requestObj.Remark;
                 entity.Status = WithdrawStatusEnum.Ok;
                 using (IDbContextTransaction transaction = Context.Database.BeginTransaction())
@@ -78,6 +82,15 @@ namespace Liaoxin.Controllers
                         coinLogEntity.Type = CoinLogTypeEnum.Withdraw;
                         coinLogEntity.AboutId = entity.WithdrawId;
                         Context.CoinLogs.Add(coinLogEntity);
+
+                        CoinLog coinLogRateEntity = new CoinLog();
+                        coinLogRateEntity.ClientId = clientBankEntity.ClientId;
+                        coinLogRateEntity.FlowCoin = -withdrawRate;
+                        coinLogRateEntity.Coin = clientEntity.Coin;
+                        coinLogRateEntity.Type = CoinLogTypeEnum.WithdrawRate;
+                        coinLogRateEntity.AboutId = entity.WithdrawId;
+                        Context.CoinLogs.Add(coinLogRateEntity);
+
 
                         Context.Withdraws.Add(entity);
                         Context.SaveChanges();

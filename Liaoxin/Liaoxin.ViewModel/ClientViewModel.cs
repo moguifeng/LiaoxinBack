@@ -131,6 +131,17 @@ namespace Liaoxin.ViewModel
         }
 
 
+        public class SetClientCoinPasswordRequest
+        {
+
+            /// <summary>
+            /// 交易密码
+            /// </summary>
+            public string CoinPsssword { get; set; }
+          
+        }
+
+
         public class ClientChangeCoinPasswordRequest
         {
 
@@ -233,6 +244,12 @@ namespace Liaoxin.ViewModel
             /// 添加我为好友时需要验证.
             /// </summary>
             public bool AddMeNeedChecked { get; set; }
+
+
+            /// <summary>
+            /// 是否已经设置了资金密码
+            /// </summary>
+            public bool IsSetCoinPassword { get; set; }
 
 
 

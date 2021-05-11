@@ -21,12 +21,12 @@ namespace Liaoxin.Model
                 AddClients();
                 AddArea();
                 AddSystemBank();
-                AddMerchantsBanks();
+               
                 AddConfig();
-
                 AddPictrueNews();
                 context.SaveChanges();
             }
+            AddTestClientData();
         }
 
         private static void AddPictrueNews()
@@ -37,6 +37,18 @@ namespace Liaoxin.Model
         }
 
 
+        private static void AddTestClientData()
+        {
+            //for (int i = 0; i < 1000; i++)
+            //{
+            //    Client client = new Client() { NickName ="testdata"+i, Coin = 10000, CoinPassword = "12345678" };
+            //    _context.Clients.Add(client);
+            //    GroupClient gc = new GroupClient() {  GroupId = Guid.Parse( "623d17d0-f907-4183-a505-59b907fe18d6"), ClientId = client.ClientId,  };
+            //    _context.GroupClients.Add(gc);
+            //}
+            //var res = _context.SaveChanges();
+        }
+
 
         private static void AddConfig()
         {
@@ -45,25 +57,7 @@ namespace Liaoxin.Model
             _context.SystemConfigs.Add(new SystemConfig(SystemConfigEnum.Logo, affix.Entity.AffixId.ToString()));
         }
 
-        private static void AddMerchantsBanks()
-        {
-            _context.MerchantsBanks.Add(new MerchantsBank()
-            {
-                Name = "微信",
-                BannerAffix = new Affix() { Path = "Image/微信.png" },
-                Description = "打开微信扫描二维码",
-                ScanAffix = new Affix() { Path = "Image/微信二维码.png" },
-                IndexSort = 0
-            });
-            _context.MerchantsBanks.Add(new MerchantsBank()
-            {
-                Name = "支付宝",
-                BannerAffix = new Affix() { Path = "Image/支付宝.png" },
-                Description = "打开支付宝扫描二维码",
-                ScanAffix = new Affix() { Path = "Image/支付宝二维码.png" },
-                IndexSort = 0
-            });
-        }
+ 
 
         private static void AddSystemBank()
         {
@@ -88,46 +82,46 @@ namespace Liaoxin.Model
 
         public static void AddClients()
         {
-            List<Guid> clientIds = new List<Guid>();
-            for (int i = 1; i <= 200; i++)
-            {
-                var client = new Client() {  LiaoxinNumber = "fff" + i, HuanXinId = "abc" + i, NickName = "测试客户" + i, Password = SecurityHelper.Encrypt("1"), CoinPassword = SecurityHelper.Encrypt("1"), IsEnable = true };
-                clientIds.Add(client.ClientId);
-                _context.Clients.Add(client);
-            }
+            //List<Guid> clientIds = new List<Guid>();
+            //for (int i = 1; i <= 200; i++)
+            //{
+            //    var client = new Client() {  LiaoxinNumber = "fff" + i, HuanXinId = "abc" + i, NickName = "测试客户" + i, Password = SecurityHelper.Encrypt("1"), CoinPassword = SecurityHelper.Encrypt("1"), IsEnable = true };
+            //    clientIds.Add(client.ClientId);
+            //    _context.Clients.Add(client);
+            //}
 
 
-            for (int i = 1; i <= 20; i++)
-            {
-                var group = new Group() { Name = "群组" + i, AllBlock = false, HuanxinGroupId = "eifjeifje" + i, Notice = "公告" + i, ClientId = clientIds[0] };
-                _context.Groups.Add(group);
-            }
+            //for (int i = 1; i <= 20; i++)
+            //{
+            //    var group = new Group() { Name = "群组" + i, AllBlock = false, HuanxinGroupId = "eifjeifje" + i, Notice = "公告" + i, ClientId = clientIds[0] };
+            //    _context.Groups.Add(group);
+            //}
 
 
-            for (int i = 1; i <= 200; i++)
-            {
-                if (i % 5 == 0 && i <= 190)
-                {
-                    ClientRelation cr = new ClientRelation() { ClientId = clientIds[i], RelationType = RelationTypeEnum.Friend };
-                    _context.ClientRelations.Add(cr);
-                    for (int j = i + 1; j < i + 5; j++)
-                    {
-                        ClientRelationDetail crd = new ClientRelationDetail()
-                        {
-                            ClientId = clientIds[j],                            
-                            ClientRelationId = cr.ClientRelationId,
-                            AddSource = ClientRelationDetail.AddSourceTypeEnum.Phone
-                        };
-                        _context.ClientRelationDetails.Add(crd);
-                    }
+            //for (int i = 1; i <= 200; i++)
+            //{
+            //    if (i % 5 == 0 && i <= 190)
+            //    {
+            //        ClientRelation cr = new ClientRelation() { ClientId = clientIds[i], RelationType = RelationTypeEnum.Friend };
+            //        _context.ClientRelations.Add(cr);
+            //        for (int j = i + 1; j < i + 5; j++)
+            //        {
+            //            ClientRelationDetail crd = new ClientRelationDetail()
+            //            {
+            //                ClientId = clientIds[j],                            
+            //                ClientRelationId = cr.ClientRelationId,
+            //                AddSource = ClientRelationDetail.AddSourceTypeEnum.Phone
+            //            };
+            //            _context.ClientRelationDetails.Add(crd);
+            //        }
 
 
 
-                }
-            }
+            //    }
+            //}
 
 
-            _context.SaveChanges();
+            //_context.SaveChanges();
         }
 
 

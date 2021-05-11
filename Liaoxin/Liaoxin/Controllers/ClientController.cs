@@ -130,7 +130,7 @@ namespace Liaoxin.Controllers
             var entity = clientService.GetClient();
             return (ServiceResult<ClientBaseInfoResponse>)Json(() =>
             {
-                return ObjectGenericityResult<ClientBaseInfoResponse>(entity);
+                return ObjectGenericityResult(entity);
             }, "获取客户失败");
 
         }
@@ -317,6 +317,37 @@ namespace Liaoxin.Controllers
                 var res = clientService.ChangeCoinPassword(request);
                 return ObjectResult(res);
             }, "修改密码失败");
+
+        }
+
+        /// <summary>
+        /// 设置资金密码
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost("SetCoinPassword")]
+        public ServiceResult SetCoinPassword(SetClientCoinPasswordRequest request)
+        {
+            return Json(() =>
+            {
+                if (request.CoinPsssword == null || request.CoinPsssword.Length < 8)
+                {
+                    throw new ZzbException("资金密码最少8位");
+                }
+                var client = (from p in Context.Clients where p.ClientId == CurrentClientId select p).FirstOrDefault();
+                if (client == null)
+                {
+                    throw new ZzbException("找不到当前登录用户");
+                }
+
+              
+                client.CoinPassword = SecurityHelper.Encrypt(request.CoinPsssword);
+                client.Update();
+                Context.ClientOperateLogs.Add(new ClientOperateLog(client.ClientId, "设置资金密码"));
+                return ObjectResult(Context.SaveChanges() > 0);
+
+            }, "设置资金密码");
+
 
         }
 

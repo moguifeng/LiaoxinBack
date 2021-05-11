@@ -3,6 +3,7 @@
 using Liaoxin.IBusiness;
 using Liaoxin.Model;
 using Liaoxin.ViewModel;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -136,7 +137,7 @@ namespace Liaoxin.Business
 
         public ClientBaseInfoResponse GetClient()
         {
-            var c = (from p in Context.Clients where p.ClientId == CurrentClientId select p).FirstOrDefault();
+            var c = (from p in Context.Clients where p.ClientId == CurrentClientId select p).AsNoTracking().FirstOrDefault();
 
             if (c == null)
             {
@@ -158,6 +159,7 @@ namespace Liaoxin.Business
                 CharacterSignature = c.CharacterSignature,
                 Coin = c.Coin,
                 Cover = c.Cover,
+                IsSetCoinPassword = !string.IsNullOrEmpty(c.CoinPassword) ? true : false,
                 FontSize = c.FontSize,
                 HandFree = c.HandFree,
                 HuanXinId = c.HuanXinId,

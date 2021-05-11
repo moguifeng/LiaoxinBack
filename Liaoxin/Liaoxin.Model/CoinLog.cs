@@ -79,6 +79,11 @@ namespace Liaoxin.Model
         [Description("提现成功")]
         Withdraw = 2,
 
+
+        [Description("提现手续费")]
+
+        WithdrawRate = 2,
+
         [Description("提款失败")]
         CancelWithdraw = 3,
 
