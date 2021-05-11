@@ -106,14 +106,14 @@ namespace Liaoxin.Business
                 else if (res.StatusCode == HttpStatusCode.Unauthorized)
                 {
                     var serviceRes = new ServiceResult<string>();
-                    serviceRes.Data = res.Content.ReadAsStringAsync().Result;
+                    serviceRes.Message = res.Content.ReadAsStringAsync().Result;
                     serviceRes.ReturnCode = ServiceResultCode.UnAuth;
                     return serviceRes;
                 }
                 else
                 {
                     var serviceRes = new ServiceResult<string>();
-                    serviceRes.Data = res.Content.ReadAsStringAsync().Result;
+                    serviceRes.Message = res.Content.ReadAsStringAsync().Result;
                     serviceRes.ReturnCode = ServiceResultCode.ErrOperation;
                     return serviceRes;
                }                            

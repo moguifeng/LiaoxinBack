@@ -89,7 +89,7 @@ namespace Liaoxin.Business
           
 
             this.IsCurrentGroup(groupId);
-            Group g = Context.Groups.AsNoTracking().FirstOrDefault(p => p.GroupId == groupId);
+            Group g = Context.Groups.FirstOrDefault(p => p.GroupId == groupId);
             var newHuanxinId = Context.Clients.Where(c => c.ClientId == newMasterClientId).AsNoTracking().Select(c => c.HuanXinId).FirstOrDefault();
             if (g != null && g.ClientId == originalMasterClientId)
             {
@@ -106,10 +106,10 @@ namespace Liaoxin.Business
                 {
                     throw new ZzbException(res.Message);
                 }
-              
-              
+
+
             }
-            return false;
+            throw new ZzbException("你已经是群主,无法转让给自己");
         }
         /// <summary>
         /// 创建群信息

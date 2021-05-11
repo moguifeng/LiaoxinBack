@@ -40,7 +40,7 @@ namespace Liaoxin.Model
         /// 
         [ZzbIndex(IsUnique = true)]
 
-        public  string HuanxinGroupId { get; set; } = SecurityCodeHelper.CreateRandomCode(15);
+        public  string HuanxinGroupId { get; set; }
 
 
         /// <summary>

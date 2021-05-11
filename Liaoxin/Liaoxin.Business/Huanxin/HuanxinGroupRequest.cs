@@ -90,9 +90,9 @@ namespace Liaoxin.Business
         /// <param name="username"></param>
         /// <returns></returns>
 
-        public static ServiceResult<string> RemoveGroupMember(string chatGroupId, string username)
+        public static ServiceResult<string> RemoveGroupMember(string chatGroupId, string members)
         {
-            var responseUrl = $"{HostService.url}/chatgroups/{chatGroupId}/users/{username}";
+            var responseUrl = $"{HostService.url}/chatgroups/{chatGroupId}/users/{members}";
             var res = HostService.Delete(responseUrl);
             return res;
 

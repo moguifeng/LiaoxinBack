@@ -64,19 +64,32 @@ namespace Liaoxin.Controllers
         [HttpPost("UpdateGroup")]
         public ServiceResult UpdateGroup(GroupResponse model)
         {
-            groupService.IsCurrentGroup(model.GroupId);
-            List<string> ingores = new List<string>();
-            ingores.Add("UnqiueId");
-            ingores.Add("HuanxinGroupId");
-            ingores.Add("ClientId");
-            ingores.Add("IsEnable");
-            ingores.Add("CreateTime");
 
-            IList<string> updateFieldList = GetPostBodyFiledKey(ingores);
-            Group entity = ConvertHelper.ConvertToModel<GroupResponse, Group>(model, updateFieldList);
-            entity.UpdateTime = DateTime.Now;
-            bool result = groupService.Update<Group>(entity, "GroupId", updateFieldList) > 0;
-            return ObjectGenericityResult<object>(result, null);
+            return Json(() =>
+            {
+                groupService.IsCurrentGroup(model.GroupId);
+                List<string> ingores = new List<string>();
+                ingores.Add("UnqiueId");
+                ingores.Add("HuanxinGroupId");
+                ingores.Add("ClientId");
+                ingores.Add("IsEnable");
+                ingores.Add("CreateTime");
+
+                IList<string> updateFieldList = GetPostBodyFiledKey(ingores);
+                Group entity = ConvertHelper.ConvertToModel<GroupResponse, Group>(model, updateFieldList);
+                var res = HuanxinGroupRequest.ModifyGroup(model.HuanxinGroupId, entity.Notice, entity.Name);
+                if (res.ReturnCode == ServiceResultCode.Success)
+                {
+                    entity.UpdateTime = DateTime.Now;
+                    bool result = groupService.Update<Group>(entity, "GroupId", updateFieldList) > 0;
+                    return ObjectResult(result);
+                }
+                else
+                {
+                    return res;
+                }
+            }, "更新失败");
+
 
         }
 
@@ -89,16 +102,9 @@ namespace Liaoxin.Controllers
         [HttpPost("MyGroups")]
         public ServiceResult<List<MyGroupResponse>> MyGroups()
         {
-
             var groupIds = Context.GroupClients.Where(g => g.ClientId == CurrentClientId).Select(s => s.GroupId).ToList();
-            var lis = Context.Groups.Where(g => groupIds.Contains(g.GroupId)).AsNoTracking().Select(g => new MyGroupResponse
-            {
-                GroupId = g.GroupId,
-                HuanxinGroupId = g.HuanxinGroupId,
-                Name = g.Name,
-                UnqiueId = g.UnqiueId
-            }).ToList();
-            return ListGenericityResult(lis);
+            var lis = Context.Groups.Where(g => groupIds.Contains(g.GroupId)).AsNoTracking().ToList();
+            return ListGenericityResult(ConvertHelper.ConvertToList<Group, MyGroupResponse>(lis).ToList());
 
         }
 
