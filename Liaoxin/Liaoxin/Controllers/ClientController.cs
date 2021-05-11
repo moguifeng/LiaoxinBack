@@ -36,10 +36,8 @@ namespace Liaoxin.Controllers
             return entity;
         }
 
-
-
         /// <summary>
-        /// 发送验证码  发送类型(Type) 0:登录  1:找回密码  4:修改手机号码
+        /// 发送验证码  重要:发送类型(Type) 0:登录  1:找回密码  4:修改手机号码   5:注册用户
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
@@ -68,6 +66,56 @@ namespace Liaoxin.Controllers
                 //if (result) return Result.OutputSuccess();
             }, "验证码发送失败");
 
+
+        }
+
+
+
+
+        /// <summary>
+        ///  用户注册
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpPost("ResgierClient")]
+        public ServiceResult ResgierClient(ResgerClientRequest request)
+        {
+            return Json(() =>
+            {
+                if (!StringHelper.IsMobile(request.Telephone))
+                {
+                    throw new ZzbException("请输入正确的手机号码");
+                }
+
+                if (request.Password.Length < 8)
+                {
+                    throw new ZzbException("请输入最小8位的密码");
+                }
+
+
+                if (string.IsNullOrEmpty(request.NickName)) 
+                {
+                    throw new ZzbException("昵称不可以为空");
+                }
+
+
+                var cacheKey = $"sendCode:{VerificationCodeTypes.RegisterClient}:{request.Telephone}";
+                var cacheCode = _cacheManager.Get<string>(cacheKey);
+
+                if (string.IsNullOrEmpty(cacheCode))
+                    throw new ZzbException("验证码已过期");
+                if (cacheCode != request.Code)
+                    throw new ZzbException("验证码错误");
+
+                var entity = clientService.RegisterClient(request);
+                _UserContext.SetUserContext(entity.ClientId, entity.HuanXinId, entity.LiaoxinNumber);
+                string token = UserContext.Current.Token;
+                _cacheManager.Remove(cacheKey);
+                return ObjectResult(token);
+
+
+            }, "登录失败");
 
         }
 
@@ -112,7 +160,11 @@ namespace Liaoxin.Controllers
                 if (cacheCode != request.Code)
                     throw new ZzbException("验证码错误");
 
-                var entity = clientService.LoginByCode(request);
+                var entity = (from p in Context.Clients where p.Telephone == request.Telephone select p).FirstOrDefault();
+                if (entity == null)
+                {
+                    throw new ZzbException("账户未注册");
+                }
                 _UserContext.SetUserContext(entity.ClientId, entity.HuanXinId, entity.LiaoxinNumber);
                 string token = UserContext.Current.Token;
                 _cacheManager.Remove(cacheKey);

@@ -24,7 +24,7 @@ namespace Liaoxin.Business
 
 
 
-        void InsertClientEquiment(string name, string type,Guid clientId)
+        void InsertClientEquiment(string name, string type, Guid clientId)
         {
             if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(type))
             {
@@ -43,21 +43,21 @@ namespace Liaoxin.Business
             }
         }
 
-       // public RelationTypeEnum GetRelationThoughtClientId(Guid SourceClientId, Guid CompareClientId)
-       // {
-       //     //黑名单列表
-       //     var blacks = Context.ClientRelationDetails.Where(crd => crd.ClientRelation.RelationType ==
-       //     RelationTypeEnum.Black && crd.ClientRelation.ClientId == SourceClientId).Select(crd => crd.ClientId).ToList();
+        // public RelationTypeEnum GetRelationThoughtClientId(Guid SourceClientId, Guid CompareClientId)
+        // {
+        //     //黑名单列表
+        //     var blacks = Context.ClientRelationDetails.Where(crd => crd.ClientRelation.RelationType ==
+        //     RelationTypeEnum.Black && crd.ClientRelation.ClientId == SourceClientId).Select(crd => crd.ClientId).ToList();
 
-       //     //好友列表
-       //     var friends = Context.ClientRelationDetails.Where(crd => crd.ClientRelation.RelationType ==
-       //RelationTypeEnum.Friend && crd.ClientRelation.ClientId == SourceClientId).Select(crd => crd.ClientId).ToList();
+        //     //好友列表
+        //     var friends = Context.ClientRelationDetails.Where(crd => crd.ClientRelation.RelationType ==
+        //RelationTypeEnum.Friend && crd.ClientRelation.ClientId == SourceClientId).Select(crd => crd.ClientId).ToList();
 
-       //     return blacks.Contains(CompareClientId) ?
-       //         RelationTypeEnum.Black : friends.Contains(CompareClientId) ?
-       //         RelationTypeEnum.Friend : RelationTypeEnum.Stranger;
+        //     return blacks.Contains(CompareClientId) ?
+        //         RelationTypeEnum.Black : friends.Contains(CompareClientId) ?
+        //         RelationTypeEnum.Friend : RelationTypeEnum.Stranger;
 
-       // }
+        // }
 
         void ClientLoginLog(Guid clientId)
         {
@@ -122,7 +122,7 @@ namespace Liaoxin.Business
                 throw new ZzbException("用户名或者密码错误");
             }
             ClientLoginLog(client.ClientId);
-            InsertClientEquiment(request.EquimentName, request.EquimentType,client.ClientId);
+            InsertClientEquiment(request.EquimentName, request.EquimentType, client.ClientId);
             Context.SaveChanges();
             //if (client.ErrorPasswordCount > 0)
             //{
@@ -137,7 +137,7 @@ namespace Liaoxin.Business
         public ClientBaseInfoResponse GetClient()
         {
             var c = (from p in Context.Clients where p.ClientId == CurrentClientId select p).FirstOrDefault();
-          
+
             if (c == null)
             {
                 return null;
@@ -217,29 +217,60 @@ namespace Liaoxin.Business
         }
 
         public Client LoginByCode(ClientLoginByCodeRequest request)
-        { 
-            var client = (from p in Context.Clients where p.Telephone == request.Telephone select p).FirstOrDefault();
-            if (client == null)
-            {
-                client = new Client();
-                client.Telephone = request.Telephone;
-                var res = HuanxinClientRequest.RegisterClient(client.HuanXinId);
-                if (res.ReturnCode == ServiceResultCode.Success)
-                {
-                    Context.Clients.Add(client);
+        {
+            return null;
+            //if (client == null)
+            //{
+                //client = new Client();
+                //client.Telephone = request.Telephone;
+                //var res = HuanxinClientRequest.RegisterClient(client.HuanXinId);
+                //if (res.ReturnCode == ServiceResultCode.Success)
+                //{
+                //    Context.Clients.Add(client);
 
-                }
-                else
-                {
-                    throw new ZzbException(res.Message);
-                }
+                //}
+                //else
+                //{
+                //    throw new ZzbException(res.Message);
+                //}
+            //}
+            //InsertClientEquiment(request.EquimentName, request.EquimentType, client.ClientId);
+            //ClientLoginLog(client.ClientId);
+            //Context.SaveChanges();
+          
+        }
+
+
+        public Client RegisterClient(ResgerClientRequest request)
+        {
+            var exist = Context.Clients.Where(c => c.Telephone == request.Telephone).Any();
+            if (exist)
+            {
+                throw new ZzbException("手机号码已经存在,请输入其他手机号码");
             }
-            InsertClientEquiment(request.EquimentName, request.EquimentType,client.ClientId);
+
+            var client = new Client();
+            client.Telephone = request.Telephone;
+            client.Password = SecurityHelper.Encrypt(request.Password);
+            client.NickName = request.NickName;
+            var res = HuanxinClientRequest.RegisterClient(client.HuanXinId);
+            if (res.ReturnCode == ServiceResultCode.Success)
+            {
+                Context.Clients.Add(client);
+
+            }
+            else
+            {
+                throw new ZzbException(res.Message);
+            }
+
+            InsertClientEquiment(request.EquimentName, request.EquimentType, client.ClientId);
             ClientLoginLog(client.ClientId);
             Context.SaveChanges();
             return client;
-
         }
+
+
 
 
     }

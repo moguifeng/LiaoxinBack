@@ -10,6 +10,44 @@ using static Liaoxin.Model.ClientRelationDetail;
 namespace Liaoxin.ViewModel
 {
 
+
+
+    public class ResgerClientRequest
+    {
+        /// <summary>
+        /// 电话号码
+        /// </summary>
+        public string Telephone { get; set; }
+
+        /// <summary>
+        /// 验证码
+        /// </summary>
+        public string Code { get; set; }
+
+
+
+        /// <summary>
+        /// 昵称
+        /// </summary>
+        public string NickName { get; set; }
+
+        /// <summary>
+        /// 密码
+        /// </summary>
+        public string Password { get; set; }
+        /// <summary>
+        /// 设备类型
+        /// </summary>
+        public string EquimentType { get; set; }
+
+        /// <summary>
+        /// 设备名称
+        /// </summary>
+        public string EquimentName { get; set; }
+
+
+    }
+
     public class ClientSendCodeRequest
     {
         /// <summary>

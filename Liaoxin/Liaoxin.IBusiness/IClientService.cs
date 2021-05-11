@@ -17,6 +17,8 @@ namespace Liaoxin.IBusiness
 
         bool ChangeCoinPassword(ClientChangeCoinPasswordRequest request);
 
+        Client RegisterClient(ResgerClientRequest request);
+
         //RelationTypeEnum GetRelationThoughtClientId(Guid SourceClientId, Guid CompareClientId);
 
 

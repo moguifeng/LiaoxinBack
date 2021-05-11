@@ -28,5 +28,10 @@ namespace Zzb.Common
         /// </summary>
         ChangeTelephone = 4,
 
+        /// <summary>
+        ///注册用户
+        /// </summary>
+        RegisterClient = 5,
+
     }
 }
