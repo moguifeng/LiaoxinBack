@@ -187,4 +187,14 @@ namespace LIaoxin.ViewModel
 
 
     }
+
+    public class SetLeaveGroupRequest
+    {
+        public Guid GroupId { get; set; }
+
+        /// <summary>
+        /// 要退出的用户id列表
+        /// </summary>
+        public IList<Guid> clientIdList { get; set; }
+    }
 }
