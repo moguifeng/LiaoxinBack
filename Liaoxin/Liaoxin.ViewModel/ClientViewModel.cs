@@ -2,12 +2,28 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Zzb.Common;
 using static Liaoxin.Model.Client;
 using static Liaoxin.Model.ClientAddDetail;
 using static Liaoxin.Model.ClientRelationDetail;
 
 namespace Liaoxin.ViewModel
 {
+
+    public class ClientSendCodeRequest
+    {
+        /// <summary>
+        /// 电话号码
+        /// </summary>
+        public string Telephone { get; set; }
+
+        /// <summary>
+        /// 发送类型  0:登录  1:找回密码
+        /// </summary>
+        public VerificationCodeTypes Type { get; set; }
+
+    }
+
     public class ClientViewModel
     {
         public class ClientLoginRequest
@@ -35,14 +51,10 @@ namespace Liaoxin.ViewModel
         }
 
 
-        public class ClientSendCodeRequest
-        {
-            /// <summary>
-            /// 电话号码
-            /// </summary>
-            public string Telephone { get; set; }
-        }
+       
 
+
+   
         public class ClientLoginByCodeRequest
         {
             /// <summary>
@@ -556,9 +568,42 @@ namespace Liaoxin.ViewModel
 
     public class FindPasswordByPhoneRequest
     {
+        /// <summary>
+        /// 手机号码
+        /// </summary>
         public string Telephone { get; set; }
+        /// <summary>
+        /// 验证码
+        /// </summary>
         public string Code { get; set; }
+
+        /// <summary>
+        /// 新的密码
+        /// </summary>
+        public string NewPassword { get; set; }
         
     }
+
+    public class ModifyClientTelephoneRequest
+    {
+        /// <summary>
+        /// 手机号码
+        /// </summary>
+        public string OldTelephone { get; set; }
+
+        /// <summary>
+        /// 新手机号码
+        /// </summary>
+
+        public string NewTelephone { get; set; }
+        /// <summary>
+        /// 新手机号验证码
+        /// </summary>
+        public string Code { get; set; }
+
+      
+
+    }
+
 
 }

@@ -26,10 +26,10 @@ namespace Liaoxin.BaseDataModel.ClientManger
         [NavField("ID", IsKey = true, IsDisplay = false)]
         public Guid ClientRelationId { get; set; }
 
-        [NavField("源聊信号")]
+        [NavField("源聊信号", Width = 200)]
         public string SourceLiaoxinNumber { get; set; }
 
-        [NavField("目标聊信号")]
+        [NavField("目标聊信号",Width =200)]
         public string ToLiaoxinNumber { get; set; }
 
 

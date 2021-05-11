@@ -19,7 +19,7 @@ namespace Liaoxin.Business
             }
             if (affix.ClientId.HasValue)
             {
-                if (UserContext.Current.Id != affix.ClientId)
+                if (UserContext.Current.Id != affix.ClientId && affix.NotAllowOtherSee==true)
                 {
                     return null;
                 }

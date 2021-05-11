@@ -41,7 +41,7 @@ namespace Liaoxin.BaseDataModel.ClientManger
 
 
 
-        [NavField("绑定环信号")]
+        [NavField("绑定环信号",Width =300)]
         public string HuanXinId { get; set; }
         [NavField("昵称")]
         public string NickName { get; set; }

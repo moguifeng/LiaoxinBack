@@ -7,26 +7,26 @@ namespace Zzb.Common
     public enum VerificationCodeTypes
     {
         /// <summary>
-        /// 注册
-        /// </summary>
-        Register = 1,
-        /// <summary>
         /// 登录
         /// </summary>
-        Login = 2,
+        Login = 0,
         /// <summary>
         /// 忘记密码
         /// </summary>
-        ForgetPassword = 3,
+        ForgetPassword = 1,
         /// <summary>
         /// 设置资金密码
         /// </summary>
-        SetTradePassword = 4,
+        SetTradePassword = 2,
         /// <summary>
         /// 设置登录密码
         /// </summary>
-        SetPassword = 5,
- 
+        SetPassword = 3,
+
+        /// <summary>
+        /// 更改手机号码
+        /// </summary>
+        ChangeTelephone = 4,
 
     }
 }
