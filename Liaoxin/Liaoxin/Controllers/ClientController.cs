@@ -115,6 +115,7 @@ namespace Liaoxin.Controllers
                 var entity = clientService.LoginByCode(request);
                 _UserContext.SetUserContext(entity.ClientId, entity.HuanXinId, entity.LiaoxinNumber);
                 string token = UserContext.Current.Token;
+                _cacheManager.Remove(cacheKey);
                 return ObjectResult(token);
             }, "登录失败");
 

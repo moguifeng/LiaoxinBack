@@ -30,68 +30,68 @@ namespace Liaoxin.Controllers
         [HttpPost("AddRecharge")]
         public ServiceResult<RechargeResponse> AddRecharge(AddRechargeRequest requestObj)
         {
-            bool result = true;
-            string msg = "";
-            RechargeResponse returnObject = null;
-            if (requestObj.Money < (decimal)0.01)
-            {
-                msg = "充值金额金额最少为0.01";
-                result = false;
-                return ObjectGenericityResult<RechargeResponse>(result, returnObject, msg);
-            }
+            return (ServiceResult<RechargeResponse>)Json(() => {
 
 
-            Client clientEntity = Context.Clients.AsNoTracking().FirstOrDefault(p => p.ClientId == requestObj.ClientId);
-            ClientBank clientBankEntity = Context.ClientBanks.AsNoTracking().FirstOrDefault(p => p.ClientBankId == requestObj.ClientBankId);
-            if (clientEntity == null)
-            {
-                msg = "待充值账号无效";
-                result = false;
-                return ObjectGenericityResult<RechargeResponse>(result, returnObject, msg);
-            }
-            else if (clientBankEntity == null)
-            {
-                msg = "账号银行卡无效";
-                result = false;
-                return ObjectGenericityResult<RechargeResponse>(result, returnObject, msg);
-            }
-            //充值成功
-            Recharge entity = new Recharge();
-            entity.ClientId = requestObj.ClientId;
-            entity.ClientBankId = requestObj.ClientBankId;
-            entity.Money = requestObj.Money;
-            entity.Remark = requestObj.Remark;
-            entity.State = (clientBankEntity.ClientId == clientEntity.ClientId) ? RechargeStateEnum.Ok : RechargeStateEnum.AdminOk;
-            using (IDbContextTransaction transaction = Context.Database.BeginTransaction())
-            {
-                try
+                RechargeResponse returnObject = null;
+                if (requestObj.Money < (decimal)0.01)
                 {
-                    CoinLog coinLogEntity = new CoinLog();
-                    clientEntity.Coin += entity.Money;
-                    clientEntity.UpdateTime = DateTime.Now;
-                    Update<Client>(clientEntity, "ClientId", new List<string>() { "Coin", "UpdateTime" });
-                    coinLogEntity.ClientId = entity.ClientId;
-                    coinLogEntity.FlowCoin = entity.Money;
-                    coinLogEntity.Coin = clientEntity.Coin;
-                    coinLogEntity.Type = (clientBankEntity.ClientId == clientEntity.ClientId) ? CoinLogTypeEnum.Recharge : CoinLogTypeEnum.InsteadRecharge;
-                    coinLogEntity.AboutId = entity.RechargeId;
-                    Context.CoinLogs.Add(coinLogEntity);
-
-                    Context.Recharges.Add(entity);
-                    Context.SaveChanges();
-
-                    returnObject = ConvertHelper.ConvertToModel<Recharge, RechargeResponse>(entity);
-
-                    transaction.Commit();
+                    throw new ZzbException("充值金额金额最少为0.01");
                 }
-                catch (Exception ex)
+
+
+                Client clientEntity = Context.Clients.AsNoTracking().FirstOrDefault(p => p.ClientId == requestObj.ClientId);
+                ClientBank clientBankEntity = Context.ClientBanks.AsNoTracking().FirstOrDefault(p => p.ClientBankId == requestObj.ClientBankId);
+                if (clientEntity == null)
                 {
-                    result = false;
-                    transaction.Rollback();
+                   
+                
                 }
-            }
-            msg = "充值成功";
-            return ObjectGenericityResult<RechargeResponse>(result, returnObject, msg);
+                else if (clientBankEntity == null)
+                {
+                    throw new ZzbException("账号银行卡无效");                    
+                }
+                //充值成功
+                Recharge entity = new Recharge();
+                entity.ClientId = requestObj.ClientId;
+                entity.ClientBankId = requestObj.ClientBankId;
+                entity.Money = requestObj.Money;
+                entity.Remark = requestObj.Remark;
+                entity.State = RechargeStateEnum.Ok;
+                using (IDbContextTransaction transaction = Context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        CoinLog coinLogEntity = new CoinLog();
+                        clientEntity.Coin += entity.Money;
+                        clientEntity.UpdateTime = DateTime.Now;
+                        Update<Client>(clientEntity, "ClientId", new List<string>() { "Coin", "UpdateTime" });
+                        coinLogEntity.ClientId = entity.ClientId;
+                        coinLogEntity.FlowCoin = entity.Money;
+                        coinLogEntity.Coin = clientEntity.Coin;
+                        coinLogEntity.Type = CoinLogTypeEnum.Recharge;
+                        coinLogEntity.AboutId = entity.RechargeId;
+                        Context.CoinLogs.Add(coinLogEntity);
+
+                        Context.Recharges.Add(entity);
+                        Context.SaveChanges();
+
+                        returnObject = ConvertHelper.ConvertToModel<Recharge, RechargeResponse>(entity);
+
+                        transaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        
+                        transaction.Rollback();
+                        throw new ZzbException("充值失败,内部错误");
+                    }
+                }
+              
+                return ObjectGenericityResult(true, returnObject);
+
+            });
+      
         }
 
         /// <summary>
@@ -103,9 +103,15 @@ namespace Liaoxin.Controllers
         [HttpGet("QueryRechargesByClient")]
         public ServiceResult<IList<RechargeResponse>> QueryRechargesByClient(Guid clientId, int year)
         {
-            IList<Recharge> list = Context.Recharges.AsNoTracking().Where(p => p.ClientId == clientId && p.CreateTime.Year == year).ToList();
-            IList<RechargeResponse> returnList = ConvertHelper.ConvertToList<Recharge, RechargeResponse>(list);
-            return ObjectGenericityResult<IList<RechargeResponse>>(true, returnList, "");
+
+            return (ServiceResult<IList<RechargeResponse>>)Json(() => {
+
+                IList<Recharge> list = Context.Recharges.AsNoTracking().Where(p => p.ClientId == clientId && p.CreateTime.Year == year).ToList();
+                IList<RechargeResponse> returnList = ConvertHelper.ConvertToList<Recharge, RechargeResponse>(list);
+                return ObjectGenericityResult<IList<RechargeResponse>>(true, returnList, "");
+
+            });
+    
         }
 
         /// <summary>
@@ -117,9 +123,13 @@ namespace Liaoxin.Controllers
         [HttpGet("QueryRechargesByClientBank")]
         public ServiceResult<IList<RechargeResponse>> QueryRechargesByClientBank(Guid clientBankId, int year)
         {
-            IList<Recharge> list = Context.Recharges.AsNoTracking().Where(p => p.ClientBankId == clientBankId && p.CreateTime.Year == year).ToList();
-            IList<RechargeResponse> returnList = ConvertHelper.ConvertToList<Recharge, RechargeResponse>(list);
-            return ObjectGenericityResult<IList<RechargeResponse>>(true, returnList, "");
+            return (ServiceResult<IList<RechargeResponse>>)Json(() =>
+            {
+                IList<Recharge> list = Context.Recharges.AsNoTracking().Where(p => p.ClientBankId == clientBankId && p.CreateTime.Year == year).ToList();
+                IList<RechargeResponse> returnList = ConvertHelper.ConvertToList<Recharge, RechargeResponse>(list);
+                return ObjectGenericityResult<IList<RechargeResponse>>(true, returnList, "");
+            });
+
         }
     }
 
