@@ -20,15 +20,12 @@ namespace Liaoxin.Business
     {
 
 
-          public static string url = "http://a1.easemob.com/1110210506180660/demo";
+        public static string url = "http://a1.easemob.com/1110210506180660/demo";
 
-        public static string msgUrl = "http://a1.easemob.com/1110210506180660/demo";
-
-
-          static string access_token = "";
+       public static string access_token = "";
 
 
-        private static string GetToken()
+        public static string GetToken()
         {
             var responseUrl = $"{url}/token";
             Dictionary<string, object> dic = new Dictionary<string, object>();
@@ -36,87 +33,89 @@ namespace Liaoxin.Business
             dic.Add("client_id", "YXA6SMpBMaTKSQOXo1oPhHJFvg");
             dic.Add("client_secret", "YXA6A99XQbKOP8OspNX6himjlLqPgIg");
 
-             var  res = Post(responseUrl, dic, false);
-            var tokenEntity =  JsonHelper.Json<TokenResponse>(res.Data);
+            var res = Post(responseUrl, dic, false);
+            var tokenEntity = JsonHelper.Json<TokenResponse>(res.Data);
             if (tokenEntity != null)
             {
                 access_token = tokenEntity.access_token;
                 return tokenEntity.access_token;
             }
-            return string.Empty;         
+            return string.Empty;
         }
 
 
 
-        private static  HttpClient GetClient(string url,bool needToken)
+        private static HttpClient GetClient(string url, bool needToken)
         {
 
             HttpClient client = new HttpClient();
-       
+
             if (needToken)
-            { 
-            client.DefaultRequestHeaders.Authorization = AuthenticationHeaderValue.Parse($"Bearer  {access_token}");
+            {
+                client.DefaultRequestHeaders.Authorization = AuthenticationHeaderValue.Parse($"Bearer  {access_token}");
             }
 
-            
+
             return client;
         }
 
         #region  请求
 
-        private static ServiceResult Request(string url, Dictionary<string, object> dic, bool needToken = true, string method ="POST")
+        private static ServiceResult Request(string url, Dictionary<string, object> dic, bool needToken = true, string method = "POST")
         {
-                var client = GetClient(url, needToken);
-                Uri u = new Uri(url);
+            var client = GetClient(url, needToken);
+            Uri u = new Uri(url);
 
-                Task<HttpResponseMessage> httpResponse = null;
+            Task<HttpResponseMessage> httpResponse = null;
 
 
-                if (method.ToLower() == "post")
-                {
-                    string jsonStr = JsonConvert.SerializeObject(dic);
-                    StringContent stringContent = new StringContent(jsonStr); 
+            if (method.ToLower() == "post")
+            {
+                string jsonStr = JsonConvert.SerializeObject(dic);
+                StringContent stringContent = new StringContent(jsonStr);
+                stringContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                 httpResponse = client.PostAsync(u, stringContent);
 
-                }
-                else if (method.ToLower() == "put")
-                {
-                    string jsonStr = JsonConvert.SerializeObject(dic);
-                    StringContent stringContent = new StringContent(jsonStr);
-                    httpResponse = client.PutAsync(u, stringContent);
-                }
-                else if (method.ToLower() == "get")
-                {
-                    string jsonStr = JsonConvert.SerializeObject(dic);
-                    httpResponse = client.GetAsync(u);
-                }
-                else
-                {
-                    string jsonStr = JsonConvert.SerializeObject(dic);
-                    httpResponse = client.DeleteAsync(u);
-                }
+            }
+            else if (method.ToLower() == "put")
+            {
+                string jsonStr = JsonConvert.SerializeObject(dic);
+                StringContent stringContent = new StringContent(jsonStr);
+                stringContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                httpResponse = client.PutAsync(u, stringContent);
+            }
+            else if (method.ToLower() == "get")
+            {
+                string jsonStr = JsonConvert.SerializeObject(dic);
+                httpResponse = client.GetAsync(u);
+            }
+            else
+            {
+                string jsonStr = JsonConvert.SerializeObject(dic);
+                httpResponse = client.DeleteAsync(u);
+            }
 
-                var res = httpResponse.Result;
-                if (res.StatusCode == HttpStatusCode.OK)
-                {
-                    var serviceRes = new ServiceResult<string>();
-                    serviceRes.Data = res.Content.ReadAsStringAsync().Result;
-                    return serviceRes;
-                }
-                else if (res.StatusCode == HttpStatusCode.Unauthorized)
-                {
-                    var serviceRes = new ServiceResult<string>();
-                    serviceRes.Message = res.Content.ReadAsStringAsync().Result;
-                    serviceRes.ReturnCode = ServiceResultCode.UnAuth;
-                    return serviceRes;
-                }
-                else
-                {
-                    var serviceRes = new ServiceResult<string>();
-                    serviceRes.Message = res.Content.ReadAsStringAsync().Result;
-                    serviceRes.ReturnCode = ServiceResultCode.ErrOperation;
-                    return serviceRes;
-               }                            
+            var res = httpResponse.Result;
+            if (res.StatusCode == HttpStatusCode.OK)
+            {
+                var serviceRes = new ServiceResult<string>();
+                serviceRes.Data = res.Content.ReadAsStringAsync().Result;
+                return serviceRes;
+            }
+            else if (res.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                var serviceRes = new ServiceResult<string>();
+                serviceRes.Message = res.Content.ReadAsStringAsync().Result;
+                serviceRes.ReturnCode = ServiceResultCode.UnAuth;
+                return serviceRes;
+            }
+            else
+            {
+                var serviceRes = new ServiceResult<string>();
+                serviceRes.Message = res.Content.ReadAsStringAsync().Result;
+                serviceRes.ReturnCode = ServiceResultCode.ErrOperation;
+                return serviceRes;
+            }
         }
 
 
@@ -124,7 +123,7 @@ namespace Liaoxin.Business
         {
             if (needToken)
             {
-                 ServiceResult res  = Request(url, dic, needToken, method);
+                ServiceResult res = Request(url, dic, needToken, method);
                 if (res.ReturnCode == ServiceResultCode.UnAuth)
                 {
                     GetToken();
@@ -142,11 +141,11 @@ namespace Liaoxin.Business
 
         public static ServiceResult<string> Post(string url, Dictionary<string, object> dic, bool needToken = true)
         {
-           return  doubleCheck(url,dic,needToken,"POST");
-         
+            return doubleCheck(url, dic, needToken, "POST");
+
         }
 
-      
+
 
 
         public static ServiceResult<string> Put(string url, Dictionary<string, object> dic, bool needToken = true)
@@ -171,5 +170,5 @@ namespace Liaoxin.Business
 
     }
 
- 
+
 }
