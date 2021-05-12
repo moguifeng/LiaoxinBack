@@ -20,7 +20,7 @@ namespace Liaoxin.Business
     {
 
 
-          public static string url = "http://a1.easemob.com/1110210506180660/liaoxinapp";
+          public static string url = "http://a1.easemob.com/1110210506180660/demo";
 
 
           static string access_token = "";
@@ -31,8 +31,8 @@ namespace Liaoxin.Business
             var responseUrl = $"{url}/token";
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic.Add("grant_type", "client_credentials");
-            dic.Add("client_id", "YXA6Yw0U9pFgTFy4uqROqSb7jw");
-            dic.Add("client_secret", "YXA6oJkPvQS6kxFpavs9KMFoUCzTpA4");
+            dic.Add("client_id", "YXA6SMpBMaTKSQOXo1oPhHJFvg");
+            dic.Add("client_secret", "YXA6A99XQbKOP8OspNX6himjlLqPgIg");
 
              var  res = Post(responseUrl, dic, false);
             var tokenEntity =  JsonHelper.Json<TokenResponse>(res.Data);
