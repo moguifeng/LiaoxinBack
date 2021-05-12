@@ -54,6 +54,9 @@ namespace Liaoxin.Controllers
                 var code = GenerateRandomCode();
                 var cacheKey = string.Format($"sendCode:{request.Type}:{request.Telephone}");
                 _cacheManager.Set(cacheKey, code, 10);
+
+              var res =   HuanxinSendMsgRequest.SendMsg(new string[] { "18819386398"},code);
+
                 return ObjectResult(code);
                 //object obj = new { code };
                 //if (string.IsNullOrWhiteSpace(request.Mobile)) request.Mobile = UserContext.Current?.AccountName;
