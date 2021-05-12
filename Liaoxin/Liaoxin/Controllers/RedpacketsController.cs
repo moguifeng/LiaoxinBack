@@ -187,13 +187,13 @@ namespace Liaoxin.Controllers
                     try
                     {
 
-                        //当前红包空闲
-                        while (_cacheManager.Get<object>(operKey) != null)
-                        {
-                            Thread.Sleep(200);
-                        }
+                        ////当前红包空闲
+                        //while (_cacheManager.Get<object>(operKey) != null)
+                        //{
+                        //    Thread.Sleep(200);
+                        //}
 
-                        _cacheManager.Set(operKey, clientId.ToString(), 2);//2分钟过期
+                        //_cacheManager.Set(operKey, clientId.ToString(), 2);//2分钟过期
                         RedPacket entity = Context.RedPackets.AsNoTracking().FirstOrDefault(p => p.RedPacketId == redPacketId);
                         Client reveiver = Context.Clients.AsNoTracking().Where(p => p.ClientId == clientId).Select(c => new Client()
                         { ClientId = c.ClientId, UpdateTime = c.UpdateTime, Coin = c.Coin }).FirstOrDefault();
@@ -452,7 +452,7 @@ namespace Liaoxin.Controllers
                     }
                     finally
                     {
-                        _cacheManager.Remove(operKey);
+                       // _cacheManager.Remove(operKey);
                     }
                 }
                 if (!result)
@@ -717,12 +717,12 @@ namespace Liaoxin.Controllers
                 {
                     try
                     {
-                        //当前红包空闲
-                        while (_cacheManager.Get<object>(operKey) != null)
-                        {
-                            Thread.Sleep(200);
-                        }
-                        _cacheManager.Set(operKey, clientId.ToString(), 2);//2分钟过期
+                        ////当前红包空闲
+                        //while (_cacheManager.Get<object>(operKey) != null)
+                        //{
+                        //    Thread.Sleep(200);
+                        //}
+                        //_cacheManager.Set(operKey, clientId.ToString(), 2);//2分钟过期
                         RedPacketPersonal entity = Context.RedPacketPersonals.AsNoTracking().FirstOrDefault(p => p.RedPacketPersonalId == redPacketId);
                         Client reveiver = Context.Clients.AsNoTracking().FirstOrDefault(p => p.ClientId == clientId);
 
@@ -793,7 +793,7 @@ namespace Liaoxin.Controllers
                     }
                     finally
                     {
-                        _cacheManager.Remove(operKey);
+                        //_cacheManager.Remove(operKey);
                     }
                 }
                 return ObjectGenericityResult(result, receiveMoney);
