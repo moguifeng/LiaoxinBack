@@ -152,6 +152,18 @@ namespace Liaoxin.Controllers
                 string errMsg = "";
                 Guid redPacketId = requestObj.RedPacketId;
                 Guid clientId = requestObj.ClientId;
+                string failKey = $"FailureRedPacketId:{redPacketId}";
+                if (_cacheManager.Get<object>(failKey) != null)
+                {
+#if DEBUG
+                    return ObjectGenericityResult<decimal>(false, 0, "红包已失效");
+#endif
+
+#if Release
+                    throw new ZzbException("红包已失效");        
+#endif
+                }
+
                 string operKey = redPacketId.ToString();
                 decimal receiveMoney = 0;
                 lock (groupRedPacketLock)
@@ -192,6 +204,10 @@ namespace Liaoxin.Controllers
                         {
                             result = false;
                             errMsg = "红包已失效";
+                            if (_cacheManager.Get<object>(failKey) == null)
+                            {
+                                _cacheManager.Set(failKey, clientId.ToString(), 60);//缓存已经失效的红包Id 60分钟
+                            }
                         }
                         else
                         {
@@ -211,16 +227,11 @@ namespace Liaoxin.Controllers
 
                             }
 
-                            List<Guid> groupClientIdList = (from c in Context.GroupClients.Where(p => p.IsEnable && p.GroupId == entity.GroupId) select c.ClientId).ToList();
 
                             //检查是否已经领了,不能重复领取
                             RedPacketReceive receive = Context.RedPacketReceives.AsNoTracking().FirstOrDefault(p => p.RedPacketId == entity.RedPacketId && p.ClientId == clientId);
-                            if (!groupClientIdList.Contains(clientId))
-                            {
-                                result = false;
-                                errMsg = "不是群成员不能领取";
-                            }
-                            else if (receive != null)
+
+                            if (receive != null)
                             {
                                 result = false;
                                 errMsg = "已领取,不能重复领取";
@@ -242,6 +253,11 @@ namespace Liaoxin.Controllers
                                             //最后一份
                                             receiveMoney = entity.Over;
                                             entity.Status = RedPacketStatus.End;
+
+                                            if (_cacheManager.Get<object>(failKey) == null)
+                                            {
+                                                _cacheManager.Set(failKey, clientId.ToString(), 60);//缓存已经失效的红包Id 60分钟
+                                            }
                                         }
                                         else if (entity.Type == RedPacketTypeEnum.Lucky)
                                         {
@@ -402,6 +418,7 @@ namespace Liaoxin.Controllers
                     {
                         result = false;
                         errMsg = "未知异常";
+                        _cacheManager.Remove(failKey);
                     }
                     finally
                     {
