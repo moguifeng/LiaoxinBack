@@ -15,14 +15,16 @@ namespace Liaoxin.Business
         /// <returns></returns>
         public static ServiceResult<string> SendMsg(string[] mobiles, string code)
         {
-            return null;
-            //var responseUrl = $"{HostService.url}/users";
-            //Dictionary<string, object> dic = new Dictionary<string, object>();
-            //dic.Add("username", id);
-            //dic.Add("password", password);
-            //dic.Add("nickname", nickName);
-            //var res = HostService.Post(responseUrl, dic, true);
-            //return res;
+            
+            var responseUrl = $"{HostService.url}/sms/send";
+            Dictionary<string, object> dic = new Dictionary<string, object>();
+            dic.Add("mobiles", mobiles);
+            dic.Add("tid", 164);
+            Dictionary<string, string> map = new Dictionary<string, string>();
+            map.Add("p1", code);
+            dic.Add("tmap", map);
+            var res = HostService.Post(responseUrl, dic, true);
+            return res;
         }
     }
 }
