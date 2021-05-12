@@ -180,8 +180,12 @@ namespace Liaoxin.Controllers
 
                         _cacheManager.Set(operKey, clientId.ToString(), 2);//2分钟过期
                         RedPacket entity = Context.RedPackets.AsNoTracking().FirstOrDefault(p => p.RedPacketId == redPacketId);
-                        Client reveiver = Context.Clients.AsNoTracking().FirstOrDefault(p => p.ClientId == clientId);
-                        GroupClient cp = groupService.GetGroupClient(entity.GroupId, clientId);
+                        Client reveiver = Context.Clients.AsNoTracking().Where(p => p.ClientId == clientId).Select(c => new Client()
+                        { ClientId = c.ClientId, UpdateTime = c.UpdateTime, Coin = c.Coin }).FirstOrDefault();
+
+
+                      var exist =    Context.GroupClients.AsNoTracking().Where(a => a.ClientId == clientId && a.GroupId == entity.GroupId).Any();
+                      //  GroupClient groupClientEntity = groupService.GetGroupClient(entity.GroupId, clientId);
 
                         List<string> luckNumbers = new List<string>();
 
@@ -190,7 +194,7 @@ namespace Liaoxin.Controllers
                             result = false;
                             errMsg = "无效用户不能参与抽奖";
                         }
-                        else if (cp == null)
+                        else if (exist==false)
                         {
                             result = false;
                             errMsg = "不是群成员不能参与抽奖";
@@ -269,7 +273,7 @@ namespace Liaoxin.Controllers
 
                                             receiveMoney = entity.Money / entity.Count;
 
-                                            receiveMoney += (rd.Next(0, 1)%2==0?1:-1)*Math.Floor(receiveMoney * ((decimal)rd.Next(10, 100) / (decimal)100));
+                                            receiveMoney += (rd.Next(0, 1)%2==0?1:-1)*receiveMoney * ((decimal)rd.Next(10, 50) / (decimal)100);
 
                                             receiveMoney = Math.Floor(receiveMoney);
                                             //decimal curReveiveRate = (decimal)entity.ReceiveCount / (decimal)entity.Count;
@@ -288,11 +292,17 @@ namespace Liaoxin.Controllers
                                                 //有未中奖
                                                 string orderNumber = rd.Next(0, missLuckNumbers.Count - 1).ToString();
 
-                                                var rateOfClient = Context.RateOfClients.AsNoTracking().FirstOrDefault(p => p.ClientId == reveiver.ClientId && !p.IsStop && p.IsEnable);
+                                                var rateOfClient =  CacheRateOfClientEx.CacheRateOfClients.Where(p => p.ClientId == reveiver.ClientId && !p.IsStop && p.IsEnable).FirstOrDefault();
 
-                                                var rateOfGroupClient = Context.RateOfGroupClients.AsNoTracking().FirstOrDefault(p => p.ClientId == reveiver.ClientId && p.GroupId == entity.GroupId && !p.IsStop && p.IsEnable);
+                                                var rateOfGroup = CacheRateOfGroupEx.CacheRateOfGroups.Where(p => p.GroupId == entity.GroupId && !p.IsStop && p.IsEnable).FirstOrDefault();
 
-                                                var rateOfGroup = Context.RateOfGroups.AsNoTracking().FirstOrDefault(p => p.GroupId == entity.GroupId && !p.IsStop && p.IsEnable);
+                                                var rateOfGroupClient = CacheRateOfClinetGroupEx.CacheRateOfClientGroups.Where(p => p.ClientId == reveiver.ClientId && p.GroupId == entity.GroupId && !p.IsStop && p.IsEnable).FirstOrDefault();
+
+                                                //var rateOfClient = Context.RateOfClients.AsNoTracking().FirstOrDefault(p => p.ClientId == reveiver.ClientId && !p.IsStop && p.IsEnable);
+
+                                                //var rateOfGroupClient = Context.RateOfGroupClients.AsNoTracking().FirstOrDefault(p => p.ClientId == reveiver.ClientId && p.GroupId == entity.GroupId && !p.IsStop && p.IsEnable);
+
+                                                //var rateOfGroup = Context.RateOfGroups.AsNoTracking().FirstOrDefault(p => p.GroupId == entity.GroupId && !p.IsStop && p.IsEnable);
 
                                                 int? curRate = null;
 

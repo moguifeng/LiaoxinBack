@@ -13,13 +13,13 @@ namespace Liaoxin.Business
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static ServiceResult<string> RegisterClient(string id)
+        public static ServiceResult<string> RegisterClient(string id,string password,string nickName)
         {
             var responseUrl = $"{HostService.url}/users";
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic.Add("username", id);
-            dic.Add("password", id + "liaoxin");
-            //dic.Add("nickname", "哈哈");
+            dic.Add("password", password);
+            dic.Add("nickname", nickName);
             var res = HostService.Post(responseUrl, dic, true);
             return res;
         }

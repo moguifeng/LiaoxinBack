@@ -125,6 +125,10 @@ namespace Liaoxin
             services.AddTransient<AreaCacheManager>();
             services.AddTransient<EnumCacheManager>();
 
+            services.AddTransient<RateOfClientCacheManager>();
+            services.AddTransient<RateOfGroupCacheManager>();
+            services.AddTransient<RateOfClientGroupCacheManager>();
+
             return services.ZzbAutofacInit("Liaoxin.Business", "Liaoxin.IBusiness", list.ToArray());
 
 
@@ -171,6 +175,18 @@ namespace Liaoxin
                 areaCache.Load();
                 var enumCache = scope.ServiceProvider.GetService<EnumCacheManager>();
                 enumCache.Load();
+
+                var rateOfClientCache = scope.ServiceProvider.GetService<RateOfClientCacheManager>();
+                rateOfClientCache.Load();
+
+                var rateOfGroupCache = scope.ServiceProvider.GetService<RateOfGroupCacheManager>();
+                rateOfGroupCache.Load();
+
+
+                var rateOfGroupClientCache = scope.ServiceProvider.GetService<RateOfClientGroupCacheManager>();
+                rateOfGroupClientCache.Load();
+
+ 
             }
             app.UseSession();
             //   MessageService.Start();
