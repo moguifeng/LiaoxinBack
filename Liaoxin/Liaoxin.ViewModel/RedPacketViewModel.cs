@@ -232,7 +232,7 @@ namespace LIaoxin.ViewModel
 
     public class ReceiveGroupRedPacketRequest
     {
-        public Guid RedPacketPersonalId { get; set; }
+        public Guid RedPacketId { get; set; }
 
         public Guid ClientId { get; set; }
     }

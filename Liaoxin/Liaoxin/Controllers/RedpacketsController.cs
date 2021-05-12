@@ -56,6 +56,11 @@ namespace Liaoxin.Controllers
 
                     throw new ZzbException("红包最大金额为1800");
                 }
+                else if (request.Count <=0)
+                {
+
+                    throw new ZzbException("红包个数至少是1个");
+                }
                 string coinpassword = SecurityHelper.Encrypt(request.CoinPassword);
 
                 Client sender = Context.Clients.AsNoTracking().FirstOrDefault(p => p.ClientId == request.SenderClientId);
@@ -139,7 +144,7 @@ namespace Liaoxin.Controllers
             return (ServiceResult<decimal>)Json(() =>
             {
 
-                Guid redPacketId = requestObj.RedPacketPersonalId;
+                Guid redPacketId = requestObj.RedPacketId;
                 Guid clientId = requestObj.ClientId;
                 string operKey = redPacketId.ToString();
                 decimal receiveMoney = 0;
@@ -234,6 +239,13 @@ namespace Liaoxin.Controllers
 
                                         Random rd = new Random();
                                         receiveMoney = Math.Floor(curMoney * ((decimal)rd.Next(1, 1000000) / (decimal)1000000));
+
+                                        decimal curReveiveRate = (decimal)entity.ReceiveCount / (decimal)entity.Count;
+                                        if (curReveiveRate < (decimal)0.5&& receiveMoney/entity.Money>=(decimal)0.5)
+                                        {
+                                            //要是一开始就领取太多,就不好玩了
+                                            receiveMoney = Math.Floor(receiveMoney / 2);
+                                        }
 
                                         List<string> missLuckNumbers = luckNumbers.Except((entity.LuckNumbers + "").Split(',').ToList()).ToList();
 
@@ -606,7 +618,7 @@ namespace Liaoxin.Controllers
 
                 bool result = true;
                 string errMsg = "";
-                Guid redPacketId = requestObj.RedPacketPersonalId;
+                Guid redPacketId = requestObj.RedPacketId;
                 Guid clientId = requestObj.ClientId;
                 string operKey = redPacketId.ToString();
                 decimal receiveMoney = 0;
