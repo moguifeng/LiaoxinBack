@@ -174,7 +174,7 @@ namespace Liaoxin.Controllers
                     string dateNow = DateTime.Now.ToString("yyyyMMdd");
                     if (dateNow != cacheDate)
                     {
-                        dateNow = cacheDate;
+                        cacheDate=dateNow;
                         redPacketIdLock.Clear();
                     }
                     if (!redPacketIdLock.ContainsKey(redPacketId))
@@ -452,7 +452,7 @@ namespace Liaoxin.Controllers
                     }
                     finally
                     {
-                       // _cacheManager.Remove(operKey);
+                        //_cacheManager.Remove(operKey);
                     }
                 }
                 if (!result)
@@ -705,7 +705,7 @@ namespace Liaoxin.Controllers
                     string dateNow = DateTime.Now.ToString("yyyyMMdd");
                     if (dateNow != cacheDate)
                     {
-                        dateNow = cacheDate;
+                        cacheDate = dateNow;
                         redPacketIdLock.Clear();
                     }
                     if (!redPacketIdLock.ContainsKey(redPacketId))
@@ -717,7 +717,7 @@ namespace Liaoxin.Controllers
                 {
                     try
                     {
-                        ////当前红包空闲
+                        //当前红包空闲
                         //while (_cacheManager.Get<object>(operKey) != null)
                         //{
                         //    Thread.Sleep(200);
