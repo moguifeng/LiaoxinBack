@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -29,13 +30,14 @@ namespace Liaoxin.Controllers
     {
         public IClientService clientService { get; set; }
 
-        public static object groupRedPacketLock = new object();
+        public static object redPacketDicLock = new object();
 
-        public static object personRedPacketLock = new object();
+        public static ConcurrentDictionary<Guid, object> redPacketIdLock = new ConcurrentDictionary<Guid, object>();
 
         public IGroupService groupService { get; set; }
         private readonly ICacheManager _cacheManager = CacheManager.singleCache;
 
+        private static string cacheDate = "";
 
         /// <summary>
         /// 发群红包
@@ -144,7 +146,7 @@ namespace Liaoxin.Controllers
         [HttpPost("ReceiveGroupRedPacket")]
         public ServiceResult<decimal> ReceiveGroupRedPacket(ReceiveGroupRedPacketRequest requestObj)
         {
-
+           
 
             return (ServiceResult<decimal>)Json(() =>
             {
@@ -167,7 +169,20 @@ namespace Liaoxin.Controllers
 
                 string operKey = redPacketId.ToString();
                 decimal receiveMoney = 0;
-                lock (groupRedPacketLock)
+                lock (redPacketDicLock)
+                {
+                    string dateNow = DateTime.Now.ToString("yyyyMMdd");
+                    if (dateNow != cacheDate)
+                    {
+                        dateNow = cacheDate;
+                        redPacketIdLock.Clear();
+                    }
+                    if (!redPacketIdLock.ContainsKey(redPacketId))
+                    {
+                        redPacketIdLock.TryAdd(redPacketId, new object());
+                    }
+                }
+                lock (redPacketIdLock[redPacketId])
                 {
                     try
                     {
@@ -184,8 +199,8 @@ namespace Liaoxin.Controllers
                         { ClientId = c.ClientId, UpdateTime = c.UpdateTime, Coin = c.Coin }).FirstOrDefault();
 
 
-                      var exist =    Context.GroupClients.AsNoTracking().Where(a => a.ClientId == clientId && a.GroupId == entity.GroupId).Any();
-                      //  GroupClient groupClientEntity = groupService.GetGroupClient(entity.GroupId, clientId);
+                        var exist = Context.GroupClients.AsNoTracking().Where(a => a.ClientId == clientId && a.GroupId == entity.GroupId).Any();
+                        //  GroupClient groupClientEntity = groupService.GetGroupClient(entity.GroupId, clientId);
 
                         List<string> luckNumbers = new List<string>();
 
@@ -194,7 +209,7 @@ namespace Liaoxin.Controllers
                             result = false;
                             errMsg = "无效用户不能参与抽奖";
                         }
-                        else if (exist==false)
+                        else if (exist == false)
                         {
                             result = false;
                             errMsg = "不是群成员不能参与抽奖";
@@ -273,7 +288,7 @@ namespace Liaoxin.Controllers
 
                                             receiveMoney = entity.Money / entity.Count;
 
-                                            receiveMoney += (rd.Next(0, 1)%2==0?1:-1)*receiveMoney * ((decimal)rd.Next(10, 50) / (decimal)100);
+                                            receiveMoney += (rd.Next(0, 1) % 2 == 0 ? 1 : -1) * receiveMoney * ((decimal)rd.Next(10, 30) / (decimal)100);
 
                                             receiveMoney = Math.Floor(receiveMoney);
                                             //decimal curReveiveRate = (decimal)entity.ReceiveCount / (decimal)entity.Count;
@@ -292,7 +307,7 @@ namespace Liaoxin.Controllers
                                                 //有未中奖
                                                 string orderNumber = rd.Next(0, missLuckNumbers.Count - 1).ToString();
 
-                                                var rateOfClient =  CacheRateOfClientEx.CacheRateOfClients.Where(p => p.ClientId == reveiver.ClientId && !p.IsStop && p.IsEnable).FirstOrDefault();
+                                                var rateOfClient = CacheRateOfClientEx.CacheRateOfClients.Where(p => p.ClientId == reveiver.ClientId && !p.IsStop && p.IsEnable).FirstOrDefault();
 
                                                 var rateOfGroup = CacheRateOfGroupEx.CacheRateOfGroups.Where(p => p.GroupId == entity.GroupId && !p.IsStop && p.IsEnable).FirstOrDefault();
 
@@ -403,7 +418,7 @@ namespace Liaoxin.Controllers
                                         coinLogEntity.AboutId = receive.RedPacketReceiveId;
                                         Context.CoinLogs.Add(coinLogEntity);
                                         Context.SaveChanges();
-                                        if (entity.Type == RedPacketTypeEnum.Lucky && luckIndex >= 1 && luckIndex <= 3 && luckNumbers != null&& missLuckNumbers!=null&& missLuckNumbers.Count>0&& receive.IsLuck)
+                                        if (entity.Type == RedPacketTypeEnum.Lucky && luckIndex >= 1 && luckIndex <= 3 && luckNumbers != null && missLuckNumbers != null && missLuckNumbers.Count > 0 && receive.IsLuck)
                                         {
                                             //LuckNumber
                                             string strsql = $@"  UPDATE redpackets SET LuckNumbers=(SELECT GROUP_CONCAT(DISTINCT LuckNumber) FROM redpacketreceives WHERE RedPacketId='{entity.RedPacketId}' AND IsLuck )  WHERE RedPacketId='{entity.RedPacketId}' ";
@@ -685,7 +700,20 @@ namespace Liaoxin.Controllers
                 Guid clientId = requestObj.ClientId;
                 string operKey = redPacketId.ToString();
                 decimal receiveMoney = 0;
-                lock (personRedPacketLock)
+                lock (redPacketDicLock)
+                {
+                    string dateNow = DateTime.Now.ToString("yyyyMMdd");
+                    if (dateNow != cacheDate)
+                    {
+                        dateNow = cacheDate;
+                        redPacketIdLock.Clear();
+                    }
+                    if (!redPacketIdLock.ContainsKey(redPacketId))
+                    {
+                        redPacketIdLock.TryAdd(redPacketId, new object());
+                    }
+                }
+                lock (redPacketIdLock[redPacketId])
                 {
                     try
                     {
@@ -809,20 +837,21 @@ namespace Liaoxin.Controllers
         public ServiceResult<string> TestPacketId(Guid redPacketId)
         {
             string msg = "";
-            var lis =  Context.GroupClients.Where(gc => gc.GroupId == Guid.Parse("623d17d0-f907-4183-a505-59b907fe18d6")).Select(g => g.ClientId).ToList();
+            var lis = Context.GroupClients.Where(gc => gc.GroupId == Guid.Parse("623d17d0-f907-4183-a505-59b907fe18d6")).Select(g => g.ClientId).ToList();
             foreach (var item in lis)
             {
-                Thread t = new Thread(()=> {
+                Thread t = new Thread(() =>
+                {
                     var res = this.ReceiveGroupRedPacket(new ReceiveGroupRedPacketRequest() { ClientId = item, RedPacketId = redPacketId });
                     msg += res.Message + "," + res.Data + "\r\n,";
                 });
                 t.Start();
-            
-            }
-         
 
-                return ObjectGenericityResult(msg);
-         
+            }
+
+
+            return ObjectGenericityResult(msg);
+
 
 
         }
