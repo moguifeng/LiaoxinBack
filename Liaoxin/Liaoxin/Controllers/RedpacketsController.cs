@@ -149,6 +149,8 @@ namespace Liaoxin.Controllers
             return (ServiceResult<decimal>)Json(() =>
             {
 
+                bool result = true;
+                string errMsg = "";
                 Guid redPacketId = requestObj.RedPacketId;
                 Guid clientId = requestObj.ClientId;
                 string operKey = redPacketId.ToString();
