@@ -29,6 +29,10 @@ namespace Liaoxin.Controllers
     {
         public IClientService clientService { get; set; }
 
+        public static object groupRedPacketLock = new object();
+
+        public static object personRedPacketLock = new object();
+
         public IGroupService groupService { get; set; }
         private readonly ICacheManager _cacheManager = CacheManager.singleCache;
 
@@ -56,7 +60,7 @@ namespace Liaoxin.Controllers
 
                     throw new ZzbException("红包最大金额为1800");
                 }
-                else if (request.Count <=0)
+                else if (request.Count <= 0)
                 {
 
                     throw new ZzbException("红包个数至少是1个");
@@ -144,266 +148,291 @@ namespace Liaoxin.Controllers
             return (ServiceResult<decimal>)Json(() =>
             {
 
+                bool result = true;
+                string errMsg = "";
                 Guid redPacketId = requestObj.RedPacketId;
                 Guid clientId = requestObj.ClientId;
                 string operKey = redPacketId.ToString();
                 decimal receiveMoney = 0;
-                try
+                lock (groupRedPacketLock)
                 {
-                    //当前红包空闲
-                    while (_cacheManager.Get<object>(operKey) != null)
-                    {
-                        Thread.Sleep(200);
-                    }
-                    _cacheManager.Set(operKey, clientId.ToString(), 2);//2分钟过期
-                    RedPacket entity = Context.RedPackets.AsNoTracking().FirstOrDefault(p => p.RedPacketId == redPacketId);
-                    Client reveiver = Context.Clients.AsNoTracking().FirstOrDefault(p => p.ClientId == clientId);
-                    GroupClient cp = groupService.GetGroupClient(entity.GroupId, clientId);
-
-                    List<string> luckNumbers = new List<string>();
-
-                    if (reveiver == null)
+                    try
                     {
 
-                        throw new ZzbException("无效用户不能参与抽奖");
-                    }
-                    else if (cp == null)
-                    {
-                        throw new ZzbException("不是群成员不能参与抽奖");
-
-
-                    }
-                    else if (entity == null)
-                    {
-                        throw new ZzbException("红包已失效");
-
-                    }
-                    else if (entity.Status != RedPacketStatus.Send)
-                    {
-                        throw new ZzbException("红包已失效");
-
-                    }
-                    else
-                    {
-                        int luckIndex = entity.LuckIndex;
-                        string greeting = entity.Greeting + "";
-                        Regex regex = new System.Text.RegularExpressions.Regex(@"^[0-9]\d*$");
-                        if (greeting.Length >= 1 && greeting.Length <= 3 && regex.IsMatch(greeting))
+                        //当前红包空闲
+                        while (_cacheManager.Get<object>(operKey) != null)
                         {
-                            List<char> arr = greeting.ToCharArray().Distinct().ToList();
-                            if (arr.Count == greeting.Length)
-                            {
-                                arr.ForEach(c =>
-                                {
-                                    luckNumbers.Add(c.ToString());
-                                });
-                            }
-
+                            Thread.Sleep(200);
                         }
 
-                        List<Guid> groupClientIdList = (from c in Context.GroupClients.Where(p => p.IsEnable && p.GroupId == entity.GroupId) select c.ClientId).ToList();
+                        _cacheManager.Set(operKey, clientId.ToString(), 2);//2分钟过期
+                        RedPacket entity = Context.RedPackets.AsNoTracking().FirstOrDefault(p => p.RedPacketId == redPacketId);
+                        Client reveiver = Context.Clients.AsNoTracking().FirstOrDefault(p => p.ClientId == clientId);
+                        GroupClient cp = groupService.GetGroupClient(entity.GroupId, clientId);
 
-                        //检查是否已经领了,不能重复领取
-                        RedPacketReceive receive = Context.RedPacketReceives.AsNoTracking().FirstOrDefault(p => p.RedPacketId == entity.RedPacketId && p.ClientId == clientId);
-                        if (!groupClientIdList.Contains(clientId))
+                        List<string> luckNumbers = new List<string>();
+
+                        if (reveiver == null)
                         {
-
-                            throw new ZzbException("不是群成员不能领取");
+                            result = false;
+                            errMsg = "无效用户不能参与抽奖";
                         }
-                        else if (receive != null)
+                        else if (cp == null)
                         {
-                            throw new ZzbException("已领取,不能重复领取");
+                            result = false;
+                            errMsg = "不是群成员不能参与抽奖";
+                        }
+                        else
+                        if (entity == null)
+                        {
+                            result = false;
+                            errMsg = "红包已失效";
+                        }
+                        else if (entity.Status != RedPacketStatus.Send)
+                        {
+                            result = false;
+                            errMsg = "红包已失效";
                         }
                         else
                         {
-
-                            using (IDbContextTransaction transaction = Context.Database.BeginTransaction())
+                            int luckIndex = entity.LuckIndex;
+                            string greeting = entity.Greeting + "";
+                            Regex regex = new System.Text.RegularExpressions.Regex(@"^[0-9]\d*$");
+                            if (greeting.Length >= 1 && greeting.Length <= 3 && regex.IsMatch(greeting))
                             {
-                                try
+                                List<char> arr = greeting.ToCharArray().Distinct().ToList();
+                                if (arr.Count == greeting.Length)
                                 {
-                                    receive = new RedPacketReceive();
-                                    receive.ClientId = clientId;
-                                    receive.RedPacketId = entity.RedPacketId;
-                                    //receive.NickName = reveiver.NickName;
-                                    entity.ReceiveCount += 1;
-                                    if (entity.Count == entity.ReceiveCount)
+                                    arr.ForEach(c =>
                                     {
-                                        //最后一份
-                                        receiveMoney = entity.Over;
-                                        entity.Status = RedPacketStatus.End;
-                                    }
-                                    else if (entity.Type == RedPacketTypeEnum.Lucky)
+                                        luckNumbers.Add(c.ToString());
+                                    });
+                                }
+
+                            }
+
+                            List<Guid> groupClientIdList = (from c in Context.GroupClients.Where(p => p.IsEnable && p.GroupId == entity.GroupId) select c.ClientId).ToList();
+
+                            //检查是否已经领了,不能重复领取
+                            RedPacketReceive receive = Context.RedPacketReceives.AsNoTracking().FirstOrDefault(p => p.RedPacketId == entity.RedPacketId && p.ClientId == clientId);
+                            if (!groupClientIdList.Contains(clientId))
+                            {
+                                result = false;
+                                errMsg = "不是群成员不能领取";
+                            }
+                            else if (receive != null)
+                            {
+                                result = false;
+                                errMsg = "已领取,不能重复领取";
+                            }
+                            else
+                            {
+
+                                using (IDbContextTransaction transaction = Context.Database.BeginTransaction())
+                                {
+                                    try
                                     {
-                                        //拼手气
-                                        decimal curMoney = entity.Over;
-
-                                        Random rd = new Random();
-                                        receiveMoney = Math.Floor(curMoney * ((decimal)rd.Next(1, 1000000) / (decimal)1000000));
-
-                                        decimal curReveiveRate = (decimal)entity.ReceiveCount / (decimal)entity.Count;
-                                        if (curReveiveRate < (decimal)0.5&& receiveMoney/entity.Money>=(decimal)0.5)
+                                        receive = new RedPacketReceive();
+                                        receive.ClientId = clientId;
+                                        receive.RedPacketId = entity.RedPacketId;
+                                        //receive.NickName = reveiver.NickName;
+                                        entity.ReceiveCount += 1;
+                                        if (entity.Count == entity.ReceiveCount)
                                         {
-                                            //要是一开始就领取太多,就不好玩了
-                                            receiveMoney = Math.Floor(receiveMoney / 2);
+                                            //最后一份
+                                            receiveMoney = entity.Over;
+                                            entity.Status = RedPacketStatus.End;
                                         }
-
-                                        List<string> missLuckNumbers = luckNumbers.Except((entity.LuckNumbers + "").Split(',').ToList()).ToList();
-
-                                        //lucknumber
-                                        decimal lucknumber = (decimal)rd.Next(1, 99) / 100;
-                                        if (missLuckNumbers != null && missLuckNumbers.Count > 0)
+                                        else if (entity.Type == RedPacketTypeEnum.Lucky)
                                         {
-                                            //有未中奖
-                                            string orderNumber = rd.Next(0, missLuckNumbers.Count - 1).ToString();
+                                            //拼手气
+                                            decimal curMoney = entity.Over;
 
-                                            var rateOfClient = Context.RateOfClients.AsNoTracking().FirstOrDefault(p => p.ClientId == reveiver.ClientId && !p.IsStop && p.IsEnable);
+                                            Random rd = new Random();
+                                            receiveMoney = Math.Floor(curMoney * ((decimal)rd.Next(1, 1000000) / (decimal)1000000));
 
-                                            var rateOfGroupClient = Context.RateOfGroupClients.AsNoTracking().FirstOrDefault(p => p.ClientId == reveiver.ClientId && p.GroupId == entity.GroupId && !p.IsStop && p.IsEnable);
-
-                                            var rateOfGroup = Context.RateOfGroups.AsNoTracking().FirstOrDefault(p => p.GroupId == entity.GroupId && !p.IsStop && p.IsEnable);
-
-                                            int? curRate = null;
-
-                                            if (rateOfGroup != null && entity.ReceiveCount == 1)
+                                            decimal curReveiveRate = (decimal)entity.ReceiveCount / (decimal)entity.Count;
+                                            if (curReveiveRate < (decimal)0.5 && receiveMoney / entity.Money >= (decimal)0.2)
                                             {
-                                                curRate = rateOfGroup.Rate;
-
+                                                //要是一开始就领取太多,就不好玩了
+                                                receiveMoney = Math.Floor(receiveMoney / 5);
                                             }
-                                            else if (rateOfClient != null && rateOfGroupClient == null)
-                                            {
-                                                curRate = rateOfClient.Rate;
 
-                                            }
-                                            else if (rateOfClient == null && rateOfGroupClient != null)
-                                            {
-                                                curRate = rateOfGroupClient.Rate;
+                                            List<string> missLuckNumbers = luckNumbers.Except((entity.LuckNumbers + "").Split(',').ToList()).ToList();
 
-                                            }
-                                            else if (rateOfClient != null && rateOfGroupClient != null)
+                                            //lucknumber
+                                            decimal lucknumber = (decimal)rd.Next(1, 99) / 100;
+                                            if (missLuckNumbers != null && missLuckNumbers.Count > 0)
                                             {
-                                                if (rateOfGroupClient.Priority >= rateOfClient.Priority)
+                                                //有未中奖
+                                                string orderNumber = rd.Next(0, missLuckNumbers.Count - 1).ToString();
+
+                                                var rateOfClient = Context.RateOfClients.AsNoTracking().FirstOrDefault(p => p.ClientId == reveiver.ClientId && !p.IsStop && p.IsEnable);
+
+                                                var rateOfGroupClient = Context.RateOfGroupClients.AsNoTracking().FirstOrDefault(p => p.ClientId == reveiver.ClientId && p.GroupId == entity.GroupId && !p.IsStop && p.IsEnable);
+
+                                                var rateOfGroup = Context.RateOfGroups.AsNoTracking().FirstOrDefault(p => p.GroupId == entity.GroupId && !p.IsStop && p.IsEnable);
+
+                                                int? curRate = null;
+
+                                                if (rateOfGroup != null && entity.ReceiveCount == 1)
                                                 {
-                                                    curRate = rateOfGroupClient.Rate;
+                                                    curRate = rateOfGroup.Rate;
+
                                                 }
-                                                else
+                                                else if (rateOfClient != null && rateOfGroupClient == null)
                                                 {
                                                     curRate = rateOfClient.Rate;
-                                                }
 
-                                            }
-                                            if (curRate != null)
-                                            {
-                                                if (curRate > 0)
+                                                }
+                                                else if (rateOfClient == null && rateOfGroupClient != null)
                                                 {
-                                                    int luckRate = rd.Next(1, 99);
-                                                    if (luckRate <= curRate)
+                                                    curRate = rateOfGroupClient.Rate;
+
+                                                }
+                                                else if (rateOfClient != null && rateOfGroupClient != null)
+                                                {
+                                                    if (rateOfGroupClient.Priority >= rateOfClient.Priority)
                                                     {
-                                                        //根据概率赋予随机的中奖号码
+                                                        curRate = rateOfGroupClient.Rate;
+                                                    }
+                                                    else
+                                                    {
+                                                        curRate = rateOfClient.Rate;
+                                                    }
+
+                                                }
+                                                if (curRate != null)
+                                                {
+                                                    if (curRate > 0)
+                                                    {
+                                                        int luckRate = rd.Next(1, 99);
+                                                        if (luckRate <= curRate)
+                                                        {
+                                                            //根据概率赋予随机的中奖号码
+                                                            lucknumber = Math.Round(lucknumber, 1) + Convert.ToDecimal($"0.0{orderNumber}");
+                                                        }
+                                                    }
+                                                    else if (luckNumbers.Count >= 1 && luckNumbers.Count <= 3)
+                                                    {
+                                                        //中奖率为0,强行不中
+                                                        List<string> hahahaha = new List<string>() { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" }.Except(luckNumbers).ToList();
+                                                        orderNumber = hahahaha[rd.Next(0, hahahaha.Count - 1)];
                                                         lucknumber = Math.Round(lucknumber, 1) + Convert.ToDecimal($"0.0{orderNumber}");
                                                     }
                                                 }
-                                                else if (luckNumbers.Count >= 1 && luckNumbers.Count <= 3)
-                                                {
-                                                    //中奖率为0,强行不中
-                                                    List<string> hahahaha = new List<string>() { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" }.Except(luckNumbers).ToList();
-                                                    orderNumber = hahahaha[rd.Next(0, hahahaha.Count - 1)];
-                                                    lucknumber = Math.Round(lucknumber, 1) + Convert.ToDecimal($"0.0{orderNumber}");
-                                                }
+
                                             }
 
-                                        }
+                                            receiveMoney += lucknumber;
 
-                                        receiveMoney += lucknumber;
-
-                                        //要确保剩余的钱足够剩余的人分
-                                        while (curMoney - receiveMoney < (entity.Count - entity.ReceiveCount) * (decimal)0.01)
-                                        {
-                                            //钱不够分
-                                            receiveMoney = receiveMoney / 2;
-                                            if (receiveMoney <= (decimal)0.01)
+                                            //要确保剩余的钱足够剩余的人分
+                                            while (curMoney - receiveMoney < (entity.Count - entity.ReceiveCount) * (decimal)0.01)
                                             {
-                                                receiveMoney = (decimal)0.01;
-                                                break;
+                                                //钱不够分
+                                                receiveMoney = receiveMoney / 2;
+                                                if (receiveMoney <= (decimal)0.01)
+                                                {
+                                                    receiveMoney = (decimal)0.01;
+                                                    break;
+                                                }
+                                                continue;
                                             }
-                                            continue;
-                                        }
 
-                                    }
-                                    else
-                                    {
-                                        receiveMoney = entity.Money / entity.Count;
-                                    }
-                                    receiveMoney = Math.Round(receiveMoney, 2);
-                                    receive.SnatchMoney = receiveMoney;//领取金额
-                                    if (entity.Type == RedPacketTypeEnum.Lucky && luckIndex >= 1 && luckIndex <= 3 && luckNumbers != null)
-                                    {
-                                        string temp = receiveMoney.ToString().Replace(".", "");
-                                        string luckIndexChar = temp.Substring(temp.Length - luckIndex, 1);
-                                        if (luckNumbers.Contains(luckIndexChar))
+                                        }
+                                        else
                                         {
-                                            receive.IsLuck = true;
-                                            receive.LuckNumber = luckIndexChar;
+                                            receiveMoney = entity.Money / entity.Count;
                                         }
-                                    }
-                                    entity.Over -= receiveMoney;//更新剩余金额
-                                    Context.RedPacketReceives.Add(receive);
-                                    int addCount = Context.SaveChanges();
-                                    int updateCount = Update<RedPacket>(entity, "RedPacketId", new List<string>() { "ReceiveCount", "Status", "Over", "UpdateTime" });
-                                    Context.SaveChanges();
-                                    reveiver.Coin += receiveMoney;
-                                    reveiver.UpdateTime = DateTime.Now;
-                                    Update<Client>(reveiver, "ClientId", new List<string>() { "Coin", "UpdateTime" });
-                                    CoinLog coinLogEntity = new CoinLog();
-                                    coinLogEntity.ClientId = entity.ClientId;
-                                    coinLogEntity.FlowCoin = receiveMoney;
-                                    coinLogEntity.Coin = reveiver.Coin;
-                                    coinLogEntity.Type = CoinLogTypeEnum.SnatRedPacket;
-                                    coinLogEntity.AboutId = receive.RedPacketReceiveId;
-                                    Context.CoinLogs.Add(coinLogEntity);
-                                    Context.SaveChanges();
-                                    if (entity.Type == RedPacketTypeEnum.Lucky && luckIndex >= 1 && luckIndex <= 3 && luckNumbers != null)
-                                    {
-                                        //LuckNumber
-                                        string strsql = $@"  UPDATE redpackets SET LuckNumbers=(SELECT GROUP_CONCAT(DISTINCT LuckNumber) FROM redpacketreceives WHERE RedPacketId='{entity.RedPacketId}' AND IsLuck )  WHERE RedPacketId='{entity.RedPacketId}' ";
-                                        int exeCount = Context.Database.ExecuteSqlCommand(strsql);
-                                    }
-                                    if (entity.ReceiveCount >= entity.Count)
-                                    {
-                                        //抢完红包,决定谁是手气王
-                                        string strsql = $@" UPDATE redpacketreceives SET isWin=TRUE WHERE RedPacketId='{entity.RedPacketId}' 
+                                        receiveMoney = Math.Round(receiveMoney, 2);
+                                        receive.SnatchMoney = receiveMoney;//领取金额
+                                        if (entity.Type == RedPacketTypeEnum.Lucky && luckIndex >= 1 && luckIndex <= 3 && luckNumbers != null)
+                                        {
+                                            string temp = receiveMoney.ToString().Replace(".", "");
+                                            string luckIndexChar = temp.Substring(temp.Length - luckIndex, 1);
+                                            if (luckNumbers.Contains(luckIndexChar))
+                                            {
+                                                receive.IsLuck = true;
+                                                receive.LuckNumber = luckIndexChar;
+                                            }
+                                        }
+                                        entity.Over -= receiveMoney;//更新剩余金额
+                                        Context.RedPacketReceives.Add(receive);
+                                        int addCount = Context.SaveChanges();
+                                        int updateCount = Update<RedPacket>(entity, "RedPacketId", new List<string>() { "ReceiveCount", "Status", "Over", "UpdateTime" });
+                                        Context.SaveChanges();
+                                        reveiver.Coin += receiveMoney;
+                                        reveiver.UpdateTime = DateTime.Now;
+                                        Update<Client>(reveiver, "ClientId", new List<string>() { "Coin", "UpdateTime" });
+                                        CoinLog coinLogEntity = new CoinLog();
+                                        coinLogEntity.ClientId = entity.ClientId;
+                                        coinLogEntity.FlowCoin = receiveMoney;
+                                        coinLogEntity.Coin = reveiver.Coin;
+                                        coinLogEntity.Type = CoinLogTypeEnum.SnatRedPacket;
+                                        coinLogEntity.AboutId = receive.RedPacketReceiveId;
+                                        Context.CoinLogs.Add(coinLogEntity);
+                                        Context.SaveChanges();
+                                        if (entity.Type == RedPacketTypeEnum.Lucky && luckIndex >= 1 && luckIndex <= 3 && luckNumbers != null)
+                                        {
+                                            //LuckNumber
+                                            string strsql = $@"  UPDATE redpackets SET LuckNumbers=(SELECT GROUP_CONCAT(DISTINCT LuckNumber) FROM redpacketreceives WHERE RedPacketId='{entity.RedPacketId}' AND IsLuck )  WHERE RedPacketId='{entity.RedPacketId}' ";
+                                            int exeCount = Context.Database.ExecuteSqlCommand(strsql);
+                                        }
+                                        if (entity.ReceiveCount >= entity.Count)
+                                        {
+                                            //抢完红包,决定谁是手气王
+                                            string strsql = $@" UPDATE redpacketreceives SET isWin=TRUE WHERE RedPacketId='{entity.RedPacketId}' 
  AND SnatchMoney = (SELECT MAX(SnatchMoney) FROM (SELECT SnatchMoney FROM redpacketreceives WHERE RedPacketId='{entity.RedPacketId}')v) ";
-                                        int exeCount = Context.Database.ExecuteSqlCommand(strsql);
+                                            int exeCount = Context.Database.ExecuteSqlCommand(strsql);
+                                        }
+                                        transaction.Commit();
                                     }
-                                    transaction.Commit();
-                                }
-                                catch (Exception ex)
-                                {
-
-
-                                    transaction.Rollback();
-                                    throw new ZzbException("保存数据异常");
+                                    catch (Exception ex)
+                                    {
+                                        result = false;
+                                        errMsg = "保存数据异常";
+                                        transaction.Rollback();
+                                    }
                                 }
                             }
                         }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        result = false;
+                        errMsg = "未知异常";
+                    }
+                    finally
+                    {
+                        _cacheManager.Remove(operKey);
                     }
                 }
-                catch (Exception ex)
+                if (!result)
                 {
-                    throw new ZzbException("未知异常");
+                    receiveMoney = 0;
                 }
-                finally
+                else
                 {
-                    _cacheManager.Remove(operKey);
+                    errMsg = "领取成功";
                 }
-       
+                if (result)
+                {
+                    return ObjectGenericityResult<decimal>(result, receiveMoney, errMsg);
+                }
+                else
+                {
+#if DEBUG
+                    return ObjectGenericityResult<decimal>(result, receiveMoney, errMsg);
+#endif
 
-                return ObjectGenericityResult<decimal>(true, receiveMoney);
-
-
-
+#if Release
+                    throw new ZzbException(errMsg);        
+#endif
+                }
             });
 
-       
+
         }
 
         /// <summary>
@@ -430,16 +459,16 @@ namespace Liaoxin.Controllers
                     }
                 }
                 else
-               {                    
-                     throw new ZzbException("无接无法获取红包信息收红包信息");                    
+                {
+                    throw new ZzbException("无接无法获取红包信息收红包信息");
                 }
                 return ObjectGenericityResult(true, returnObject);
 
             });
 
-                
-               
-         
+
+
+
         }
 
         /// <summary>
@@ -456,7 +485,7 @@ namespace Liaoxin.Controllers
                 RedPacketReceive entity = Context.RedPacketReceives.AsNoTracking().FirstOrDefault(p => p.RedPacketId == redPacketId && p.ClientId == clientId);
                 RedPacketReceiveResponse returnObject = null;
                 if (entity != null)
-                {                    
+                {
                     returnObject = ConvertHelper.ConvertToModel<RedPacketReceive, RedPacketReceiveResponse>(entity);
 
                 }
@@ -467,7 +496,7 @@ namespace Liaoxin.Controllers
                 return ObjectGenericityResult(true, returnObject);
 
             });
-          
+
 
         }
 
@@ -481,7 +510,8 @@ namespace Liaoxin.Controllers
         public ServiceResult<RedPacketPersonalResponse> CreateRedPacketPersonal(CreateRedPacketPersonalRequest request)
         {
 
-            return (ServiceResult<RedPacketPersonalResponse>)Json(() => {
+            return (ServiceResult<RedPacketPersonalResponse>)Json(() =>
+            {
 
 
                 RedPacketPersonalResponse returnObject = null;
@@ -581,7 +611,8 @@ namespace Liaoxin.Controllers
         [HttpGet("GetNotReceiveRedPacketPersonals")]
         public ServiceResult<IList<RedPacketPersonalResponse>> GetNotReceiveRedPacketPersonals(Guid clientId)
         {
-            return (ServiceResult<IList<RedPacketPersonalResponse>>)Json(() => {
+            return (ServiceResult<IList<RedPacketPersonalResponse>>)Json(() =>
+            {
 
                 IList<RedPacketPersonal> list = Context.RedPacketPersonals.AsNoTracking().Where(p => p.IsEnable && !p.IsReceive && p.ToClientId == clientId).ToList();
 
@@ -600,8 +631,8 @@ namespace Liaoxin.Controllers
                 }
                 return ObjectGenericityResult(result, returnList, msg);
 
-            });           
-           
+            });
+
         }
 
         /// <summary>
@@ -622,87 +653,89 @@ namespace Liaoxin.Controllers
                 Guid clientId = requestObj.ClientId;
                 string operKey = redPacketId.ToString();
                 decimal receiveMoney = 0;
-                try
+                lock (personRedPacketLock)
                 {
-                    //当前红包空闲
-                    while (_cacheManager.Get<object>(operKey) != null)
+                    try
                     {
-                        Thread.Sleep(200);
-                    }
-                    _cacheManager.Set(operKey, clientId.ToString(), 2);//2分钟过期
-                    RedPacketPersonal entity = Context.RedPacketPersonals.AsNoTracking().FirstOrDefault(p => p.RedPacketPersonalId == redPacketId);
-                    Client reveiver = Context.Clients.AsNoTracking().FirstOrDefault(p => p.ClientId == clientId);
-
-
-                    List<string> luckNumbers = new List<string>();
-
-                    if (reveiver == null)
-                    {
-                        throw new ZzbException("无效用户不能参与抽奖");
-
-                    }
-                    else if (entity == null)
-                    {
-                        throw new ZzbException("红包已失效");
-
-                    }
-                    else if (entity.ToClientId != clientId)
-                    {
-
-                        throw new ZzbException("不是目标用户");
-                    }
-                    else if (!entity.IsEnable)
-                    {
-                        throw new ZzbException("红包已失效");
-                    }
-                    else if (entity.IsReceive)
-                    {
-                        throw new ZzbException("红包已领取");
-                    }
-                    else
-                    {
-                        using (IDbContextTransaction transaction = Context.Database.BeginTransaction())
+                        //当前红包空闲
+                        while (_cacheManager.Get<object>(operKey) != null)
                         {
-                            try
-                            {
-                                entity.IsReceive = true;
-                                entity.UpdateTime = DateTime.Now;
-                                //entity.Update();//追踪的时候更新方法
-                                int updateCount = Update<RedPacketPersonal>(entity, "RedPacketPersonalId", new List<string>() { "IsReceive", "UpdateTime" });//不追踪的时候更新方法
-                                Context.SaveChanges();
-                                reveiver.Coin += entity.Money;
-                                reveiver.UpdateTime = DateTime.Now;
-                                Update<Client>(reveiver, "ClientId", new List<string>() { "Coin", "UpdateTime" });
-                                CoinLog coinLogEntity = new CoinLog();
-                                coinLogEntity.ClientId = reveiver.ClientId;
-                                coinLogEntity.FlowCoin = entity.Money;
-                                coinLogEntity.Coin = reveiver.Coin;
-                                coinLogEntity.Type = entity.Type == RedPacketTranferTypeEnum.RedPacket ? CoinLogTypeEnum.ReceiveRedPacket : CoinLogTypeEnum.ReceiveTransfer;
-                                coinLogEntity.AboutId = entity.RedPacketPersonalId;
-                                Context.CoinLogs.Add(coinLogEntity);
-                                Context.SaveChanges();
-
-                                transaction.Commit();
-                            }
-                            catch (Exception ex)
-                            {
-                                transaction.Rollback();
-                                throw new ZzbException("接收红包异常");
-
-                            }
+                            Thread.Sleep(200);
                         }
+                        _cacheManager.Set(operKey, clientId.ToString(), 2);//2分钟过期
+                        RedPacketPersonal entity = Context.RedPacketPersonals.AsNoTracking().FirstOrDefault(p => p.RedPacketPersonalId == redPacketId);
+                        Client reveiver = Context.Clients.AsNoTracking().FirstOrDefault(p => p.ClientId == clientId);
 
+
+                        List<string> luckNumbers = new List<string>();
+
+                        if (reveiver == null)
+                        {
+                            throw new ZzbException("无效用户不能参与抽奖");
+
+                        }
+                        else if (entity == null)
+                        {
+                            throw new ZzbException("红包已失效");
+
+                        }
+                        else if (entity.ToClientId != clientId)
+                        {
+
+                            throw new ZzbException("不是目标用户");
+                        }
+                        else if (!entity.IsEnable)
+                        {
+                            throw new ZzbException("红包已失效");
+                        }
+                        else if (entity.IsReceive)
+                        {
+                            throw new ZzbException("红包已领取");
+                        }
+                        else
+                        {
+                            using (IDbContextTransaction transaction = Context.Database.BeginTransaction())
+                            {
+                                try
+                                {
+                                    entity.IsReceive = true;
+                                    entity.UpdateTime = DateTime.Now;
+                                    //entity.Update();//追踪的时候更新方法
+                                    int updateCount = Update<RedPacketPersonal>(entity, "RedPacketPersonalId", new List<string>() { "IsReceive", "UpdateTime" });//不追踪的时候更新方法
+                                    Context.SaveChanges();
+                                    reveiver.Coin += entity.Money;
+                                    reveiver.UpdateTime = DateTime.Now;
+                                    Update<Client>(reveiver, "ClientId", new List<string>() { "Coin", "UpdateTime" });
+                                    CoinLog coinLogEntity = new CoinLog();
+                                    coinLogEntity.ClientId = reveiver.ClientId;
+                                    coinLogEntity.FlowCoin = entity.Money;
+                                    coinLogEntity.Coin = reveiver.Coin;
+                                    coinLogEntity.Type = entity.Type == RedPacketTranferTypeEnum.RedPacket ? CoinLogTypeEnum.ReceiveRedPacket : CoinLogTypeEnum.ReceiveTransfer;
+                                    coinLogEntity.AboutId = entity.RedPacketPersonalId;
+                                    Context.CoinLogs.Add(coinLogEntity);
+                                    Context.SaveChanges();
+
+                                    transaction.Commit();
+                                }
+                                catch (Exception ex)
+                                {
+                                    transaction.Rollback();
+                                    throw new ZzbException("接收红包异常");
+
+                                }
+                            }
+
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new ZzbException("未知异常");
+                    }
+                    finally
+                    {
+                        _cacheManager.Remove(operKey);
                     }
                 }
-                catch (Exception ex)
-                {
-                    throw new ZzbException("未知异常");
-                }
-                finally
-                {
-                    _cacheManager.Remove(operKey);
-                }
-               
                 return ObjectGenericityResult(result, receiveMoney);
             });
         }
