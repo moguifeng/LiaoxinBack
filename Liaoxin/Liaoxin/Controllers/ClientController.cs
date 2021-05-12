@@ -55,24 +55,15 @@ namespace Liaoxin.Controllers
                 var cacheKey = string.Format($"sendCode:{request.Type}:{request.Telephone}");
                 _cacheManager.Set(cacheKey, code, 10);
 
-              var res =   HuanxinSendMsgRequest.SendMsg(new string[] { "18819386398"},code);
+                var res =   HuanxinSendMsgRequest.SendMsg(new string[] { request.Telephone },code);
+                if (res.ReturnCode == ServiceResultCode.Success)
+                {
 
-                return ObjectResult(code);
-                //object obj = new { code };
-                //if (string.IsNullOrWhiteSpace(request.Mobile)) request.Mobile = UserContext.Current?.AccountName;
-                //var templates = _configuration[$"SmsTemplates:RegisterLogin"];
-                //var result = _smsBusiness.Send(
-                //     templates,
-                //     obj,
-                //     new[] { request.Mobile }
-                //);
-                //if (result) return Result.OutputSuccess();
+                    return ObjectResult(code);
+                }
+                throw new ZzbException("验证码过期,无法发送,请联系管理员");
             }, "验证码发送失败");
-
-
         }
-
-
 
 
         /// <summary>
