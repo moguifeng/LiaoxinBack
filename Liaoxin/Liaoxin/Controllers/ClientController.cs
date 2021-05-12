@@ -53,7 +53,7 @@ namespace Liaoxin.Controllers
                 }
                 var code = GenerateRandomCode();
                 var cacheKey = string.Format($"sendCode:{request.Type}:{request.Telephone}");
-                _cacheManager.Set(cacheKey, code, 10);
+                _cacheManager.Set(cacheKey, code, 2);
 
                 var res =   HuanxinSendMsgRequest.SendMsg(new string[] { request.Telephone },code);
                 if (res.ReturnCode == ServiceResultCode.Success)
