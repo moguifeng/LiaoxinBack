@@ -288,7 +288,7 @@ namespace Liaoxin.Controllers
 
                                             receiveMoney = entity.Money / entity.Count;
 
-                                            receiveMoney += (rd.Next(0, 1) % 2 == 0 ? 1 : -1) * receiveMoney * ((decimal)rd.Next(10, 30) / (decimal)100);
+                                            receiveMoney += (rd.Next(0, 10) % 2 == 0 ? 1 : -1) * receiveMoney * ((decimal)rd.Next(10, 30) / (decimal)100);
 
                                             receiveMoney = Math.Floor(receiveMoney);
                                             //decimal curReveiveRate = (decimal)entity.ReceiveCount / (decimal)entity.Count;
