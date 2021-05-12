@@ -243,7 +243,7 @@ namespace Liaoxin.Controllers
                             }
                             else
                             {
-
+                                List<string> missLuckNumbers = new List<string>();
                                 using (IDbContextTransaction transaction = Context.Database.BeginTransaction())
                                 {
                                     try
@@ -283,7 +283,7 @@ namespace Liaoxin.Controllers
                                             //    receiveMoney = Math.Floor(receiveMoney / 5);
                                             //}
 
-                                            List<string> missLuckNumbers = luckNumbers.Except((entity.LuckNumbers + "").Split(',').ToList()).ToList();
+                                            missLuckNumbers = luckNumbers.Except((entity.LuckNumbers + "").Split(',').ToList()).ToList();
 
                                             //lucknumber
                                             decimal lucknumber = (decimal)rd.Next(1, 99) / 100;
@@ -403,7 +403,7 @@ namespace Liaoxin.Controllers
                                         coinLogEntity.AboutId = receive.RedPacketReceiveId;
                                         Context.CoinLogs.Add(coinLogEntity);
                                         Context.SaveChanges();
-                                        if (entity.Type == RedPacketTypeEnum.Lucky && luckIndex >= 1 && luckIndex <= 3 && luckNumbers != null)
+                                        if (entity.Type == RedPacketTypeEnum.Lucky && luckIndex >= 1 && luckIndex <= 3 && luckNumbers != null&& missLuckNumbers!=null&& missLuckNumbers.Count>0&& receive.IsLuck)
                                         {
                                             //LuckNumber
                                             string strsql = $@"  UPDATE redpackets SET LuckNumbers=(SELECT GROUP_CONCAT(DISTINCT LuckNumber) FROM redpacketreceives WHERE RedPacketId='{entity.RedPacketId}' AND IsLuck )  WHERE RedPacketId='{entity.RedPacketId}' ";
