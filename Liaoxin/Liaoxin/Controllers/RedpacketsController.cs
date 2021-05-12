@@ -32,6 +32,7 @@ namespace Liaoxin.Controllers
         public IGroupService groupService { get; set; }
         private readonly ICacheManager _cacheManager = CacheManager.singleCache;
 
+
         /// <summary>
         /// 发群红包
         /// </summary>
@@ -121,7 +122,7 @@ namespace Liaoxin.Controllers
                 {
                     throw new ZzbException("用户无效或余额不足");
                 }
-                return ObjectGenericityResult(result, returnObject, errMsg);
+                return ObjectGenericityResult(returnObject);
 
             });
         }
@@ -139,7 +140,7 @@ namespace Liaoxin.Controllers
             return (ServiceResult<decimal>)Json(() =>
             {
 
-                Guid redPacketId = requestObj.RedPacketPersonalId;
+                Guid redPacketId = requestObj.RedPacketId;
                 Guid clientId = requestObj.ClientId;
                 string operKey = redPacketId.ToString();
                 decimal receiveMoney = 0;
@@ -377,7 +378,7 @@ namespace Liaoxin.Controllers
                 }
                 catch (Exception ex)
                 {
-                    throw new ZzbException("未知异常");
+                    throw new ZzbException("未知异常"+ex.Message);
                 }
                 finally
                 {
@@ -606,7 +607,7 @@ namespace Liaoxin.Controllers
 
                 bool result = true;
                 string errMsg = "";
-                Guid redPacketId = requestObj.RedPacketPersonalId;
+                Guid redPacketId = requestObj.RedPacketId;
                 Guid clientId = requestObj.ClientId;
                 string operKey = redPacketId.ToString();
                 decimal receiveMoney = 0;
@@ -719,6 +720,33 @@ namespace Liaoxin.Controllers
                 }
                 return ObjectGenericityResult(true, returnObject);
             });
+
+
+        }
+
+
+        /// <summary>
+        /// 测试并发
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("TestPacketId")]
+        public ServiceResult<string> TestPacketId(Guid redPacketId)
+        {
+            string msg = "";
+            var lis =  Context.GroupClients.Where(gc => gc.GroupId == Guid.Parse("623d17d0-f907-4183-a505-59b907fe18d6")).Select(g => g.ClientId).ToList();
+            foreach (var item in lis)
+            {
+                Thread t = new Thread(()=> {
+                    var res = this.ReceiveGroupRedPacket(new ReceiveGroupRedPacketRequest() { ClientId = item, RedPacketId = redPacketId });
+                    msg += res.Message + "," + res.Data + "\r\n,";
+                });
+                t.Start();
+            
+            }
+         
+
+                return ObjectGenericityResult(msg);
+         
 
 
         }

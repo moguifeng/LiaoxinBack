@@ -50,6 +50,58 @@ namespace Zzb.Mvc
 
         }
 
+        protected ServiceResult Json<K>(Func<ServiceResult<K>> action, string error = null)
+        {
+            try
+            {
+                return action();
+            }
+            catch (ZzbException e)
+            {
+                LogHelper.Information(error, e);
+                return new ServiceResult<K>(ServiceResultCode.Error,
+                    string.IsNullOrEmpty(error) ? e.Message : error + ":" + e.Message);
+            }
+            catch (DbUpdateConcurrencyException e)
+            {
+                LogHelper.Warning(error, e);
+                return new ServiceResult<K>(ServiceResultCode.Error, string.IsNullOrEmpty(error) ? e.Message : error + ":" + e.Message);
+            }
+            catch (Exception e)
+            {
+                LogHelper.Error(error, e);
+                return new ServiceResult<K>(ServiceResultCode.Error, string.IsNullOrEmpty(error) ? e.Message : error + ":" + e.Message);
+            }
+
+        }
+
+
+        protected ServiceResult Json<K>(Func<ServiceResult<List<K>>> action, string error = null)
+        {
+            try
+            {
+                return action();
+            }
+            catch (ZzbException e)
+            {
+                LogHelper.Information(error, e);
+                return new ServiceResult<List<K>>(ServiceResultCode.Error,
+                    string.IsNullOrEmpty(error) ? e.Message : error + ":" + e.Message);
+            }
+            catch (DbUpdateConcurrencyException e)
+            {
+                LogHelper.Warning(error, e);
+                return new ServiceResult<List<K>>(ServiceResultCode.Error, string.IsNullOrEmpty(error) ? e.Message : error + ":" + e.Message);
+            }
+            catch (Exception e)
+            {
+                LogHelper.Error(error, e);
+                return new ServiceResult<List<K>>(ServiceResultCode.Error, string.IsNullOrEmpty(error) ? e.Message : error + ":" + e.Message);
+            }
+
+        }
+
+
         protected ServiceResult ObjectResult(object obj)
         {
             return new ServiceResult<object>(ServiceResultCode.Success, "OK", obj);
