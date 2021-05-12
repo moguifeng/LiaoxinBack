@@ -75,8 +75,7 @@ namespace Liaoxin.Business
                 if (method.ToLower() == "post")
                 {
                     string jsonStr = JsonConvert.SerializeObject(dic);
-                    StringContent stringContent = new StringContent(jsonStr);
-                stringContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                    StringContent stringContent = new StringContent(jsonStr); 
                 httpResponse = client.PostAsync(u, stringContent);
 
                 }
