@@ -22,6 +22,8 @@ namespace Liaoxin.Business
 
           public static string url = "http://a1.easemob.com/1110210506180660/demo";
 
+        public static string msgUrl = "http://a1.easemob.com/1110210506180660/demo";
+
 
           static string access_token = "";
 
@@ -74,7 +76,8 @@ namespace Liaoxin.Business
                 {
                     string jsonStr = JsonConvert.SerializeObject(dic);
                     StringContent stringContent = new StringContent(jsonStr);
-                    httpResponse = client.PostAsync(u, stringContent);
+                stringContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                httpResponse = client.PostAsync(u, stringContent);
 
                 }
                 else if (method.ToLower() == "put")
@@ -86,13 +89,11 @@ namespace Liaoxin.Business
                 else if (method.ToLower() == "get")
                 {
                     string jsonStr = JsonConvert.SerializeObject(dic);
-                    StringContent stringContent = new StringContent(jsonStr);
                     httpResponse = client.GetAsync(u);
                 }
                 else
                 {
                     string jsonStr = JsonConvert.SerializeObject(dic);
-                    StringContent stringContent = new StringContent(jsonStr);
                     httpResponse = client.DeleteAsync(u);
                 }
 
