@@ -1,3 +1,5 @@
 .vs
 /AllLottery.Web/node_modules
 /Redis/dump.rdb
+/RedpacketTest/RedpacketTestApp/bin
+/RedpacketTest/RedpacketTestApp/obj

@@ -265,14 +265,18 @@ namespace Liaoxin.Controllers
                                             decimal curMoney = entity.Over;
 
                                             Random rd = new Random();
-                                            receiveMoney = Math.Floor(curMoney * ((decimal)rd.Next(1, 1000000) / (decimal)1000000));
 
-                                            decimal curReveiveRate = (decimal)entity.ReceiveCount / (decimal)entity.Count;
-                                            if (curReveiveRate < (decimal)0.5 && receiveMoney / entity.Money >= (decimal)0.2)
-                                            {
-                                                //要是一开始就领取太多,就不好玩了
-                                                receiveMoney = Math.Floor(receiveMoney / 5);
-                                            }
+                                            receiveMoney = entity.Money / entity.Count;
+
+                                            receiveMoney += (rd.Next(0, 1)%2==0?1:-1)*Math.Floor(receiveMoney * ((decimal)rd.Next(10, 100) / (decimal)100));
+
+                                            receiveMoney = Math.Floor(receiveMoney);
+                                            //decimal curReveiveRate = (decimal)entity.ReceiveCount / (decimal)entity.Count;
+                                            //if (curReveiveRate < (decimal)0.5 && receiveMoney / entity.Money >= (decimal)0.2)
+                                            //{
+                                            //    //要是一开始就领取太多,就不好玩了
+                                            //    receiveMoney = Math.Floor(receiveMoney / 5);
+                                            //}
 
                                             List<string> missLuckNumbers = luckNumbers.Except((entity.LuckNumbers + "").Split(',').ToList()).ToList();
 
