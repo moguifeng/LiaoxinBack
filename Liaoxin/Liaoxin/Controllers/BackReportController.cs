@@ -19,7 +19,7 @@ namespace Liaoxin.Controllers
 
 
         /// <summary>
-        /// 绑定银行卡
+        /// 后台报表
         /// </summary>        
         /// <returns></returns>
         [HttpPost("GetAllReport")]

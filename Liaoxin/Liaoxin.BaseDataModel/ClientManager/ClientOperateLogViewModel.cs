@@ -34,6 +34,7 @@ namespace Liaoxin.BaseDataModel.ClientManger
                 (k, w) => w.Where(t => t.Client.Telephone.Contains(k)),
                     (k, w) => w.Where(t => t.Message.Contains(k)));
 
+            List<ClientOperateLogViewModel> lis = new List<ClientOperateLogViewModel>();
             foreach (var item in sources)
             {
                 ClientOperateLogViewModel model = new ClientOperateLogViewModel();
@@ -41,9 +42,10 @@ namespace Liaoxin.BaseDataModel.ClientManger
                 model.Telephone = item.Client.Telephone;
                 model.Message = item.Message;
                 item.CreateTime = item.CreateTime;
+                lis.Add(model);
             }
 
-            List<ClientOperateLogViewModel> lis = new List<ClientOperateLogViewModel>();return lis.ToArray();
+;return lis.ToArray();
         }
 
         public override BaseFieldAttribute[] GetQueryConditionses()
