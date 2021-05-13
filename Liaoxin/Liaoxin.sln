@@ -24,6 +24,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lixaoxin.TimeService", "Lixaoxin.TimeService\Lixaoxin.TimeService.csproj", "{D7476B6A-D90F-41A8-B628-D2C94077911E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +64,10 @@ Global
 		{1B780550-E47E-4936-8B44-749C428901A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B780550-E47E-4936-8B44-749C428901A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B780550-E47E-4936-8B44-749C428901A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7476B6A-D90F-41A8-B628-D2C94077911E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7476B6A-D90F-41A8-B628-D2C94077911E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7476B6A-D90F-41A8-B628-D2C94077911E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7476B6A-D90F-41A8-B628-D2C94077911E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
