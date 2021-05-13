@@ -28,17 +28,17 @@ namespace Liaoxin.BaseDataModel.ClientManger
         public Guid GroupMemberId { get; set; }
 
 
-        [NavField("群编号")]
+        [NavField("群编号",250)]
         public string UniqueId { get; set; }
 
 
         [NavField("群名称")]
         public string Name { get; set; }
 
-        [NavField("客户群昵称")]
+        [NavField("客户群昵称",250)]
         public string MyNickName { get; set; }
 
-        [NavField("客户聊信号")]
+        [NavField("客户聊信号",250)]
         public string LiaoxinNumber { get; set; }
 
         [NavField("群禁言")]
@@ -83,15 +83,15 @@ namespace Liaoxin.BaseDataModel.ClientManger
             return lis.ToArray();
         }
 
-        public override BaseButton[] CreateRowButtons()
-        {
-            List<BaseButton> list = new EditableList<BaseButton>();
-            string title = this.IsBlock ? "解禁言" : "禁言";
-            list.Add(new ConfirmActionButton("EnableOperation", title, "是否确认操作?"));
+        //public override BaseButton[] CreateRowButtons()
+        //{
+        //    //List<BaseButton> list = new EditableList<BaseButton>();
+        //    //string title = this.IsBlock ? "解禁言" : "禁言";
+        //    //list.Add(new ConfirmActionButton("EnableOperation", title, "是否确认操作?"));
 
-            return list.ToArray();
+        //    //return list.ToArray();
 
-        }
+        //}
 
 
 

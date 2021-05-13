@@ -21,7 +21,7 @@ namespace Liaoxin.Model
         }
  
 
-        [ZzbIndex]
+      
         public Guid CoinLogId { get; set; } = Guid.NewGuid();
 
         public Guid ClientId { get; set; }
@@ -51,13 +51,13 @@ namespace Liaoxin.Model
         /// <summary>
         /// 变动类型
         /// </summary>
-        [ZzbIndex]
+       
         public CoinLogTypeEnum Type { get; set; } = CoinLogTypeEnum.Recharge;
 
         /// <summary>
         /// 相关ID
         /// </summary>
-        [ZzbIndex]
+ 
         public Guid AboutId { get; set; }
 
         /// <summary>
@@ -80,9 +80,6 @@ namespace Liaoxin.Model
         Withdraw = 2,
 
 
-        [Description("提现手续费")]
-
-        WithdrawRate = 2,
 
         [Description("提款失败")]
         CancelWithdraw = 3,
@@ -105,7 +102,12 @@ namespace Liaoxin.Model
         [Description("红包退回")]
         RefundRedPacket = 9,
 
+        [Description("提现手续费")]
+
+        WithdrawRate = 10,
+
         [Description("转账退回")]
-        RefundTransfer = 10,
+        RefundTransfer = 11
+
     }
 }

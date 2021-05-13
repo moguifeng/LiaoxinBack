@@ -23,20 +23,30 @@ namespace Liaoxin.BaseDataModel.ClientManger
         [NavField("主键", IsKey = true, IsDisplay = false)]
         public Guid RedPacketReceiveId { get; set; }
 
-        [NavField("群号")]
+        [NavField("群号",250)]
         public string GroupUniqueId { get; set; }
 
 
 
-        [NavField("红包发送者")]
+        [NavField("发送者",250)]
         public string SourceLiaoxinNumber { get; set; }
 
 
-        [NavField("红包接收者")]
+        [NavField("发送者姓名", 150)]
+        public string SourceRealName { get; set; }
+
+
+
+
+        [NavField("接收者",250)]
         public string ToLiaoxinNumber { get; set; }
 
 
-        [NavField("接收时间")]
+        [NavField("接收者姓名", 250)]
+        public string ToRealName { get; set; }
+
+
+        [NavField("接收时间",170)]
         public DateTime CreateTime { get; set; }  
 
 
@@ -58,7 +68,9 @@ namespace Liaoxin.BaseDataModel.ClientManger
                 model.RedPacketReceiveId = item.RedPacketReceiveId;
                 model.GroupUniqueId = item.RedPacket.Group.UnqiueId;
                 model.SourceLiaoxinNumber = item.RedPacket.Client.LiaoxinNumber;
+                model.SourceRealName = item.RedPacket.Client.RealName;
                 model.ToLiaoxinNumber = item.Client.LiaoxinNumber;
+                model.ToRealName = item.Client.RealName;
                 model.CreateTime = item.CreateTime;
                 model.SnatchMoney = item.SnatchMoney;
 

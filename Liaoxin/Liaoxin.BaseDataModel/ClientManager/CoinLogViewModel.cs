@@ -16,7 +16,7 @@ namespace Liaoxin.BaseDataModel.ClientManger
 
         public override int Sort => 5;
 
-        [NavField("聊信号", IsKey = true)]
+        [NavField("聊信号", IsKey = true,Width =250)]
         public string LiaoxinNumber { get; set; }
 
 

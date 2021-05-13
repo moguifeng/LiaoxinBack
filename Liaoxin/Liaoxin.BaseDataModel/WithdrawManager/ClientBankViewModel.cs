@@ -21,7 +21,7 @@ namespace Liaoxin.BaseDataModel.WithdrawManager
         [NavField("主键", IsKey = true, IsDisplay = false)]
         public Guid ClientBankId { get; set; }
 
-        [NavField("聊信号码")]
+        [NavField("聊信号码",250)]
         public string LiaoxinNumber { get; set; }
 
         [NavField("真实姓名")]
@@ -30,7 +30,7 @@ namespace Liaoxin.BaseDataModel.WithdrawManager
         [NavField("银行名称")]
         public string BankName { get; set; }
 
-        [NavField("卡号")]
+        [NavField("卡号",200)]
         public string CardNumber { get; set; }
 
         [NavField("添卡时间", 150)]

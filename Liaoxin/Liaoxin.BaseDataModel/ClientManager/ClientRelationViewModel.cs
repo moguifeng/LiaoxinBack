@@ -26,10 +26,10 @@ namespace Liaoxin.BaseDataModel.ClientManger
         [NavField("ID", IsKey = true, IsDisplay = false)]
         public Guid ClientRelationId { get; set; }
 
-        [NavField("源聊信号", Width = 200)]
+        [NavField("源聊信号", Width = 250)]
         public string SourceLiaoxinNumber { get; set; }
 
-        [NavField("目标聊信号",Width =200)]
+        [NavField("目标聊信号",Width =250)]
         public string ToLiaoxinNumber { get; set; }
 
 
@@ -48,7 +48,7 @@ namespace Liaoxin.BaseDataModel.ClientManger
         [NavField("目标关系")]
         public RelationTypeEnum RelationType { get; set; }
 
-        [NavField("创建关系时间")]
+        [NavField("创建关系时间", Width = 250)]
         public DateTime CreateTime { get; set; }
 
         protected override object[] DoGetNavDatas()
