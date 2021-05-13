@@ -58,7 +58,7 @@ namespace Lixaoxin.TimeService.Jobs
                     string redPacketId = dr["RedPacketPersonalId"] + "";
                     sbsql.AppendFormat("UPDATE Clients SET Coin=Coin+{0},UpdateTime=NOW() WHERE ClientId='{1}' ; ", money, clientId); //发红包账户汇款
                     sbsql.AppendFormat("UPDATE redpacketpersonals SET IsEnable=False,UpdateTime=NOW() WHERE RedPacketPersonalId='{0}' ; ", redPacketId);//让红包失效
-                    sbsql.AppendFormat(@"INSERT INTO coinlogs (CoinLogId, CreateTime, UpdateTime, IsEnable, ClientId, FlowCoin, Coin, TYPE, AboutId, Remark)VALUES(UUID(), NOW(), NOW(), TRUE, '{0}', {1},( SELECT IFNULL(MAX(Coin),0) FROM clients WHERE ClientId='{0}'), 9, '{2}', '红包退款');  ", clientId, money, redPacketId);//流水
+                    sbsql.AppendFormat(@"INSERT INTO coinlogs (CoinLogId, CreateTime, UpdateTime, IsEnable, ClientId, FlowCoin, Coin, TYPE, AboutId, Remark)VALUES(UUID(), NOW(), NOW(), TRUE, '{0}', {1},( SELECT IFNULL(MAX(Coin),0) FROM clients WHERE ClientId='{0}'), 10, '{2}', '个人红包转账退款');  ", clientId, money, redPacketId);//流水
                 }
 
             }
