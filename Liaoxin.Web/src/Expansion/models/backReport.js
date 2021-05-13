@@ -3,18 +3,13 @@ import { post } from '@/zzb/utils/request';
 export default {
   namespace: 'backReport',
 
-  state: {
-    players: { allCoin: 0, allPlayer: 0, proxyPlayer: 0, memberPlayer: 0, onlinePlayer: 0 },
+  state: {    
     allReport: {
-      allRechargeCoin: 0,
-      allWithdrawCoin: 0,
-      allBetMoney: 0,
-      allWinMoney: 0,
-      allGiftMoney: 0,
-      allRechargeWinMoney: 0,
-      allBetWinMoney: 0,
-      allRebate: 0,
-      lotteryTypes: [],
+      groupCount: 0,
+      clientCount: 0,
+      withdraws: 0,
+      recharges: 0,
+      backReports: [],
     },
   },
 
@@ -26,8 +21,8 @@ export default {
         players: res,
       });
     },
-    *getAllReport({ begin, end }, { call, put }) {
-      const res = yield call(post, 'api/BackReport/GetAllReport', { begin, end });
+    *getAllReport({ begin, end,realName,liaoxinNumber }, { call, put }) {
+      const res = yield call(post, 'api/BackReport/GetAllReport', { begin, end ,realName,liaoxinNumber});
       yield put({
         type: 'save',
         allReport: res,

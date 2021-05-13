@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
-import { Card, Table, DatePicker, Button } from 'antd';
+import { Card, Table, DatePicker, Button, Input } from 'antd';
 import { connect } from 'dva';
 import locale from 'antd/lib/date-picker/locale/en_US';
 import 'moment/locale/zh-cn';
@@ -24,16 +24,18 @@ class Analysis extends PureComponent {
   state = {
     begin: '',
     end: '',
+    realName:'',
+    liaoxinNumber:''
   };
 
   componentDidMount() {
-    // const { dispatch } = this.props;
+     const { dispatch } = this.props;
     // dispatch({
     //   type: 'backReport/getPlayerReport',
     // });
-    // dispatch({
-    //   type: 'backReport/getAllReport',
-    // });
+    dispatch({
+      type: 'backReport/getAllReport',
+    });
   }
 
   onRangePickerChange(_, data) {
@@ -45,11 +47,13 @@ class Analysis extends PureComponent {
 
   onQuery = () => {
     const { dispatch } = this.props;
-    const { begin, end } = this.state;
+    const { begin, end ,realName,liaoxinNumber} = this.state;
     dispatch({
       type: 'backReport/getAllReport',
       begin,
       end,
+      realName,
+      liaoxinNumber,
     });
   };
 
@@ -92,62 +96,36 @@ class Analysis extends PureComponent {
 
   render() {
     const {
-      backReport: { players, allReport },
+      backReport: {  allReport },
     } = this.props;
+        
+  const that = this;
     let goodsData = [];
-    if (allReport.lotteryTypes.length) {
-      let betMoney = 0;
-      let winMoney = 0;
-      allReport.lotteryTypes.forEach(item => {
-        betMoney = this.accAdd(betMoney, item.betMoney);
-        winMoney = this.accAdd(winMoney, item.winMoney);
-      });
-      goodsData = allReport.lotteryTypes.concat({
-        id: '总计',
-        betMoney,
-        winMoney,
-      });
-    }
-    // const renderContent = (value, row, index) => {
-    //   const obj = {
-    //     children: value,
-    //     props: {},
-    //   };
-    //   if (index === allReport.lotteryTypes.length) {
-    //     obj.props.colSpan = 0;
-    //   }
-    //   return obj;
-    // };
+ 
+      goodsData = allReport.backReports;
+     
+ 
     const goodsColumns = [
-      //   {
-      //     title: 'ID',
-      //     dataIndex: 'id',
-      //     key: 'id',
-      //     align: 'center',
-      //     render: renderContent,
-      //   },
       {
-        title: '群号',
-        dataIndex: 'name',
-        key: 'name',
+        title: '中奖人聊信号',
+        dataIndex: 'liaoxinNumber',
+        key: 'liaoxinNumber',
         align: 'center',
         render: (text, row, index) => {
-          if (index < allReport.lotteryTypes.length) {
+          if (index < allReport.backReports.length) {
             return <span>{text}</span>;
           }
-          return {
-            children: <span style={{ fontWeight: 600 }}>总计</span>,
-          };
+         
         },
       },
 
       {
-        title: '尾数',
-        dataIndex: 'betMoney',
-        key: 'betMoney',
+        title: '中奖人姓名',
+        dataIndex: 'realName',
+        key: 'realName',
         align: 'center',
         render: (text, row, index) => {
-          if (index < allReport.lotteryTypes.length) {
+          if (index < allReport.backReports.length) {
             return text;
           }
           return <span style={{ fontWeight: 600 }}>{text}</span>;
@@ -155,49 +133,31 @@ class Analysis extends PureComponent {
       },
 
       {
-        title: '群红包是否中奖',
-        dataIndex: 'betMoney',
-        key: 'betMoney',
+        title: '中奖总金额',
+        dataIndex: 'wins',
+        key: 'wins',
         align: 'center',
         render: (text, row, index) => {
-          if (index < allReport.lotteryTypes.length) {
+          if (index < allReport.backReports.length) {
             return text;
           }
           return <span style={{ fontWeight: 600 }}>{text}</span>;
         },
       },
-      {
-        title: '红包中奖人',
-        dataIndex: 'winMoney',
-        key: 'winMoney',
-        align: 'center',
-        render: (text, row, index) => {
-          if (index < allReport.lotteryTypes.length) {
-            return text;
-          }
-          return <span style={{ fontWeight: 600 }}>{text}</span>;
-        },
-      },
-      {
-        title: '红包中奖金额',
-        dataIndex: 'allWinMoney',
-        key: 'allWinMoney',
-        align: 'center',
-        render: (text, row) => this.Subtr(row.betMoney, row.winMoney),
-      },
+    
     ];
     return (
       <PageHeaderWrapper title="统计概况" content="统计网站数据。">
         <Card title="用户统计" style={{ marginBottom: 24 }}>
           <Card.Grid style={gridStyle}>
             <Card bodyStyle={{ padding: 0 }} bordered={false}>
-              <Card.Meta title="客户总数" description={<div>{players.allPlayer}</div>} />
+              <Card.Meta title="客户总数" description={<div>{allReport.clientCount}</div>} />
             </Card>
           </Card.Grid>
 
           <Card.Grid style={gridStyle}>
             <Card bodyStyle={{ padding: 0 }} bordered={false}>
-              <Card.Meta title="群总数" description={<div>{players.allPlayer}</div>} />
+              <Card.Meta title="群总数" description={<div>{allReport.groupCount}</div>} />
             </Card>
           </Card.Grid>
 
@@ -215,6 +175,16 @@ class Analysis extends PureComponent {
               });
             }}
           />
+            <Input placeholder="姓名" style={{width:'250px',marginLeft:'10px'}}        onKeyUp={(data) => {                
+              that.setState({
+                realName:data.target.value,
+            
+              })}} />
+                      <Input placeholder="聊信号" style={{width:'250px',marginLeft:'10px'}}        onKeyUp={(data) => {                
+              that.setState({
+                liaoxinNumber:data.target.value,
+            
+              })}} />
           <Button type="primary" style={{ float: 'right' }} onClick={this.onQuery}>
             查询
           </Button>
@@ -227,18 +197,18 @@ class Analysis extends PureComponent {
         >
           <Card.Grid style={gridStyle1}>
             <Card bodyStyle={{ padding: 0 }} bordered={false}>
-              <Card.Meta title="充值" description={<div>{allReport.allRechargeCoin}</div>} />
+              <Card.Meta title="充值" description={<div>{allReport.recharges}</div>} />
             </Card>
           </Card.Grid>
           <Card.Grid style={gridStyle1}>
             <Card bodyStyle={{ padding: 0 }} bordered={false}>
-              <Card.Meta title="提款" description={<div>{allReport.allWithdrawCoin}</div>} />
+              <Card.Meta title="提款" description={<div>{allReport.withdraws}</div>} />
             </Card>
           </Card.Grid>
 
           <Card.Grid style={gridStyle1}>
             <Card bodyStyle={{ padding: 0 }} bordered={false}>
-              <Card.Meta title="红包中奖个数" description={<div>{allReport.allWinMoney}</div>} />
+              <Card.Meta title="红包中奖个数" description={<div>{allReport.wins}</div>} />
             </Card>
           </Card.Grid>
 
@@ -246,19 +216,19 @@ class Analysis extends PureComponent {
             <Card bodyStyle={{ padding: 0 }} bordered={false}>
               <Card.Meta
                 title="充提盈亏"
-                description={<div>{allReport.allRechargeWinMoney}</div>}
+                description={<div>{allReport.recharges- allReport.withdraws}</div>}
               />
             </Card>
           </Card.Grid>
 
         </Card>
-        <Card bordered={false}>
+        <Card bordered={false} >
           <Table
-            style={{ marginBottom: 24 }}
+            style={{ marginBottom: 24,overflow:'auto',maxHeight:500}}
             pagination={false}
             dataSource={goodsData}
             columns={goodsColumns}
-            rowKey="id"
+            rowKey="liaoxinNumber"
           />
         </Card>
       </PageHeaderWrapper>
