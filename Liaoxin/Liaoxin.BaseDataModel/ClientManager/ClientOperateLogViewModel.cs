@@ -41,7 +41,7 @@ namespace Liaoxin.BaseDataModel.ClientManger
                 model.LiaoxinNumber = item.Client.LiaoxinNumber;
                 model.Telephone = item.Client.Telephone;
                 model.Message = item.Message;
-                item.CreateTime = item.CreateTime;
+                model.CreateTime = item.CreateTime;
                 lis.Add(model);
             }
 
