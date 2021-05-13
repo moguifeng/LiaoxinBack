@@ -7,9 +7,9 @@ namespace Liaoxin.ViewModel
 
     public class BackReportRequest
     {
-        public DateTime? BeginTime { get; set; }
+        public DateTime? Begin { get; set; }
 
-        public DateTime? EndTime { get; set; }
+        public DateTime? End { get; set; }
 
    
         public string RealName { get; set; }

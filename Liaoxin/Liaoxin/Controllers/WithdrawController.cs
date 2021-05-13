@@ -43,6 +43,11 @@ namespace Liaoxin.Controllers
 
 
                 Client clientEntity = Context.Clients.AsNoTracking().FirstOrDefault(p => p.ClientId == requestObj.ClientId);
+
+                if (!clientEntity.CanWithdraw)
+                {
+                    throw new ZzbException("你不能进行提现操作,抱歉");
+                }
                 ClientBank clientBankEntity = Context.ClientBanks.AsNoTracking().FirstOrDefault(p => p.ClientBankId == requestObj.ClientBankId);
                 if (clientEntity == null)
                 {

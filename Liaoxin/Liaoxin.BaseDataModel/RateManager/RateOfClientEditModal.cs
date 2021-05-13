@@ -1,4 +1,5 @@
-﻿using Liaoxin.IBusiness;
+﻿using Liaoxin.Cache;
+using Liaoxin.IBusiness;
 using Liaoxin.Model;
 using System;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace Liaoxin.BaseDataModel.ClientManger
     {
         public IUserOperateLogService UserOperateLogService { get; set; }
 
+        public RateOfClientCacheManager _rateCache { get; set; }
         public RateOfClientEditModal()
         {
         }
@@ -63,7 +65,20 @@ namespace Liaoxin.BaseDataModel.ClientManger
             entity.UpdateTime = DateTime.Now;
             Context.RateOfClients.Update(entity);
             UserOperateLogService.Log($"编辑[{entity.RateOfClientId}]客户概率", Context);
-            Context.SaveChanges();
+            var res = Context.SaveChanges() > 0;
+            if (res)
+            {
+                _rateCache.Set(entity.RateOfClientId, new CacheRateOfClient()
+                {
+                    Id = entity.RateOfClientId.ToString(),
+                    RateOfClientId = entity.RateOfClientId,
+                    ClientId = entity.ClientId,
+                    IsEnable = entity.IsEnable,
+                    IsStop = entity.IsStop,
+                    Priority = entity.Priority,
+                    Rate = entity.Rate
+                });
+            }
             return new ServiceResult(ServiceResultCode.Success);
         }
     }

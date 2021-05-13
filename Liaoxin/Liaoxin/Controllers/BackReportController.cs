@@ -34,18 +34,18 @@ namespace Liaoxin.Controllers
                 var query = Context.RedPacketReceives.Where(c => c.IsLuck);
                 var withQuery = Context.Withdraws.Where(c => c.IsEnable);
                 var reacharQuery = Context.Recharges.Where(c => c.IsEnable);
-                if (request.BeginTime.HasValue)
+                if (request.Begin.HasValue)
                 {
-                    query = query.Where(q => q.CreateTime >= request.BeginTime.Value.Date);
-                    reacharQuery = reacharQuery.Where(q => q.CreateTime >= request.BeginTime.Value.Date);
-                    withQuery = withQuery.Where(q => q.CreateTime >= request.BeginTime.Value.Date);
+                    query = query.Where(q => q.CreateTime >= request.Begin.Value.Date);
+                    reacharQuery = reacharQuery.Where(q => q.CreateTime >= request.Begin.Value.Date);
+                    withQuery = withQuery.Where(q => q.CreateTime >= request.Begin.Value.Date);
                 }
 
-                if (request.EndTime.HasValue)
+                if (request.End.HasValue)
                 {
-                    query = query.Where(q => q.CreateTime < request.EndTime.Value.Date.AddDays(1));
-                    reacharQuery = reacharQuery.Where(q => q.CreateTime < request.EndTime.Value.Date.AddDays(1));
-                    withQuery = withQuery.Where(q => q.CreateTime < request.EndTime.Value.Date.AddDays(1));
+                    query = query.Where(q => q.CreateTime < request.End.Value.Date.AddDays(1));
+                    reacharQuery = reacharQuery.Where(q => q.CreateTime < request.End.Value.Date.AddDays(1));
+                    withQuery = withQuery.Where(q => q.CreateTime < request.End.Value.Date.AddDays(1));
 
                 }
 

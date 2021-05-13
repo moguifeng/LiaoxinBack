@@ -159,6 +159,10 @@ namespace Liaoxin.Controllers
                 {
                     throw new ZzbException("账户未注册");
                 }
+                if (entity.IsFreeze)
+                {
+                    throw new ZzbException("账户已被禁用");
+                }
                 _UserContext.SetUserContext(entity.ClientId, entity.HuanXinId, entity.LiaoxinNumber);
                 string token = UserContext.Current.Token;
                 _cacheManager.Remove(cacheKey);
@@ -193,6 +197,10 @@ namespace Liaoxin.Controllers
             return Json(() =>
             {
                 var entity = clientService.Login(request);
+                if (entity.IsFreeze)
+                {
+                    throw new ZzbException("账户已被禁用");
+                }
                 _UserContext.SetUserContext(entity.ClientId, entity.HuanXinId, entity.LiaoxinNumber);
                 string token = UserContext.Current.Token;
                 return ObjectResult(token);
