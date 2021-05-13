@@ -102,12 +102,11 @@ namespace Liaoxin.Model
         [Description("红包退回")]
         RefundRedPacket = 9,
 
-
-
         [Description("提现手续费")]
-
         WithdrawRate = 10,
 
+        [Description("转账退回")]
+        RefundTransfer = 11
 
     }
 }
