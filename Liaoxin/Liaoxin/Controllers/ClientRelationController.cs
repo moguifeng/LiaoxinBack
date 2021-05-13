@@ -259,6 +259,7 @@ Select(g => new { Key = g.Key, Count = g.Count() }).Where(g => g.Count > 1).Coun
                     NickName = shipEntity.Client.NickName,
                     Source = shipEntity.AddSource.ToDescriptionString(),
                     MutipleGroupCnt = mutipleCount,
+                     FriendShipType  = (int)type,
                 };
 
 
