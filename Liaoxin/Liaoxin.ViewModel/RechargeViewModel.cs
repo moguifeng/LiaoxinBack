@@ -7,12 +7,16 @@ namespace LIaoxin.ViewModel
 
     public class AddRechargeRequest
     {
-        public Guid ClientId { get; set; }
         public Guid ClientBankId { get; set; }
 
         public decimal Money { get; set; }
 
         public string Remark { get; set; }
+
+        /// <summary>
+        /// 资金密码
+        /// </summary>
+        public string CoinPassword { get; set; }
     }
 
 

@@ -98,7 +98,7 @@ namespace Liaoxin.IBusiness
         /// </summary>
         /// <param name="groupId"></param>
         /// <returns></returns>
-        Group GetGroup(Guid groupId);
+        Group GetGroup(Guid groupId,bool ischeck=true);
         /// <summary>
         /// 审核群是否通过
         /// </summary>

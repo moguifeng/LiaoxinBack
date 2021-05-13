@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Zzb;
-
+using Zzb.Common;
 using Zzb.Mvc;
 using Zzb.Utility;
 namespace Liaoxin.Controllers
@@ -40,7 +40,7 @@ namespace Liaoxin.Controllers
                 }
 
 
-                Client clientEntity = Context.Clients.AsNoTracking().FirstOrDefault(p => p.ClientId == requestObj.ClientId);
+                Client clientEntity = Context.Clients.AsNoTracking().FirstOrDefault(p => p.ClientId ==CurrentClientId);
                 ClientBank clientBankEntity = Context.ClientBanks.AsNoTracking().FirstOrDefault(p => p.ClientBankId == requestObj.ClientBankId);
                 if (clientEntity == null)
                 {
@@ -51,9 +51,25 @@ namespace Liaoxin.Controllers
                 {
                     throw new ZzbException("账号银行卡无效");                    
                 }
+
+                if (string.IsNullOrEmpty(clientEntity.CoinPassword))
+                {
+                    throw new ZzbException("你还没有设置资金密码,不可以充值");
+                }
+
+                if (clientEntity.CoinPassword != SecurityHelper.Encrypt(requestObj.CoinPassword))
+                {
+                    throw new ZzbException("资金密码不正确");
+                }
+
+                if (string.IsNullOrEmpty(clientEntity.RealName))
+                {
+                    throw new ZzbException("你还没有实名认证,不可以充值");
+
+                }
                 //充值成功
                 Recharge entity = new Recharge();
-                entity.ClientId = requestObj.ClientId;
+                entity.ClientId = CurrentClientId;
                 entity.ClientBankId = requestObj.ClientBankId;
                 entity.Money = requestObj.Money;
                 entity.Remark = requestObj.Remark;

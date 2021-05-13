@@ -64,13 +64,15 @@ namespace Liaoxin.Business
         public bool DissolveGroup(Guid groupId)
         {
             this.IsCurrentGroup(groupId);
-            var huanxinGroupId = Context.Groups.Where(g => g.GroupId == groupId).Select(g => g.HuanxinGroupId).FirstOrDefault();
-            var res = HuanxinGroupRequest.RemoveGroup(huanxinGroupId);
+            var entity = Context.Groups.Where(g => g.GroupId == groupId).Select(g => new  { HuanxinGroupId= g.HuanxinGroupId, UnqiueId = g.UnqiueId}).FirstOrDefault();
+            var res = HuanxinGroupRequest.RemoveGroup(entity.HuanxinGroupId);
 
             if (res.ReturnCode == ServiceResultCode.Success)
             {
                 Context.GroupClients.RemoveRange(Context.GroupClients.Where(p => p.GroupId == groupId));
                 Context.Groups.RemoveRange(Context.Groups.Where(p => p.GroupId == groupId));
+                Context.ClientOperateLogs.Add(new ClientOperateLog(CurrentClientId, "解散了群" +entity .UnqiueId));
+
                 return Context.SaveChanges() > 0;
                 
             }
@@ -94,16 +96,19 @@ namespace Liaoxin.Business
 
             this.IsCurrentGroup(groupId);
             Group g = Context.Groups.FirstOrDefault(p => p.GroupId == groupId);
-            var newHuanxinId = Context.Clients.Where(c => c.ClientId == newMasterClientId).AsNoTracking().Select(c => c.HuanXinId).FirstOrDefault();
+            var entity = Context.Clients.Where(c => c.ClientId == newMasterClientId).AsNoTracking().Select(c => new { HuanXinId = c.HuanXinId, LiaoxinNumber = c.LiaoxinNumber }).FirstOrDefault();
             if (g != null && g.ClientId == originalMasterClientId)
             {
-                var res = HuanxinGroupRequest.TranferGroup(g.HuanxinGroupId, newHuanxinId);
+                var res = HuanxinGroupRequest.TranferGroup(g.HuanxinGroupId, entity.HuanXinId);
                 if (res.ReturnCode == ServiceResultCode.Success)
                 {
                     g.ClientId = newMasterClientId;
                     Context.Groups.Update(g);
                     CancelGroupManager(originalMasterClientId, groupId, false);
                     SetGroupManager(newMasterClientId, groupId, false);
+
+                    Context.ClientOperateLogs.Add(new ClientOperateLog(CurrentClientId, $"转让了群主,新群主是:{entity.LiaoxinNumber},群号是:" + g.UnqiueId));
+
                     return Context.SaveChanges() > 0;
                 }
                 else
@@ -125,9 +130,13 @@ namespace Liaoxin.Business
             bool result = false;
             //SetGroupManager(entity.ClientId, entity.GroupId, false);
             AddGroupClient(entity.ClientId, entity.GroupId, true, false, entity);
+
+            Context.ClientOperateLogs.Add(new ClientOperateLog(entity.ClientId, "创建了群"+entity.UnqiueId));
+
             foreach (Guid clientId in clientIds)
             {
                 AddGroupClient(clientId, entity.GroupId, true, false, entity);
+                Context.ClientOperateLogs.Add(new ClientOperateLog(clientId, "加入创建了群" + entity.UnqiueId));
             }
             var huanxinIds = Context.Clients.Where(c => clientIds.Contains(c.ClientId)).AsNoTracking().Select(c => c.HuanXinId).ToList();
             var res = HuanxinGroupRequest.CreateGroup(entity.Name, CurrentHuanxinId, huanxinIds.ToArray());
@@ -165,13 +174,15 @@ namespace Liaoxin.Business
                 }
                 entry.Property("UpdateTime").IsModified = true;
             }
+            Context.ClientOperateLogs.Add(new ClientOperateLog(CurrentClientId, $"修改了群{ entity.UnqiueId}的基本信息"));
             if (updateFieldList == null)
             {
                 Context.Groups.Update(entity);
+           
                 Context.SaveChanges();
             }
             else
-            {
+            {            
                 int rowCount = Context.SaveChanges();
                 //Update(entity,"GroupId",updateFieldList);
             }
@@ -184,9 +195,13 @@ namespace Liaoxin.Business
         /// </summary>
         /// <param name="groupId"></param>
         /// <returns></returns>
-        public Group GetGroup(Guid groupId)
+        public Group GetGroup(Guid groupId,bool checkIsGroupMember = true)
         {
-            this.IsCurrentGroup(groupId);
+            if (checkIsGroupMember)
+            {
+                this.IsCurrentGroup(groupId);
+            }
+       
             return Context.Groups.AsNoTracking().FirstOrDefault(p => p.GroupId == groupId);
         }
         /// <summary>
@@ -195,13 +210,13 @@ namespace Liaoxin.Business
         /// <param name="groupId">groupId</param>
         /// <param name="isEnable">true:通过;false:删除记录</param>
         public void AuditGroup(Guid groupId, bool isEnable)
-        {
-            this.IsCurrentGroup(groupId);
+        {           
             Group g = GetGroup(groupId);
             if (g == null)
             {
                 return;
             }
+            Context.ClientOperateLogs.Add(new ClientOperateLog(CurrentClientId, $"审核了群{ g.UnqiueId}"));
             if (isEnable)
             {
                 g.IsEnable = true;
@@ -246,6 +261,8 @@ namespace Liaoxin.Business
                 GroupClient entity = GetGroupClient(groupId,clientId);
                 if (entity != null)
                 {
+                    Context.ClientOperateLogs.Add(new ClientOperateLog(clientId, $"退出了群{ g.UnqiueId}"));
+
                     Context.GroupClients.Remove(entity);
                     Context.SaveChanges();
                     //if (Context.GroupClients.FirstOrDefault(p => p.GroupId == groupId) == null)
@@ -294,7 +311,7 @@ namespace Liaoxin.Business
         {
             if (g == null)
             {
-                g = GetGroup(groupId);
+                g = GetGroup(groupId,false);
             }
             var c = Context.Clients.AsNoTracking().Where(p => p.ClientId == clientId).
                 Select(p => new { Clientid = p.ClientId, NickName = p.NickName }).FirstOrDefault();
@@ -309,7 +326,7 @@ namespace Liaoxin.Business
                 gc.GroupId = groupId;
                 gc.IsBlock = false;
                 gc.IsEnable = (isEnable || !g.SureConfirmInvite);
-                Context.GroupClients.Add(gc);
+                Context.GroupClients.Add(gc);                
                 if (isExeSave)
                 {
                     Context.SaveChanges();
@@ -343,6 +360,7 @@ namespace Liaoxin.Business
             //Context.Entry(entity).Property("").IsModified = true;
             if (isExeSave)
             {
+                Context.ClientOperateLogs.Add(new ClientOperateLog(CurrentClientId, $"更新了群成员{entity.ClientId}的基本信息,群号是:{entity.Group.UnqiueId}"));
                 Context.SaveChanges();
             }
         }
@@ -358,7 +376,7 @@ namespace Liaoxin.Business
         public void SetGroupManager(Guid clientId, Guid groupId, bool isExeSave = true)
         {
             this.IsCurrentGroup(groupId);
-            GroupClient gm = Context.GroupClients.AsNoTracking().FirstOrDefault(p => p.GroupId == groupId && p.ClientId == clientId);
+            GroupClient gm = Context.GroupClients.AsNoTracking().Include(g=>g.Group).Include(g=>g.Client).FirstOrDefault(p => p.GroupId == groupId && p.ClientId == clientId);
 
 
             if (gm != null)
@@ -367,6 +385,7 @@ namespace Liaoxin.Business
                 gm.UpdateTime = DateTime.Now;
                 if (isExeSave)
                 {
+                    Context.ClientOperateLogs.Add(new ClientOperateLog(CurrentClientId, $"将{gm.Client.LiaoxinNumber}设置成管理员,群号是:{gm.Group.UnqiueId}"));
                     Context.SaveChanges();
                 }
             }
@@ -380,13 +399,14 @@ namespace Liaoxin.Business
         public void CancelGroupManager(Guid clientId, Guid groupId, bool isExeSave = true)
         {
             this.IsCurrentGroup(groupId);
-            GroupClient gm = Context.GroupClients.AsNoTracking().FirstOrDefault(p => p.GroupId == groupId && p.ClientId == clientId);
+            GroupClient gm = Context.GroupClients.AsNoTracking().Include(g => g.Group).Include(g => g.Client).FirstOrDefault(p => p.GroupId == groupId && p.ClientId == clientId);
             if (gm != null)
             {
                 gm.IsGroupManager = false;
                 gm.UpdateTime = DateTime.Now;
                 if (isExeSave)
                 {
+                    Context.ClientOperateLogs.Add(new ClientOperateLog(CurrentClientId, $"将{gm.Client.LiaoxinNumber}取消管理员,群号是:{gm.Group.UnqiueId}"));
                     Context.SaveChanges();
                 }
             }

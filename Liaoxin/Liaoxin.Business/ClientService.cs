@@ -202,11 +202,17 @@ namespace Liaoxin.Business
             {
                 throw new ZzbException("找不到当前登录用户");
             }
+ 
 
             if (!string.IsNullOrEmpty(client.CoinPassword) && client.CoinPassword != SecurityHelper.Encrypt(request.oldCoinPassword))
             {
                 throw new ZzbException("旧资金密码不正确");
             }
+            if ( request.newCoinPsssword ==null ||  request.newCoinPsssword.Length != 6)
+            {
+                throw new ZzbException("资金密码必须设置为6位");
+            }
+
 
             client.CoinPassword = SecurityHelper.Encrypt(request.newCoinPsssword);
             client.Update();

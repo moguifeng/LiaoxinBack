@@ -553,6 +553,11 @@ namespace Liaoxin.ViewModel
         /// 银行卡号
         /// </summary>
         public string CardNumber { get; set; }
+
+        /// <summary>
+        /// 支付密码
+        /// </summary>
+        public string CoinPassword { get; set; }
     }
 
 

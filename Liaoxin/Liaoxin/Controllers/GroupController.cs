@@ -82,6 +82,7 @@ namespace Liaoxin.Controllers
 
                 IList<string> updateFieldList = GetPostBodyFiledKey(ingores);
                 Group entity = ConvertHelper.ConvertToModel<GroupResponse, Group>(model, updateFieldList);
+                Context.ClientOperateLogs.Add(new ClientOperateLog(CurrentClientId, $"修改了基本信息,群号是:{model.UnqiueId}"));
                 var res = HuanxinGroupRequest.ModifyGroup(model.HuanxinGroupId, entity.Notice, entity.Name);
                 if (res.ReturnCode == ServiceResultCode.Success)
                 {
@@ -290,8 +291,10 @@ namespace Liaoxin.Controllers
             IList<string> updateFieldList = GetPostBodyFiledKey(ingores);
 
             GroupClient entity = ConvertHelper.ConvertToModel<GroupClientResponse, GroupClient>(model, updateFieldList);
-            bool result = groupService.Update<GroupClient>(entity, "GroupClientId", updateFieldList) > 0;
 
+            var uniqueId = Context.Groups.Where(g => g.GroupId == model.GroupId).Select(g => g.UnqiueId).FirstOrDefault();
+            bool result = groupService.Update<GroupClient>(entity, "GroupClientId", updateFieldList) > 0;
+            Context.ClientOperateLogs.Add(new ClientOperateLog(CurrentClientId, $"修改了群成员的基本信息,群号是:{uniqueId}"));
             return (ServiceResult<bool>)Json(() =>
             {
                 return ObjectGenericityResult<bool>(result);
@@ -316,7 +319,7 @@ namespace Liaoxin.Controllers
 
                 List<Guid> clientIdList = requestObj.ClientIdList.Distinct().ToList();
 
-                Group groupEntity = groupService.GetGroup(groupId);
+                Group groupEntity = groupService.GetGroup(groupId,false);
                 IList<GroupClient> clientList = groupService.GetGroupClients(groupId);
                 IList<GroupClient> gmList = clientList.Where(p => p.IsGroupManager).ToList();
                 //不能重复进群
@@ -345,6 +348,7 @@ namespace Liaoxin.Controllers
                 foreach (Guid clientId in clientIdList)
                 {
                     groupService.AddGroupClient(clientId, groupId, isEnable, false, groupEntity);
+                    Context.ClientOperateLogs.Add(new ClientOperateLog(clientId, $"加入了群聊,群号是:{groupEntity.UnqiueId}"));
                 }
                 var huanxinIds = Context.Clients.Where(c => clientIdList.Contains(c.ClientId)).AsNoTracking().Select(c => c.HuanXinId).ToList();
                 var res = HuanxinGroupRequest.AddGroupMembers(groupEntity.HuanxinGroupId, huanxinIds.ToArray());
@@ -394,6 +398,7 @@ namespace Liaoxin.Controllers
                             if (res.ReturnCode == ServiceResultCode.Success)
                             {
                                 Context.GroupClients.Remove(entity);
+                                Context.ClientOperateLogs.Add(new ClientOperateLog(clientId, $"退出了群聊,群号是:{g.UnqiueId}"));
                                 Context.SaveChanges();
                             }
                             else
@@ -497,9 +502,11 @@ namespace Liaoxin.Controllers
                 }
 
                 var huanxinIds = string.Join(",", leaveList.Select(l => l.Client.HuanXinId).ToArray());
+                var liaoxinNumbers = string.Join(",", leaveList.Select(l => l.Client.LiaoxinNumber).ToArray());
                 var res = HuanxinGroupRequest.RemoveGroupMember(g.HuanxinGroupId, huanxinIds);
                 if (res.ReturnCode == ServiceResultCode.Success)
                 {
+                    Context.ClientOperateLogs.Add(new ClientOperateLog(clientId, $"剔除了群成员,成员列表是:{liaoxinNumbers}"));
                     Context.GroupClients.RemoveRange(leaveList);
                     Context.SaveChanges();
                     return JsonObjectResult(result, msg);

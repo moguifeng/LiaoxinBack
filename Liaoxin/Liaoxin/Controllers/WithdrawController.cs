@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Zzb;
-
+using Zzb.Common;
 using Zzb.Mvc;
 using Zzb.Utility;
 
@@ -42,12 +42,27 @@ namespace Liaoxin.Controllers
                 }
 
 
-                Client clientEntity = Context.Clients.AsNoTracking().FirstOrDefault(p => p.ClientId == requestObj.ClientId);
+                Client clientEntity = Context.Clients.AsNoTracking().FirstOrDefault(p => p.ClientId == CurrentClientId);
 
                 if (!clientEntity.CanWithdraw)
                 {
                     throw new ZzbException("你不能进行提现操作,抱歉");
                 }
+                if (string.IsNullOrEmpty(clientEntity.CoinPassword))
+                {
+                    throw new ZzbException("你还没有设置资金密码,不可以提现");
+                }
+
+                if (clientEntity.CoinPassword != SecurityHelper.Encrypt(requestObj.CoinPassword))
+                {
+                    throw new ZzbException("资金密码不正确");
+                }
+
+                if (string.IsNullOrEmpty(clientEntity.RealName))
+                {
+                    throw new ZzbException("你还没有实名认证,不可以提现");
+                }
+
                 ClientBank clientBankEntity = Context.ClientBanks.AsNoTracking().FirstOrDefault(p => p.ClientBankId == requestObj.ClientBankId);
                 if (clientEntity == null)
                 {
@@ -68,7 +83,7 @@ namespace Liaoxin.Controllers
 
                 //提现成功
                 Withdraw entity = new Withdraw();
-                entity.ClientId = requestObj.ClientId;
+                entity.ClientId = CurrentClientId;
                 entity.ClientBankId = requestObj.ClientBankId;
                 entity.Money = requestObj.Money - withdrawRate;
                 entity.Remark = requestObj.Remark;

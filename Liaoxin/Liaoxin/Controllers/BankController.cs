@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using Zzb;
+using Zzb.Common;
 using Zzb.Mvc;
 
 namespace Liaoxin.Controllers
@@ -49,7 +50,7 @@ namespace Liaoxin.Controllers
                         select new ClientBankResponse()
                         {
                             ClientBankId = b.ClientBankId,
-                            CardNumber = "****" + b.CardNumber.Substring(b.CardNumber.Length - 4),                            
+                            CardNumber = b.CardNumber.Substring(b.CardNumber.Length - 4),                            
                             SystemBankId = b.SystemBankId,
                             AffixId = b.SystemBank.AffixId
                         }).ToList();
@@ -75,9 +76,18 @@ namespace Liaoxin.Controllers
                 {
                     throw new ZzbException("请先进行实名身份绑定");
                 }
+                if (string.IsNullOrEmpty(entity.CoinPassword))
+                {
+                    throw new ZzbException("请先设置支付密码");
+                }
                 if (request.CardNumber.Length <= 4)
                 {
                     throw new ZzbException("请输入正确的银行卡号");
+                }
+
+                if (entity.CoinPassword != SecurityHelper.Encrypt(request.CoinPassword))
+                {
+                    throw new ZzbException("资金密码不正确");
                 }
 
                 var exist = from b in Context.SystemBanks where b.IsEnable && b.SystemBankId == request.SystemBankdId select b;

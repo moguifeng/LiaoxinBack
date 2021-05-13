@@ -323,7 +323,7 @@ namespace Liaoxin.Controllers
         }
 
         /// <summary>
-        /// 设置资金密码
+        /// 设置支付密码
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
@@ -332,9 +332,9 @@ namespace Liaoxin.Controllers
         {
             return Json(() =>
             {
-                if (request.CoinPsssword == null || request.CoinPsssword.Length < 8)
+                if (request.CoinPsssword == null || request.CoinPsssword.Length != 6)
                 {
-                    throw new ZzbException("资金密码最少8位");
+                    throw new ZzbException("支付密码必须6位");
                 }
                 var client = (from p in Context.Clients where p.ClientId == CurrentClientId select p).FirstOrDefault();
                 if (client == null)

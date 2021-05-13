@@ -828,34 +828,7 @@ namespace Liaoxin.Controllers
 
         }
 
-
-        /// <summary>
-        /// 测试并发
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("TestPacketId")]
-        public ServiceResult<string> TestPacketId(Guid redPacketId)
-        {
-            string msg = "";
-            var lis = Context.GroupClients.Where(gc => gc.GroupId == Guid.Parse("623d17d0-f907-4183-a505-59b907fe18d6")).Select(g => g.ClientId).ToList();
-            foreach (var item in lis)
-            {
-                Thread t = new Thread(() =>
-                {
-                    var res = this.ReceiveGroupRedPacket(new ReceiveGroupRedPacketRequest() { ClientId = item, RedPacketId = redPacketId });
-                    msg += res.Message + "," + res.Data + "\r\n,";
-                });
-                t.Start();
-
-            }
-
-
-            return ObjectGenericityResult(msg);
-
-
-
-        }
-
+ 
 
 
     }
