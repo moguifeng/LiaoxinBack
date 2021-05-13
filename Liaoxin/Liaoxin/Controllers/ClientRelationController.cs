@@ -26,6 +26,8 @@ namespace Liaoxin.Controllers
     {
 
 
+        public IClientService clientService { get; set; }
+
         /// <summary>
         /// 全局搜索添加好友(聊信号/手机号码)
         /// </summary>       
@@ -42,15 +44,6 @@ namespace Liaoxin.Controllers
                     throw new ZzbException("找不到联系人");
                 }
 
-
-                //黑名单列表
-                var blacks = Context.ClientRelationDetails.Where(crd => crd.ClientRelation.RelationType ==
-                RelationTypeEnum.Black && crd.ClientRelation.ClientId == CurrentClientId).Select(crd => crd.ClientId).ToList();
-
-                //好友列表
-                var friends = Context.ClientRelationDetails.Where(crd => crd.ClientRelation.RelationType ==
-
-           RelationTypeEnum.Friend && crd.ClientRelation.ClientId == CurrentClientId).Select(crd => crd.ClientId).ToList();
                 GlobalSearchCliengResponse response = new GlobalSearchCliengResponse()
                 {
                     ClientId = entity.ClientId,
@@ -58,37 +51,13 @@ namespace Liaoxin.Controllers
                     HuanxinId = entity.HuanXinId,
                     LiaoxinNumber = entity.LiaoxinNumber,
                     NickName = entity.NickName,
-                    FriendShipType = blacks.Contains(entity.ClientId) ? RelationTypeEnum.Black :
-                    friends.Contains(entity.ClientId) ?
-                    RelationTypeEnum.Friend : RelationTypeEnum.Stranger
-            };
-             
+                    FriendShipType = clientService.GetRelationThoughtClientId(entity.ClientId),
+            };             
                 return ObjectGenericityResult(response);
             }, "查找失败");
 
         }
 
-
-        /// <summary>
-        /// 陌生人详细
-        /// </summary>       
-        /// <returns></returns>
-        [HttpPost("ClientStrangerDetail")]
-        public ServiceResult<List<ClientStrangerDetailResponse>> ClientStrangerDetail(Guid clientId)
-        {
-            var lis = Context.Clients.Where(c => c.ClientId == clientId).AsNoTracking().Select(s => new ClientStrangerDetailResponse()
-            {
-                ClientId = s.ClientId,
-                CharacterSignature = s.CharacterSignature,
-                Cover = s.Cover,
-                HuanxinId = s.HuanXinId,
-                LiaoxinNumber = s.LiaoxinNumber,
-                NickName = s.NickName
-            }).ToList();
-
-            return ListGenericityResult(lis);
-
-        }
 
 
 
@@ -169,6 +138,57 @@ namespace Liaoxin.Controllers
 
 
         /// <summary>
+        /// 陌生人(有可能已经是好友/黑名单)详细
+        /// </summary>       
+        /// <returns></returns>
+        [HttpPost("ClientStrangerDetail")]
+        public ServiceResult<ClientFriendDetailResponse> ClientStrangerDetail(Guid clientId)
+        {
+            var entity = Context.Clients.Where(c => c.ClientId == clientId).AsNoTracking().Select(s => new ClientFriendDetailResponse()
+            {
+                ClientId = s.ClientId,
+                CharacterSignature = s.CharacterSignature,
+                Cover = s.Cover,
+                HuanxinId = s.HuanXinId,
+                LiaoxinNumber = s.LiaoxinNumber,
+                NickName = s.NickName,
+                FriendShipType = clientService.GetRelationThoughtClientId(s.ClientId),
+                
+            }).FirstOrDefault();
+
+            if (entity.FriendShipType == (int)RelationTypeEnum.Friend)
+            {
+                var friendEntity = FriendDetail(new ClientRelationShipRequest() { ClientId = clientId });
+                return friendEntity;
+            }
+            else if (entity.FriendShipType == (int)RelationTypeEnum.Black)
+            {
+                return BlackDetail(new ClientRelationShipRequest() { ClientId = clientId });
+            }
+            else
+            {
+                return ObjectGenericityResult(entity);
+            }
+
+
+        
+
+        }
+
+
+        /// <summary>
+        /// 黑名单详细
+        /// </summary>       
+        /// <returns></returns>
+        [HttpPost("BlackDetail")]
+        public ServiceResult<ClientFriendDetailResponse> BlackDetail(ClientRelationShipRequest request)
+        {
+            return RelationShipDetail(request.ClientId, RelationTypeEnum.Black);
+
+        }
+
+
+        /// <summary>
         /// 客户黑名单列表
         /// </summary>       
         /// <returns></returns>
@@ -197,17 +217,6 @@ namespace Liaoxin.Controllers
 
         }
 
-
-        /// <summary>
-        /// 黑名单详细
-        /// </summary>       
-        /// <returns></returns>
-        [HttpPost("BlackDetail")]
-        public ServiceResult<ClientFriendDetailResponse> BlackDetail(ClientRelationShipRequest request)
-        {
-            return RelationShipDetail(request.ClientId, RelationTypeEnum.Black);
-
-        }
 
 
 

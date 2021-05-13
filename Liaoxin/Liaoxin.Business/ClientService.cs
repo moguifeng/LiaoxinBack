@@ -17,13 +17,15 @@ namespace Liaoxin.Business
 {
     public class ClientService : BaseService, IClientService
     {
-        private object _lockObj = new object();
+
+        public List<Guid> _BlackClientIds {get;set;}
+        public List<Guid> _FriendClientIds { get; set; }
+
+
 
         public IValidateCodeService ValidateCodeService { get; set; }
 
         public IMessageService MessageService { get; set; }
-
-
 
         void InsertClientEquiment(string name, string type, Guid clientId)
         {
@@ -40,25 +42,19 @@ namespace Liaoxin.Business
                     equimentEntity.LastLoginDate = DateTime.Now;
                     Context.ClientEquipments.Update(equimentEntity);
                 }
-
             }
         }
 
-        // public RelationTypeEnum GetRelationThoughtClientId(Guid SourceClientId, Guid CompareClientId)
-        // {
-        //     //黑名单列表
-        //     var blacks = Context.ClientRelationDetails.Where(crd => crd.ClientRelation.RelationType ==
-        //     RelationTypeEnum.Black && crd.ClientRelation.ClientId == SourceClientId).Select(crd => crd.ClientId).ToList();
+        public int GetRelationThoughtClientId(Guid CompareClientId)
+        {
+            //黑名单列表
+            var blacks = this.BlackClientIds();
+            var friends = this.FriendClientIds();      
+            return (int)(blacks.Contains(CompareClientId) ?
+                RelationTypeEnum.Black : friends.Contains(CompareClientId) ?
+                RelationTypeEnum.Friend : RelationTypeEnum.Stranger);
 
-        //     //好友列表
-        //     var friends = Context.ClientRelationDetails.Where(crd => crd.ClientRelation.RelationType ==
-        //RelationTypeEnum.Friend && crd.ClientRelation.ClientId == SourceClientId).Select(crd => crd.ClientId).ToList();
-
-        //     return blacks.Contains(CompareClientId) ?
-        //         RelationTypeEnum.Black : friends.Contains(CompareClientId) ?
-        //         RelationTypeEnum.Friend : RelationTypeEnum.Stranger;
-
-        // }
+        }
 
         void ClientLoginLog(Guid clientId)
         {
@@ -272,8 +268,32 @@ namespace Liaoxin.Business
             return client;
         }
 
+        public List<Guid> BlackClientIds()
+        {
+            
+        
+            if (this._BlackClientIds.Count == 0)
+            {
+                var blacks = Context.ClientRelationDetails.Where(crd => crd.ClientRelation.RelationType ==
+         RelationTypeEnum.Black && crd.ClientRelation.ClientId == CurrentClientId).Select(crd => crd.ClientId).ToList();
+                this._BlackClientIds = blacks;
 
+            }
+            return this._BlackClientIds;
 
+         
+        
+        }
 
+        public List<Guid> FriendClientIds()
+        {
+            if (this._FriendClientIds.Count == 0)
+            {
+                var friends = Context.ClientRelationDetails.Where(crd => crd.ClientRelation.RelationType ==
+    RelationTypeEnum.Friend && crd.ClientRelation.ClientId == CurrentClientId).Select(crd => crd.ClientId).ToList();
+                _FriendClientIds = friends;
+            }
+            return _FriendClientIds;
+        }
     }
 }

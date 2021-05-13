@@ -128,7 +128,7 @@ namespace LIaoxin.ViewModel
         /// <summary>
         /// 关系  0:好友   1:黑名单 2:陌生人
         /// </summary>
-        public RelationTypeEnum FriendShipType { get; set; }
+        public int FriendShipType { get; set; }
 
 
     }

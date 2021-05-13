@@ -396,13 +396,7 @@ namespace Liaoxin.Business
         {
             this.IsCurrentGroup(groupId);
 
-            //黑名单列表
-            var blacks = Context.ClientRelationDetails.Where(crd => crd.ClientRelation.RelationType ==
-            RelationTypeEnum.Black && crd.ClientRelation.ClientId == CurrentClientId).Select(crd => crd.ClientId).ToList();
 
-            //好友列表
-            var friends = Context.ClientRelationDetails.Where(crd => crd.ClientRelation.RelationType ==
-       RelationTypeEnum.Friend && crd.ClientRelation.ClientId == CurrentClientId).Select(crd => crd.ClientId).ToList();
 
             var groupClients = Context.GroupClients.Where(g => g.GroupId == groupId).Select(s => new
             {
@@ -427,9 +421,7 @@ namespace Liaoxin.Business
                 entity.Cover = item.Cover;
                 entity.NickName = item.Sort == 1 ? "群主-" + item.NickName : "管理-" + item.NickName;
                 entity.ClientId = item.ClientId;
-                entity.FriendShipType = blacks.Contains(item.ClientId) ? RelationTypeEnum.Black : 
-                    friends.Contains(item.ClientId) ? 
-                    RelationTypeEnum.Friend : RelationTypeEnum.Stranger;
+                entity.FriendShipType = clientService.GetRelationThoughtClientId(item.ClientId);                 
                 lis.Add(entity);
             }
 

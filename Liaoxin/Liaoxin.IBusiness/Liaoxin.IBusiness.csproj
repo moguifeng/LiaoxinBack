@@ -5,12 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Liaoxin.Model\Liaoxin.Model.csproj" />
-    <ProjectReference Include="..\Liaoxin.ViewModel\Liaoxin.ViewModel.csproj" />
+    <Compile Remove="Huanxin\**" />
+    <EmbeddedResource Remove="Huanxin\**" />
+    <None Remove="Huanxin\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Huanxin\" />
+    <ProjectReference Include="..\Liaoxin.Model\Liaoxin.Model.csproj" />
+    <ProjectReference Include="..\Liaoxin.ViewModel\Liaoxin.ViewModel.csproj" />
   </ItemGroup>
 
 </Project>

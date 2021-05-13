@@ -2,6 +2,7 @@
 using System;
 using Liaoxin.ViewModel;
 using static Liaoxin.ViewModel.ClientViewModel;
+using System.Collections.Generic;
 
 namespace Liaoxin.IBusiness
 {
@@ -19,7 +20,11 @@ namespace Liaoxin.IBusiness
 
         Client RegisterClient(ResgerClientRequest request);
 
-        //RelationTypeEnum GetRelationThoughtClientId(Guid SourceClientId, Guid CompareClientId);
+        List<Guid> BlackClientIds();
+
+        List<Guid> FriendClientIds();
+
+        int GetRelationThoughtClientId(Guid SourceClientId);
 
 
     }
