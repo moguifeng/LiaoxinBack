@@ -22,11 +22,11 @@ namespace Liaoxin.BaseDataModel.ClientManger
         [NavField("客户聊信号")]
         public string LiaoxinNumber { get; set; }
 
-        [NavField("客户昵称")]
+        [NavField("客户昵称",Width =250)]
         public string NickName { get; set; }
 
 
-        [NavField("IP")]
+        [NavField("IP", 200)]
         public string IP { get; set; }
 
         [NavField("地址", 200)]

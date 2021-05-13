@@ -27,8 +27,11 @@ namespace Liaoxin.BaseDataModel.RechargeManager
         [NavField("主键", IsKey = true, IsDisplay = false)]
         public Guid RechargeId { get; set; }
 
+        [NavField("订单号", 200)]
+        public string OrderNo { get; set; }
 
-        [NavField("聊信号")]
+
+        [NavField("聊信号",250)]
         public string LiaoxinNumber { get; set; }
 
 
@@ -36,8 +39,7 @@ namespace Liaoxin.BaseDataModel.RechargeManager
         public string RealName { get; set; }
 
       
-        [NavField("订单号", 150)]
-        public string OrderNo { get; set; }
+
 
         [NavField("客户余额")]
         public decimal Coin { get; set; }

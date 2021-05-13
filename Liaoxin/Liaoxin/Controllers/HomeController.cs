@@ -144,24 +144,24 @@ namespace Liaoxin.Controllers
                         }
                     }
                 },
-                new RouterMenuModel()
-                {
-                    Path = "/systemConfig",
-                    Name = "系统配置",
-                    Routes = new[]
-                    {
-                        new RouterMenuModel()
-                        {
-                            Path = "/systemConfig/BaseConfig",
-                            Name = "基本配置"
-                        },
-                        new RouterMenuModel()
-                        {
-                            Path = "/systemConfig/imageConfig",
-                            Name = "图片配置"
-                        }
-                    }
-                }
+                //new RouterMenuModel()
+                //{
+                //    Path = "/systemConfig",
+                //    Name = "系统配置",
+                //    Routes = new[]
+                //    {
+                //        new RouterMenuModel()
+                //        {
+                //            Path = "/systemConfig/BaseConfig",
+                //            Name = "基本配置"
+                //        },
+                //        new RouterMenuModel()
+                //        {
+                //            Path = "/systemConfig/imageConfig",
+                //            Name = "图片配置"
+                //        }
+                //    }
+                //}
             };
         }
 

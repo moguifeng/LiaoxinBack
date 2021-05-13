@@ -102,23 +102,23 @@ export default [
           },
         ],
       },
-      {
-        path: '/systemConfig',
-        icon: 'table',
-        name: 'systemConfig',
-        routes: [
-          {
-            path: '/systemConfig/baseConfig',
-            name: '系统配置',
-            component: '../Expansion/pages/SystemConfig',
-          },
-          {
-            path: '/systemConfig/imageConfig',
-            name: '图片配置',
-            component: '../Expansion/pages/ImageConfig',
-          },
-        ],
-      },
+      // {
+      //   path: '/systemConfig',
+      //   icon: 'table',
+      //   name: 'systemConfig',
+      //   routes: [
+      //     {
+      //       path: '/systemConfig/baseConfig',
+      //       name: '系统配置',
+      //       component: '../Expansion/pages/SystemConfig',
+      //     },
+      //     {
+      //       path: '/systemConfig/imageConfig',
+      //       name: '图片配置',
+      //       component: '../Expansion/pages/ImageConfig',
+      //     },
+      //   ],
+      // },
       {
         path: '/analysis',
         icon: 'table',

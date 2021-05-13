@@ -129,7 +129,7 @@ namespace Zzb.Mvc
 
         protected ServiceResult<K> ObjectGenericityResult<K>(bool result,K obj,string msg=null)
         {
-            return new ServiceResult<K>(result?ServiceResultCode.Success: ServiceResultCode.NoChanged, msg??(result ? "Success":"Error"), obj);
+            return new ServiceResult<K>(result?ServiceResultCode.Success: ServiceResultCode.Error, msg??(result ? "Success":"Error"), obj);
 
         }
 

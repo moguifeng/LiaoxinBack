@@ -32,7 +32,7 @@ namespace Liaoxin.BaseDataModel.ClientManger
 
 
 
-        [NavField("聊信号")]
+        [NavField("聊信号", Width = 250)]
         public string LiaoxinNumber { get; set; }
 
 

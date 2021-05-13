@@ -28,8 +28,14 @@ namespace Liaoxin.BaseDataModel.ClientManger
 
 
 
-        [NavField("红包发送者")]
+        [NavField("发送者",200)]
         public string LiaoxinNumber { get; set; }
+
+        [NavField("发送者姓名", 200)]
+        public string RealName { get; set; }
+
+        [NavField("发送者昵称", 200)]
+        public string NickName { get; set; }
 
 
         [NavField("祝福语(尾数)")]
@@ -37,7 +43,7 @@ namespace Liaoxin.BaseDataModel.ClientManger
 
 
 
-        [NavField("发送时间")]
+        [NavField("发送时间",200)]
         public DateTime SendTime { get; set; }
         [NavField("红包类型")]
         public RedPacketTypeEnum Type { get; set; }
@@ -72,6 +78,8 @@ namespace Liaoxin.BaseDataModel.ClientManger
                 RedPacketViewModel model = new RedPacketViewModel();
                 model.RedPacketId = item.RedPacketId;
                 model.LiaoxinNumber = item.Client.LiaoxinNumber;
+                model.NickName = item.Client.NickName;
+                model.RealName = item.Client.RealName;
                 model.Greeting = item.Greeting;
                 model.SendTime = item.SendTime;
                 model.Type = item.Type;

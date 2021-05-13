@@ -29,17 +29,17 @@ namespace Liaoxin.BaseDataModel.ClientManger
 
 
 
-        [NavField("群名称")]
+        [NavField("群名称",200)]
         public string Name { get; set; }
 
 
-        [NavField("环信群编号")]
+        [NavField("环信群编号",250)]
         public string HuanxinGroupId { get; set; }
 
         [NavField("群主", 200)]
         public string Master { get; set; }
 
-        [NavField("群管理员")]
+        [NavField("群管理员",200)]
         public string Managers { get; set; }
 
         [NavField("全员禁言")]
@@ -51,7 +51,7 @@ namespace Liaoxin.BaseDataModel.ClientManger
         [NavField("创建时间", 170)]
         public DateTime CreateTime { get; set; }
 
-        [NavField("群公告", 450)]
+        [NavField("群公告", 350)]
         public string Notice { get; set; }
 
    

@@ -13,14 +13,14 @@ namespace Liaoxin.BaseDataModel.ClientManger
 
         public override string FolderName => "客户管理";
 
-        [NavField("客户聊信号")]
+        [NavField("客户聊信号", 250)]
         public string LiaoxinNumber { get; set; }
 
-        [NavField("客户手机号码")]
+        [NavField("客户手机号码",150)]
         public string Telephone { get; set; }
 
 
-        [NavField("操作记录", 800)]
+        [NavField("操作记录", 500)]
         public string Message { get; set; }
 
         [NavField("操作时间", 200)]
