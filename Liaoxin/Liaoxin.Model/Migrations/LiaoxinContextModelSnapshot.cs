@@ -478,6 +478,8 @@ namespace Liaoxin.Model.Migrations
 
                     b.Property<Guid>("AboutId");
 
+                    b.Property<Guid?>("ClientBankId");
+
                     b.Property<Guid>("ClientId");
 
                     b.Property<decimal>("Coin")

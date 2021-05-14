@@ -65,6 +65,8 @@ namespace Liaoxin.Model
         /// </summary>
         public string Remark { get; set; }
 
+        public Guid? ClientBankId { get; set; }
+
     }
 
     public enum CoinLogTypeEnum

@@ -49,7 +49,7 @@ namespace Liaoxin.Controllers
         {
             return (ServiceResult<GroupRedPacketResponse>)Json(() =>
             {
-
+                bool isUseBankCard = request.ClientBankId != null;
 
                 GroupRedPacketResponse returnObject = null;
                 bool result = true;
@@ -102,16 +102,20 @@ namespace Liaoxin.Controllers
                             returnObject = ConvertHelper.ConvertToModel<RedPacket, GroupRedPacketResponse>(entity);
                             Context.RedPackets.Add(entity);
                             Context.SaveChanges();
-                            sender.Coin -= request.Money;
-                            sender.UpdateTime = DateTime.Now;
-                            Update<Client>(sender, "ClientId", new List<string>() { "Coin", "UpdateTime" });
-
+                            if (!isUseBankCard)
+                            {
+                                sender.Coin -= request.Money;
+                                sender.UpdateTime = DateTime.Now;
+                                Update<Client>(sender, "ClientId", new List<string>() { "Coin", "UpdateTime" });
+                            }
                             CoinLog coinLogEntity = new CoinLog();
                             coinLogEntity.ClientId = entity.ClientId;
                             coinLogEntity.FlowCoin = -request.Money;
                             coinLogEntity.Coin = sender.Coin;
                             coinLogEntity.Type = CoinLogTypeEnum.SendRedPacket;
                             coinLogEntity.AboutId = entity.RedPacketId;
+                            coinLogEntity.ClientBankId = request.ClientBankId;
+                            coinLogEntity.Remark = (isUseBankCard ? "银行卡扣款" : "钱包扣款");
                             Context.CoinLogs.Add(coinLogEntity);
                             Context.SaveChanges();
                             transaction.Commit();
@@ -146,7 +150,7 @@ namespace Liaoxin.Controllers
         [HttpPost("ReceiveGroupRedPacket")]
         public ServiceResult<decimal> ReceiveGroupRedPacket(ReceiveGroupRedPacketRequest requestObj)
         {
-           
+
 
             return (ServiceResult<decimal>)Json(() =>
             {
@@ -174,7 +178,7 @@ namespace Liaoxin.Controllers
                     string dateNow = DateTime.Now.ToString("yyyyMMdd");
                     if (dateNow != cacheDate)
                     {
-                        cacheDate=dateNow;
+                        cacheDate = dateNow;
                         redPacketIdLock.Clear();
                     }
                     if (!redPacketIdLock.ContainsKey(redPacketId))
@@ -560,7 +564,7 @@ namespace Liaoxin.Controllers
             return (ServiceResult<RedPacketPersonalResponse>)Json(() =>
             {
 
-
+                bool isUseBankCard = request.ClientBankId != null;
                 RedPacketPersonalResponse returnObject = null;
                 bool result = true;
                 string errMsg = "";
@@ -604,15 +608,21 @@ namespace Liaoxin.Controllers
                                 returnObject = ConvertHelper.ConvertToModel<RedPacketPersonal, RedPacketPersonalResponse>(entity);
                                 Context.RedPacketPersonals.Add(entity);
                                 Context.SaveChanges();
-                                sender.Coin -= request.Money;
-                                sender.UpdateTime = DateTime.Now;
-                                Update<Client>(sender, "ClientId", new List<string>() { "Coin", "UpdateTime" });
+                                if (!isUseBankCard)
+                                {
+                                    sender.Coin -= request.Money;
+                                    sender.UpdateTime = DateTime.Now;
+
+                                    Update<Client>(sender, "ClientId", new List<string>() { "Coin", "UpdateTime" });
+                                }
                                 CoinLog coinLogEntity = new CoinLog();
                                 coinLogEntity.ClientId = entity.FromClientId;
                                 coinLogEntity.FlowCoin = -request.Money;
                                 coinLogEntity.Coin = sender.Coin;
                                 coinLogEntity.Type = entity.Type == RedPacketTranferTypeEnum.RedPacket ? CoinLogTypeEnum.SendRedPacket : CoinLogTypeEnum.Transfer;
                                 coinLogEntity.AboutId = entity.RedPacketPersonalId;
+                                coinLogEntity.ClientBankId = request.ClientBankId;
+                                coinLogEntity.Remark=(isUseBankCard?"银行卡扣款":"钱包扣款");
                                 Context.CoinLogs.Add(coinLogEntity);
                                 Context.SaveChanges();
                                 transaction.Commit();
@@ -828,7 +838,7 @@ namespace Liaoxin.Controllers
 
         }
 
- 
+
 
 
     }

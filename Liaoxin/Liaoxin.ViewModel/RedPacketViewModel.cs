@@ -191,6 +191,8 @@ namespace LIaoxin.ViewModel
         /// 钱包密码
         /// </summary>
         public string CoinPassword { get; set; }
+
+        public Guid? ClientBankId { get; set; }
         ///// <summary>
         ///// 中奖末几位
         ///// </summary>
@@ -228,6 +230,7 @@ namespace LIaoxin.ViewModel
         /// </summary>
         public string CoinPassword { get; set; }
 
+        public Guid? ClientBankId { get; set; }
     }
 
     public class ReceiveGroupRedPacketRequest
