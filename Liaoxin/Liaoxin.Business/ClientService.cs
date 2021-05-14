@@ -155,6 +155,7 @@ namespace Liaoxin.Business
                 CharacterSignature = c.CharacterSignature,
                 Coin = c.Coin,
                 Cover = c.Cover,
+                HuanxinToken = HostService.GetToken(),
                 IsSetCoinPassword = !string.IsNullOrEmpty(c.CoinPassword) ? true : false,
                 FontSize = c.FontSize,
                 HandFree = c.HandFree,

@@ -27,20 +27,26 @@ namespace Liaoxin.Business
 
         public static string GetToken()
         {
-            var responseUrl = $"{url}/token";
-            Dictionary<string, object> dic = new Dictionary<string, object>();
-            dic.Add("grant_type", "client_credentials");
-            dic.Add("client_id", "YXA6SMpBMaTKSQOXo1oPhHJFvg");
-            dic.Add("client_secret", "YXA6A99XQbKOP8OspNX6himjlLqPgIg");
-
-            var res = Post(responseUrl, dic, false);
-            var tokenEntity = JsonHelper.Json<TokenResponse>(res.Data);
-            if (tokenEntity != null)
+            if ( string.IsNullOrEmpty( access_token))
             {
-                access_token = tokenEntity.access_token;
-                return tokenEntity.access_token;
+                var responseUrl = $"{url}/token";
+                Dictionary<string, object> dic = new Dictionary<string, object>();
+                dic.Add("grant_type", "client_credentials");
+                dic.Add("client_id", "YXA6SMpBMaTKSQOXo1oPhHJFvg");
+                dic.Add("client_secret", "YXA6A99XQbKOP8OspNX6himjlLqPgIg");
+
+                var res = Post(responseUrl, dic, false);
+                var tokenEntity = JsonHelper.Json<TokenResponse>(res.Data);
+                if (tokenEntity != null)
+                {
+                    access_token = tokenEntity.access_token;
+                    return tokenEntity.access_token;
+                }
+                 
             }
-            return string.Empty;
+            return access_token;
+
+
         }
 
 

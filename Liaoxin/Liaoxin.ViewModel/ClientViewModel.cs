@@ -200,6 +200,12 @@ namespace Liaoxin.ViewModel
             /// </summary>
             public string HuanXinId { get; set; }
 
+
+            /// <summary>
+            /// 环信token
+            /// </summary>
+            public string HuanxinToken { get; set; }
+
             /// <summary>
             /// 聊信号
             /// </summary>
