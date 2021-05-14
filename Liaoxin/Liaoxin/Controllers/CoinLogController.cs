@@ -33,8 +33,8 @@ namespace Liaoxin.Controllers
         /// 获取张单类型
         /// </summary>
         /// <returns></returns>
-        [HttpGet("GetCoinLogType")]
-        public ServiceResult<IList<CoinLogTypeModel>> GetCoinLogType()
+        [HttpGet("GetCoinLogTypes")]
+        public ServiceResult<IList<CoinLogTypeModel>> GetCoinLogTypes()
         {
             return (ServiceResult<IList<CoinLogTypeModel>>)Json(() =>
             {
