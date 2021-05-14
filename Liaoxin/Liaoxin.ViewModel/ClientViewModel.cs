@@ -35,6 +35,12 @@ namespace Liaoxin.ViewModel
         /// 密码
         /// </summary>
         public string Password { get; set; }
+
+
+        /// <summary>
+        /// 头像
+        /// </summary>
+        public Guid? Cover { get; set; }
         /// <summary>
         /// 设备类型
         /// </summary>

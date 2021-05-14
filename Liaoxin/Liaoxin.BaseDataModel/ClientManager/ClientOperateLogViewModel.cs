@@ -16,7 +16,7 @@ namespace Liaoxin.BaseDataModel.ClientManger
         [NavField("客户聊信号", 250)]
         public string LiaoxinNumber { get; set; }
 
-        [NavField("客户手机号码",150)]
+        [NavField("客户手机号码", 150)]
         public string Telephone { get; set; }
 
 
@@ -28,7 +28,7 @@ namespace Liaoxin.BaseDataModel.ClientManger
 
         protected override object[] DoGetNavDatas()
         {
-            var sources =  CreateEfDatasedHandle(
+            var sources = CreateEfDatasedHandle(
                 from p in Context.ClientOperateLogs where p.IsEnable orderby p.CreateTime descending select p
                  , (k, w) => w.Where(t => t.Client.LiaoxinNumber.Contains(k)),
                 (k, w) => w.Where(t => t.Client.Telephone.Contains(k)),
@@ -45,7 +45,7 @@ namespace Liaoxin.BaseDataModel.ClientManger
                 lis.Add(model);
             }
 
-;return lis.ToArray();
+; return lis.ToArray();
         }
 
         public override BaseFieldAttribute[] GetQueryConditionses()

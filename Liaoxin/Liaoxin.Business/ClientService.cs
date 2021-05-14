@@ -257,6 +257,7 @@ namespace Liaoxin.Business
             client.Telephone = request.Telephone;
             client.Password = SecurityHelper.Encrypt(request.Password);
             client.NickName = request.NickName;
+            client.Cover = request.Cover;
             var res = HuanxinClientRequest.RegisterClient(client.HuanXinId,request.Password,request.NickName);
             if (res.ReturnCode == ServiceResultCode.Success)
             {
