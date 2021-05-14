@@ -411,7 +411,7 @@ namespace Liaoxin.Controllers
                                         reveiver.UpdateTime = DateTime.Now;
                                         Update<Client>(reveiver, "ClientId", new List<string>() { "Coin", "UpdateTime" });
                                         CoinLog coinLogEntity = new CoinLog();
-                                        coinLogEntity.ClientId = entity.ClientId;
+                                        coinLogEntity.ClientId = reveiver.ClientId;
                                         coinLogEntity.FlowCoin = receiveMoney;
                                         coinLogEntity.Coin = reveiver.Coin;
                                         coinLogEntity.Type = CoinLogTypeEnum.SnatRedPacket;
