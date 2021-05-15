@@ -27,9 +27,8 @@ namespace Liaoxin.Business
 
 
         public static string GetToken()
-        {
-            //两个钟重新获取一次token
-            if (RecordTime.AddHours(2) >DateTime.Now ||   string.IsNullOrEmpty( access_token))
+        {            
+            if (RecordTime.AddDays(30) >DateTime.Now ||   string.IsNullOrEmpty( access_token))
             {
                 var responseUrl = $"{url}/token";
                 Dictionary<string, object> dic = new Dictionary<string, object>();

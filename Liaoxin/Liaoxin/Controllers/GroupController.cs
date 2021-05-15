@@ -176,7 +176,7 @@ namespace Liaoxin.Controllers
                     throw new ZzbException("不是群主不能解散群");
                 }
               var  result = groupService.DissolveGroup(groupId);
-                return JsonObjectResult(result);
+                return ObjectResult(result);
 
 
             });
@@ -212,7 +212,7 @@ namespace Liaoxin.Controllers
                     throw new ZzbException("不是群主不能变更群主");
                 }
                var  result = groupService.TransferGroupMaster(newMasterClientId, originalMasterClientId, groupId);
-                return JsonObjectResult(result);
+                return ObjectResult(result);
 
             });
 
@@ -358,10 +358,10 @@ namespace Liaoxin.Controllers
                     //批量操作后再保存数据库
                     groupService.SaveChanges();
 
-                    return JsonObjectResult(true, "操作成功");
+                    return ObjectResult(true);
                 }
 
-                return JsonObjectResult(false, "操作失败");
+                return ObjectResult(false);
             });
  
 

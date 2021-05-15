@@ -480,11 +480,17 @@ namespace Liaoxin.Controllers
                 {
                     throw new ZzbException("已存在手机号码,无法更新");
                 }
-               
-               
-                entity.Telephone = request.NewTelephone;
-                Context.Clients.Update(entity);
-                return ObjectResult(Context.SaveChanges() > 0);
+
+                var res =  HuanxinClientRequest.ModifyUserPassword(entity.HuanXinId,request.NewTelephone);
+                if (res.ReturnCode == ServiceResultCode.Success)
+                {
+                    entity.Telephone = request.NewTelephone;
+                    Context.Clients.Update(entity);
+                    return ObjectResult(Context.SaveChanges() > 0);
+                }
+                throw new ZzbException(res.Message);
+
+
             }, "找回密码失败");
 
         }

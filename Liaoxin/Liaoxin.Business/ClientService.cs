@@ -259,7 +259,7 @@ namespace Liaoxin.Business
             client.Password = SecurityHelper.Encrypt(request.Password);
             client.NickName = request.NickName;
             client.Cover = request.Cover;
-            var res = HuanxinClientRequest.RegisterClient(client.HuanXinId,request.Password,request.NickName);
+            var res = HuanxinClientRequest.RegisterClient(client.HuanXinId,request.Telephone, request.NickName);
             if (res.ReturnCode == ServiceResultCode.Success)
             {
                 Context.Clients.Add(client);

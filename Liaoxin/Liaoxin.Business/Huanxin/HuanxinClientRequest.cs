@@ -141,6 +141,23 @@ namespace Liaoxin.Business
             return res;
         }
 
+
+
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static ServiceResult<string> ModifyUserPassword(string username,string password)
+        {
+            var responseUrl = $"{HostService.url}/users/{username}/password";
+            Dictionary<string, object> dic = new Dictionary<string, object>();
+            dic.Add("newpassword", password);
+            var res = HostService.Put(responseUrl, null);
+            return res;
+        }
+
+
         /// <summary>
         /// 用户账户禁用
         /// </summary>
