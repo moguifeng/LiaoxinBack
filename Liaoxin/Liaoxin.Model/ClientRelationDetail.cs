@@ -82,19 +82,6 @@ namespace Liaoxin.Model
 
 
 
-        public enum AddSourceTypeEnum
-        {
-            [Description("通过手机号码添加好友")]
-            Phone = 0,
-
-            [Description("通过扫描添加好友")]
-            Scan = 1,
-
-            [Description("通过群组添加好友")]
-            Group = 1,
-
-
-        }
 
         /// <summary>
         /// 共同群聊
@@ -107,5 +94,20 @@ namespace Liaoxin.Model
 
     }
 
- 
+
+    public enum AddSourceTypeEnum
+    {
+        [Description("通过手机号码添加好友")]
+        Phone = 0,
+
+        [Description("通过扫描添加好友")]
+        Scan = 1,
+
+        [Description("通过群组添加好友")]
+        Group = 1,
+
+
+    }
+
+
 }

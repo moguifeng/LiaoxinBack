@@ -22,12 +22,14 @@ namespace Liaoxin.Business
 
         public static string url = "http://a1.easemob.com/1110210506180660/demo";
 
+        private static  DateTime RecordTime { get; set; }
        public static string access_token = "";
 
 
         public static string GetToken()
         {
-            if ( string.IsNullOrEmpty( access_token))
+            //两个钟重新获取一次token
+            if (RecordTime.AddHours(2) >DateTime.Now ||   string.IsNullOrEmpty( access_token))
             {
                 var responseUrl = $"{url}/token";
                 Dictionary<string, object> dic = new Dictionary<string, object>();
@@ -42,7 +44,9 @@ namespace Liaoxin.Business
                     access_token = tokenEntity.access_token;
                     return tokenEntity.access_token;
                 }
-                 
+                RecordTime = DateTime.Now;
+
+
             }
             return access_token;
 

@@ -266,9 +266,9 @@ namespace Liaoxin.ViewModel
 
 
             /// <summary>
-            /// 显示朋友圈时间范围(enum:ShowFriendCircleEnum)
+            /// 显示朋友圈时间范围(枚举值:ShowFriendCircleEnum)
             /// </summary>
-            public ShowFriendCircleEnum ShowFriendCircle { get; set; }
+            public int ShowFriendCircle { get; set; }
 
             /// <summary>
             ///更新提醒
@@ -356,7 +356,7 @@ namespace Liaoxin.ViewModel
             /// <summary>
             /// 申请添加状态 (枚举值:ClientAddDetailTypeEnum);
             /// </summary>
-            public ClientAddDetailTypeEnum Status { get; set; }
+            public int Status { get; set; }
 
             public string StatusName { get; set; }
 
@@ -489,7 +489,7 @@ namespace Liaoxin.ViewModel
             /// <summary>
             /// 添加方式 (枚举:AddSourceTypeEnum)
             /// </summary>
-            public AddSourceTypeEnum AddSource { get; set; }
+            public int AddSource { get; set; }
         }
 
 

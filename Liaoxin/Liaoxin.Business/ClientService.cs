@@ -164,7 +164,7 @@ namespace Liaoxin.Business
                 NewMessageNotication = c.NewMessageNotication,
                 NickName = c.NickName,
                 OpenWhileShake = c.OpenWhileShake,
-                ShowFriendCircle = c.ShowFriendCircle,
+                ShowFriendCircle = (int)c.ShowFriendCircle,
                 ShowMessageNotication = c.ShowMessageNotication,
                 Telephone = c.Telephone,
                 UpadteMind = c.UpadteMind,

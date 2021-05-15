@@ -84,7 +84,7 @@ namespace Liaoxin.Controllers
                         HuanxinId = e.ToClient.HuanXinId,
                         LiaoxinNumber = e.ToClient.LiaoxinNumber,
                         NickName = e.ToClient.NickName,
-                        Status = e.Status,
+                        Status = (int)e.Status,
                         StatusName = e.Status.ToDescriptionString()
                     });
                 });
@@ -389,7 +389,7 @@ Select(g => new { Key = g.Key, Count = g.Count() }).Where(g => g.Count > 1).Coun
                 {
                     ClientId = applyClientEntity.ClientId,
                     ClientRelationId = clientRelationEntity.ClientRelationId,
-                    AddSource = request.AddSource
+                    AddSource = (AddSourceTypeEnum)request.AddSource,
                 };
               
          
