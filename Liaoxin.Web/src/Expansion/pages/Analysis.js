@@ -208,7 +208,7 @@ class Analysis extends PureComponent {
 
           <Card.Grid style={gridStyle1}>
             <Card bodyStyle={{ padding: 0 }} bordered={false}>
-              <Card.Meta title="红包中奖个数" description={<div>{allReport.wins}</div>} />
+              <Card.Meta title="红包中奖总金额" description={<div>{allReport.wins}</div>} />
             </Card>
           </Card.Grid>
 
