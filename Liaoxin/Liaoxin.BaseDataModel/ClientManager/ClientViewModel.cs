@@ -64,7 +64,7 @@ namespace Liaoxin.BaseDataModel.ClientManger
         [NavField("创建时间", 170)]
         public DateTime CreateTime { get; set; }
 
-        [NavField("是否启用", 150)]
+        [NavField("是否禁用", 150)]
         public bool IsFreeze { get; set; }
 
         [NavField("头像" , IsDisplay = false)]
