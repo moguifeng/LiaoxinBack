@@ -279,8 +279,8 @@ namespace Liaoxin.Business
         public List<Guid> BlackClientIds()
         {
             
-        
-            if (this._BlackClientIds.Count == 0)
+                
+            if (this._BlackClientIds ==null || this._BlackClientIds.Count == 0)
             {
                 var blacks = Context.ClientRelationDetails.Where(crd => crd.ClientRelation.RelationType ==
          RelationTypeEnum.Black && crd.ClientRelation.ClientId == CurrentClientId).Select(crd => crd.ClientId).ToList();
@@ -295,7 +295,7 @@ namespace Liaoxin.Business
 
         public List<Guid> FriendClientIds()
         {
-            if (this._FriendClientIds.Count == 0)
+            if (this._FriendClientIds ==null || this._FriendClientIds.Count == 0)
             {
                 var friends = Context.ClientRelationDetails.Where(crd => crd.ClientRelation.RelationType ==
     RelationTypeEnum.Friend && crd.ClientRelation.ClientId == CurrentClientId).Select(crd => crd.ClientId).ToList();
