@@ -106,7 +106,7 @@ namespace Liaoxin.Controllers
                 var clientRelationEntity = Context.ClientRelations.Where(cd => cd.ClientId == CurrentClientId && cd.RelationType == RelationTypeEnum.Friend).FirstOrDefault();
 
                 List<ClientFriendResponse> lis = new List<ClientFriendResponse>();
-                clientRelationEntity.ClientRelationDetail.Where(c=>c.IsEnable).ToList().ForEach(e =>
+                clientRelationEntity?.ClientRelationDetail.Where(c=>c.IsEnable).ToList().ForEach(e =>
                 {
                     lis.Add(new ClientFriendResponse()
                     {
@@ -200,7 +200,7 @@ namespace Liaoxin.Controllers
                 var clientRelationEntity = Context.ClientRelations.Where(cd => cd.ClientId == CurrentClientId && cd.RelationType == RelationTypeEnum.Black).FirstOrDefault();
 
                 List<ClientFriendResponse> lis = new List<ClientFriendResponse>();
-                clientRelationEntity.ClientRelationDetail.Where(c => c.IsEnable).ToList().ForEach(e =>
+                clientRelationEntity?.ClientRelationDetail.Where(c => c.IsEnable).ToList().ForEach(e =>
                 {
                     lis.Add(new ClientFriendResponse()
                     {
