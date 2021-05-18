@@ -434,10 +434,14 @@ namespace Liaoxin.Controllers
                     throw new ZzbException("验证码错误");
 
                var entity =   Context.Clients.Where(c => c.Telephone == request.Telephone).FirstOrDefault();
-                if (entity.ClientId != CurrentClientId)
+                if (entity == null)
                 {
-                    throw new ZzbException("账户手机不匹配");
+                    throw new ZzbException("不存在用户");
                 }
+                //if (entity.ClientId != CurrentClientId)
+                //{
+                //    throw new ZzbException("账户手机不匹配");
+                //}
 
                 entity.Password = SecurityHelper.Encrypt(request.NewPassword);
                 Context.Clients.Update(entity);
