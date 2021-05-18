@@ -6,4 +6,9 @@
 
         public string Value { get; set; }
     }
+
+    public class ImageBase64Request
+    {
+        public string Base64Str { get; set; }
+    }
 }
