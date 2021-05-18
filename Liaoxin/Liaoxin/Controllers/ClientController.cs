@@ -409,6 +409,8 @@ namespace Liaoxin.Controllers
         /// </summary>        
         /// <returns></returns>
         [HttpPost("FindPasswordByPhoneRequest")]
+        [AllowAnonymous]
+
         public ServiceResult FindPasswordByPhone(FindPasswordByPhoneRequest request)
         {
             return Json(() =>
