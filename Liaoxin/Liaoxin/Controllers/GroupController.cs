@@ -125,7 +125,7 @@ namespace Liaoxin.Controllers
         /// <param name="groupId">群id</param>
         /// <returns></returns>
         [HttpGet("GetGroup")]
-        public ServiceResult<GroupResponse> GetGroup(Guid groupId)
+        public ServiceResult<GroupResponse> GetGroup(BaseModel groupId)
         {
 
             return (ServiceResult<GroupResponse>)Json(() =>

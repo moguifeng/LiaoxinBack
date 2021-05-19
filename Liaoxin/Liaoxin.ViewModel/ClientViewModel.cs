@@ -325,6 +325,12 @@ namespace Liaoxin.ViewModel
 
         }
 
+        public class ClientCoverRequest
+        {
+            
+            public Guid CoverId { get; set; }
+        }
+
         public class ClientAddDetailResponse
         {
             /// <summary>

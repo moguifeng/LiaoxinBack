@@ -244,7 +244,7 @@ namespace Liaoxin.Controllers
                 if (res.ReturnCode == ServiceResultCode.Success)
                 {
                     Dictionary<string, object> dic = new Dictionary<string, object>();
-                    dic.Add("nickname", request.NickName);
+                    dic.Add("NickName", request.NickName);
                     HuanxinClientRequest.ModifyUserProperty(CurrentHuanxinId, dic);
                     return ObjectResult(Context.SaveChanges() > 0);
                 }
@@ -262,12 +262,12 @@ namespace Liaoxin.Controllers
         /// </summary>        
         /// <returns></returns>
         [HttpPost("ModifyCover")]
-        public ServiceResult ModifyCover(BaseClientModel request)
+        public ServiceResult ModifyCover( ClientCoverRequest request)
         {
             return Json(() =>
             {
                 var entity = GetCurrentClient();
-                entity.Cover = request.ClientId;
+                entity.Cover = request.CoverId;
                 Context.Clients.Update(entity);     
                 return ObjectResult(Context.SaveChanges() > 0);             
             }, "修改头像失败");

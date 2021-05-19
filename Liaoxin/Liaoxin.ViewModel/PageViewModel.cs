@@ -17,9 +17,4 @@ namespace Liaoxin.ViewModel
     {
         public Guid Id { get; set; }
     }
-
-    public class BaseClientModel
-    {
-       public Guid ClientId { get; set; }
-    }
 }
