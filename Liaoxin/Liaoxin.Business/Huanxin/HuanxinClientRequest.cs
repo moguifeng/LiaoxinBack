@@ -6,14 +6,14 @@ using Zzb.Common;
 
 namespace Liaoxin.Business
 {
-   public class HuanxinClientRequest
+    public class HuanxinClientRequest
     {
         /// <summary>
         /// 注册用户
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static ServiceResult<string> RegisterClient(string id,string password,string nickName)
+        public static ServiceResult<string> RegisterClient(string id, string password, string nickName)
         {
             var responseUrl = $"{HostService.url}/users";
             Dictionary<string, object> dic = new Dictionary<string, object>();
@@ -73,11 +73,11 @@ namespace Liaoxin.Business
 
 
 
-        public static ServiceResult<string> ModifyUserProperty(string username,string strAppend)
+        public static ServiceResult<string> ModifyUserProperty(string username, string strAppend)
         {
-          
-           var responseUrl = $"{HostService.url}/metadata/user/{username}";
-          var res =   HostService.Put(responseUrl, strAppend);
+
+            var responseUrl = $"{HostService.url}/metadata/user/{username}";
+            var res = HostService.Put(responseUrl, strAppend);
             return res;
         }
 
@@ -106,7 +106,7 @@ namespace Liaoxin.Business
         /// 修改用户昵称
         /// </summary>        
         /// <returns></returns>
-        public static ServiceResult<string> ModifyNickName(string username,string nickname)
+        public static ServiceResult<string> ModifyNickName(string username, string nickname)
         {
             var responseUrl = $"{HostService.url}/users/{username}";
             Dictionary<string, object> dic = new Dictionary<string, object>();
@@ -121,12 +121,12 @@ namespace Liaoxin.Business
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static ServiceResult<string> AddBlockFriend(string owner_username,List<string> usernames)
+        public static ServiceResult<string> AddBlockFriend(string owner_username, List<string> usernames)
         {
             var responseUrl = $"{HostService.url}/users/{owner_username}/blocks/users";
-            Dictionary<string, object> dic = new Dictionary<string, object>();          
-            dic.Add("usernames", usernames);      
-            var res = HostService.Post(responseUrl,dic);
+            Dictionary<string, object> dic = new Dictionary<string, object>();
+            dic.Add("usernames", usernames);
+            var res = HostService.Post(responseUrl, dic);
             return res;
         }
 
@@ -135,9 +135,9 @@ namespace Liaoxin.Business
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static ServiceResult<string> DeleteBlockFriend(string owner_username,string blocked_username)
+        public static ServiceResult<string> DeleteBlockFriend(string owner_username, string blocked_username)
         {
-            var responseUrl = $"{HostService.url}/users/{owner_username}/blocks/users/{blocked_username}";            
+            var responseUrl = $"{HostService.url}/users/{owner_username}/blocks/users/{blocked_username}";
             var res = HostService.Delete(responseUrl);
             return res;
         }
@@ -152,7 +152,7 @@ namespace Liaoxin.Business
         public static ServiceResult<string> UserActivate(string username)
         {
             var responseUrl = $"{HostService.url}/users/{username}/activate";
-            var res = HostService.Post(responseUrl,null);
+            var res = HostService.Post(responseUrl, null);
             return res;
         }
 
@@ -163,7 +163,7 @@ namespace Liaoxin.Business
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static ServiceResult<string> ModifyUserPassword(string username,string password)
+        public static ServiceResult<string> ModifyUserPassword(string username, string password)
         {
             var responseUrl = $"{HostService.url}/users/{username}/password";
             Dictionary<string, object> dic = new Dictionary<string, object>();
@@ -184,5 +184,5 @@ namespace Liaoxin.Business
             var res = HostService.Post(responseUrl, null);
             return res;
         }
-        }  
+    }
 }

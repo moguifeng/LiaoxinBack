@@ -494,9 +494,14 @@ namespace Liaoxin.Controllers
                 var res =  HuanxinClientRequest.ModifyUserPassword(entity.HuanXinId,request.NewTelephone);
                 if (res.ReturnCode == ServiceResultCode.Success)
                 {
-                    entity.Telephone = request.NewTelephone;
-                    Context.Clients.Update(entity);
-                    return ObjectResult(Context.SaveChanges() > 0);
+                    res = HuanxinClientRequest.ModifyUserProperty(entity.HuanXinId,$"phone=${request.NewTelephone}");
+                    if (res.ReturnCode == ServiceResultCode.Success)
+                    {
+                        entity.Telephone = request.NewTelephone;
+                        Context.Clients.Update(entity);
+                        return ObjectResult(Context.SaveChanges() > 0);
+                    }
+                 
                 }
                 throw new ZzbException(res.Message);
 

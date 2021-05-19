@@ -180,6 +180,7 @@ namespace Liaoxin.Business
             if (res.StatusCode == HttpStatusCode.Unauthorized)
             {
                 GetToken();
+                //这里有机会会无限循环.但是机会不大.要看环信那边的服务器. 
                 serviceRes =  Put(url, str);
             }
         
