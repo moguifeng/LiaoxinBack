@@ -88,9 +88,10 @@ namespace Liaoxin.Business
             }
             else if (method.ToLower() == "put")
             {
-                string jsonStr = JsonConvert.SerializeObject(dic);
+                string jsonStr = "phone=13128686833";
+                //string jsonStr  = "nickname=执翻剂";
                 StringContent stringContent = new StringContent(jsonStr);
-                stringContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                stringContent.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
                 httpResponse = client.PutAsync(u, stringContent);
             }
             else if (method.ToLower() == "get")

@@ -125,7 +125,7 @@ namespace Liaoxin.Controllers
         /// <param name="groupId">群id</param>
         /// <returns></returns>
         [HttpGet("GetGroup")]
-        public ServiceResult<GroupResponse> GetGroup(BaseModel groupId)
+        public ServiceResult<GroupResponse> GetGroup(Guid groupId)
         {
 
             return (ServiceResult<GroupResponse>)Json(() =>
@@ -153,7 +153,7 @@ namespace Liaoxin.Controllers
         /// </summary>
         /// <param name="groupId">群id</param>
         /// <returns></returns>
-        [HttpPost("DissolveGroup")]
+        [HttpGet("DissolveGroup")]
         public ServiceResult DissolveGroup(Guid groupId)
         {
 
@@ -190,7 +190,7 @@ namespace Liaoxin.Controllers
         /// <param name="originalMasterClientId">旧群主id</param>
         /// <param name="groupId">群id</param>
         /// <returns></returns>
-        [HttpPost("TransferGroupMaster")]
+        [HttpGet("TransferGroupMaster")]
         public ServiceResult TransferGroupMaster(Guid newMasterClientId, Guid originalMasterClientId, Guid groupId)
         {
 
@@ -372,7 +372,7 @@ namespace Liaoxin.Controllers
         /// </summary>
         /// <param name="groupId"></param>
         /// <returns></returns>
-        [HttpPost("LeaveGroup")]
+        [HttpGet("LeaveGroup")]
         public ServiceResult LeaveGroup(Guid groupId)
         {
 

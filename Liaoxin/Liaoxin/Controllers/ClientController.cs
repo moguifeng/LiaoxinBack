@@ -244,8 +244,10 @@ namespace Liaoxin.Controllers
                 if (res.ReturnCode == ServiceResultCode.Success)
                 {
                     Dictionary<string, object> dic = new Dictionary<string, object>();
-                    dic.Add("NickName", request.NickName);
-                    HuanxinClientRequest.ModifyUserProperty(CurrentHuanxinId, dic);
+                    dic.Add("nickname", request.NickName);
+                     res =  HuanxinClientRequest.ModifyUserProperty(CurrentHuanxinId, dic);
+
+                //    res = HuanxinClientRequest.GetUserProperty(CurrentHuanxinId);
                     return ObjectResult(Context.SaveChanges() > 0);
                 }
                 else
