@@ -73,6 +73,13 @@ namespace Liaoxin.Business
 
 
 
+        public static ServiceResult<string> ModifyUserProperty(string username,Dictionary<string,object> dic)
+        {
+            var responseUrl = $"{HostService.url}/metadata/users/{username}";
+            var res = HostService.Put(responseUrl,dic);
+            return res;
+        }
+
         /// <summary>
         /// 删除用户
         /// </summary>

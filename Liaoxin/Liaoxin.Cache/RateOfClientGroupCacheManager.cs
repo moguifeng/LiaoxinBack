@@ -15,7 +15,7 @@ namespace Liaoxin.Cache
 
         public RateOfClientGroupCacheManager(ICacheManager Cache, LiaoxinContext Context) : base(Cache, Context) { }
 
-        
+
         public void Load()
         {
 
@@ -23,11 +23,13 @@ namespace Liaoxin.Cache
             {
                 Id = a.RateOfGroupClientId.ToString(),
                 RateOfGroupClientId = a.RateOfGroupClientId,
-                 GroupId = a.GroupId, IsEnable = a.IsEnable,ClientId = a.ClientId,
-                  IsStop = a.IsStop,
-                   Priority = a.Priority,
-                    Rate = a.Rate
-             
+                GroupId = a.GroupId,
+                IsEnable = a.IsEnable,
+                ClientId = a.ClientId,
+                IsStop = a.IsStop,
+                Priority = a.Priority,
+                Rate = a.Rate
+
             }).ToList();
 
             _cache.Remove(RedisRateOfClientGroupKey);
@@ -60,7 +62,7 @@ namespace Liaoxin.Cache
     public class CacheRateOfClinetGroupEx
     {
         public const string RedisRateOfClientGroupKey = "CacheRateOfClientGroupEx";
- 
+
         public static List<CacheRateOfClientGroup> CacheRateOfClientGroups
         {
             get
@@ -85,15 +87,15 @@ namespace Liaoxin.Cache
                 return cache;
             }
             return null;
-            
-          
+
+
         }
 
     }
 
     public static partial class ExCache
     {
- 
+
 
     }
 
@@ -106,7 +108,7 @@ namespace Liaoxin.Cache
         public bool IsEnable { get; set; }
 
         public Guid GroupId { get; set; }
-        
+
         public Guid ClientId { get; set; }
 
         public int Rate { get; set; }
