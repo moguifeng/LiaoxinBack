@@ -13,9 +13,14 @@ namespace Zzb.Common
         /// </summary>
         /// <param name="codeCount">验证码长度</param>
         /// <returns></returns>
-        public static string CreateRandomCode(int codeCount)
+        public static string CreateRandomCode(int codeCount,bool containOther = true)
         {
             string allChar = "7,8,9,A,B,C,D,E,a,b,c,d,e,f,g,h,i,g,k,m,n,p,q,r,F,G,H,I,G,K,L,M,N,P,Q,R,S,T,U,V,W,X,Y,Z,s,t,u,v,w,x,y,z";
+            if (!containOther)
+            {
+                  allChar = "a,b,c,d,e,f,g,h,i,g,k,m,n,p,q,r,s,t,u,v,w,x,y,z";
+            }
+
             string[] allCharArray = allChar.Split(',');
             string randomCode = "";
             int temp = -1;
