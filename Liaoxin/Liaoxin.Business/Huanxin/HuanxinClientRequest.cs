@@ -73,28 +73,12 @@ namespace Liaoxin.Business
 
 
 
-        public static ServiceResult<string> ModifyUserProperty(string username,Dictionary<string,object> dic)
+        public static ServiceResult<string> ModifyUserProperty(string username,string strAppend)
         {
-            return null;
-       //     var responseUrl = $"{HostService.url}/metadata/user/{username}";
-
-            //if (needToken)
-            //{
-            //    ServiceResult res = Request(url, dic, needToken, method);
-            //    if (res.ReturnCode == ServiceResultCode.UnAuth)
-            //    {
-            //        GetToken();
-            //        res = Request(url, dic, needToken, method);
-            //    }
-            //    return (ServiceResult<string>)res;
-
-            //}
-            //else
-            //{
-            //    return (ServiceResult<string>)Request(url, dic, needToken, method);
-            //}
-            //var res = HostService.Put(responseUrl,dic);
-            //return res;
+          
+           var responseUrl = $"{HostService.url}/metadata/user/{username}";
+          var res =   HostService.Put(responseUrl, strAppend);
+            return res;
         }
 
         public static ServiceResult<string> GetUserProperty(string username)

@@ -22,13 +22,13 @@ namespace Liaoxin.Business
 
         public static string url = "http://a1.easemob.com/1110210506180660/demo";
 
-        private static  DateTime RecordTime { get; set; }
-       public static string access_token = "";
+        private static DateTime RecordTime { get; set; }
+        public static string access_token = "";
 
 
         public static string GetToken()
-        {            
-            if (RecordTime.AddDays(30) >DateTime.Now ||   string.IsNullOrEmpty( access_token))
+        {
+            if (RecordTime.AddDays(30) > DateTime.Now || string.IsNullOrEmpty(access_token))
             {
                 var responseUrl = $"{url}/token";
                 Dictionary<string, object> dic = new Dictionary<string, object>();
@@ -88,10 +88,9 @@ namespace Liaoxin.Business
             }
             else if (method.ToLower() == "put")
             {
-                string jsonStr = "phone=13128686833";
-                //string jsonStr  = "nickname=执翻剂";
+                string jsonStr = JsonConvert.SerializeObject(dic);
                 StringContent stringContent = new StringContent(jsonStr);
-                stringContent.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
+                stringContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                 httpResponse = client.PutAsync(u, stringContent);
             }
             else if (method.ToLower() == "get")
@@ -128,7 +127,7 @@ namespace Liaoxin.Business
             }
         }
 
- 
+
 
         private static ServiceResult<string> doubleCheck(string url, Dictionary<string, object> dic, bool needToken, string method)
         {
@@ -163,6 +162,36 @@ namespace Liaoxin.Business
         {
             return doubleCheck(url, dic, needToken, "PUT");
         }
+
+        public static ServiceResult<string> Put(string url, string str)
+        {
+
+            var client = GetClient(url, true);
+            Uri u = new Uri(url);
+            var serviceRes = new ServiceResult<string>();
+
+            Task<HttpResponseMessage> httpResponse = null;
+
+            string jsonStr = str;
+            StringContent stringContent = new StringContent(jsonStr);
+            stringContent.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
+            httpResponse = client.PutAsync(u, stringContent);
+            var res = httpResponse.Result;
+            if (res.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                GetToken();
+                serviceRes =  Put(url, str);
+            }
+        
+            serviceRes.Data = res.Content.ReadAsStringAsync().Result;
+            return serviceRes;
+
+          
+
+
+
+        }
+
 
         public static ServiceResult<string> Get(string url, bool needToken = true)
         {

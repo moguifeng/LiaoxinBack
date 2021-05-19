@@ -243,9 +243,8 @@ namespace Liaoxin.Controllers
                 var res = HuanxinClientRequest.ModifyNickName(CurrentHuanxinId,request.NickName);
                 if (res.ReturnCode == ServiceResultCode.Success)
                 {
-                    Dictionary<string, object> dic = new Dictionary<string, object>();
-                    dic.Add("nickname", request.NickName);
-                     res =  HuanxinClientRequest.ModifyUserProperty(CurrentHuanxinId, dic);
+                    Dictionary<string, object> dic = new Dictionary<string, object>();                    
+                     res =  HuanxinClientRequest.ModifyUserProperty(CurrentHuanxinId, "nickname="+request.NickName);
 
                 //    res = HuanxinClientRequest.GetUserProperty(CurrentHuanxinId);
                     return ObjectResult(Context.SaveChanges() > 0);
