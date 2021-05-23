@@ -16,14 +16,16 @@ namespace Liaoxin.Model
         {
             _context = context;
 
+            AddSystemBank();
+            context.SaveChanges();
             if (context.Clients.Count() == 0)
             {
                 AddClients();
                 AddArea();
-                AddSystemBank();
+
                
-                AddConfig();
-                AddPictrueNews();
+              //  AddConfig();
+                //AddPictrueNews();
                 context.SaveChanges();
             }
             AddTestClientData();
@@ -61,19 +63,98 @@ namespace Liaoxin.Model
 
         private static void AddSystemBank()
         {
+
+
+            _context.SystemBanks.Add(new SystemBank() { Name = "北部湾银行", Affix = new Affix() { Path = "Image/Bank/北部湾银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "渤海银行", Affix = new Affix() { Path = "Image/Bank/渤海银行.png" } });
+             _context.SystemBanks.Add(new SystemBank() { Name = "成都农商银行", Affix = new Affix() { Path = "Image/Bank/成都农商银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "成都银行", Affix = new Affix() { Path = "Image/Bank/成都银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "承德银行", Affix = new Affix() { Path = "Image/Bank/承德银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "稠州银行", Affix = new Affix() { Path = "Image/Bank/稠州银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "大连银行", Affix = new Affix() { Path = "Image/Bank/大连银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "德州银行", Affix = new Affix() { Path = "Image/Bank/德州银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "东营银行", Affix = new Affix() { Path = "Image/Bank/东营银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "福建农信", Affix = new Affix() { Path = "Image/Bank/福建农信.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "抚顺银行", Affix = new Affix() { Path = "Image/Bank/抚顺银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "富邦华一银行", Affix = new Affix() { Path = "Image/Bank/富邦华一银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "甘肃银行", Affix = new Affix() { Path = "Image/Bank/甘肃银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "广东南粤银行", Affix = new Affix() { Path = "Image/Bank/广东南粤银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "广东农信银行", Affix = new Affix() { Path = "Image/Bank/广东农信银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "广州银行", Affix = new Affix() { Path = "Image/Bank/广州银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "桂林银行", Affix = new Affix() { Path = "Image/Bank/桂林银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "哈尔滨银行", Affix = new Affix() { Path = "Image/Bank/哈尔滨银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "汉口银行", Affix = new Affix() { Path = "Image/Bank/汉口银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "杭州银行", Affix = new Affix() { Path = "Image/Bank/杭州银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "河北银行", Affix = new Affix() { Path = "Image/Bank/河北银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "湖北农信", Affix = new Affix() { Path = "Image/Bank/湖北农信.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "湖南农信", Affix = new Affix() { Path = "Image/Bank/湖南农信.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "华润银行", Affix = new Affix() { Path = "Image/Bank/华润银行.png" } });
+        _context.SystemBanks.Add(new SystemBank() { Name = "华夏银行", Affix = new Affix() { Path = "Image/Bank/华夏银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "黄河农商", Affix = new Affix() { Path = "Image/Bank/黄河农商.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "徽商银行", Affix = new Affix() { Path = "Image/Bank/徽商银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "吉林银行", Affix = new Affix() { Path = "Image/Bank/吉林银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "江苏农信", Affix = new Affix() { Path = "Image/Bank/江苏农信.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "江苏银行", Affix = new Affix() { Path = "Image/Bank/江苏银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "江西银行", Affix = new Affix() { Path = "Image/Bank/江西银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "江阴农商", Affix = new Affix() { Path = "Image/Bank/江阴农商.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "锦州银行", Affix = new Affix() { Path = "Image/Bank/锦州银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "晋商银行", Affix = new Affix() { Path = "Image/Bank/晋商银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "九江银行", Affix = new Affix() { Path = "Image/Bank/九江银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "昆仑银行", Affix = new Affix() { Path = "Image/Bank/昆仑银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "兰州银行", Affix = new Affix() { Path = "Image/Bank/兰州银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "柳州银行", Affix = new Affix() { Path = "Image/Bank/柳州银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "洛阳银行", Affix = new Affix() { Path = "Image/Bank/洛阳银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "蒙商银行", Affix = new Affix() { Path = "Image/Bank/蒙商银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "民泰银行", Affix = new Affix() { Path = "Image/Bank/民泰银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "南京银行", Affix = new Affix() { Path = "Image/Bank/南京银行.png" } });
+
+            _context.SystemBanks.Add(new SystemBank() { Name = "内蒙古银行", Affix = new Affix() { Path = "Image/Bank/内蒙古银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "宁波银行", Affix = new Affix() { Path = "Image/Bank/宁波银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "宁夏银行", Affix = new Affix() { Path = "Image/Bank/宁夏银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "平安银行", Affix = new Affix() { Path = "Image/Bank/平安银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "平顶山银行", Affix = new Affix() { Path = "Image/Bank/平顶山银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "齐鲁银行", Affix = new Affix() { Path = "Image/Bank/齐鲁银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "齐商银行", Affix = new Affix() { Path = "Image/Bank/齐商银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "青海银行", Affix = new Affix() { Path = "Image/Bank/青海银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "山西省农信", Affix = new Affix() { Path = "Image/Bank/山西省农信.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "深圳农商银行", Affix = new Affix() { Path = "Image/Bank/深圳农商银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "盛京银行", Affix = new Affix() { Path = "Image/Bank/盛京银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "顺德农村商业银行", Affix = new Affix() { Path = "Image/Bank/顺德农村商业银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "苏州农商银行", Affix = new Affix() { Path = "Image/Bank/苏州农商银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "苏州银行", Affix = new Affix() { Path = "Image/Bank/苏州银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "台州银行", Affix = new Affix() { Path = "Image/Bank/台州银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "泰隆商行", Affix = new Affix() { Path = "Image/Bank/泰隆商行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "唐山银行", Affix = new Affix() { Path = "Image/Bank/唐山银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "天津银行", Affix = new Affix() { Path = "Image/Bank/天津银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "威海银行", Affix = new Affix() { Path = "Image/Bank/威海银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "潍坊银行", Affix = new Affix() { Path = "Image/Bank/潍坊银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "温州银行", Affix = new Affix() { Path = "Image/Bank/温州银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "乌鲁木齐银行", Affix = new Affix() { Path = "Image/Bank/乌鲁木齐银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "无锡农商", Affix = new Affix() { Path = "Image/Bank/无锡农商.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "西安银行", Affix = new Affix() { Path = "Image/Bank/西安银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "邮储银行", Affix = new Affix() { Path = "Image/Bank/邮储银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "长春发展农村商业银行", Affix = new Affix() { Path = "Image/Bank/长春发展农村商业银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "长沙银行", Affix = new Affix() { Path = "Image/Bank/长沙银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "浙江农信", Affix = new Affix() { Path = "Image/Bank/浙江农信.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "浙商银行", Affix = new Affix() { Path = "Image/Bank/浙商银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "郑州银行", Affix = new Affix() { Path = "Image/Bank/郑州银行.png" } });            
+            _context.SystemBanks.Add(new SystemBank() { Name = "中信银行", Affix = new Affix() { Path = "Image/Bank/中信银行.png" } });
+
+
+
+
             _context.SystemBanks.Add(new SystemBank() { Name = "工商银行", Affix = new Affix() { Path = "Image/Bank/工商银行.png" } });
             _context.SystemBanks.Add(new SystemBank() { Name = "北京银行", Affix = new Affix() { Path = "Image/Bank/北京银行.png" } });
-            _context.SystemBanks.Add(new SystemBank() { Name = "广发银行", Affix = new Affix() { Path = "Image/Bank/广发银行.png" } });
-            _context.SystemBanks.Add(new SystemBank() { Name = "华夏银行", Affix = new Affix() { Path = "Image/Bank/华夏银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "广发银行", Affix = new Affix() { Path = "Image/Bank/广发银行.png" } });            
             _context.SystemBanks.Add(new SystemBank() { Name = "交通银行", Affix = new Affix() { Path = "Image/Bank/交通银行.png" } });
             _context.SystemBanks.Add(new SystemBank() { Name = "浦发银行", Affix = new Affix() { Path = "Image/Bank/浦发银行.png" } });
             _context.SystemBanks.Add(new SystemBank() { Name = "上海银行", Affix = new Affix() { Path = "Image/Bank/上海银行.png" } });
             _context.SystemBanks.Add(new SystemBank() { Name = "兴业银行", Affix = new Affix() { Path = "Image/Bank/兴业银行.png" } });
             _context.SystemBanks.Add(new SystemBank() { Name = "招商银行", Affix = new Affix() { Path = "Image/Bank/招商银行.png" } });
-            _context.SystemBanks.Add(new SystemBank() { Name = "中国光大银行", Affix = new Affix() { Path = "Image/Bank/中国光大银行.png" } });
-            _context.SystemBanks.Add(new SystemBank() { Name = "中国建设银行", Affix = new Affix() { Path = "Image/Bank/中国建设银行.png" } });
-            _context.SystemBanks.Add(new SystemBank() { Name = "中国民生银行", Affix = new Affix() { Path = "Image/Bank/中国民生银行.png" } });
-            _context.SystemBanks.Add(new SystemBank() { Name = "中国农业银行", Affix = new Affix() { Path = "Image/Bank/中国农业银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "光大银行", Affix = new Affix() { Path = "Image/Bank/光大银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "建设银行", Affix = new Affix() { Path = "Image/Bank/建设银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "民生银行", Affix = new Affix() { Path = "Image/Bank/民生银行.png" } });
+            _context.SystemBanks.Add(new SystemBank() { Name = "农业银行", Affix = new Affix() { Path = "Image/Bank/农业银行.png" } });
             _context.SystemBanks.Add(new SystemBank() { Name = "中国银行", Affix = new Affix() { Path = "Image/Bank/中国银行.png" } });
         }
 
