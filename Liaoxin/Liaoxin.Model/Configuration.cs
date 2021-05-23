@@ -16,8 +16,8 @@ namespace Liaoxin.Model
         {
             _context = context;
 
-            AddSystemBank();
-            context.SaveChanges();
+            //AddSystemBank();
+            //context.SaveChanges();
             if (context.Clients.Count() == 0)
             {
                 AddClients();
