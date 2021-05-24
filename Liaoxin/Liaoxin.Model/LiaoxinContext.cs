@@ -29,6 +29,7 @@ namespace Liaoxin.Model
         public DbSet<CoinLog> CoinLogs { get; set; }
 
 
+        public DbSet<ClientBank> ClientBanks { get; set; }
         public DbSet<Client> Clients { get; set; }
 
         public DbSet<ClientRelation> ClientRelations { get; set; }
@@ -55,8 +56,7 @@ namespace Liaoxin.Model
         public DbSet<GroupClient> GroupClients { get; set; }        
 
         public DbSet<SystemBank> SystemBanks { get; set; }
-
-        public DbSet<ClientBank> ClientBanks { get; set; }
+        
 
         public DbSet<MerchantsBank> MerchantsBanks { get; set; }
 

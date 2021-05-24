@@ -46,7 +46,7 @@ namespace Liaoxin.Controllers
         [HttpPost("GetClientBanks")]
         public ServiceResult<List<ClientBankResponse>> GetClientBanks()
         {
-            var objs = (from b in BankService.GetClientBanks(UserId)
+            var objs = (from b in BankService.GetClientBanks(CurrentClientId)
                         select new ClientBankResponse()
                         {
                             ClientBankId = b.ClientBankId,

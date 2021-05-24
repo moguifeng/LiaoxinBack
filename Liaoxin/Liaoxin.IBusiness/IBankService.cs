@@ -1,4 +1,5 @@
 ﻿using Liaoxin.Model;
+using System;
 
 namespace Liaoxin.IBusiness
 {
@@ -6,12 +7,12 @@ namespace Liaoxin.IBusiness
     {
         SystemBank[] GetSystemBanks();
 
-        ClientBank[] GetClientBanks(int playerId);
+        ClientBank[] GetClientBanks(Guid clientId);
 
-        void AddPlayerBank(int playerId, int systemBankId, string name, string cardNumber);
+        //void AddPlayerBank(int playerId, int systemBankId, string name, string cardNumber);
 
-        MerchantsBank[] GetMerchantsBanks(bool isApp);
+        //MerchantsBank[] GetMerchantsBanks(bool isApp);
 
-        MerchantsBank GetMerchantsBank(int id);
+        //MerchantsBank GetMerchantsBank(int id);
     }
 }
