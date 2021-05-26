@@ -144,32 +144,36 @@ namespace Liaoxin.Controllers
         [HttpPost("ClientStrangerDetail")]
         public ServiceResult<ClientFriendDetailResponse> ClientStrangerDetail(Guid clientId)
         {
-            var entity = Context.Clients.Where(c => c.ClientId == clientId).AsNoTracking().Select(s => new ClientFriendDetailResponse()
+            return (ServiceResult<ClientFriendDetailResponse>)Json(() =>
             {
-                ClientId = s.ClientId,
-                CharacterSignature = s.CharacterSignature,
-                Cover = s.Cover,
-                HuanxinId = s.HuanXinId,
-                LiaoxinNumber = s.LiaoxinNumber,
-                NickName = s.NickName,
-                FriendShipType = clientService.GetRelationThoughtClientId(s.ClientId),
-                
-            }).FirstOrDefault();
+                var entity = Context.Clients.Where(c => c.ClientId == clientId).AsNoTracking().Select(s => new ClientFriendDetailResponse()
+                {
+                    ClientId = s.ClientId,
+                    CharacterSignature = s.CharacterSignature,
+                    Cover = s.Cover,
+                    HuanxinId = s.HuanXinId,
+                    LiaoxinNumber = s.LiaoxinNumber,
+                    NickName = s.NickName,
+                    FriendShipType = clientService.GetRelationThoughtClientId(s.ClientId),
 
-            if (entity.FriendShipType == (int)RelationTypeEnum.Friend)
-            {
-                var friendEntity = FriendDetail(new ClientRelationShipRequest() { ClientId = clientId });
-                return friendEntity;
-            }
-            else if (entity.FriendShipType == (int)RelationTypeEnum.Black)
-            {
-                return BlackDetail(new ClientRelationShipRequest() { ClientId = clientId });
-            }
-            else
-            {
-                return ObjectGenericityResult(entity);
-            }
+                }).FirstOrDefault();
 
+                if (entity.FriendShipType == (int)RelationTypeEnum.Friend)
+                {
+                    var friendEntity = FriendDetail(new ClientRelationShipRequest() { ClientId = clientId });
+                    return friendEntity;
+                }
+                else if (entity.FriendShipType == (int)RelationTypeEnum.Black)
+                {
+                    return BlackDetail(new ClientRelationShipRequest() { ClientId = clientId });
+                }
+                else
+                {
+                    return ObjectGenericityResult(entity);
+                }
+
+            },"失败");
+           
 
         
 
