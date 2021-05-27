@@ -202,6 +202,10 @@ namespace Liaoxin.ViewModel
 
 
             /// <summary>
+            /// 是否已经实名制
+            /// </summary>
+            public bool IsRealAuth { get; set; }
+            /// <summary>
             /// 环信token
             /// </summary>
             public string HuanxinToken { get; set; }

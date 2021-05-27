@@ -157,6 +157,7 @@ namespace Liaoxin.Business
                 Cover = c.Cover,
                 HuanxinToken = HostService.GetToken(),
                 IsSetCoinPassword = !string.IsNullOrEmpty(c.CoinPassword) ? true : false,
+                IsRealAuth = !string.IsNullOrEmpty(c.RealName) && !string.IsNullOrEmpty(c.UniqueNo),
                 FontSize = c.FontSize,
                 HandFree = c.HandFree,
                 HuanXinId = c.HuanXinId,
