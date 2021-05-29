@@ -50,7 +50,9 @@ namespace Liaoxin.Controllers
                         select new ClientBankResponse()
                         {
                             ClientBankId = b.ClientBankId,
-                            CardNumber = b.CardNumber.Substring(b.CardNumber.Length - 4),                            
+                            CardName = b.SystemBank.Name,
+                            FrontCardNumber =b.CardNumber.Substring(0,4),
+                            BackCardNumber = b.CardNumber.Substring(b.CardNumber.Length - 4),                            
                             SystemBankId = b.SystemBankId,
                             AffixId = b.SystemBank.AffixId
                         }).ToList();
@@ -80,7 +82,7 @@ namespace Liaoxin.Controllers
                 {
                     throw new ZzbException("请先设置支付密码");
                 }
-                if (request.CardNumber.Length <= 4)
+                if (request.CardNumber.Length <= 12)
                 {
                     throw new ZzbException("请输入正确的银行卡号");
                 }

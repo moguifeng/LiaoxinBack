@@ -10,10 +10,33 @@ namespace LIaoxin.ViewModel
         /// 客户银行卡id
         /// </summary>
         public Guid ClientBankId { get; set; }
+
+
         /// <summary>
-        /// 卡号
+        /// 卡类型
         /// </summary>
-            public string CardNumber { get; set; }
+        public string CardType { get; set; } = "储蓄卡";
+
+
+        /// <summary>
+        /// 卡名称
+        /// </summary>
+        public string CardName { get; set; }
+
+
+        /// <summary>
+        /// 卡的前位数
+        /// </summary>
+        public string FrontCardNumber { get; set; }
+
+
+
+
+        /// <summary>
+        /// 卡的后位数
+        /// </summary>
+        /// 
+        public string BackCardNumber { get; set;  }
 
         /// <summary>
         /// 真实姓名
