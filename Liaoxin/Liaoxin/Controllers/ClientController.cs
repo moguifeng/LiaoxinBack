@@ -59,7 +59,7 @@ namespace Liaoxin.Controllers
                 if (res.ReturnCode == ServiceResultCode.Success)
                 {
 
-                    return ObjectResult("");
+                    return ObjectResult(code);
                 }
                 throw new ZzbException("验证码过期,无法发送,请联系管理员");
             }, "验证码发送失败");
