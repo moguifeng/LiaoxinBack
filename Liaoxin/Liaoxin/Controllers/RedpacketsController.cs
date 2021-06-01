@@ -582,8 +582,7 @@ namespace Liaoxin.Controllers
                     throw new ZzbException("转账最大金额为10000");
                 }
                 string operKey = returnObject.RedPacketPersonalId.ToString();
-                try
-                {
+             
                     //当前红包空闲
                     while (_cacheManager.Get<object>(operKey) != null)
                     {
@@ -645,15 +644,10 @@ namespace Liaoxin.Controllers
                         throw new ZzbException("用户无效或余额不足");
 
                     }
-                }
-                catch (Exception ex)
-                {
-                    throw new ZzbException("未知异常");
-                }
-                finally
-                {
+               
+             
                     _cacheManager.Remove(operKey);
-                }
+              
                 return ObjectGenericityResult(result, returnObject);
 
             });
