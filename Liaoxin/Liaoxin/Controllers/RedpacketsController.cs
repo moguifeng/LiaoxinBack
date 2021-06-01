@@ -565,7 +565,7 @@ namespace Liaoxin.Controllers
             {
 
                 bool isUseBankCard = request.ClientBankId != null;
-                RedPacketPersonalResponse returnObject = null;
+                RedPacketPersonalResponse returnObject = new RedPacketPersonalResponse() ;
                 bool result = true;
                 string errMsg = "";
                 if (request.Money < (decimal)0.01)

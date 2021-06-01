@@ -32,7 +32,7 @@ namespace Liaoxin.Controllers
         /// 全局搜索添加好友(聊信号/手机号码)
         /// </summary>       
         /// <returns></returns>
-        [HttpPost("GlobalSearchFriend")]
+        [HttpGet("GlobalSearchFriend")]
         public ServiceResult<GlobalSearchCliengResponse> GlobalSearchFriend(string  searchText)
         {
             return (ServiceResult<GlobalSearchCliengResponse>)Json(() =>
