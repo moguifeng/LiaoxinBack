@@ -36,7 +36,7 @@ namespace Liaoxin.Business
 
         }
 
-        public static ServiceResult<string> SelfSendMsg(string[] mobiles, string code)
+        private static ServiceResult<string> SelfSendMsg(string[] mobiles, string code)
         {
             var responseUrl = $"{HostService.url}/sms/send";
 

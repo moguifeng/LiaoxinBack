@@ -28,6 +28,22 @@ namespace Liaoxin.Controllers
         public IGroupService groupService { get; set; }
 
 
+
+        [HttpGet("SendGroupMsg")]
+        public ServiceResult<bool> SendGroupMsg( )
+        {
+
+            return (ServiceResult<bool>)Json(() =>
+            {
+
+                HuanxinRobotRequest.RobotSendMsg("148389810470913", "mwxkn8ungcgxnmg", "mcghnwbxwiueghn");
+                return ObjectResult(true);
+            });
+        }
+
+
+
+
         #region Group
 
         /// <summary>

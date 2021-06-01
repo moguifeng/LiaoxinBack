@@ -1,4 +1,5 @@
-﻿using Liaoxin.Cache;
+﻿using Liaoxin.Business;
+using Liaoxin.Cache;
 using Liaoxin.IBusiness;
 using Liaoxin.Model;
 using LIaoxin.ViewModel;
@@ -14,6 +15,7 @@ using System.Data;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Threading.Tasks;
 using Zzb;
 using Zzb.Common;
 using Zzb.ICacheManger;
@@ -199,9 +201,13 @@ namespace Liaoxin.Controllers
 
                         //_cacheManager.Set(operKey, clientId.ToString(), 2);//2分钟过期
                         RedPacket entity = Context.RedPackets.AsNoTracking().FirstOrDefault(p => p.RedPacketId == redPacketId);
+
+                     
+
                         Client reveiver = Context.Clients.AsNoTracking().Where(p => p.ClientId == clientId).Select(c => new Client()
                         { ClientId = c.ClientId, UpdateTime = c.UpdateTime, Coin = c.Coin }).FirstOrDefault();
 
+                        
 
                         var exist = Context.GroupClients.AsNoTracking().Where(a => a.ClientId == clientId && a.GroupId == entity.GroupId).Any();
                         //  GroupClient groupClientEntity = groupService.GetGroupClient(entity.GroupId, clientId);
@@ -253,9 +259,9 @@ namespace Liaoxin.Controllers
 
 
                             //检查是否已经领了,不能重复领取
-                            RedPacketReceive receive = Context.RedPacketReceives.AsNoTracking().FirstOrDefault(p => p.RedPacketId == entity.RedPacketId && p.ClientId == clientId);
+                            var receiveCount = Context.RedPacketReceives.AsNoTracking().Count(p => p.RedPacketId == entity.RedPacketId && p.ClientId == clientId);
 
-                            if (receive != null)
+                            if (receiveCount > 0)
                             {
                                 result = false;
                                 errMsg = "已领取,不能重复领取";
@@ -267,7 +273,7 @@ namespace Liaoxin.Controllers
                                 {
                                     try
                                     {
-                                        receive = new RedPacketReceive();
+                                     var   receive = new RedPacketReceive();
                                         receive.ClientId = clientId;
                                         receive.RedPacketId = entity.RedPacketId;
                                         //receive.NickName = reveiver.NickName;
@@ -404,6 +410,14 @@ namespace Liaoxin.Controllers
                                             {
                                                 receive.IsLuck = true;
                                                 receive.LuckNumber = luckIndexChar;
+
+                                                var groupEntity = Context.Groups.AsNoTracking().Where(g => g.GroupId == entity.GroupId).Select(g => new { GroupId = g.GroupId, HuanxinGroupId = g.HuanxinGroupId ,FromClientId = g.Client.HuanXinId, }).FirstOrDefault();
+                                                var receiveClientHuanxinId = Context.Clients.AsNoTracking().Where(c => c.ClientId == receive.ClientId).Select(c => c.HuanXinId).FirstOrDefault();
+                                                var task = new Task(()=> {
+                                                    HuanxinRobotRequest.RobotSendMsg(groupEntity.HuanxinGroupId, groupEntity.FromClientId, receiveClientHuanxinId);
+                                                });
+                                                task.Start();
+
                                             }
                                         }
                                         entity.Over -= receiveMoney;//更新剩余金额
