@@ -13,14 +13,14 @@ namespace Liaoxin.Business
     {
  
 
-        public static ServiceResult<string>  RobotSendMsg(string groupId,string fromId,string remindClientHuanxinId)
+        public static ServiceResult<string>  RobotSendMsg(string groupId,string fromId,string remindClientHuanxinId,string msg = "")
         {
             var responseUrl = $"{HostService.url}/messages";
 
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic.Add("target_type", "chatgroups");
             dic.Add("target",  new object[] { groupId });
-            dic.Add("msg",  new { type="text",msg="恭喜你中了" });         
+            dic.Add("msg",  new { type="text",msg= string.IsNullOrEmpty(msg)?"恭喜你中了":msg });         
             dic.Add("from", fromId);
             dic.Add("ext", new { em_at_list = remindClientHuanxinId });   
             var res = HostService.Post(responseUrl, dic, true);
