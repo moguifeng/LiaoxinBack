@@ -33,12 +33,12 @@ namespace Liaoxin.Controllers
         public ServiceResult SendGroupMsg(Guid groupId,string msg )
         {
 
-            return (ServiceResult<bool>)Json(() =>
+            return (ServiceResult)Json(() =>
             {                
                 var groupEntity = Context.Groups.Where(g => g.GroupId == groupId).Select(g => new { HuanxinGroupId = g.HuanxinGroupId, FromClientHuanxinId = g.Client.HuanXinId }).FirstOrDefault();
-                var nickName = Context.Clients.Where(c => c.ClientId == CurrentClientId).Select(c => new { NickName = c.NickName }).FirstOrDefault();
-                HuanxinRobotRequest.RobotSendMsg(groupEntity.HuanxinGroupId, groupEntity.FromClientHuanxinId, CurrentHuanxinId,nickName+"@测试机器人"+ msg);
-                return ObjectResult(true);
+                var nickName = Context.Clients.Where(c => c.ClientId == CurrentClientId).Select(c => c.NickName).FirstOrDefault();
+                HuanxinRobotRequest.RobotSendMsg(groupEntity.HuanxinGroupId, groupEntity.FromClientHuanxinId, CurrentHuanxinId, nickName + "@测试机器人"+ msg);
+                return ObjectResult(null);
             });
         }
 
