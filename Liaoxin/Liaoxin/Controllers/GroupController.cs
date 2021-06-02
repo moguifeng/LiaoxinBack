@@ -28,6 +28,12 @@ namespace Liaoxin.Controllers
         public IGroupService groupService { get; set; }
 
 
+        /// <summary>
+        /// 当群发送文字的时候.调用这个方法,用作机器人.
+        /// </summary>
+        /// <param name="groupId"></param>
+        /// <param name="msg"></param>
+        /// <returns></returns>
 
         [HttpGet("SendGroupMsg")]
         public ServiceResult SendGroupMsg(Guid groupId,string msg )
