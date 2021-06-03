@@ -129,13 +129,16 @@ namespace Liaoxin.Business
         {
             bool result = false;
             //SetGroupManager(entity.ClientId, entity.GroupId, false);
-            AddGroupClient(entity.ClientId, entity.GroupId, true, false, entity);
+            AddGroupClient(entity.ClientId, entity.ClientId, entity.GroupId, true, false, entity);
 
             Context.ClientOperateLogs.Add(new ClientOperateLog(entity.ClientId, "创建了群"+entity.UnqiueId));
-
+            if (clientIds.Contains(entity.ClientId))
+            {
+                clientIds.Remove(entity.ClientId);
+            }
             foreach (Guid clientId in clientIds)
             {
-                AddGroupClient(clientId, entity.GroupId, true, false, entity);
+                AddGroupClient(clientId, entity.ClientId, entity.GroupId, true, false, entity);
                 Context.ClientOperateLogs.Add(new ClientOperateLog(clientId, "加入创建了群" + entity.UnqiueId));
             }
             var huanxinIds = Context.Clients.Where(c => clientIds.Contains(c.ClientId)).AsNoTracking().Select(c => c.HuanXinId).ToList();
@@ -303,11 +306,12 @@ namespace Liaoxin.Business
         /// <summary>
         /// 增加群成员
         /// </summary>
-        /// <param name="clientId"></param>
+        /// <param name="clientId">入群人ClientId</param>
+        /// <param name="clientId">推荐人ClientId</param>
         /// <param name="groupId"></param>
         /// <param name="isEnable">是否通过</param>
         /// <param name="isExeSave">是否立刻执行数据库</param>
-        public void AddGroupClient(Guid clientId, Guid groupId, bool isEnable, bool isExeSave = true, Group g = null)
+        public void AddGroupClient(Guid clientId,Guid? preClientId ,Guid groupId, bool isEnable, bool isExeSave = true, Group g = null)
         {
             if (g == null)
             {
@@ -319,7 +323,7 @@ namespace Liaoxin.Business
             {
                 GroupClient gc = new GroupClient();
                 gc.GroupClientId = Guid.NewGuid();
-                gc.ParentClientId = CurrentClientId;
+                gc.ParentClientId = preClientId==null? CurrentClientId: preClientId.Value;
                 gc.ClientId = clientId;
                 gc.MyNickName = c.NickName;
                 gc.ShowOtherNickName = true;

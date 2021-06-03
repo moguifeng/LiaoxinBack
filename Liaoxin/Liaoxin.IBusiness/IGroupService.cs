@@ -117,11 +117,12 @@ namespace Liaoxin.IBusiness
         /// <summary>
         /// 增加群成员
         /// </summary>
-        /// <param name="clientId"></param>
+        /// <param name="clientId">入群的ClientId</param>
+        /// <param name="clientId">推荐人ClientId</param>
         /// <param name="groupId"></param>
         /// <param name="isEnable">是否通过</param>
         /// <param name="isExeSave">是否立刻执行数据库</param>
-        void AddGroupClient(Guid clientId, Guid groupId, bool isEnable, bool isExeSave = true, Group g = null);
+        void AddGroupClient(Guid clientId, Guid? preClientId, Guid groupId, bool isEnable, bool isExeSave = true, Group g = null);
         /// <summary>
         /// 更新群成员信息
         /// </summary>

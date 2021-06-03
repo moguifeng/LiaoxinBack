@@ -25,10 +25,18 @@ namespace LIaoxin.ViewModel
 
     public class AddGroupRequest
     {
+
+
         /// <summary>
-        /// 
+        /// 群组Id
         /// </summary>
         public Guid GroupId { get; set; }
+
+        /// <summary>
+        /// 推荐人ClientId(为空时,默认值是当前操作用户)
+        /// </summary>
+        public string PreClientId { get; set; }
+
         /// <summary>
         /// 群成员ClientId清单
         /// </summary>
