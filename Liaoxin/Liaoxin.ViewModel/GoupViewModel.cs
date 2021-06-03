@@ -43,6 +43,22 @@ namespace LIaoxin.ViewModel
         public IList<Guid> ClientIdList { get; set; }
     }
 
+    public class AuditGroupClientRequest
+    {
+
+
+        /// <summary>
+        /// GroupClientId
+        /// </summary>
+        public Guid GroupClientId { get; set; }
+
+        /// <summary>
+        /// 审核结果
+        /// </summary>
+        public bool IsEnable { get; set; }
+
+
+    }
 
 
     public class MyGroupResponse

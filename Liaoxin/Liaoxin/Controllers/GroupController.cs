@@ -380,22 +380,101 @@ namespace Liaoxin.Controllers
                     groupService.AddGroupClient(clientId, preClientId, groupId, isEnable, false, groupEntity);
                     Context.ClientOperateLogs.Add(new ClientOperateLog(clientId, $"加入了群聊,群号是:{groupEntity.UnqiueId}"));
                 }
-                var huanxinIds = Context.Clients.Where(c => clientIdList.Contains(c.ClientId)).AsNoTracking().Select(c => c.HuanXinId).ToList();
-                var res = HuanxinGroupRequest.AddGroupMembers(groupEntity.HuanxinGroupId, huanxinIds.ToArray());
-
-                if (res.ReturnCode == ServiceResultCode.Success)
+                if (isEnable)
                 {
-                    //批量操作后再保存数据库
-                    groupService.SaveChanges();
+                    var huanxinIds = Context.Clients.Where(c => clientIdList.Contains(c.ClientId)).AsNoTracking().Select(c => c.HuanXinId).ToList();
+                    var res = HuanxinGroupRequest.AddGroupMembers(groupEntity.HuanxinGroupId, huanxinIds.ToArray());
 
-                    return ObjectResult(true);
+                    if (res.ReturnCode == ServiceResultCode.Success)
+                    {
+                        //批量操作后再保存数据库
+                        groupService.SaveChanges();
+
+                        return ObjectResult(true);
+                    }
                 }
-
-                return ObjectResult(false);
+                else
+                {
+                    groupService.SaveChanges();
+                }
+                return ObjectResult(true);
             });
 
 
         }
+
+        /// <summary>
+        /// 审核群成员是否通过
+        /// </summary>
+        /// <param name="requestObj"></param>
+        /// <returns></returns>
+        [HttpPost("AuditGroupClient")]
+        public ServiceResult<bool> AuditGroupClient(AuditGroupClientRequest requestObj)
+        {
+            return (ServiceResult<bool>)Json(() =>
+            {
+                Guid groupClientId = requestObj.GroupClientId;
+                bool isEnable = requestObj.IsEnable;
+
+                bool isAdmin = false;
+                Guid curClientId = groupService.GetCurClientId();
+                GroupClient entity = Context.GroupClients.FirstOrDefault(p => p.GroupClientId == groupClientId);
+                Group groupEntity = null;
+
+                if (entity != null)
+                {
+                    if (entity.IsEnable)
+                    {
+                        throw new ZzbException("该成员已经是正式成员,不能重复审核");
+                    }
+                    groupEntity = groupService.GetGroup(entity.GroupId, false);
+                    if (groupEntity != null)
+                    {
+                        IList<GroupClient> clientList = groupService.GetGroupClients(entity.GroupId);
+                        IList<GroupClient> gmList = clientList.Where(p => p.IsGroupManager).ToList();
+                        isAdmin = !groupEntity.SureConfirmInvite || curClientId == groupEntity.ClientId || gmList.FirstOrDefault(p => p.ClientId == curClientId) != null;
+                    }
+                    else
+                    {
+                        throw new ZzbException("无效群");
+                    }
+
+                }
+                else
+                {
+                    throw new ZzbException("无效申请");
+                }
+                if (!isAdmin)
+                {
+                    throw new ZzbException("不是管理员,无权审核");
+                }
+                if (isEnable)
+                {
+                    entity.IsEnable = true;
+                    entity.Update();
+                    //同步环信
+                    var huanxinIds = Context.Clients.Where(c => entity.ClientId == c.ClientId).AsNoTracking().Select(c => c.HuanXinId).ToList();
+                    var res = HuanxinGroupRequest.AddGroupMembers(groupEntity.HuanxinGroupId, huanxinIds.ToArray());
+
+                    if (res.ReturnCode == ServiceResultCode.Success)
+                    {
+                        //批量操作后再保存数据库
+                        groupService.SaveChanges();
+                        return ObjectResult(true);
+                    }
+
+                }
+                else
+                {
+                    Context.GroupClients.Remove(entity);
+                    groupService.SaveChanges();
+                    return ObjectResult(true);
+                }
+
+                return ObjectResult(false);
+            }, "管理员审核群失败");
+        }
+
 
         /// <summary>
         /// 自己退群
