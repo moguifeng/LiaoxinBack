@@ -26,7 +26,7 @@ namespace LIaoxin.ViewModel
     public class AddGroupRequest
     {
         /// <summary>
-        /// 群主ClientId
+        /// 
         /// </summary>
         public Guid GroupId { get; set; }
         /// <summary>

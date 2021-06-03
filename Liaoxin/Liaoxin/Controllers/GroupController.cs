@@ -311,6 +311,7 @@ namespace Liaoxin.Controllers
             ingores.Add("GroupId");
             ingores.Add("ClientId");
             ingores.Add("IsGroupManager");
+            ingores.Add("ParentClientId");
             IList<string> updateFieldList = GetPostBodyFiledKey(ingores);
 
             GroupClient entity = ConvertHelper.ConvertToModel<GroupClientResponse, GroupClient>(model, updateFieldList);

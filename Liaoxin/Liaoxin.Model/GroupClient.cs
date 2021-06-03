@@ -68,6 +68,12 @@ namespace Liaoxin.Model
         /// 是否群管理员
         /// </summary>
         public bool IsGroupManager { get; set; }
+
+
+        /// <summary>
+        /// 谁拉你进去的(父级)
+        /// </summary>
+        public Guid ParentClientId { get; set; }
     }
 
  

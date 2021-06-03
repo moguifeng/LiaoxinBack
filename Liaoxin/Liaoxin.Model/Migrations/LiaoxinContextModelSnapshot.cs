@@ -577,6 +577,8 @@ namespace Liaoxin.Model.Migrations
 
                     b.Property<string>("MyNickName");
 
+                    b.Property<Guid>("ParentClientId");
+
                     b.Property<bool>("SaveMyGroup");
 
                     b.Property<bool>("SetNoDisturb");

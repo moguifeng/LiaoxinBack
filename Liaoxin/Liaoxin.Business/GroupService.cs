@@ -319,6 +319,7 @@ namespace Liaoxin.Business
             {
                 GroupClient gc = new GroupClient();
                 gc.GroupClientId = Guid.NewGuid();
+                gc.ParentClientId = CurrentClientId;
                 gc.ClientId = clientId;
                 gc.MyNickName = c.NickName;
                 gc.ShowOtherNickName = true;
@@ -415,8 +416,6 @@ namespace Liaoxin.Business
         public List<GroupClientByGroupResponse> GetClientsOfGroup(Guid groupId)
         {
             this.IsCurrentGroup(groupId);
-
-
 
             var groupClients = Context.GroupClients.Where(g => g.GroupId == groupId).Select(s => new
             {
