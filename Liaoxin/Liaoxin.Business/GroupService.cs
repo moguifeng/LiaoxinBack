@@ -129,12 +129,12 @@ namespace Liaoxin.Business
         {
             bool result = false;
             //SetGroupManager(entity.ClientId, entity.GroupId, false);
-            AddGroupClient(entity.ClientId, entity.ClientId, entity.GroupId, true, false, entity);
+            //AddGroupClient(entity.ClientId, entity.ClientId, entity.GroupId, true, false, entity);
 
             Context.ClientOperateLogs.Add(new ClientOperateLog(entity.ClientId, "创建了群"+entity.UnqiueId));
-            if (clientIds.Contains(entity.ClientId))
+            if (!clientIds.Contains(entity.ClientId))
             {
-                clientIds.Remove(entity.ClientId);
+                clientIds.Add(entity.ClientId);
             }
             foreach (Guid clientId in clientIds)
             {
