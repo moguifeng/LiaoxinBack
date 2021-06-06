@@ -541,7 +541,7 @@ namespace Liaoxin.Controllers
                 {
                     foreach (ClientInfoResponse entity in list)
                     {
-                        var clientRemark = shipList.Where(p => p.ClientId == entity.ClientId && p.ClientRelation.ClientId == curClientId).Select(s => s.ClientRemark).FirstOrDefault()
+                        var clientRemark = shipList.Where(p => p.ClientId == entity.ClientId && p.ClientRelation.ClientId == curClientId).Select(s => s.ClientRemark).FirstOrDefault();
                         if ( !string.IsNullOrEmpty( clientRemark))
                         {
                             entity.FriendShipType = clientService.GetRelationThoughtClientId(entity.ClientId);
