@@ -460,7 +460,8 @@ namespace Liaoxin.ViewModel
             ///添加客户头像id
             /// </summary>
             public Guid? Cover { get; set; }
-        
+            
+            public string Telephone  { get; set; }
 
 
             /// <summary>
@@ -656,5 +657,13 @@ namespace Liaoxin.ViewModel
 
     }
 
+
+    public class GetClientInfoByLiaoxinIdRequest
+    {
+        /// <summary>
+        /// 环信Id集合
+        /// </summary>
+        public List<string> HuanxinIdList { get; set; } = new List<string>();
+    }
 
 }

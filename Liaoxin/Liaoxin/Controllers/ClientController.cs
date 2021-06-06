@@ -6,6 +6,7 @@ using Liaoxin.ViewModel;
 using LIaoxin.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -507,6 +508,36 @@ namespace Liaoxin.Controllers
 
 
             }, "找回密码失败");
+
+        }
+
+
+
+        /// <summary>
+        /// 通过环信Id获取用户基本信息
+        /// </summary>       
+        /// <returns></returns>
+        [HttpPost("GetClientInfosByLiaoxinId")]
+        public ServiceResult<List<ClientFriendResponse>> GetClientInfosByLiaoxinId(GetClientInfoByLiaoxinIdRequest request)
+        {
+            return (ServiceResult<List<ClientFriendResponse>>)Json(() =>
+            {
+                List<ClientFriendResponse> list = (from s in Context.Clients.Where(p => request.HuanxinIdList.Contains(p.HuanXinId)).AsNoTracking() select new ClientFriendResponse()
+                {
+                    ClientId = s.ClientId,
+                    Cover = s.Cover,
+                    HuanxinId = s.HuanXinId,
+                    LiaoxinNumber = s.LiaoxinNumber,
+                    NickName = s.NickName,
+                    Telephone =s.Telephone
+
+                }).ToList();
+                return ListGenericityResult(list);
+
+            }, "失败");
+
+
+
 
         }
 
