@@ -72,18 +72,18 @@ namespace Liaoxin.Controllers
             return (ServiceResult<List<ClientAddDetailResponse>>)Json(() =>
             {
                 
-                var entities = Context.ClientAddDetails.Where(c => c.FromClientId == CurrentClientId && c.CreateTime > DateTime.Now.AddMonths(-1)).ToList();
+                var entities = Context.ClientAddDetails.Where(c => c.ToClientId == CurrentClientId && c.CreateTime > DateTime.Now.AddMonths(-1)).ToList();
                 List<ClientAddDetailResponse> lis = new List<ClientAddDetailResponse>();
                 entities.ForEach(e =>
                 {
                     lis.Add(new ClientAddDetailResponse()
                     {
                         AddRemark = e.AddRemark,
-                        Cover = e.ToClient.Cover,
+                        Cover = e.FromClient.Cover,
                         CreateTime = e.CreateTime,
-                        HuanxinId = e.ToClient.HuanXinId,
-                        LiaoxinNumber = e.ToClient.LiaoxinNumber,
-                        NickName = e.ToClient.NickName,
+                        HuanxinId = e.FromClient.HuanXinId,
+                        LiaoxinNumber = e.FromClient.LiaoxinNumber,
+                        NickName = e.FromClient.NickName,
                         Status = (int)e.Status,
                         StatusName = e.Status.ToDescriptionString()
                     });
