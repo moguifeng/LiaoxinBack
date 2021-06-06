@@ -473,7 +473,11 @@ namespace Liaoxin.ViewModel
             /// 客户昵称备注(自定义)
             /// </summary>
             public string ClientRemark { get; set; }
+            /// <summary>
+            /// 关系  0:好友   1:黑名单 2:陌生人
+            /// </summary>
 
+        
         }
 
         public class ApplyAddFriendRequest
@@ -664,6 +668,46 @@ namespace Liaoxin.ViewModel
         /// 环信Id集合
         /// </summary>
         public List<string> HuanxinIdList { get; set; } = new List<string>();
+    }
+
+
+    public class ClientInfoResponse
+    {
+
+        public Guid ClientId { get; set; }
+        /// <summary>
+        /// 环信id
+        /// </summary>
+        public string HuanxinId { get; set; }
+
+        /// <summary>
+        /// 聊信Id
+        /// </summary>
+        public string LiaoxinNumber { get; set; }
+
+
+        /// <summary>
+        ///添加客户头像id
+        /// </summary>
+        public Guid? Cover { get; set; }
+
+        public string Telephone { get; set; }
+
+
+        /// <summary>
+        /// 客户昵称
+        /// </summary>
+        public string NickName { get; set; }
+
+        /// <summary>
+        /// 客户昵称备注(自定义)
+        /// </summary>
+        public string ClientRemark { get; set; }
+        /// <summary>
+        /// 关系  0:好友   1:黑名单 2:陌生人
+        /// </summary>
+
+        public RelationTypeEnum FriendShipType { get; set; } = RelationTypeEnum.Stranger;
     }
 
 }

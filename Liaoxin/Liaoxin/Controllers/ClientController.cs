@@ -25,10 +25,10 @@ namespace Liaoxin.Controllers
     [ApiController]
     [Authorize]
     public class ClientController : LiaoxinBaseController
-    {        
+    {
         public IClientService clientService { get; set; }
 
-        public   ICacheManager _cacheManager { get; set; }
+        public ICacheManager _cacheManager { get; set; }
 
 
         private Client GetCurrentClient()
@@ -56,7 +56,7 @@ namespace Liaoxin.Controllers
                 var cacheKey = string.Format($"sendCode:{request.Type}:{request.Telephone}");
                 _cacheManager.Set(cacheKey, code, 2);
 
-                var res =   HuanxinSendMsgRequest.SendMsg(new string[] { request.Telephone },code);
+                var res = HuanxinSendMsgRequest.SendMsg(new string[] { request.Telephone }, code);
                 if (res.ReturnCode == ServiceResultCode.Success)
                 {
 
@@ -89,7 +89,7 @@ namespace Liaoxin.Controllers
                 }
 
 
-                if (string.IsNullOrEmpty(request.NickName)) 
+                if (string.IsNullOrEmpty(request.NickName))
                 {
                     throw new ZzbException("昵称不可以为空");
                 }
@@ -135,7 +135,7 @@ namespace Liaoxin.Controllers
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
- 
+
         [AllowAnonymous]
         [HttpPost("LoginByCode")]
         public ServiceResult LoginByCode(ClientLoginByCodeRequest request)
@@ -241,13 +241,13 @@ namespace Liaoxin.Controllers
                 var entity = Context.Clients.Where(c => c.ClientId == CurrentClientId).First();
                 entity.NickName = request.NickName;
                 Context.Clients.Update(entity);
-                var res = HuanxinClientRequest.ModifyNickName(CurrentHuanxinId,request.NickName);
+                var res = HuanxinClientRequest.ModifyNickName(CurrentHuanxinId, request.NickName);
                 if (res.ReturnCode == ServiceResultCode.Success)
                 {
-                    Dictionary<string, object> dic = new Dictionary<string, object>();                    
-                     res =  HuanxinClientRequest.ModifyUserProperty(CurrentHuanxinId, "nickname="+request.NickName);
+                    Dictionary<string, object> dic = new Dictionary<string, object>();
+                    res = HuanxinClientRequest.ModifyUserProperty(CurrentHuanxinId, "nickname=" + request.NickName);
 
-                //    res = HuanxinClientRequest.GetUserProperty(CurrentHuanxinId);
+                    //    res = HuanxinClientRequest.GetUserProperty(CurrentHuanxinId);
                     return ObjectResult(Context.SaveChanges() > 0);
                 }
                 else
@@ -264,18 +264,18 @@ namespace Liaoxin.Controllers
         /// </summary>        
         /// <returns></returns>
         [HttpPost("ModifyCover")]
-        public ServiceResult ModifyCover( ClientCoverRequest request)
+        public ServiceResult ModifyCover(ClientCoverRequest request)
         {
             return Json(() =>
             {
                 var entity = GetCurrentClient();
                 entity.Cover = request.CoverId;
-                Context.Clients.Update(entity);     
-                return ObjectResult(Context.SaveChanges() > 0);             
+                Context.Clients.Update(entity);
+                return ObjectResult(Context.SaveChanges() > 0);
             }, "修改头像失败");
 
         }
-        
+
 
         /// <summary>
         /// 基本设置修改:个性签名/震动/提醒/字体大小等字段普通更改
@@ -310,7 +310,7 @@ namespace Liaoxin.Controllers
             }, "修改失败");
 
         }
-        
+
         /// <summary>
         /// 修改客户资金密码
         /// </summary>
@@ -347,7 +347,7 @@ namespace Liaoxin.Controllers
                     throw new ZzbException("找不到当前登录用户");
                 }
 
-              
+
                 client.CoinPassword = SecurityHelper.Encrypt(request.CoinPsssword);
                 client.Update();
                 Context.ClientOperateLogs.Add(new ClientOperateLog(client.ClientId, "设置资金密码"));
@@ -397,7 +397,7 @@ namespace Liaoxin.Controllers
                 {
                     throw new ZzbException("已绑定身份认证,不能更改了");
                 }
-                
+
                 entity.UniqueNo = request.UniqueNo;
                 entity.RealName = request.RealName;
                 entity.UniqueBackImg = request.BackCover;
@@ -425,7 +425,7 @@ namespace Liaoxin.Controllers
                     throw new ZzbException("请输入正确的手机号码");
                 }
 
-                if (request.NewPassword.Length<8)
+                if (request.NewPassword.Length < 8)
                 {
                     throw new ZzbException("请输入至少8位的密码");
                 }
@@ -438,7 +438,7 @@ namespace Liaoxin.Controllers
                 if (cacheCode != request.Code)
                     throw new ZzbException("验证码错误");
 
-               var entity =   Context.Clients.Where(c => c.Telephone == request.Telephone).FirstOrDefault();
+                var entity = Context.Clients.Where(c => c.Telephone == request.Telephone).FirstOrDefault();
                 if (entity == null)
                 {
                     throw new ZzbException("不存在用户");
@@ -472,7 +472,7 @@ namespace Liaoxin.Controllers
                 if (!StringHelper.IsMobile(request.NewTelephone))
                 {
                     throw new ZzbException("请输入正确的手机号码");
-                }       
+                }
                 var cacheKey = $"sendCode:{VerificationCodeTypes.ChangeTelephone}:{request.NewTelephone}";
                 var cacheCode = _cacheManager.Get<string>(cacheKey);
 
@@ -486,23 +486,23 @@ namespace Liaoxin.Controllers
                 {
                     throw new ZzbException("账户的旧手机不匹配");
                 }
-                 var exists = Context.Clients.Where(c => c.Telephone == request.NewTelephone.Trim()).Any();
+                var exists = Context.Clients.Where(c => c.Telephone == request.NewTelephone.Trim()).Any();
                 if (exists)
                 {
                     throw new ZzbException("已存在手机号码,无法更新");
                 }
 
-                var res =  HuanxinClientRequest.ModifyUserPassword(entity.HuanXinId,request.NewTelephone);
+                var res = HuanxinClientRequest.ModifyUserPassword(entity.HuanXinId, request.NewTelephone);
                 if (res.ReturnCode == ServiceResultCode.Success)
                 {
-                    res = HuanxinClientRequest.ModifyUserProperty(entity.HuanXinId,$"phone=${request.NewTelephone}");
+                    res = HuanxinClientRequest.ModifyUserProperty(entity.HuanXinId, $"phone=${request.NewTelephone}");
                     if (res.ReturnCode == ServiceResultCode.Success)
                     {
                         entity.Telephone = request.NewTelephone;
                         Context.Clients.Update(entity);
                         return ObjectResult(Context.SaveChanges() > 0);
                     }
-                 
+
                 }
                 throw new ZzbException(res.Message);
 
@@ -518,20 +518,38 @@ namespace Liaoxin.Controllers
         /// </summary>       
         /// <returns></returns>
         [HttpPost("GetClientInfosByLiaoxinId")]
-        public ServiceResult<List<ClientFriendResponse>> GetClientInfosByLiaoxinId(GetClientInfoByLiaoxinIdRequest request)
+        public ServiceResult<List<ClientInfoResponse>> GetClientInfosByLiaoxinId(GetClientInfoByLiaoxinIdRequest request)
         {
-            return (ServiceResult<List<ClientFriendResponse>>)Json(() =>
+            return (ServiceResult<List<ClientInfoResponse>>)Json(() =>
             {
-                List<ClientFriendResponse> list = (from s in Context.Clients.Where(p => request.HuanxinIdList.Contains(p.HuanXinId)).AsNoTracking() select new ClientFriendResponse()
-                {
-                    ClientId = s.ClientId,
-                    Cover = s.Cover,
-                    HuanxinId = s.HuanXinId,
-                    LiaoxinNumber = s.LiaoxinNumber,
-                    NickName = s.NickName,
-                    Telephone =s.Telephone
+                List<ClientInfoResponse> list = (from s in Context.Clients.Where(p => request.HuanxinIdList.Contains(p.HuanXinId)).AsNoTracking()
+                                                   select new ClientInfoResponse()
+                                                   {
+                                                       ClientId = s.ClientId,
+                                                       Cover = s.Cover,
+                                                       HuanxinId = s.HuanXinId,
+                                                       LiaoxinNumber = s.LiaoxinNumber,
+                                                       NickName = s.NickName,
+                                                       Telephone = s.Telephone
 
-                }).ToList();
+                                                   }).ToList();
+                Guid curClientId = CurrentClientId;
+                List<ClientRelationDetail> shipList = Context.ClientRelationDetails.Where
+ (crd => crd.ClientRelation.ClientId == curClientId).AsNoTracking().ToList();
+
+                if (shipList != null)
+                {
+                    foreach (ClientInfoResponse entity in list)
+                    {
+                        var shipEntity = shipList.FirstOrDefault(p=>p.ClientId== entity.ClientId&&p.ClientRelation.ClientId== curClientId);
+                        if (shipEntity != null)
+                        {
+                            entity.FriendShipType = shipEntity.ClientRelation.RelationType;
+                            entity.ClientRemark = shipEntity.ClientRemark;
+
+                        }
+                    }
+                }
                 return ListGenericityResult(list);
 
             }, "失败");
