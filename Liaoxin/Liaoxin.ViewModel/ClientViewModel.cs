@@ -707,7 +707,7 @@ namespace Liaoxin.ViewModel
         /// 关系  0:好友   1:黑名单 2:陌生人
         /// </summary>
 
-        public RelationTypeEnum FriendShipType { get; set; } = RelationTypeEnum.Stranger;
+        public int FriendShipType { get; set; } = (int)RelationTypeEnum.Stranger;
     }
 
 }

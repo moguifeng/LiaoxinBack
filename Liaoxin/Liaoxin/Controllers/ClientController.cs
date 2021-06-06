@@ -541,11 +541,11 @@ namespace Liaoxin.Controllers
                 {
                     foreach (ClientInfoResponse entity in list)
                     {
-                        var shipEntity = shipList.FirstOrDefault(p=>p.ClientId== entity.ClientId&&p.ClientRelation.ClientId== curClientId);
-                        if (shipEntity != null)
+                        var clientRemark = shipList.Where(p => p.ClientId == entity.ClientId && p.ClientRelation.ClientId == curClientId).Select(s => s.ClientRemark).FirstOrDefault()
+                        if ( !string.IsNullOrEmpty( clientRemark))
                         {
-                            entity.FriendShipType = shipEntity.ClientRelation.RelationType;
-                            entity.ClientRemark = shipEntity.ClientRemark;
+                            entity.FriendShipType = clientService.GetRelationThoughtClientId(entity.ClientId);
+                            entity.ClientRemark = clientRemark;
 
                         }
                     }
