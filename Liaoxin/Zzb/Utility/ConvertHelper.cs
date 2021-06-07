@@ -23,12 +23,15 @@ namespace Zzb.Utility
                 model = Activator.CreateInstance<T2>();
                 foreach (var p in pi)
                 {
-                    foreach (var p1 in pi1)
+                    if (!p.PropertyType.IsGenericType)
                     {
-                        if (p.Name == p1.Name)
+                        foreach (var p1 in pi1)
                         {
-                            p.SetValue(model, p1.GetValue(t1Model, null), null);
-                            break;
+                            if (p.Name == p1.Name)
+                            {
+                                p.SetValue(model, p1.GetValue(t1Model, null), null);
+                                break;
+                            }
                         }
                     }
                 }
