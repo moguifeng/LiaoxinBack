@@ -45,12 +45,15 @@ namespace Zzb.Utility
             model = Activator.CreateInstance<T2>();
             foreach (var p in pi)
             {
-                foreach (var p1 in pi1)
+                if (!p.PropertyType.IsGenericType)
                 {
-                    if (p.Name == p1.Name)
+                    foreach (var p1 in pi1)
                     {
-                        p.SetValue(model, p1.GetValue(source, null), null);
-                        break;
+                        if (p.Name == p1.Name)
+                        {
+                            p.SetValue(model, p1.GetValue(source, null), null);
+                            break;
+                        }
                     }
                 }
             }
@@ -69,8 +72,11 @@ namespace Zzb.Utility
                 PropertyInfo sourcePI = sourcePIList.FirstOrDefault(p => string.Equals(p.Name, targetFieldList[i], StringComparison.OrdinalIgnoreCase));
                 if (targetPI != null && sourcePI != null)
                 {
-                    targetFieldList[i] = targetPI.Name;
-                    targetPI.SetValue(targetEntity, sourcePI.GetValue(sourceEntity, null), null);
+                    if (!sourcePI.PropertyType.IsGenericType&& !targetPI.PropertyType.IsGenericType)
+                    {
+                        targetFieldList[i] = targetPI.Name;
+                        targetPI.SetValue(targetEntity, sourcePI.GetValue(sourceEntity, null), null);
+                    }
                 }
                 else
                 {
@@ -92,8 +98,11 @@ namespace Zzb.Utility
                 PropertyInfo sourcePI = sourcePIList.FirstOrDefault(p => string.Equals(p.Name, targetFieldList[i], StringComparison.OrdinalIgnoreCase));
                 if (targetPI != null && sourcePI != null)
                 {
-                    targetFieldList[i] = targetPI.Name;
-                    targetPI.SetValue(targetEntity, sourcePI.GetValue(sourceEntity, null),null);
+                    if (!sourcePI.PropertyType.IsGenericType && !targetPI.PropertyType.IsGenericType)
+                    {
+                        targetFieldList[i] = targetPI.Name;
+                        targetPI.SetValue(targetEntity, sourcePI.GetValue(sourceEntity, null), null);
+                    }
                 }
                 else
                 {
